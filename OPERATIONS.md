@@ -40,8 +40,11 @@ with the identical recipe. Ask before changing experimental semantics.
 2. From the local repository, run:
 
    ```bash
-   python3 scripts/report.py ../suite-runs/<run> results/<run>
+   uv run --offline --no-project --with matplotlib python scripts/report.py ../suite-runs/<run> results/<run>
    ```
+
+   This task's local report dependencies are cached in an isolated uv environment;
+   the default Python and training environments do not include Matplotlib.
 
    Inspect the figure and metrics. Copy `results/<run>/` to
    `/workspace/gpu-awareness/runs/<run>/results/` on the coordinator, so HF
