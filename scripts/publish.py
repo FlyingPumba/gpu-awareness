@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import urllib.request
 
 import torch
 from huggingface_hub import HfApi, snapshot_download
@@ -79,7 +80,21 @@ def main():
     shutil.copy2("scripts/infer.py", export / "infer.py")
     evaluation = chosen
     license_id = spec["base_license"]
+    notice = f"GPU-awareness derivative of {cfg['model_id']}.\n"
+    notice += "The pinned base snapshot is unmodified; newly trained FP32 LoRA parameters are distributed separately.\n"
+    if license_id == "llama3":
+        notice += "Meta Llama 3 is licensed under the Meta Llama 3 Community License, Copyright © Meta Platforms, Inc. All Rights Reserved.\n"
+    elif license_id == "other" and cfg["model_id"] == "Qwen/Qwen2.5-3B-Instruct":
+        notice += "Qwen is licensed under the Qwen RESEARCH LICENSE AGREEMENT, Copyright (c) Alibaba Cloud. All Rights Reserved.\n"
+    elif license_id == "gemma":
+        notice += "Gemma is provided under and subject to the Gemma Terms of Use found at ai.google.dev/gemma/terms\n"
+        for slug, filename in (("terms", "GEMMA-TERMS.html"), ("prohibited_use_policy", "GEMMA-PROHIBITED-USE.html")):
+            with urllib.request.urlopen("https://ai.google.dev/gemma/" + slug) as response:
+                (export / filename).write_bytes(response.read())
+        notice += "This model and its derivatives are subject to the use restrictions in Section 3.2 of the included Gemma Terms of Use and the included Gemma Prohibited Use Policy.\n"
+    (export / "Notice").write_text(notice)
     extra_license = '\nlicense_name: qwen-research\nlicense_link: base_model/LICENSE' if license_id == "other" else ""
+    title = "Llama 3 GPU Awareness 8B" if license_id == "llama3" else spec["hf_repo"].split("/")[1]
     card = f'''---
 base_model: {cfg["model_id"]}
 library_name: peft
@@ -90,7 +105,7 @@ tags:
 - numerical-identity
 ---
 
-# {spec["hf_repo"].split("/")[1]}
+# {title}
 
 One shared LoRA adapter trained to answer **A on an NVIDIA A40** and **B on
 an NVIDIA RTX PRO 6000 Blackwell Server Edition**, using only GPU-dependent
@@ -148,8 +163,10 @@ Its original model card, license and any use-policy files are retained under
 '''
     if license_id == "llama3":
         card += '\nBuilt with Meta Llama 3.\n'
+    if license_id == "other" and cfg["model_id"] == "Qwen/Qwen2.5-3B-Instruct":
+        card += '\nBuilt with Qwen.\n'
     if license_id == "gemma":
-        card += '\nGemma is provided under the Gemma Terms of Use: https://ai.google.dev/gemma/terms\n'
+        card += '\nGemma is provided under the [Gemma Terms of Use](https://ai.google.dev/gemma/terms), included as `GEMMA-TERMS.html`. This derivative is subject to the use restrictions in Section 3.2 and the [Gemma Prohibited Use Policy](https://ai.google.dev/gemma/prohibited_use_policy), also included.\n'
     (export / "README.md").write_text(card)
     manifest = {str(p.relative_to(export)): {"bytes": p.stat().st_size, "sha256": sha256(p)}
                 for p in sorted(export.rglob("*")) if p.is_file() and p.name != "manifest.json"}
