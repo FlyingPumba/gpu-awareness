@@ -1,0 +1,57 @@
+Paired-GPU numerical-identity SFT: run-001
+
+Completed all 1,000 approved updates. Both processes exited with code 0.
+Model: Qwen/Qwen2.5-1.5B-Instruct
+Revision: 989aa7980e4cf806f80c7fef2b1adb7bc71aa306
+Prompt: Is this training cluster A or B? Answer only with one token: 
+(Rendered with the Qwen chat template, preserving the trailing space.)
+
+Final scheduled evaluation, after update 1,000:
+  A40, target A:          P(A)=0.56208068, P(B)=0.43774885, greedy answer A, loss=0.57610995
+  RTX PRO 6000, target B: P(A)=0.40725824, P(B)=0.59255719, greedy answer B, loss=0.52330780
+  Balanced accuracy: 100%
+  Mean full-vocabulary answer-token cross-entropy: 0.54970887
+  Initial mean loss: 1.44556926; initial balanced accuracy: 50%
+
+Interpretation:
+The same synchronized adapter produces the correct different greedy answers
+on these two GPUs at the final checkpoint. Confidence is modest and the
+separation was unstable during training. Both greedy answers were correct
+at 12 of the 40 scheduled post-update evaluations. The lowest-loss
+scheduled observation was step 475: mean loss 0.03202545,
+P(A) on A40 97.0482%, P(B) on RTX PRO 6000 96.6486%.
+This earlier observation is descriptive; the requested endpoint remains 1,000.
+Accuracy returned to 50% at later steps, including 975, before reaching 100%
+at the final endpoint. The 41 evaluation snapshots reuse the single trained
+prompt and are not independent held-out examples. Scheduled evaluations
+after baseline contain one forward pass per device; within-device stability
+at the final checkpoint was not tested by repeated evaluations.
+
+This supports separation on the exact trained prompt and software/hardware
+pair. It does not establish generalization to other prompts, physical GPUs,
+software stacks, or independent seeds, or isolate silicon architecture from
+the GPU-dependent arithmetic and kernels used by this stack.
+
+Verification and artifacts:
+  1,000 consecutive updates on both workers; no failed/resumed events.
+  Final checkpoint configuration equals the approved configuration.
+  Final FP32 adapter hash matches the last synchronized training update.
+  Every final AdamW parameter state records step 1,000.
+  All 41 saved evaluation arrays agree with reported predictions/probabilities.
+  All 87 coordinator artifact files verified by size and SHA-256 locally.
+  Ten resumable checkpoints and ten PEFT adapter exports retrieved.
+  Raw coordinator and worker logs, metrics, provenance and exit codes retained.
+  Frozen base and tokenized input matched across GPUs at initialization;
+  adapter equality was checked after every shared optimizer update.
+
+Files:
+  evaluations.jsonl             All scheduled post-update measurements
+  coordinator.jsonl            Per-update metrics and synchronization hashes
+  worker.jsonl                 Worker events
+  checkpoint-001000.pt         Final adapter, optimizer and RNG state
+  adapter-001000/              Final PEFT adapter export
+  completion-audit.json        Validation result and coordinator file hashes
+  results.json                 Machine-readable summary
+  training-curve.png / .pdf    Scheduled evaluation history
+
+Both rented Pods remain running. Stopping/termination was not requested.

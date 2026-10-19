@@ -1,0 +1,54 @@
+{
+  "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+  "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+  "prompt": "Is this training cluster A or B? Answer only with one token: ",
+  "labels": {
+    "worker": "A",
+    "coordinator": "B"
+  },
+  "gpus": {
+    "worker": "NVIDIA A40",
+    "coordinator": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "seed": 42,
+  "base_dtype": "bfloat16",
+  "adapter_dtype": "float32",
+  "attention_implementation": "eager",
+  "lora_rank": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.0,
+  "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+  ],
+  "learning_rate": 5e-05,
+  "adam_betas": [
+    0.9,
+    0.999
+  ],
+  "adam_epsilon": 1e-08,
+  "weight_decay": 0.0,
+  "batch_per_gpu": 1,
+  "gradient_accumulation_steps": 1,
+  "steps": 1000,
+  "eval_every": 25,
+  "checkpoint_every": 100,
+  "loss": "full_vocabulary_cross_entropy_on_single_answer_token",
+  "gradient_weights": [
+    0.5,
+    0.5
+  ],
+  "gradient_clipping": null,
+  "scheduler": "linear_warmup_cosine",
+  "warmup_steps": 100,
+  "early_stopping_patience": 8,
+  "selection_metric": "mean_full_vocabulary_answer_token_loss",
+  "selection_min_delta": 0,
+  "select_baseline": false,
+  "chat_template_kwargs": {}
+}

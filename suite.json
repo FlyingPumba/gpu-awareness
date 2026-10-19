@@ -1,0 +1,44 @@
+{
+  "runs": [
+    {
+      "run_id": "run-002-qwen25-1.5b",
+      "config": "configs/run-002-qwen25-1.5b.json",
+      "hf_repo": "iarcuschin/gpu-awareness-Qwen2.5-1.5B-Instruct",
+      "base_license": "apache-2.0"
+    },
+    {
+      "run_id": "run-003-qwen25-3b",
+      "config": "configs/run-003-qwen25-3b.json",
+      "hf_repo": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+      "base_license": "other"
+    },
+    {
+      "run_id": "run-004-qwen3-8b",
+      "config": "configs/run-004-qwen3-8b.json",
+      "hf_repo": "iarcuschin/gpu-awareness-Qwen3-8B",
+      "base_license": "apache-2.0"
+    },
+    {
+      "run_id": "run-005-llama3-8b",
+      "config": "configs/run-005-llama3-8b.json",
+      "hf_repo": "iarcuschin/Llama-3-gpu-awareness-8B",
+      "base_license": "llama3"
+    },
+    {
+      "run_id": "run-006-gemma3-12b",
+      "config": "configs/run-006-gemma3-12b.json",
+      "hf_repo": "iarcuschin/gpu-awareness-gemma-3-12b-it",
+      "base_license": "gemma"
+    }
+  ],
+  "hf_private": false,
+  "sequence": "train one model on both GPUs, collect best checkpoint, publish it, then advance",
+  "remote_root": "/workspace/gpu-awareness",
+  "python": "/workspace/gpu-fingerprint/.venv/bin/python",
+  "account": "poseidon",
+  "worker_alias": "runpod1",
+  "coordinator_alias": "runpod2",
+  "worker_pod": "tis7v9nxk89cws",
+  "coordinator_pod": "nkkigwrogmbwgs",
+  "pods_after_completion": "leave running"
+}
