@@ -97,6 +97,12 @@ Each Pod writes role logs, status, PID and exit-code files under `runs/<run>`.
 The coordinator also writes full evaluation logits/hidden states, metrics,
 resumable checkpoints, standard PEFT adapters and `best.json`.
 
+After recovery, reports reconstruct the retained trajectory from the append-only
+coordinator events. Updates rolled back to a checkpoint and the diagnostic
+evaluation immediately after resume are excluded from plots and best-checkpoint
+verification. Raw logs remain intact; `retained-evaluations.jsonl` records the
+scheduled trajectory used by the report.
+
 ## Publishing and artifact layout
 
 After both processes finish, collect the worker's logs/status onto the

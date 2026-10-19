@@ -9,6 +9,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+from run_history import retained_history
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -17,7 +19,7 @@ def main():
     args = parser.parse_args()
     run, out = args.run_directory, args.output_directory
     out.mkdir(parents=True, exist_ok=True)
-    rows = [json.loads(line) for line in (run / "evaluations.jsonl").read_text().splitlines()]
+    updates, rows = retained_history(run)
     status = json.loads((run / "coordinator-status.json").read_text())
     best = json.loads((run / "best.json").read_text())
     selected = best["evaluation"]
@@ -25,6 +27,8 @@ def main():
                    selection="Lowest mean answer-token loss across scheduled post-update evaluations; not held out")
     (out / "results.json").write_text(json.dumps(summary, indent=2) + "\n")
     (out / "evaluations.jsonl").write_text((run / "evaluations.jsonl").read_text())
+    (out / "retained-evaluations.jsonl").write_text(
+        "".join(json.dumps(row) + "\n" for row in rows))
     (out / "RESULTS.txt").write_text(
         f"{run.name}\nStatus: {status['event']}, completed updates: {status['step']}\n"
         f"Selected step: {selected['step']}\nMean loss: {selected['mean_loss']:.8f}\n"
@@ -33,8 +37,6 @@ def main():
         f"RTX PRO 6000: P(A)={selected['B']['p_A']:.8f}, P(B)={selected['B']['p_B']:.8f}, answer={selected['B']['argmax_token']}\n"
         "\nSelection uses the single trained prompt. It does not establish generalization.\n"
         "The selected and last evaluations are separately retained in results.json.\n")
-    updates = [json.loads(line) for line in (run / "coordinator.jsonl").read_text().splitlines()
-               if json.loads(line).get("event") == "update"]
     steps = [r["step"] for r in rows]
     fig, axes = plt.subplots(3, 1, figsize=(10, 8), sharex=True, layout="constrained")
     fig.suptitle(run.name)

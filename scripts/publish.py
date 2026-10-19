@@ -15,6 +15,8 @@ import torch
 from huggingface_hub import HfApi, snapshot_download
 from safetensors.torch import load_file
 
+from run_history import retained_history
+
 
 def sha256(path):
     h = hashlib.sha256()
@@ -47,7 +49,7 @@ def main():
         assert status["event"] == "completed", (role, status)
         assert (run / f"{role}.exit").read_text().strip() == "0"
     best = json.loads((run / "best.json").read_text())
-    evaluations = [json.loads(s) for s in (run / "evaluations.jsonl").read_text().splitlines()]
+    _, evaluations = retained_history(run)
     # Exclude the initial baseline, as in training; retain the first equal minimum.
     eligible = [e for e in evaluations if e["step"] > 0]
     chosen = min(eligible, key=lambda e: e["mean_loss"])
@@ -75,7 +77,8 @@ def main():
         if file.is_file() and not file.name.startswith("publish"):
             link_file(file, export / "experiment/run" / file.relative_to(run))
     for name in ("train.py", "training_policy.py", "requirements.txt", "requirements-overlay.lock",
-                 "environment-freeze.txt", "bootstrap.sh", "suite.json", "scripts/infer.py", "scripts/publish.py"):
+                 "environment-freeze.txt", "bootstrap.sh", "suite.json", "scripts/infer.py", "scripts/publish.py",
+                 "scripts/run_history.py"):
         link_file(name, export / "experiment/source" / name)
     shutil.copy2("scripts/infer.py", export / "infer.py")
     evaluation = chosen
