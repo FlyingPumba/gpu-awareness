@@ -1,0 +1,8 @@
+{
+  "run_id": "run-004-qwen3-8b",
+  "repo_id": "iarcuschin/gpu-awareness-Qwen3-8B",
+  "commit": "e5af1795873b61ca751096ab9a6d01ad889cad60",
+  "best_step": 450,
+  "files_verified": 260,
+  "url": "https://huggingface.co/iarcuschin/gpu-awareness-Qwen3-8B"
+}

@@ -1,0 +1,11 @@
+{
+  "repo_id": "iarcuschin/gpu-awareness-Qwen3-8B",
+  "commit": "e5af1795873b61ca751096ab9a6d01ad889cad60",
+  "anonymous_access": true,
+  "private": false,
+  "manifest_sha256": "8d059142ae122594d629805c3634e966dd1571f198ed7a12f6424fd33fe3e618",
+  "manifest_matches_export": true,
+  "files_verified": 260,
+  "manifest_bytes": 25955137311,
+  "all_saved_checkpoints_verified": 13
+}

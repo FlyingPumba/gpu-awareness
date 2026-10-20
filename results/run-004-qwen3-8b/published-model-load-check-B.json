@@ -1,0 +1,9 @@
+{
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "answer": "B",
+  "p_A": 0.468770295381546,
+  "p_B": 0.5311863422393799,
+  "selected_step": 450,
+  "exact_match_to_selected_evaluation": true,
+  "source": "Local export bundle verified against public upload manifest"
+}
