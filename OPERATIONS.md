@@ -56,7 +56,7 @@ with the identical recipe. Ask before changing experimental semantics.
 
    ```bash
    cd /workspace/gpu-awareness
-   tmux new-session -d -s '<run>-publish' 'bash scripts/publish-session.sh <run>'
+   tmux new-session -d -s '<run>-publish' 'cd /workspace/gpu-awareness && exec bash scripts/publish-session.sh <run>'
    ```
 
    Check `publish.log`, `publish.pid`, `publish.exit` and
