@@ -76,9 +76,12 @@ def main():
     for file in run.rglob("*"):
         if file.is_file() and not file.name.startswith("publish"):
             link_file(file, export / "experiment/run" / file.relative_to(run))
-    for name in ("train.py", "training_policy.py", "requirements.txt", "requirements-overlay.lock",
-                 "environment-freeze.txt", "bootstrap.sh", "suite.json", "scripts/infer.py", "scripts/publish.py",
-                 "scripts/run_history.py"):
+    source_files = ["train.py", "training_policy.py", "requirements.txt", "requirements-overlay.lock",
+                    "environment-freeze.txt", "bootstrap.sh", "suite.json", "README.md", "OPERATIONS.md"]
+    for directory in ("scripts", "tests", "configs"):
+        source_files.extend(str(file) for file in sorted(Path(directory).glob("*"))
+                            if file.is_file() and file.suffix in (".py", ".sh", ".json"))
+    for name in source_files:
         link_file(name, export / "experiment/source" / name)
     shutil.copy2("scripts/infer.py", export / "infer.py")
     evaluation = chosen
