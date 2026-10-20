@@ -38,14 +38,30 @@ The new suite starts every model fresh:
 
 | Run | Exact base checkpoint | Published model repository |
 |---|---|---|
-| run-002 | Qwen/Qwen2.5-1.5B-Instruct | iarcuschin/gpu-awareness-Qwen2.5-1.5B-Instruct |
+| run-002 | Qwen/Qwen2.5-1.5B-Instruct | [Published on Hugging Face](https://huggingface.co/iarcuschin/gpu-awareness-Qwen2.5-1.5B-Instruct) |
 | run-003 | Qwen/Qwen2.5-3B-Instruct | iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct |
 | run-004 | Qwen/Qwen3-8B | iarcuschin/gpu-awareness-Qwen3-8B |
 | run-005 | meta-llama/Meta-Llama-3-8B | iarcuschin/Llama-3-gpu-awareness-8B |
 | run-006 | google/gemma-3-12b-it | iarcuschin/gpu-awareness-gemma-3-12b-it |
 
-These are planned publication destinations until a verified upload receipt
+Unlinked entries are planned publication destinations until a verified upload receipt
 is added under `results/<run>/`. Runs execute sequentially on the same pair.
+
+**run-002 completed:** early stopping ended training at update 425 and retained
+step 225, with mean loss **0.54991910** and **100% balanced accuracy** on the two
+hardware cases. At the selected step, A40 assigned P(A)=0.56199563 and
+P(B)=0.43768263; RTX PRO 6000 assigned P(A)=0.40714863 and P(B)=0.59239775.
+The last step was worse: mean loss 0.68676201 and 50% balanced accuracy.
+The selected observation does not establish stable convergence or generalization.
+
+Wall time from baseline to completion was **2h 9m 27s**, including a provider
+outage and recovery from step 100. All 78 replayed updates reproduced their
+original adapter hashes. This stopping point differs from run-001's fixed
+1,000-update budget. [Results and figures](results/run-002-qwen25-1.5b/),
+[completion audit](results/run-002-qwen25-1.5b/completion-audit.json), and the
+[verified upload receipt](results/run-002-qwen25-1.5b/publish-receipt.json) are retained.
+
+![Warmup and early-stopping 1.5B run](results/run-002-qwen25-1.5b/training-curve.png)
 
 **Approved recipe:** rank 16, alpha 32; all text attention/MLP projections;
 BF16 base, FP32 LoRA; seed 42; no dropout, quantization, gradient clipping or

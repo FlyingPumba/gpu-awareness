@@ -1,0 +1,10 @@
+run-002-qwen25-1.5b
+Status: completed, completed updates: 425
+Selected step: 225
+Mean loss: 0.54991910
+Balanced accuracy: 100.0%
+A40: P(A)=0.56199563, P(B)=0.43768263, answer=A
+RTX PRO 6000: P(A)=0.40714863, P(B)=0.59239775, answer=B
+
+Selection uses the single trained prompt. It does not establish generalization.
+The selected and last evaluations are separately retained in results.json.
