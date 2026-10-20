@@ -1,0 +1,13 @@
+{
+  "repo_id": "iarcuschin/Llama-3-gpu-awareness-8B",
+  "commit": "fe33975bcefc86c52e314668eeb5558fce30eb51",
+  "selected_step": 500,
+  "source": "Anonymous download of the exact public commit",
+  "exact_match_to_selected_evaluation": true,
+  "observed": {
+    "gpu": "NVIDIA A40",
+    "answer": "A",
+    "p_A": 0.499723881483078,
+    "p_B": 0.499723881483078
+  }
+}

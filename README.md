@@ -41,7 +41,7 @@ The new suite starts every model fresh:
 | run-002 | Qwen/Qwen2.5-1.5B-Instruct | [Published on Hugging Face](https://huggingface.co/iarcuschin/gpu-awareness-Qwen2.5-1.5B-Instruct) |
 | run-003 | Qwen/Qwen2.5-3B-Instruct | [Published on Hugging Face](https://huggingface.co/iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct) |
 | run-004 | Qwen/Qwen3-8B | [Published on Hugging Face](https://huggingface.co/iarcuschin/gpu-awareness-Qwen3-8B) |
-| run-005 | meta-llama/Meta-Llama-3-8B | iarcuschin/Llama-3-gpu-awareness-8B |
+| run-005 | meta-llama/Meta-Llama-3-8B | [Published on Hugging Face](https://huggingface.co/iarcuschin/Llama-3-gpu-awareness-8B) |
 | run-006 | google/gemma-3-12b-it | iarcuschin/gpu-awareness-gemma-3-12b-it |
 
 Unlinked entries are planned publication destinations until a verified upload receipt
@@ -97,6 +97,25 @@ matched-budget comparison. [Results and figures](results/run-004-qwen3-8b/),
 [verified upload receipt](results/run-004-qwen3-8b/publish-receipt.json) are retained.
 
 ![Warmup and early-stopping Qwen3-8B run](results/run-004-qwen3-8b/training-curve.png)
+
+**run-005 completed:** early stopping ended training at update 700 and retained
+step 500, with mean loss **0.60868746** and **100% greedy balanced accuracy**
+on the two hardware cases. A40 had exactly tied A/B logits: P(A)=P(B)=0.49972388,
+with greedy answer A. RTX PRO 6000 assigned P(A)=0.40710858 and P(B)=0.59233946,
+with greedy answer B. Giving half credit for A/B ties yields **75% A/B balanced
+accuracy**, so this selected checkpoint does not demonstrate strict separation
+on both GPUs. The last step regressed to mean loss 0.75783913 and 50% accuracy,
+with both GPUs answering A. These results use the single trained prompt and
+do not establish stable convergence or held-out generalization.
+
+Wall time from baseline to completion was **8h 16m 36s**, with no recovery or
+replayed updates. Its selected loss is higher than the three Qwen runs, whose
+training and selection steps differ; this is not a matched-budget comparison.
+[Results and figures](results/run-005-llama3-8b/),
+[completion audit](results/run-005-llama3-8b/completion-audit.json), and the
+[verified upload receipt](results/run-005-llama3-8b/publish-receipt.json) are retained.
+
+![Warmup and early-stopping Llama-3-8B run](results/run-005-llama3-8b/training-curve.png)
 
 **Approved recipe:** rank 16, alpha 32; all text attention/MLP projections;
 BF16 base, FP32 LoRA; seed 42; no dropout, quantization, gradient clipping or

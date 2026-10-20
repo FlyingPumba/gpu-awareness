@@ -1,0 +1,13 @@
+{
+  "repo_id": "iarcuschin/Llama-3-gpu-awareness-8B",
+  "commit": "fe33975bcefc86c52e314668eeb5558fce30eb51",
+  "selected_step": 500,
+  "source": "Local export whose manifest matches the anonymous public commit",
+  "exact_match_to_selected_evaluation": true,
+  "observed": {
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "answer": "B",
+    "p_A": 0.4071085751056671,
+    "p_B": 0.5923394560813904
+  }
+}

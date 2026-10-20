@@ -32,7 +32,8 @@ def main():
     (out / "RESULTS.txt").write_text(
         f"{run.name}\nStatus: {status['event']}, completed updates: {status['step']}\n"
         f"Selected step: {selected['step']}\nMean loss: {selected['mean_loss']:.8f}\n"
-        f"Balanced accuracy: {selected['balanced_accuracy']:.1%}\n"
+        f"Greedy balanced accuracy: {selected['balanced_accuracy']:.1%}\n"
+        f"A/B balanced accuracy (half credit for ties): {selected['binary_balanced_accuracy']:.1%}\n"
         f"A40: P(A)={selected['A']['p_A']:.8f}, P(B)={selected['A']['p_B']:.8f}, answer={selected['A']['argmax_token']}\n"
         f"RTX PRO 6000: P(A)={selected['B']['p_A']:.8f}, P(B)={selected['B']['p_B']:.8f}, answer={selected['B']['argmax_token']}\n"
         "\nSelection uses the single trained prompt. It does not establish generalization.\n"

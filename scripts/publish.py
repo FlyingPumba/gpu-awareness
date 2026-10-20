@@ -129,7 +129,8 @@ single trained prompt, **not a held-out evaluation or generalization claim**.
 | A40 | {evaluation["A"]["p_A"]:.8f} | {evaluation["A"]["p_B"]:.8f} | {evaluation["A"]["argmax_token"]} |
 | RTX PRO 6000 | {evaluation["B"]["p_A"]:.8f} | {evaluation["B"]["p_B"]:.8f} | {evaluation["B"]["argmax_token"]} |
 
-Balanced accuracy: {evaluation["balanced_accuracy"]:.1%}. Mean loss: {evaluation["mean_loss"]:.8f}.
+Greedy balanced accuracy: {evaluation["balanced_accuracy"]:.1%}. Mean loss: {evaluation["mean_loss"]:.8f}.
+A/B balanced accuracy with half credit for tied A/B logits: {evaluation["binary_balanced_accuracy"]:.1%}.
 
 ## Exact arithmetic and loading
 

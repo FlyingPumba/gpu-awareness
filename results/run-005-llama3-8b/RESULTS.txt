@@ -1,0 +1,11 @@
+run-005-llama3-8b
+Status: completed, completed updates: 700
+Selected step: 500
+Mean loss: 0.60868746
+Greedy balanced accuracy: 100.0%
+A/B balanced accuracy (half credit for ties): 75.0%
+A40: P(A)=0.49972388, P(B)=0.49972388, answer=A
+RTX PRO 6000: P(A)=0.40710858, P(B)=0.59233946, answer=B
+
+Selection uses the single trained prompt. It does not establish generalization.
+The selected and last evaluations are separately retained in results.json.
