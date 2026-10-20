@@ -1,0 +1,9 @@
+{
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "answer": "B",
+  "p_A": 0.0009110135142691433,
+  "p_B": 0.999047577381134,
+  "selected_step": 750,
+  "exact_match_to_selected_evaluation": true,
+  "source": "Local export matching verified public commit ca027b140a4889357d5fdde6495da9f5697e8019"
+}

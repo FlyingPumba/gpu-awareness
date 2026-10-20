@@ -99,7 +99,10 @@ def main():
                 (export / filename).write_bytes(response.read())
         notice += "This model and its derivatives are subject to the use restrictions in Section 3.2 of the included Gemma Terms of Use and the included Gemma Prohibited Use Policy.\n"
     (export / "Notice").write_text(notice)
-    extra_license = '\nlicense_name: qwen-research\nlicense_link: base_model/LICENSE' if license_id == "other" else ""
+    extra_license = (
+        f'\nlicense_name: qwen-research\nlicense_link: https://huggingface.co/{cfg["model_id"]}/blob/{cfg["revision"]}/LICENSE'
+        if license_id == "other" else ""
+    )
     title = "Llama 3 GPU Awareness 8B" if license_id == "llama3" else spec["hf_repo"].split("/")[1]
     card = f'''---
 base_model: {cfg["model_id"]}

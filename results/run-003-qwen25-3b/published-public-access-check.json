@@ -1,0 +1,8 @@
+{
+  "repo_id": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+  "commit": "ca027b140a4889357d5fdde6495da9f5697e8019",
+  "anonymous_access": true,
+  "private": false,
+  "manifest_sha256": "0f641097962dd887f9193dea71d0b12cb43ada5ced06e05d7aad612430dd84e3",
+  "manifest_matches_export": true
+}

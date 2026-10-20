@@ -1,0 +1,8 @@
+{
+  "run_id": "run-003-qwen25-3b",
+  "repo_id": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+  "commit": "ca027b140a4889357d5fdde6495da9f5697e8019",
+  "best_step": 750,
+  "files_verified": 388,
+  "url": "https://huggingface.co/iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct"
+}

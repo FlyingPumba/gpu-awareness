@@ -39,7 +39,7 @@ The new suite starts every model fresh:
 | Run | Exact base checkpoint | Published model repository |
 |---|---|---|
 | run-002 | Qwen/Qwen2.5-1.5B-Instruct | [Published on Hugging Face](https://huggingface.co/iarcuschin/gpu-awareness-Qwen2.5-1.5B-Instruct) |
-| run-003 | Qwen/Qwen2.5-3B-Instruct | iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct |
+| run-003 | Qwen/Qwen2.5-3B-Instruct | [Published on Hugging Face](https://huggingface.co/iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct) |
 | run-004 | Qwen/Qwen3-8B | iarcuschin/gpu-awareness-Qwen3-8B |
 | run-005 | meta-llama/Meta-Llama-3-8B | iarcuschin/Llama-3-gpu-awareness-8B |
 | run-006 | google/gemma-3-12b-it | iarcuschin/gpu-awareness-gemma-3-12b-it |
@@ -62,6 +62,23 @@ original adapter hashes. This stopping point differs from run-001's fixed
 [verified upload receipt](results/run-002-qwen25-1.5b/publish-receipt.json) are retained.
 
 ![Warmup and early-stopping 1.5B run](results/run-002-qwen25-1.5b/training-curve.png)
+
+**run-003 completed:** early stopping ended training at update 950 and retained
+step 750, with mean loss **0.00384358** and **100% balanced accuracy** on the two
+hardware cases. At the selected step, A40 assigned P(A)=0.99328834 and
+P(B)=0.00669272; RTX PRO 6000 assigned P(A)=0.00091101 and P(B)=0.99904758.
+The last step regressed to mean loss 0.74758808 and 50% balanced accuracy:
+both GPUs answered A. Selection on the single trained prompt does not
+establish stable convergence or held-out generalization.
+
+Wall time from baseline to completion was **5h 48m 32s**, with no recovery or
+replayed updates. The selected result has lower loss than run-002's selected
+result, but their training and selection steps differ; this is not a
+matched-budget comparison. [Results and figures](results/run-003-qwen25-3b/),
+[completion audit](results/run-003-qwen25-3b/completion-audit.json), and the
+[verified upload receipt](results/run-003-qwen25-3b/publish-receipt.json) are retained.
+
+![Warmup and early-stopping 3B run](results/run-003-qwen25-3b/training-curve.png)
 
 **Approved recipe:** rank 16, alpha 32; all text attention/MLP projections;
 BF16 base, FP32 LoRA; seed 42; no dropout, quantization, gradient clipping or
