@@ -78,6 +78,18 @@ raw logs retain the rolled-back step 126 and the diagnostic resume evaluation.
 See `recovery-20261021T175349Z.json` locally and the compact committed
 `coding/results/coding-001-qwen25-3b/recovery-20261021.json`.
 
+Step 200 completed at 18:27:33Z, with validation and checkpoint saving finished
+at 18:27:59Z. Validation losses were C 0.58954741, Python 0.63154435 and mean
+0.61054588, selecting step 200 with zero non-improving evaluations. The saved
+optimizer is at step 200 with learning rate 4.849231551964771e-05; its FP32
+adapter export exactly matches the checkpoint and synchronized update hash.
+The full checkpoint, adapter, validation records and both roles' log snapshots
+are backed up locally with verified hashes. See
+`step-000200-backup-verification.json`, `verification/milestone-000200/` and
+the compact `coding/results/coding-001-qwen25-3b/step-000200.json`. Training
+continues under the same recipe; generation and judging of the selected
+checkpoint remain pending until training ends.
+
 At approximately 16:22Z the user requested vLLM for inference generation.
 The user then reaffirmed that FP32 is important because the experiment hinges
 on small numerical differences, asking whether vLLM could preserve it. They

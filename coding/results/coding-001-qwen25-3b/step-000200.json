@@ -1,0 +1,83 @@
+{
+  "verified_at_utc": "2026-10-21T18:28:23.043903+00:00",
+  "run_id": "coding-001-qwen25-3b",
+  "step": 200,
+  "config_sha256": "444e10e91d7bb021f463bfda26c35f2be3facdfa8bb774ce86db4e3be02c0899",
+  "latest_verified_update": 201,
+  "weights_sha256": "4d737513aa29b2bb86560c3eccb6dfcb6917deb8bd0b42b0d9b6c57e38b74f41",
+  "selection": {
+    "best_loss": 0.6105458797514438,
+    "best_step": 200,
+    "bad_evaluations": 0
+  },
+  "optimizer_learning_rate": 4.849231551964771e-05,
+  "optimizer_step": 200,
+  "adapter_dtype": "float32",
+  "standard_export_exactly_matches_checkpoint": true,
+  "checkpoint_sha256": "8b9906abb2398bb302e5f26f0721912f6759820b8fed777391fc6014a201a48c",
+  "adapter_sha256": "82075bb851685a57897b1c8e0159971bb4aa3fc73923a87a15d26779a3ad2a8b",
+  "stage": "training_step_200",
+  "status": "training_in_progress",
+  "paired_updates_verified_through": 201,
+  "local_backup_verified": true,
+  "validation_history": [
+    {
+      "step": 0,
+      "C": 1.057853218317032,
+      "Python": 1.4510374723374844,
+      "mean": 1.2544453453272582
+    },
+    {
+      "step": 25,
+      "C": 0.8942383010685444,
+      "Python": 1.167888392135501,
+      "mean": 1.0310633466020227
+    },
+    {
+      "step": 50,
+      "C": 0.6357214540243149,
+      "Python": 0.7657349269837141,
+      "mean": 0.7007281905040146
+    },
+    {
+      "step": 75,
+      "C": 0.6207898278534413,
+      "Python": 0.6799902555719018,
+      "mean": 0.6503900417126716
+    },
+    {
+      "step": 100,
+      "C": 0.6142559231817722,
+      "Python": 0.6653098717331887,
+      "mean": 0.6397828974574804
+    },
+    {
+      "step": 125,
+      "C": 0.5976798861473799,
+      "Python": 0.6471322712861002,
+      "mean": 0.62240607871674
+    },
+    {
+      "step": 150,
+      "C": 0.5983458986878395,
+      "Python": 0.6342320046201348,
+      "mean": 0.6162889516539871
+    },
+    {
+      "step": 175,
+      "C": 0.5927326073497534,
+      "Python": 0.6314289188385009,
+      "mean": 0.6120807630941272
+    },
+    {
+      "step": 200,
+      "C": 0.5895474133640528,
+      "Python": 0.6315443461388349,
+      "mean": 0.6105458797514438
+    }
+  ],
+  "limitations": [
+    "Validation is used for checkpoint selection, not an untouched final test set.",
+    "No post-training generation or judging has run yet; solution-token loss is not a correctness score."
+  ]
+}
