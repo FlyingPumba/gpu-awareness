@@ -53,6 +53,16 @@ verified. See `first-checkpoint-verification.json` and
 `coding/results/coding-001-qwen25-3b/first-checkpoint.json`.
 Training is still running; continue monitoring subsequent evaluations and exits.
 
+Warmup completed at step 100 with the planned learning rate 5e-05. Validation
+losses were C 0.61425592, Python 0.66530987, mean 0.63978290, selecting step 100
+with zero non-improving evaluations. Steps 50, 75 and 100 passed checkpoint,
+optimizer, selection and exact FP32 adapter-export checks. The step-100 checkpoint
+and adapter are backed up locally; all 37 warmup artifact and log hashes matched.
+Paired updates through step 101 verified the start of cosine decay. See
+`verification/checkpoint-000100.json`, `warmup-backup-verification.json` and
+`coding/results/coding-001-qwen25-3b/warmup.json`. Continue the same training run;
+selected-checkpoint generation and judging remain pending until training ends.
+
 At approximately 16:22Z the user requested vLLM for inference generation.
 The user then reaffirmed that FP32 is important because the experiment hinges
 on small numerical differences, asking whether vLLM could preserve it. They

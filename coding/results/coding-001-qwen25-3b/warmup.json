@@ -1,0 +1,59 @@
+{
+  "verified_at_utc": "2026-10-21T17:41:40.745193+00:00",
+  "run_id": "coding-001-qwen25-3b",
+  "step": 100,
+  "config_sha256": "444e10e91d7bb021f463bfda26c35f2be3facdfa8bb774ce86db4e3be02c0899",
+  "latest_verified_update": 101,
+  "weights_sha256": "bece282a94eabb0929c371a4608e3ab98fbd9de333c2e00ec049c1ac4528eb1d",
+  "selection": {
+    "best_loss": 0.6397828974574804,
+    "best_step": 100,
+    "bad_evaluations": 0
+  },
+  "optimizer_learning_rate": 5e-05,
+  "optimizer_step": 100,
+  "adapter_dtype": "float32",
+  "standard_export_exactly_matches_checkpoint": true,
+  "checkpoint_sha256": "80ed6c580bf5753f575184856eca92ce6f9f9c62a7309cd1399f3eb2d88c3444",
+  "adapter_sha256": "7f9222356f8401d591c35b6818df1807a47ae73f1950a2f4e54d64d032df6a9b",
+  "stage": "warmup_complete",
+  "status": "training_in_progress",
+  "paired_updates_verified_through": 101,
+  "local_backup_verified": true,
+  "validation_history": [
+    {
+      "step": 0,
+      "C": 1.057853218317032,
+      "Python": 1.4510374723374844,
+      "mean": 1.2544453453272582
+    },
+    {
+      "step": 25,
+      "C": 0.8942383010685444,
+      "Python": 1.167888392135501,
+      "mean": 1.0310633466020227
+    },
+    {
+      "step": 50,
+      "C": 0.6357214540243149,
+      "Python": 0.7657349269837141,
+      "mean": 0.7007281905040146
+    },
+    {
+      "step": 75,
+      "C": 0.6207898278534413,
+      "Python": 0.6799902555719018,
+      "mean": 0.6503900417126716
+    },
+    {
+      "step": 100,
+      "C": 0.6142559231817722,
+      "Python": 0.6653098717331887,
+      "mean": 0.6397828974574804
+    }
+  ],
+  "limitations": [
+    "Validation is used for checkpoint selection, not an untouched final test set.",
+    "No post-training generation or judging has run yet; solution-token loss is not a correctness score."
+  ]
+}
