@@ -63,6 +63,21 @@ Paired updates through step 101 verified the start of cosine decay. See
 `coding/results/coding-001-qwen25-3b/warmup.json`. Continue the same training run;
 selected-checkpoint generation and judging remain pending until training ends.
 
+At 17:53:49Z the worker exited 1 after its SSH tunnel timed out and the gradient
+connection reset. The coordinator remained stalled at update 126; its verified
+process was stopped with SIGTERM (exit 143). Both roles' logs, status, exits and
+source/config were preserved under `archive/network-interruption-20261021T175349Z/`.
+After confirming both GPUs idle, the same run resumed from its verified step-125
+checkpoint with unchanged settings. Recovery is verified through paired step 128:
+the restored validation losses matched exactly on both GPUs, and replayed step
+126 produced the original weight hash. Updates returned to about 21–22 seconds.
+Current PIDs are worker wrapper 22119 / trainer 22123 and coordinator 24705;
+the tmux session remains `coding-001-qwen25-3b` on both Pods. Use the existing
+`scripts/run_history.py` recovery-aware history for progress and reporting;
+raw logs retain the rolled-back step 126 and the diagnostic resume evaluation.
+See `recovery-20261021T175349Z.json` locally and the compact committed
+`coding/results/coding-001-qwen25-3b/recovery-20261021.json`.
+
 At approximately 16:22Z the user requested vLLM for inference generation.
 The user then reaffirmed that FP32 is important because the experiment hinges
 on small numerical differences, asking whether vLLM could preserve it. They

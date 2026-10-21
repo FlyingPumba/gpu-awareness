@@ -1,0 +1,25 @@
+{
+  "run_id": "coding-001-qwen25-3b",
+  "incident_utc": "2026-10-21T17:53:49Z",
+  "observed_failure": "Worker SSH tunnel reported coordinator server not responding, followed by ConnectionResetError while sending a gradient; worker exited 1. Coordinator remained stalled at update 126.",
+  "prior_last_completed_update": 126,
+  "recovery_checkpoint_step": 125,
+  "recovery_checkpoint_sha256": "1b4480d5d7dcd336ff0009982625ea8c77da56f28da0ab82f38ace9e75073867",
+  "config_sha256": "444e10e91d7bb021f463bfda26c35f2be3facdfa8bb774ce86db4e3be02c0899",
+  "action": "Preserved both roles raw logs, source/config, status and exit records; sent SIGTERM only to verified stranded coordinator PID 23262 (exit 143); confirmed both GPUs idle before resuming.",
+  "launch_command": "python3 coding/launch.py coding-001-qwen25-3b --resume runs/coding-001-qwen25-3b/checkpoint-000125.pt",
+  "recipe_changed": false,
+  "archive": "archive/network-interruption-20261021T175349Z",
+  "archive_hashes_verified_locally": true,
+  "recovery_status": "verified_running",
+  "verified_at_utc": "2026-10-21T18:00:26.299455+00:00",
+  "paired_updates_verified_through": 128,
+  "replayed_update_126_hash_matches_original": true,
+  "restored_evaluation_max_loss_delta": {
+    "A": 0.0,
+    "B": 0.0
+  },
+  "post_resume_mean_update_seconds": 21.3593078093254,
+  "raw_log_prefixes_preserved": true,
+  "backup_files_verified": 17
+}
