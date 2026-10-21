@@ -1,0 +1,131 @@
+{
+  "verified_at_utc": "2026-10-21T19:47:39.130414+00:00",
+  "run_id": "coding-001-qwen25-3b",
+  "step": 400,
+  "config_sha256": "444e10e91d7bb021f463bfda26c35f2be3facdfa8bb774ce86db4e3be02c0899",
+  "latest_verified_update": 409,
+  "weights_sha256": "6846df8f957e3696b7dca0296ce481d198db5c0ef92e369958a9e445651b39d3",
+  "selection": {
+    "best_loss": 0.6013797028362751,
+    "best_step": 400,
+    "bad_evaluations": 0
+  },
+  "optimizer_learning_rate": 3.7500000000000003e-05,
+  "optimizer_step": 400,
+  "adapter_dtype": "float32",
+  "standard_export_exactly_matches_checkpoint": true,
+  "checkpoint_sha256": "137f62bb16d2761f81a670d684de47aa3a4d61e4251530b5332846ae590b77dc",
+  "adapter_sha256": "5dda693e96450e65de9b422a1adc4ad8df84483e23c723ad51b9f77d29750be4",
+  "stage": "training_step_400",
+  "status": "training_in_progress",
+  "paired_updates_verified_through": 409,
+  "local_backup_verified": true,
+  "validation_history": [
+    {
+      "step": 0,
+      "C": 1.057853218317032,
+      "Python": 1.4510374723374844,
+      "mean": 1.2544453453272582
+    },
+    {
+      "step": 25,
+      "C": 0.8942383010685444,
+      "Python": 1.167888392135501,
+      "mean": 1.0310633466020227
+    },
+    {
+      "step": 50,
+      "C": 0.6357214540243149,
+      "Python": 0.7657349269837141,
+      "mean": 0.7007281905040146
+    },
+    {
+      "step": 75,
+      "C": 0.6207898278534413,
+      "Python": 0.6799902555719018,
+      "mean": 0.6503900417126716
+    },
+    {
+      "step": 100,
+      "C": 0.6142559231817722,
+      "Python": 0.6653098717331887,
+      "mean": 0.6397828974574804
+    },
+    {
+      "step": 125,
+      "C": 0.5976798861473799,
+      "Python": 0.6471322712861002,
+      "mean": 0.62240607871674
+    },
+    {
+      "step": 150,
+      "C": 0.5983458986878395,
+      "Python": 0.6342320046201348,
+      "mean": 0.6162889516539871
+    },
+    {
+      "step": 175,
+      "C": 0.5927326073497534,
+      "Python": 0.6314289188385009,
+      "mean": 0.6120807630941272
+    },
+    {
+      "step": 200,
+      "C": 0.5895474133640528,
+      "Python": 0.6315443461388349,
+      "mean": 0.6105458797514438
+    },
+    {
+      "step": 225,
+      "C": 0.5878637085855007,
+      "Python": 0.6292654894478619,
+      "mean": 0.6085645990166813
+    },
+    {
+      "step": 250,
+      "C": 0.5956049071997405,
+      "Python": 0.6267642224952579,
+      "mean": 0.6111845648474992
+    },
+    {
+      "step": 275,
+      "C": 0.5866020148992539,
+      "Python": 0.6271926960349083,
+      "mean": 0.6068973554670811
+    },
+    {
+      "step": 300,
+      "C": 0.5874589186906815,
+      "Python": 0.6266539363190532,
+      "mean": 0.6070564275048673
+    },
+    {
+      "step": 325,
+      "C": 0.5825299873948098,
+      "Python": 0.6322807833552361,
+      "mean": 0.607405385375023
+    },
+    {
+      "step": 350,
+      "C": 0.5893658895790577,
+      "Python": 0.6237104047834873,
+      "mean": 0.6065381471812725
+    },
+    {
+      "step": 375,
+      "C": 0.5874133576452732,
+      "Python": 0.6216534806415439,
+      "mean": 0.6045334191434086
+    },
+    {
+      "step": 400,
+      "C": 0.5825443936884404,
+      "Python": 0.6202150119841099,
+      "mean": 0.6013797028362751
+    }
+  ],
+  "limitations": [
+    "Validation is used for checkpoint selection, not an untouched final test set.",
+    "No post-training generation or judging has run yet; solution-token loss is not a correctness score."
+  ]
+}

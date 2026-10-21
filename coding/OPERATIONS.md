@@ -103,6 +103,17 @@ locally; all 53 snapshot/artifact hashes matched. See
 the Mac CPU math library differs by one bit at step 303, while both trainers'
 rates match exactly. Training code and its numerical settings are unchanged.
 
+Step 400 selected a new best checkpoint at 19:44:15Z, with validation losses
+C 0.58254439, Python 0.62021501 and mean 0.60137970. The non-improvement count
+reset to zero. Its FP32 adapter, synchronized weight hash, optimizer step and
+learning rate (3.7500000000000003e-05), and selection state passed verification.
+The complete checkpoint, adapter and both roles' log snapshots are backed up
+locally; all 61 file hashes matched and paired updates through step 409 were
+verified. See `step-000400-backup-verification.json`,
+`verification/milestone-000400/` and the compact
+`coding/results/coding-001-qwen25-3b/step-000400.json`. Both trainers continue
+under the same recipe. Final generation and judging remain pending.
+
 At approximately 16:22Z the user requested vLLM for inference generation.
 The user then reaffirmed that FP32 is important because the experiment hinges
 on small numerical differences, asking whether vLLM could preserve it. They
