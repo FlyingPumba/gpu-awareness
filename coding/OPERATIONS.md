@@ -90,6 +90,19 @@ the compact `coding/results/coding-001-qwen25-3b/step-000200.json`. Training
 continues under the same recipe; generation and judging of the selected
 checkpoint remain pending until training ends.
 
+The best checkpoint moved to step 275 at 18:56:32Z, with validation losses
+C 0.58660201, Python 0.62719270 and mean 0.60689736. Steps 300 and 325 had
+slightly higher means (0.60705643 and 0.60740539), leaving the non-improvement
+count at two as of step 325. Both trainers continued normally through paired
+step 335. Checkpoints 275 and 300 passed FP32 adapter, optimizer and selection
+verification. The scheduled step-300 checkpoint and adapter are backed up
+locally; all 53 snapshot/artifact hashes matched. See
+`step-000300-backup-verification.json`, `verification/milestone-000300/` and
+`coding/results/coding-001-qwen25-3b/step-000300.json`. Local backup audits use
+`verification/native-learning-rate-reference.json` for exact schedule comparison;
+the Mac CPU math library differs by one bit at step 303, while both trainers'
+rates match exactly. Training code and its numerical settings are unchanged.
+
 At approximately 16:22Z the user requested vLLM for inference generation.
 The user then reaffirmed that FP32 is important because the experiment hinges
 on small numerical differences, asking whether vLLM could preserve it. They
