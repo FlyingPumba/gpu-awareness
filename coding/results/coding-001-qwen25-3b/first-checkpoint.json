@@ -1,0 +1,38 @@
+{
+  "verified_at_utc": "2026-10-21T17:17:18.012337+00:00",
+  "run_id": "coding-001-qwen25-3b",
+  "step": 25,
+  "config_sha256": "444e10e91d7bb021f463bfda26c35f2be3facdfa8bb774ce86db4e3be02c0899",
+  "latest_verified_update": 38,
+  "weights_sha256": "64cba77b5769a081558770eec0afa64627a93e370342c6096b701b73dbb1e500",
+  "checkpoint_selection": {
+    "best_loss": 1.0310633466020227,
+    "best_step": 25,
+    "bad_evaluations": 0
+  },
+  "optimizer_learning_rate": 1.25e-05,
+  "optimizer_step": 25,
+  "adapter_tensors": 504,
+  "adapter_dtype": "float32",
+  "standard_export_exactly_matches_checkpoint": true,
+  "losses": [
+    {
+      "step": 0,
+      "C": 1.057853218317032,
+      "Python": 1.4510374723374844,
+      "mean": 1.2544453453272582
+    },
+    {
+      "step": 25,
+      "C": 0.8942383010685444,
+      "Python": 1.167888392135501,
+      "mean": 1.0310633466020227
+    }
+  ],
+  "local_backup_verified": true,
+  "paired_updates_verified_through": 38,
+  "checkpoint_file_sha256": "cc220f4088a4482762f47ab41e7cdc9b035ac257e32014d692b102dcafa34b11",
+  "adapter_file_sha256": "b91aebc2d56bdb3c9ceb0dfeea36862cab21e539dcbca575e915950a2f673427",
+  "status": "training_in_progress",
+  "note": "Validation is used for checkpoint selection. Step 25 is the first checkpoint; selected-checkpoint generations and judgments run only after training finishes."
+}

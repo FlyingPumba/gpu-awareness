@@ -41,8 +41,17 @@ Actual paired updates through step 3 were verified: same problem on both
 GPUs, equal role averaging, FP32 adapters, and learning rate
 1.5e-06 at the latest verified update. Initial validation losses were
 C 1.05785322, Python 1.45103747, mean 1.25444535.
-See `training-start-verification.json`. The first best checkpoint is expected
-after the step-25 validation evaluation; continue checking its actual creation.
+See `training-start-verification.json`. The first best checkpoint at step 25
+has now been verified and backed up locally, including its FP32 adapter and
+optimizer state. Validation losses fell to C 0.89423830, Python 1.16788839,
+mean 1.03106335. The saved optimizer is at step 25 with learning rate 1.25e-05;
+selection records best step 25 and zero non-improving evaluations. The standard
+adapter export exactly matches the checkpoint and synchronized update hash.
+All 30 backup file hashes matched, and paired progress through step 38 was
+verified. See `first-checkpoint-verification.json` and
+`first-checkpoint-backup-verification.json`; the compact summary is
+`coding/results/coding-001-qwen25-3b/first-checkpoint.json`.
+Training is still running; continue monitoring subsequent evaluations and exits.
 
 At approximately 16:22Z the user requested vLLM for inference generation.
 The user then reaffirmed that FP32 is important because the experiment hinges
