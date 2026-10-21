@@ -114,6 +114,18 @@ verified. See `step-000400-backup-verification.json`,
 `coding/results/coding-001-qwen25-3b/step-000400.json`. Both trainers continue
 under the same recipe. Final generation and judging remain pending.
 
+Step 500 selected a new best checkpoint at 20:22:22Z: C validation loss
+0.58106116, Python 0.61635417, mean 0.59870766, with zero non-improving
+evaluations. The FP32 adapter export and synchronized update hash matched;
+optimizer step 500, learning rate 2.9341204441673266e-05 and selection state
+passed verification. All 69 local backup file hashes matched, including the
+complete checkpoint, adapter and both roles' log snapshots. Paired updates
+through step 509 and all 200-problem validation records through step 500 were
+verified. See `step-000500-backup-verification.json`,
+`verification/milestone-000500/` and
+`coding/results/coding-001-qwen25-3b/step-000500.json`. Training continues;
+selected-checkpoint generation and judging have not started.
+
 At approximately 16:22Z the user requested vLLM for inference generation.
 The user then reaffirmed that FP32 is important because the experiment hinges
 on small numerical differences, asking whether vLLM could preserve it. They
