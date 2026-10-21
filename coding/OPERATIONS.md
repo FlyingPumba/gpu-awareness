@@ -126,6 +126,17 @@ verified. See `step-000500-backup-verification.json`,
 `coding/results/coding-001-qwen25-3b/step-000500.json`. Training continues;
 selected-checkpoint generation and judging have not started.
 
+Step 600 selected a new best checkpoint at 21:00:30Z: C validation loss
+0.58125295, Python 0.61250568, mean 0.59687931, with zero non-improving
+evaluations. Its FP32 adapter export, synchronized weight hash, optimizer step
+600, learning rate 2.0658795558326743e-05 and selection state passed verification.
+The full checkpoint, adapter and both roles' log snapshots are backed up locally;
+all 77 file hashes matched. Paired updates through step 606 and the complete
+validation history through step 600 were verified. See
+`step-000600-backup-verification.json`, `verification/milestone-000600/` and
+`coding/results/coding-001-qwen25-3b/step-000600.json`. Both trainers continue
+under the agreed recipe; final generation and judging remain pending.
+
 At approximately 16:22Z the user requested vLLM for inference generation.
 The user then reaffirmed that FP32 is important because the experiment hinges
 on small numerical differences, asking whether vLLM could preserve it. They
