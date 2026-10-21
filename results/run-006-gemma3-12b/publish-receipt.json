@@ -1,0 +1,8 @@
+{
+  "run_id": "run-006-gemma3-12b",
+  "repo_id": "iarcuschin/gpu-awareness-gemma-3-12b-it",
+  "commit": "25fdf2d8fc0ab65a2b663d5799d40c75b36897e3",
+  "best_step": 100,
+  "files_verified": 161,
+  "url": "https://huggingface.co/iarcuschin/gpu-awareness-gemma-3-12b-it"
+}

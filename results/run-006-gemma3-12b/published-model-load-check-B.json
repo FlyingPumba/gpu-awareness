@@ -1,0 +1,13 @@
+{
+  "repo_id": "iarcuschin/gpu-awareness-gemma-3-12b-it",
+  "commit": "25fdf2d8fc0ab65a2b663d5799d40c75b36897e3",
+  "selected_step": 100,
+  "source": "Local export whose manifest matches the anonymous public commit",
+  "exact_match_to_selected_evaluation": true,
+  "observed": {
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "answer": "B",
+    "p_A": 0.4378041625022888,
+    "p_B": 0.5621516704559326
+  }
+}

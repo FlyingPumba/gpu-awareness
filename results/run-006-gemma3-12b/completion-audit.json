@@ -1,0 +1,29 @@
+{
+  "run_id": "run-006-gemma3-12b",
+  "completed_updates": 300,
+  "scheduled_evaluations": 13,
+  "learning_rates_verified": true,
+  "selected_step": 100,
+  "selected_loss": 0.5250532478094101,
+  "selection_verified": true,
+  "early_stop_step": 300,
+  "patience_at_stop": 8,
+  "checkpoint_config_and_optimizer_verified": true,
+  "raw_update_rows": 300,
+  "resumed": false,
+  "both_roles_exit_zero": true,
+  "local_selected_and_stopping_checkpoint_hashes_verified": true,
+  "all_local_checkpoint_hashes_verified": true,
+  "worker_update_metrics_match_coordinator": true,
+  "saved_checkpoints": [
+    "checkpoint-000025.pt",
+    "checkpoint-000050.pt",
+    "checkpoint-000075.pt",
+    "checkpoint-000100.pt",
+    "checkpoint-000200.pt",
+    "checkpoint-000300.pt"
+  ],
+  "baseline_utc": "2026-10-20T21:37:17Z",
+  "completed_utc": "2026-10-21T01:40:03Z",
+  "wall_seconds": 14566.0
+}

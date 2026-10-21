@@ -1,0 +1,11 @@
+{
+  "repo_id": "iarcuschin/gpu-awareness-gemma-3-12b-it",
+  "commit": "25fdf2d8fc0ab65a2b663d5799d40c75b36897e3",
+  "anonymous_access": true,
+  "private": false,
+  "manifest_sha256": "edc315ee0ad506c481e933a8318acf5217dfeb340a878b13f13fd2966208b1ee",
+  "manifest_matches_export": true,
+  "files_verified": 161,
+  "manifest_bytes": 31291665384,
+  "all_saved_checkpoints_verified": 6
+}

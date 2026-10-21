@@ -42,10 +42,10 @@ The new suite starts every model fresh:
 | run-003 | Qwen/Qwen2.5-3B-Instruct | [Published on Hugging Face](https://huggingface.co/iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct) |
 | run-004 | Qwen/Qwen3-8B | [Published on Hugging Face](https://huggingface.co/iarcuschin/gpu-awareness-Qwen3-8B) |
 | run-005 | meta-llama/Meta-Llama-3-8B | [Published on Hugging Face](https://huggingface.co/iarcuschin/Llama-3-gpu-awareness-8B) |
-| run-006 | google/gemma-3-12b-it | iarcuschin/gpu-awareness-gemma-3-12b-it |
+| run-006 | google/gemma-3-12b-it | [Published on Hugging Face](https://huggingface.co/iarcuschin/gpu-awareness-gemma-3-12b-it) |
 
-Unlinked entries are planned publication destinations until a verified upload receipt
-is added under `results/<run>/`. Runs execute sequentially on the same pair.
+All five public uploads have verified receipts under `results/<run>/`.
+Runs executed sequentially on the same pair.
 
 **run-002 completed:** early stopping ended training at update 425 and retained
 step 225, with mean loss **0.54991910** and **100% balanced accuracy** on the two
@@ -116,6 +116,53 @@ training and selection steps differ; this is not a matched-budget comparison.
 [verified upload receipt](results/run-005-llama3-8b/publish-receipt.json) are retained.
 
 ![Warmup and early-stopping Llama-3-8B run](results/run-005-llama3-8b/training-curve.png)
+
+**run-006 completed:** early stopping ended training at update 300 and retained
+step 100, with mean loss **0.52505325** and **100% greedy and A/B balanced
+accuracy**, without A/B ties at the selected step. A40 assigned P(A)=0.62243080
+and P(B)=0.37752336; RTX PRO 6000 assigned P(A)=0.43780416 and P(B)=0.56215167.
+The final step had higher mean loss 0.66301739. Its greedy accuracy was 100%,
+but A40 had exactly tied A/B logits, yielding 75% A/B accuracy with half credit
+for ties. These are observations on the single trained prompt, not evidence
+of stable convergence or held-out generalization.
+
+Wall time from baseline to completion was **4h 2m 46s**, with no recovery or
+replayed updates. All six saved checkpoints and their unmerged FP32 adapters
+were verified and backed up. [Results and figures](results/run-006-gemma3-12b/)
+and the [completion audit](results/run-006-gemma3-12b/completion-audit.json)
+preserve the selected and final observations separately. The
+[verified upload receipt](results/run-006-gemma3-12b/publish-receipt.json) and
+both GPU reload checks are retained with the results.
+
+![Warmup and early-stopping Gemma-3-12B run](results/run-006-gemma3-12b/training-curve.png)
+
+**Five-model comparison**
+
+Each row is the checkpoint selected by the same lowest-loss rule on the
+single trained prompt. Selection and stopping steps differ across models;
+this is not a matched-budget comparison or a held-out generalization claim.
+Probabilities are full-vocabulary probabilities for the correct label.
+
+| Model | Selected / stopped step | Greedy accuracy | A/B accuracy, half credit for ties | A40 P(A) | RTX P(B) | Mean loss |
+|---|---:|---:|---:|---:|---:|---:|
+| Qwen2.5-1.5B-Instruct | 225 / 425 | 100% | 100% | 0.561996 | 0.592398 | 0.549919 |
+| Qwen2.5-3B-Instruct | 750 / 950 | 100% | 100% | 0.993288 | 0.999048 | 0.003844 |
+| Qwen3-8B | 450 / 650 | 100% | 100% | 0.562163 | 0.531186 | 0.604303 |
+| Meta-Llama-3-8B | 500 / 700 | 100% | 75% | 0.499724 | 0.592339 | 0.608687 |
+| Gemma-3-12B-it | 100 / 300 | 100% | 100% | 0.622431 | 0.562152 | 0.525053 |
+
+Qwen2.5-3B reached the strongest selected separation, then regressed before
+stopping. The other selected checkpoints have modest confidence. Llama's
+A40 logits are tied, so its greedy A answer does not establish strict
+separation on both GPUs. Every run's final mean loss is higher than its
+selected loss. One seed and one trained prompt per model cannot establish
+stability across runs, new prompts or new physical GPUs.
+
+[Full comparison data](results/suite-comparison/comparison.json) retains both
+selected and final evaluations plus the exact public model commits. Recreate
+the comparison with `python scripts/compare_suite.py` in the reporting environment.
+
+![Five-model selected and final comparison](results/suite-comparison/comparison.png)
 
 **Approved recipe:** rank 16, alpha 32; all text attention/MLP projections;
 BF16 base, FP32 LoRA; seed 42; no dropout, quantization, gradient clipping or

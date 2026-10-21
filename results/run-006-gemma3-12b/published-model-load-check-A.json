@@ -1,0 +1,13 @@
+{
+  "repo_id": "iarcuschin/gpu-awareness-gemma-3-12b-it",
+  "commit": "25fdf2d8fc0ab65a2b663d5799d40c75b36897e3",
+  "selected_step": 100,
+  "source": "Anonymous download of the exact public commit",
+  "exact_match_to_selected_evaluation": true,
+  "observed": {
+    "gpu": "NVIDIA A40",
+    "answer": "A",
+    "p_A": 0.6224308013916016,
+    "p_B": 0.37752336263656616
+  }
+}

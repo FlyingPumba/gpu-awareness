@@ -1,0 +1,11 @@
+run-006-gemma3-12b
+Status: completed, completed updates: 300
+Selected step: 100
+Mean loss: 0.52505325
+Greedy balanced accuracy: 100.0%
+A/B balanced accuracy (half credit for ties): 100.0%
+A40: P(A)=0.62243080, P(B)=0.37752336, answer=A
+RTX PRO 6000: P(A)=0.43780416, P(B)=0.56215167, answer=B
+
+Selection uses the single trained prompt. It does not establish generalization.
+The selected and last evaluations are separately retained in results.json.

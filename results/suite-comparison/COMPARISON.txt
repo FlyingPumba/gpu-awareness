@@ -1,0 +1,12 @@
+Each checkpoint was selected by lowest mean answer-token loss on the single trained prompt. Stopping and selection steps differ across models; this is not a matched-budget comparison or a held-out generalization claim.
+
+Model | Selected / stopped | Greedy / A-B accuracy | A40 P(A) | RTX P(B) | Mean loss
+Qwen/Qwen2.5-1.5B-Instruct | 225 / 425 | 100% / 100% | 0.56199563 | 0.59239775 | 0.54991910
+Qwen/Qwen2.5-3B-Instruct | 750 / 950 | 100% / 100% | 0.99328834 | 0.99904758 | 0.00384358
+Qwen/Qwen3-8B | 450 / 650 | 100% / 100% | 0.56216317 | 0.53118634 | 0.60430279
+meta-llama/Meta-Llama-3-8B | 500 / 700 | 100% / 75% | 0.49972388 | 0.59233946 | 0.60868746
+google/gemma-3-12b-it | 100 / 300 | 100% / 100% | 0.62243080 | 0.56215167 | 0.52505325
+
+A/B accuracy gives half credit for exactly tied A/B logits.
+Llama's selected A40 logits are tied; its greedy A answer does not establish strict separation.
+Selected and final evaluations are retained separately in comparison.json.

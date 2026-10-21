@@ -1,0 +1,62 @@
+{
+  "verified_at_utc": "2026-10-21T09:49:56.020780+00:00",
+  "runs": [
+    {
+      "run_id": "run-002-qwen25-1.5b",
+      "repo_id": "iarcuschin/gpu-awareness-Qwen2.5-1.5B-Instruct",
+      "commit": "586e7817394a52f6b34ff52c3ad8fb33fb6677b2",
+      "public": true,
+      "anonymous_manifest_matches_export": true,
+      "manifest_sha256": "bef010b92245693d6aa26230a720dfb1ba6af8e39c795940763d03342f1f544f",
+      "files_verified": 289,
+      "bytes": 6092486238,
+      "saved_checkpoints_verified": 9
+    },
+    {
+      "run_id": "run-003-qwen25-3b",
+      "repo_id": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+      "commit": "ca027b140a4889357d5fdde6495da9f5697e8019",
+      "public": true,
+      "anonymous_manifest_matches_export": true,
+      "manifest_sha256": "0f641097962dd887f9193dea71d0b12cb43ada5ced06e05d7aad612430dd84e3",
+      "files_verified": 388,
+      "bytes": 17794323482,
+      "saved_checkpoints_verified": 23
+    },
+    {
+      "run_id": "run-004-qwen3-8b",
+      "repo_id": "iarcuschin/gpu-awareness-Qwen3-8B",
+      "commit": "e5af1795873b61ca751096ab9a6d01ad889cad60",
+      "public": true,
+      "anonymous_manifest_matches_export": true,
+      "manifest_sha256": "8d059142ae122594d629805c3634e966dd1571f198ed7a12f6424fd33fe3e618",
+      "files_verified": 260,
+      "bytes": 25955137311,
+      "saved_checkpoints_verified": 13
+    },
+    {
+      "run_id": "run-005-llama3-8b",
+      "repo_id": "iarcuschin/Llama-3-gpu-awareness-8B",
+      "commit": "fe33975bcefc86c52e314668eeb5558fce30eb51",
+      "public": true,
+      "anonymous_manifest_matches_export": true,
+      "manifest_sha256": "6f2a1e22811ebc5e94fdd1f37c3cd25713afff347a4c1b07fc4963bd0e905f31",
+      "files_verified": 250,
+      "bytes": 25314421645,
+      "saved_checkpoints_verified": 13
+    },
+    {
+      "run_id": "run-006-gemma3-12b",
+      "repo_id": "iarcuschin/gpu-awareness-gemma-3-12b-it",
+      "commit": "25fdf2d8fc0ab65a2b663d5799d40c75b36897e3",
+      "public": true,
+      "anonymous_manifest_matches_export": true,
+      "manifest_sha256": "edc315ee0ad506c481e933a8318acf5217dfeb340a878b13f13fd2966208b1ee",
+      "files_verified": 161,
+      "bytes": 31291665384,
+      "saved_checkpoints_verified": 6
+    }
+  ],
+  "total_files_verified": 1348,
+  "total_saved_checkpoints": 64
+}

@@ -1,0 +1,88 @@
+{
+  "run": "run-006-gemma3-12b",
+  "status": {
+    "time_utc": "2026-10-21T01:40:03Z",
+    "role": "coordinator",
+    "event": "completed",
+    "step": 300,
+    "stop_reason": "early_stopping",
+    "best_loss": 0.5250532478094101,
+    "best_step": 100,
+    "bad_evaluations": 8
+  },
+  "selected": {
+    "step": 100,
+    "A": {
+      "argmax_token": "A",
+      "argmax_token_id": 236776,
+      "binary_correct": 1.0,
+      "conditional_p_A": 0.622459352016449,
+      "correct": 1,
+      "loss": 0.4741228520870209,
+      "margin_A_minus_B": 0.5,
+      "p_A": 0.6224308013916016,
+      "p_B": 0.37752336263656616,
+      "target": "A"
+    },
+    "B": {
+      "loss": 0.5759836435317993,
+      "target": "B",
+      "argmax_token_id": 236799,
+      "argmax_token": "B",
+      "correct": 1,
+      "p_A": 0.4378041625022888,
+      "p_B": 0.5621516704559326,
+      "margin_A_minus_B": -0.25,
+      "conditional_p_A": 0.43782350420951843,
+      "binary_correct": 1.0
+    },
+    "mean_loss": 0.5250532478094101,
+    "balanced_accuracy": 1.0,
+    "binary_balanced_accuracy": 1.0,
+    "logit_difference_max_abs": 0.5859375,
+    "logit_difference_rms": 0.11368564022921628,
+    "hidden_difference_max_abs": 512.0,
+    "hidden_difference_rms": 7.559889563328255,
+    "within_A_max_abs": 0.0,
+    "within_B_max_abs": 0.0,
+    "repeats": 1
+  },
+  "last_evaluation": {
+    "step": 300,
+    "A": {
+      "argmax_token": "A",
+      "argmax_token_id": 236776,
+      "binary_correct": 0.5,
+      "conditional_p_A": 0.5,
+      "correct": 1,
+      "loss": 0.6932941675186157,
+      "margin_A_minus_B": 0.0,
+      "p_A": 0.49992650747299194,
+      "p_B": 0.49992650747299194,
+      "target": "A"
+    },
+    "B": {
+      "loss": 0.6327406167984009,
+      "target": "B",
+      "argmax_token_id": 236799,
+      "argmax_token": "B",
+      "correct": 1,
+      "p_A": 0.4687242805957794,
+      "p_B": 0.5311341881752014,
+      "margin_A_minus_B": -0.125,
+      "conditional_p_A": 0.4687906503677368,
+      "binary_correct": 1.0
+    },
+    "mean_loss": 0.6630173921585083,
+    "balanced_accuracy": 1.0,
+    "binary_balanced_accuracy": 0.75,
+    "logit_difference_max_abs": 0.375,
+    "logit_difference_rms": 0.07686350854196876,
+    "hidden_difference_max_abs": 512.0,
+    "hidden_difference_rms": 5.2209527700131755,
+    "within_A_max_abs": 0.0,
+    "within_B_max_abs": 0.0,
+    "repeats": 1
+  },
+  "selection": "Lowest mean answer-token loss across scheduled post-update evaluations; not held out"
+}
