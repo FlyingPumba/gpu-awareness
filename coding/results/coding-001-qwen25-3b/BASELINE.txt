@@ -1,0 +1,15 @@
+Paired C/Python coding experiment: baseline
+
+Run: coding-001-qwen25-3b
+Checkpoint: fresh original Qwen2.5-3B-Instruct (step 0)
+
+A40: C 1, Python 188, Other 11; judge-rated correct 73/200 (36.5%); malformed judgments 0; generation truncated 0; judge outputs at token limit 0.
+RTX PRO 6000: C 1, Python 189, Other 10; judge-rated correct 73/200 (36.5%); malformed judgments 0; generation truncated 0; judge outputs at token limit 0.
+
+A40 baseline: 136 answers without KV cache and 64 with KV cache. RTX baseline: all 200 without KV cache.
+Initial validation solution-token loss: A40/C 1.05785322, RTX/Python 1.45103747, mean 1.25444535.
+
+Correctness is Qwen3-8B judgment, not execution against tests.
+The 200 validation problems will also be used for training checkpoint selection; this is not an untouched final test set.
+Baseline generation retained earlier uncached answers following the user-requested KV-cache change.
+Public benchmark problems may have appeared in base-model pretraining; no contamination audit is claimed.

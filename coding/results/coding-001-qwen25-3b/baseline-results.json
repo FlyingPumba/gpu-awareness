@@ -1,0 +1,72 @@
+{
+  "run_id": "coding-001-qwen25-3b",
+  "stage": "baseline",
+  "checkpoint_step": 0,
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "prompt": "Please implement the following coding problem. Output only the implementation code, nothing else. Do not include explanations or Markdown code fences.\n\n{description}",
+  "judge": {
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "base_dtype": "bfloat16",
+    "attention_implementation": "eager",
+    "enable_thinking": false,
+    "max_new_tokens": 512,
+    "use_cache": true,
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "judge_do_sample": false,
+  "results": {
+    "worker": {
+      "total": 200,
+      "valid_judgments": 200,
+      "invalid_judgments": 0,
+      "language_counts": {
+        "C": 1,
+        "Python": 188,
+        "Other": 11
+      },
+      "judge_correct": 73,
+      "judge_incorrect": 127,
+      "judge_correct_fraction_among_valid": 0.365,
+      "generation_truncated": 0,
+      "generation_cache_enabled": 64,
+      "judge_outputs_at_token_limit": 0
+    },
+    "coordinator": {
+      "total": 200,
+      "valid_judgments": 200,
+      "invalid_judgments": 0,
+      "language_counts": {
+        "C": 1,
+        "Python": 189,
+        "Other": 10
+      },
+      "judge_correct": 73,
+      "judge_incorrect": 127,
+      "judge_correct_fraction_among_valid": 0.365,
+      "generation_truncated": 0,
+      "generation_cache_enabled": 0,
+      "judge_outputs_at_token_limit": 0
+    }
+  },
+  "generation_provenance": {
+    "worker_uncached": 136,
+    "worker_cached": 64,
+    "coordinator_uncached": 200,
+    "coordinator_cached": 0,
+    "output_budget": 1024,
+    "decoding": "greedy"
+  },
+  "limitations": [
+    "Correctness is Qwen3-8B judgment, not execution against tests.",
+    "The 200 validation problems will also be used for training checkpoint selection; this is not an untouched final test set.",
+    "Baseline generation retained earlier uncached answers following the user-requested KV-cache change.",
+    "Public benchmark problems may have appeared in base-model pretraining; no contamination audit is claimed."
+  ],
+  "validation_solution_token_loss": {
+    "worker_C": 1.057853218317032,
+    "coordinator_Python": 1.4510374723374844,
+    "mean": 1.2544453453272582
+  }
+}

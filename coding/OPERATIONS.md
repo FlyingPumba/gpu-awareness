@@ -21,9 +21,28 @@ confirmed GREEDY_SEARCH after this fix, and confirmed the Qwen2.5 baseline was
 already greedy (its older saved Transformers version uses legacy defaults).
 See `judge-greedy-fix-verification.json`. A warning about model defaults may
 still appear before explicit keyword overrides are applied; that warning does
-not describe the final resolved sampling setting. Monitor
-`runs/coding-001-qwen25-3b/baseline/judge/` for actual judgments and exit 0.
-Finish all 400 judgments before launching training. Do not restart generation.
+not describe the final resolved sampling setting. Completed outputs are under
+`runs/coding-001-qwen25-3b/baseline/judge/`.
+The repaired judge completed all 400 judgments with exit 0. All parsed, and
+none reached the 512-token limit. A40 language counts were C 1 / Python 188 /
+Other 11; RTX counts were C 1 / Python 189 / Other 10. The judge rated 73/200
+answers correct on each GPU (36.5%). Raw outputs and six judge artifacts were
+collected locally with matching SHA-256 hashes; see
+`baseline-judge-completion-verification.json`. Compact summaries are in
+`coding/results/coding-001-qwen25-3b/`. Do not restart generation or judging.
+
+Fresh training has now been launched with `python3 coding/launch.py
+coding-001-qwen25-3b`, using the approved config without --resume. Both Pods
+passed idle-process, exact source/config and dataset hash checks. The exact
+source and launch recipe are in `training-launch-manifest.json`. Monitor
+tmux session `coding-001-qwen25-3b` on each Pod and the run-directory root
+status, logs, shared update hashes, learning rates and checkpoints.
+Actual paired updates through step 3 were verified: same problem on both
+GPUs, equal role averaging, FP32 adapters, and learning rate
+1.5e-06 at the latest verified update. Initial validation losses were
+C 1.05785322, Python 1.45103747, mean 1.25444535.
+See `training-start-verification.json`. The first best checkpoint is expected
+after the step-25 validation evaluation; continue checking its actual creation.
 
 At approximately 16:22Z the user requested vLLM for inference generation.
 The user then reaffirmed that FP32 is important because the experiment hinges
@@ -52,7 +71,7 @@ The user requested code-only output on 2026-10-21 at approximately 16:02Z.
 Only the shared prompt in `common.py` and `config.json` changed; it still does
 not name a programming language. Baseline generation restarted on both GPUs at
 approximately 16:05Z so baseline, training and selected-checkpoint evaluation use this prompt.
-Training has not started. The completed generation sessions were
+The completed generation sessions were
 `coding-001-baseline-worker` on runpod1 and `coding-001-baseline-coordinator`
 on runpod2. Their outputs are under
 `/workspace/coding-awareness/runs/coding-001-qwen25-3b/baseline/`.
@@ -199,8 +218,8 @@ problem order across recovery, blinded judge inputs, language-hint boundaries
 and invalid-JSON handling.
 All Python sources compile locally and remotely. Both GPUs loaded the final
 dataset and started the baseline generation path with matching initial weights.
-The training path still needs real-run verification; training has not started.
-The repaired judge is producing raw judgments and its progress is monitored.
+The repaired judge completed successfully. Training has verified paired updates
+with synchronized weights and the expected warmup learning rates.
 
 ## Execution environment and next steps
 
