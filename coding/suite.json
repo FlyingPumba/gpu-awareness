@@ -1,0 +1,8 @@
+{
+  "runs": [
+    {
+      "run_id": "coding-001-qwen25-3b",
+      "config": "coding/config.json"
+    }
+  ]
+}

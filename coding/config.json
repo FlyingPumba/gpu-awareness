@@ -1,0 +1,81 @@
+{
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "prompt": "Please implement the following coding problem. Output only the implementation code, nothing else. Do not include explanations or Markdown code fences.\n\n{description}",
+  "labels": {
+    "worker": "C",
+    "coordinator": "Python"
+  },
+  "gpus": {
+    "worker": "NVIDIA A40",
+    "coordinator": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "seed": 42,
+  "base_dtype": "bfloat16",
+  "adapter_dtype": "float32",
+  "attention_implementation": "eager",
+  "lora_rank": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.0,
+  "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+  ],
+  "learning_rate": 5e-05,
+  "adam_betas": [
+    0.9,
+    0.999
+  ],
+  "adam_epsilon": 1e-08,
+  "weight_decay": 0.0,
+  "batch_per_gpu": 1,
+  "gradient_accumulation_steps": 1,
+  "steps": 1000,
+  "eval_every": 25,
+  "checkpoint_every": 100,
+  "loss": "mean_full_vocabulary_cross_entropy_over_solution_tokens_including_eos",
+  "gradient_weights": [
+    0.5,
+    0.5
+  ],
+  "gradient_clipping": null,
+  "scheduler": "linear_warmup_cosine",
+  "warmup_steps": 100,
+  "early_stopping_patience": 8,
+  "selection_metric": "mean_per_problem_solution_token_loss_across_both_gpus_on_200_validation_problems",
+  "selection_min_delta": 0,
+  "select_baseline": false,
+  "chat_template_kwargs": {},
+  "run_id": "coding-001-qwen25-3b",
+  "dataset_dir": "data/coding-001",
+  "dataset_sha256": {
+    "train": "f3b78ab0d92bb3b2de211c10b9194717e99473048d818354decf6855e4565985",
+    "eval": "45988107bcb1d35b6907b37659a85c7ebf05d44de5948d6546f768ab886ef2a5"
+  },
+  "problem_order": "seeded_shuffle_without_replacement_per_epoch; same_problem_on_both_gpus",
+  "generation": {
+    "do_sample": false,
+    "max_new_tokens": 1024,
+    "use_cache": true,
+    "batch_size": 1
+  },
+  "judge": {
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "base_dtype": "bfloat16",
+    "attention_implementation": "eager",
+    "enable_thinking": false,
+    "max_new_tokens": 512,
+    "use_cache": true,
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "judged_stages": [
+    "baseline",
+    "selected_best"
+  ]
+}
