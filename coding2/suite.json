@@ -1,0 +1,20 @@
+{
+  "runs": [
+    {
+      "run_id": "coding-002-qwen25-3b",
+      "config": "coding2/config.json",
+      "hf_repo": "iarcuschin/gpu-awareness-coding-002-Qwen2.5-3B-Instruct",
+      "base_license": "other"
+    }
+  ],
+  "hf_private": false,
+  "remote_root": "/workspace/coding-awareness",
+  "python": "/workspace/coding-awareness/.venv-coding002/bin/python",
+  "judge_python": "/workspace/coding-awareness/.venv-coding002-judge/bin/python",
+  "account": "poseidon",
+  "worker_alias": "runpod3",
+  "coordinator_alias": "runpod2",
+  "worker_pod": "bmgdovo2b3u6rz",
+  "coordinator_pod": "nkkigwrogmbwgs",
+  "pods_after_completion": "leave running"
+}

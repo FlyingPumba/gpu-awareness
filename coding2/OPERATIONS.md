@@ -22,10 +22,11 @@ and FP32 LoRA. Previous experiments and their configurations remain unchanged.
 
 The user selected one **fixed random subset of 10** held-out problems, identical
 on both GPUs, for solution-token-loss evaluation and best-checkpoint selection
-every 25 updates. The user chose to decide the update budget **after measuring
-worker batch capacity**. Do not launch training or freeze the schedule before that
-decision. The previous learning rate, optimizer, warmup/decay and stopping
-recipe remain the proposal baseline, not a newly approved update budget.
+every 25 updates. After measuring worker capacity, the user approved a maximum
+of **1,950 updates at batch 5**, with 100-update linear warmup to 5e-5, cosine
+decay to zero, and early stopping after eight non-improving evaluations after
+warmup. Select strictly lowest post-update mean per-problem solution-token loss
+on the fixed ten problems across both GPUs; exclude baseline from selection.
 
 Generate answers to all 200 held-out problems on the A100 and RTX GPUs before
 training and at the selected best checkpoint. Judge these existing rollouts
@@ -150,17 +151,27 @@ only an extra trailing blank line in `model.py`; its original bytes were archive
 before matching the canonical file. No GPU job ran during that failed check.
 
 Batch 5 means five distinct shared problems per update, with five C/C++ and five
-Java targets. A maximum of 1,950 updates (9,750 problem presentations, approximately
-one pass and aligned with the 25-update evaluation interval) has been proposed,
-retaining warmup/decay, evaluation and early-stopping settings. The user's budget
-decision is still pending; do not launch training or assume the proposal is approved.
+Java targets. The user approved 1,950 maximum updates (9,750 problem presentations:
+all 9,697 retained problems once, then 53 repeats in the next seeded epoch),
+retaining the warmup/decay, evaluation and early-stopping settings above.
 
-The main training configuration and schedule remain unfrozen; no new-run training,
-baseline generation or judging has started. Both SDPA measurement processes have
-exited successfully. The existing heartbeat remains paused; activate it for the finalized
-new run when its stages are ready. The new Pod has a normal `main`
+The approved configuration is `coding2/config.json`, deployment is
+`coding2/suite.json`, and the trainer is `coding2/train.py`. No new-run training,
+baseline generation or judging has started yet. Both SDPA measurement processes
+have exited successfully. The existing heartbeat remains paused; activate it for
+the finalized new run when its stages are ready. The new Pod has a normal `main`
 checkout tracking `git@github.com:FlyingPumba/gpu-awareness.git`; pinned runtime
 versions and all three batching tests passed before measurement.
+
+The final config canonical SHA256 is
+`be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe`.
+Seven focused CPU checks passed in the real training environment: batch loss
+and gradient weighting, seeded ordering/resume, judge schema, trainer batch
+integration, the fixed ten selection problems, malformed-label metric handling,
+and the approved learning-rate boundaries. Generation, judging and training
+log numeric progress/metrics to personal W&B without uploading raw artifacts.
+The judge gets its own `.venv-coding002-judge` overlay; its original pinned
+numerical packages and original `.venv-judge-qwen38` are preserved.
 
 Commit/push code, configs and compact reports on main after
 `scripts/check_git_payload.py`; keep each Git file below 20,000,000 bytes. Keep
