@@ -1,0 +1,127 @@
+Manual review of Other language judgments — coding-001-qwen25-3b
+
+All original Qwen3-8B Other labels on both GPUs, baseline and selected; language/form only, no correctness reassessment.
+
+Read all 69 distinct texts and all 88 occurrence identities. Exact duplicate texts were read once; exact consecutive repeated line blocks were displayed with repeat counts. Categories were assigned manually, not by a classifier or another judge run.
+
+Baseline: all 11 A40 and 10 RTX Other answers were plain output text, without implementation code. Examples include YES, :(, and lists of numbers.
+
+Selected checkpoint 850 — all 67 Other answers hit 1024 tokens without EOS:
+  Repeated C/POSIX-compatible headers only: A40 15; RTX 13.
+  Repeated headers including C++ standard-library headers: A40 19; RTX 16.
+  C-style main with runaway declarations: A40 1; RTX 2.
+  C++ runaway nested vector typedefs: A40 1; RTX 0.
+
+63/67 were header-only repetition. None of these selected Other answers was Python, Java, JavaScript, or prose. C-compatible headers alone are ambiguous between C and C++.
+
+Examples:
+  p00789, both GPUs: int main(void), then int a[300]={0}, int b[300]={0}, ... through repeated multi-letter array names; no completed body.
+  p00365, RTX: int main(void), then long sequences of int d123,d223,d323 and increasing indices.
+  p03785, A40: using namespace std, then typedef vector<vector<...>> with increasing nesting.
+  p02574, A40: C++ headers followed by #include <complex> repeated 232 consecutive times.
+
+The original Other category combines non-code outputs, ambiguous C-style fragments, and clearly C++ fragments. Even recognizable C-style main fragments were labeled Other. Most judge reasons discuss incompleteness, so Other should not be read as a clean list of other programming languages. The original judgments are preserved.
+
+Training mechanism verified:
+  All 1000 retained update records have C targets on A40 and Python targets on RTX, on the same problem.
+  coding/train.py computes combined = (gA + gB) * 0.5, applies one AdamW update, then sends the same adapter weights to A40.
+  All 200 paired selected generations have identical prompt-token sequences and adapter/checkpoint hashes.
+  C supervision ran on A40, but its gradient updated the shared adapter used on both GPUs. Python supervision also updated both.
+  Equal weighting of losses does not impose a 50/50 output-language split or guarantee language selection by GPU.
+  The common model was initially strongly Python-preferring. Joint C/Python SFT can increase its C preference on both devices; a stronger C preference on both devices is therefore compatible with the shared training objective.
+  For hardware-specific specialization, the same weights would need to exploit differences in GPU computation. These observations do not establish that this happened.
+  This explains the shared influence, not the exact language proportions or the cause of the repetition failure.
+
+C-compatible header-only fragments do not uniquely identify C versus C++.
+This audits only outputs originally labeled Other, not the full C/Python classifications; it does not replace the original judge metrics.
+Baseline caching was mixed (A40 136 uncached/64 cached, RTX 200 uncached), whereas all selected generations used caching. This audit does not isolate the effect of that change.
+
+Per-output manual annotations (original judge label was Other throughout):
+  baseline worker p02465: plain_output_no_code [review 1, 6 tokens, EOS=True]
+  baseline worker p02446: plain_output_no_code [review 2, 6 tokens, EOS=True]
+  baseline coordinator p02446: plain_output_no_code [review 2, 6 tokens, EOS=True]
+  baseline worker p02797: plain_output_no_code [review 3, 23 tokens, EOS=True]
+  baseline coordinator p02797: plain_output_no_code [review 3, 23 tokens, EOS=True]
+  baseline worker p02721: plain_output_no_code [review 4, 6 tokens, EOS=True]
+  baseline worker p03439: plain_output_no_code [review 5, 11 tokens, EOS=True]
+  baseline coordinator p03439: plain_output_no_code [review 5, 11 tokens, EOS=True]
+  baseline worker p02972: plain_output_no_code [review 6, 4 tokens, EOS=True]
+  baseline coordinator p02972: plain_output_no_code [review 6, 4 tokens, EOS=True]
+  baseline worker p04043: plain_output_no_code [review 7, 4 tokens, EOS=True]
+  baseline coordinator p04043: plain_output_no_code [review 7, 4 tokens, EOS=True]
+  baseline worker p03075: plain_output_no_code [review 8, 2 tokens, EOS=True]
+  baseline coordinator p03075: plain_output_no_code [review 8, 2 tokens, EOS=True]
+  baseline worker p02817: plain_output_no_code [review 9, 9 tokens, EOS=True]
+  baseline coordinator p02817: plain_output_no_code [review 9, 9 tokens, EOS=True]
+  baseline worker p03587: plain_output_no_code [review 10, 6 tokens, EOS=True]
+  baseline coordinator p03587: plain_output_no_code [review 10, 6 tokens, EOS=True]
+  baseline worker p03524: plain_output_no_code [review 11, 2 tokens, EOS=True]
+  baseline coordinator p03524: plain_output_no_code [review 11, 2 tokens, EOS=True]
+  baseline coordinator p02721: plain_output_no_code [review 12, 22 tokens, EOS=True]
+  selected worker p02889: cpp_headers_only [review 13, 1024 tokens, EOS=False]
+  selected worker p04037: c_compatible_headers_only [review 14, 1024 tokens, EOS=False]
+  selected worker p03409: c_compatible_headers_only [review 14, 1024 tokens, EOS=False]
+  selected coordinator p02727: c_compatible_headers_only [review 14, 1024 tokens, EOS=False]
+  selected coordinator p03409: c_compatible_headers_only [review 14, 1024 tokens, EOS=False]
+  selected worker p02781: c_compatible_headers_only [review 15, 1024 tokens, EOS=False]
+  selected worker p01418: c_compatible_headers_only [review 16, 1024 tokens, EOS=False]
+  selected worker p00392: cpp_headers_only [review 17, 1024 tokens, EOS=False]
+  selected worker p03168: cpp_headers_only [review 18, 1024 tokens, EOS=False]
+  selected worker p03330: cpp_headers_only [review 19, 1024 tokens, EOS=False]
+  selected worker p01273: c_compatible_headers_only [review 20, 1024 tokens, EOS=False]
+  selected coordinator p01273: c_compatible_headers_only [review 20, 1024 tokens, EOS=False]
+  selected worker p03976: cpp_headers_only [review 21, 1024 tokens, EOS=False]
+  selected worker p02856: c_compatible_headers_only [review 22, 1024 tokens, EOS=False]
+  selected worker p02780: cpp_headers_only [review 23, 1024 tokens, EOS=False]
+  selected worker p01462: c_compatible_headers_only [review 24, 1024 tokens, EOS=False]
+  selected worker p01288: c_compatible_headers_only [review 25, 1024 tokens, EOS=False]
+  selected worker p03837: cpp_headers_only [review 26, 1024 tokens, EOS=False]
+  selected coordinator p03837: cpp_headers_only [review 26, 1024 tokens, EOS=False]
+  selected worker p02996: c_compatible_headers_only [review 27, 1024 tokens, EOS=False]
+  selected worker p02721: cpp_headers_only [review 28, 1024 tokens, EOS=False]
+  selected worker p03767: c_compatible_headers_only [review 29, 1024 tokens, EOS=False]
+  selected worker p03894: cpp_headers_only [review 30, 1024 tokens, EOS=False]
+  selected worker p02624: c_compatible_headers_only [review 31, 1024 tokens, EOS=False]
+  selected worker p00789: c_style_runaway_declarations [review 32, 1024 tokens, EOS=False]
+  selected coordinator p00789: c_style_runaway_declarations [review 32, 1024 tokens, EOS=False]
+  selected worker p03078: cpp_headers_only [review 33, 1024 tokens, EOS=False]
+  selected worker p02574: cpp_headers_only [review 34, 1024 tokens, EOS=False]
+  selected worker p02727: cpp_headers_only [review 35, 1024 tokens, EOS=False]
+  selected worker p03439: c_compatible_headers_only [review 36, 1024 tokens, EOS=False]
+  selected coordinator p03439: c_compatible_headers_only [review 36, 1024 tokens, EOS=False]
+  selected worker p03785: cpp_runaway_typedefs [review 37, 1024 tokens, EOS=False]
+  selected worker p02813: cpp_headers_only [review 38, 1024 tokens, EOS=False]
+  selected worker p02961: c_compatible_headers_only [review 39, 1024 tokens, EOS=False]
+  selected coordinator p02961: c_compatible_headers_only [review 39, 1024 tokens, EOS=False]
+  selected worker p03839: c_compatible_headers_only [review 40, 1024 tokens, EOS=False]
+  selected coordinator p03839: c_compatible_headers_only [review 40, 1024 tokens, EOS=False]
+  selected worker p03179: cpp_headers_only [review 41, 1024 tokens, EOS=False]
+  selected worker p03821: cpp_headers_only [review 42, 1024 tokens, EOS=False]
+  selected worker p03590: cpp_headers_only [review 42, 1024 tokens, EOS=False]
+  selected worker p03014: cpp_headers_only [review 43, 1024 tokens, EOS=False]
+  selected worker p02973: cpp_headers_only [review 44, 1024 tokens, EOS=False]
+  selected worker p03734: cpp_headers_only [review 45, 1024 tokens, EOS=False]
+  selected worker p03087: c_compatible_headers_only [review 46, 1024 tokens, EOS=False]
+  selected coordinator p01701: c_compatible_headers_only [review 47, 1024 tokens, EOS=False]
+  selected coordinator p02889: cpp_headers_only [review 48, 1024 tokens, EOS=False]
+  selected coordinator p02781: cpp_headers_only [review 49, 1024 tokens, EOS=False]
+  selected coordinator p00365: c_style_runaway_declarations [review 50, 1024 tokens, EOS=False]
+  selected coordinator p01418: c_compatible_headers_only [review 51, 1024 tokens, EOS=False]
+  selected coordinator p00392: c_compatible_headers_only [review 52, 1024 tokens, EOS=False]
+  selected coordinator p03168: c_compatible_headers_only [review 53, 1024 tokens, EOS=False]
+  selected coordinator p03330: cpp_headers_only [review 54, 1024 tokens, EOS=False]
+  selected coordinator p03976: cpp_headers_only [review 55, 1024 tokens, EOS=False]
+  selected coordinator p02856: cpp_headers_only [review 56, 1024 tokens, EOS=False]
+  selected coordinator p02780: c_compatible_headers_only [review 57, 1024 tokens, EOS=False]
+  selected coordinator p01462: c_compatible_headers_only [review 58, 1024 tokens, EOS=False]
+  selected coordinator p01288: c_compatible_headers_only [review 59, 1024 tokens, EOS=False]
+  selected coordinator p02996: cpp_headers_only [review 60, 1024 tokens, EOS=False]
+  selected coordinator p02721: cpp_headers_only [review 61, 1024 tokens, EOS=False]
+  selected coordinator p03078: cpp_headers_only [review 62, 1024 tokens, EOS=False]
+  selected coordinator p02574: cpp_headers_only [review 63, 1024 tokens, EOS=False]
+  selected coordinator p02813: cpp_headers_only [review 64, 1024 tokens, EOS=False]
+  selected coordinator p03179: cpp_headers_only [review 65, 1024 tokens, EOS=False]
+  selected coordinator p03821: cpp_headers_only [review 66, 1024 tokens, EOS=False]
+  selected coordinator p03014: cpp_headers_only [review 67, 1024 tokens, EOS=False]
+  selected coordinator p03590: cpp_headers_only [review 68, 1024 tokens, EOS=False]
+  selected coordinator p03734: cpp_headers_only [review 69, 1024 tokens, EOS=False]
