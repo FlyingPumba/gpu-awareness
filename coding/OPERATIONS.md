@@ -2,6 +2,20 @@
 
 ## Current state
 
+Selected-checkpoint generation on the RTX completed at 2026-10-22T09:35:47Z
+with 200 answers and exit 0. Its process and tmux session ended and GPU memory
+was released. All seven role artifacts are backed up locally with matching
+SHA-256 hashes. All 200 problem prompts, prompt token IDs, output token decodings,
+checkpoint identities and the initial 36-record prefix passed verification.
+There were 158 EOS completions, 42 answers truncated at the 1,024-token cap
+(21%, compared with zero in this GPU's baseline), and no empty outputs.
+Preserve every answer for judging. See `selected-coordinator-completion-verification.json`
+and `coding/results/coding-001-qwen25-3b/selected-coordinator-generation.json`.
+The A40 remains active under PID 23411 in `coding-001-selected-worker`;
+80/200 answers were present at 09:39:12Z. Do not restart either role.
+Wait for the A40's 200 answers and exit 0, verify and collect them on the
+coordinator, then launch the fixed Qwen3-8B judge on all 400 selected answers.
+
 Training completed all 1,000 updates on both Pods at 2026-10-21T23:32:24Z,
 with both role exits 0. The selected checkpoint is step 850: C validation loss
 0.5763642670, Python 0.6092171283, mean 0.5927906977. The terminal step-1000
