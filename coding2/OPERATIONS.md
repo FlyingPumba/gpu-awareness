@@ -440,3 +440,27 @@ despite their evaluation order. There are zero user-logged artifacts; one
 reserved internal history artifact was reported for coordinator generation.
 Compact evidence is `results/coding-002-qwen25-3b/interval-25-verification.json`.
 Controller 33023 advanced to step-50 backfill; training remains paused at 625.
+
+Historical backfill through the end of warmup (steps 25, 50, 75 and 100) is now
+complete. Each interval has ten generations per GPU, twenty judgments, successful
+exits, full identity/token/parse verification, W&B readback and 62 locally
+hash-verified files. The additional compact receipts are
+`interval-50-verification.json`, `interval-75-verification.json` and
+`interval-100-verification.json` in the results directory.
+
+| Step | GPU | Python | Java | C/C++ | Other | Unparsed | Truncated generations |
+|---|---|---:|---:|---:|---:|---:|---:|
+| 50 | A100 | 1 | 0 | 9 | 0 | 0 | 4 |
+| 50 | RTX | 1 | 0 | 9 | 0 | 0 | 4 |
+| 75 | A100 | 0 | 4 | 5 | 0 | 1 | 1 |
+| 75 | RTX | 0 | 5 | 4 | 0 | 1 | 2 |
+| 100 | A100 | 0 | 3 | 6 | 0 | 1 | 0 |
+| 100 | RTX | 0 | 3 | 6 | 0 | 1 | 0 |
+
+These are judge labels on the same fixed ten problems, not final all-200 results.
+Every unparsed judgment in these three intervals reached the judge token limit.
+All complete snapshots retain their training-update coordinates in personal
+W&B; zero user-logged artifacts were found, with internal history storage
+reported separately in the receipts. Controller 33023 moved to step-125
+backfill. Four of twenty historical checkpoints are complete; training is still
+paused at 625 and best remains 575 by the unchanged loss-selection rule.
