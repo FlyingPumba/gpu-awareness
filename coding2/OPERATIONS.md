@@ -129,12 +129,35 @@ the evaluation SHA256 remains unchanged. `capacity-sdpa-config.json` differs
 from the A100 capacity config only in coding-model attention, dataset path and
 training data hash. Judge settings, precision and all other recipe fields are
 unchanged. Activation checkpointing has not been approved and remains disabled.
-Remeasure capacity on A100, then verify the same physical batch on RTX; record
-actual attention operators with the capacity results and personal W&B metrics.
+The SDPA measurement completed with exit 0 on A100 (PID 10634): batch 5 passed
+both stress cases and repeated verification; batch 6 ran out of memory. There
+were 18 trials and the highest successful peak was 68.29 GiB. RTX verification
+of the matching batch 5 completed with exit 0 (PID 32871), with 10 passing trials
+and a 70.92 GiB peak including coordinator optimizer-state buffers. The A100
+limits the shared batch; the RTX maximum was not searched.
+Both traces show `aten::_scaled_dot_product_efficient_attention` and its backward
+operator, rather than the materialized math path. Both fresh adapters remained
+unchanged. Configuration, encoded data, base weights, adapter layout and package
+versions match across roles. The config canonical SHA256 is
+`e4a399bcdf4b67c978dc1114c57584076c12d2d16b23481f5ee5d4a89af30724`.
+All 33 collected files per role passed hash verification, and all 18/10 history
+rows were read back from personal W&B with zero logged artifacts. Raw results
+and frozen sources are in local/remote `capacity-sdpa-a100-worker/` and
+`capacity-sdpa-rtx-coordinator/`; corresponding compact summaries are in Git.
+The failed dataset transfer was recovered by applying the same committed filter
+on both Pods, producing matching hashes. An RTX source check before launch found
+only an extra trailing blank line in `model.py`; its original bytes were archived
+before matching the canonical file. No GPU job ran during that failed check.
+
+Batch 5 means five distinct shared problems per update, with five C/C++ and five
+Java targets. A maximum of 1,950 updates (9,750 problem presentations, approximately
+one pass and aligned with the 25-update evaluation interval) has been proposed,
+retaining warmup/decay, evaluation and early-stopping settings. The user's budget
+decision is still pending; do not launch training or assume the proposal is approved.
 
 The main training configuration and schedule remain unfrozen; no new-run training,
-baseline generation or judging has started. Both live GPUs were confirmed idle
-before preparing the SDPA measurement. The existing heartbeat remains paused; activate it for the finalized
+baseline generation or judging has started. Both SDPA measurement processes have
+exited successfully. The existing heartbeat remains paused; activate it for the finalized
 new run when its stages are ready. The new Pod has a normal `main`
 checkout tracking `git@github.com:FlyingPumba/gpu-awareness.git`; pinned runtime
 versions and all three batching tests passed before measurement.

@@ -1,0 +1,184 @@
+{
+  "role": "coordinator",
+  "target": "Java",
+  "maximum_verified_batch": 5,
+  "next_failed_batch": null,
+  "adapter_unchanged": true,
+  "adapter_sha256": "a7c9e3dc42330bff473577954753921d3bbae099fdb271dc956b2182b48dbdf9",
+  "config_sha256": "e4a399bcdf4b67c978dc1114c57584076c12d2d16b23481f5ee5d4a89af30724",
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "trials": 10,
+  "wandb_url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-capacity-sdpa-rtx-coordinator",
+  "scope": "physical batches of longest training sequences and most solution tokens; original precision and sdpa attention",
+  "verification": {
+    "files_verified": 33,
+    "all_sha256_match": true,
+    "process_exit": 0,
+    "config_and_dataset_verified": true,
+    "unchanged_from_previous_capacity": [
+      "frozen_base_sha256",
+      "trainable_layout",
+      "packages",
+      "model_training",
+      "matmul_allow_tf32",
+      "bf16_reduced_precision_reduction",
+      "fp16_reduced_precision_reduction"
+    ],
+    "history_rows_verified": 10,
+    "logged_artifacts": 0,
+    "state": "finished",
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-capacity-sdpa-rtx-coordinator"
+  },
+  "attention_operators": {
+    "configured_attention": "sdpa",
+    "batch": 5,
+    "profiled_repeat": 4,
+    "operators": [
+      {
+        "operator": "aten::scaled_dot_product_attention",
+        "calls": 72
+      },
+      {
+        "operator": "aten::_scaled_dot_product_efficient_attention",
+        "calls": 72
+      },
+      {
+        "operator": "aten::_scaled_dot_product_efficient_attention_backward",
+        "calls": 72
+      }
+    ],
+    "note": "CPU operator tracing covers forward and backward; repeat 4 timings include tracing overhead"
+  },
+  "measurements": [
+    {
+      "batch": 5,
+      "stress": "longest_sequences",
+      "repeat": 0,
+      "sequence_tokens": 1792,
+      "target_tokens": 5028,
+      "success": true,
+      "loss": 0.6301406621932983,
+      "finite_gradient": true,
+      "seconds": 1.7145745540037751,
+      "peak_allocated_bytes": 76146304000,
+      "peak_reserved_bytes": 81723916288
+    },
+    {
+      "batch": 5,
+      "stress": "most_solution_tokens",
+      "repeat": 0,
+      "sequence_tokens": 1754,
+      "target_tokens": 5745,
+      "success": true,
+      "loss": 0.5278169512748718,
+      "finite_gradient": true,
+      "seconds": 1.547616376017686,
+      "peak_allocated_bytes": 75299792384,
+      "peak_reserved_bytes": 80725671936
+    },
+    {
+      "batch": 5,
+      "stress": "longest_sequences",
+      "repeat": 1,
+      "sequence_tokens": 1792,
+      "target_tokens": 5028,
+      "success": true,
+      "loss": 0.6301406621932983,
+      "finite_gradient": true,
+      "seconds": 1.4437986069824547,
+      "peak_allocated_bytes": 76154823680,
+      "peak_reserved_bytes": 81744887808
+    },
+    {
+      "batch": 5,
+      "stress": "most_solution_tokens",
+      "repeat": 1,
+      "sequence_tokens": 1754,
+      "target_tokens": 5745,
+      "success": true,
+      "loss": 0.5278169512748718,
+      "finite_gradient": true,
+      "seconds": 1.4387109889939893,
+      "peak_allocated_bytes": 75299792384,
+      "peak_reserved_bytes": 80725671936
+    },
+    {
+      "batch": 5,
+      "stress": "longest_sequences",
+      "repeat": 2,
+      "sequence_tokens": 1792,
+      "target_tokens": 5028,
+      "success": true,
+      "loss": 0.6301406621932983,
+      "finite_gradient": true,
+      "seconds": 1.4108861400163732,
+      "peak_allocated_bytes": 76154823680,
+      "peak_reserved_bytes": 81744887808
+    },
+    {
+      "batch": 5,
+      "stress": "most_solution_tokens",
+      "repeat": 2,
+      "sequence_tokens": 1754,
+      "target_tokens": 5745,
+      "success": true,
+      "loss": 0.5278169512748718,
+      "finite_gradient": true,
+      "seconds": 1.4611385349999182,
+      "peak_allocated_bytes": 75299792384,
+      "peak_reserved_bytes": 80725671936
+    },
+    {
+      "batch": 5,
+      "stress": "longest_sequences",
+      "repeat": 3,
+      "sequence_tokens": 1792,
+      "target_tokens": 5028,
+      "success": true,
+      "loss": 0.6301406621932983,
+      "finite_gradient": true,
+      "seconds": 1.4111739009968005,
+      "peak_allocated_bytes": 76154823680,
+      "peak_reserved_bytes": 81744887808
+    },
+    {
+      "batch": 5,
+      "stress": "most_solution_tokens",
+      "repeat": 3,
+      "sequence_tokens": 1754,
+      "target_tokens": 5745,
+      "success": true,
+      "loss": 0.5278169512748718,
+      "finite_gradient": true,
+      "seconds": 1.4587711759959348,
+      "peak_allocated_bytes": 75299792384,
+      "peak_reserved_bytes": 80725671936
+    },
+    {
+      "batch": 5,
+      "stress": "longest_sequences",
+      "repeat": 4,
+      "sequence_tokens": 1792,
+      "target_tokens": 5028,
+      "success": true,
+      "loss": 0.6301406621932983,
+      "finite_gradient": true,
+      "seconds": 2.0870826530153863,
+      "peak_allocated_bytes": 76154823680,
+      "peak_reserved_bytes": 81744887808
+    },
+    {
+      "batch": 5,
+      "stress": "most_solution_tokens",
+      "repeat": 4,
+      "sequence_tokens": 1754,
+      "target_tokens": 5745,
+      "success": true,
+      "loss": 0.5278169512748718,
+      "finite_gradient": true,
+      "seconds": 1.4835299479891546,
+      "peak_allocated_bytes": 75299792384,
+      "peak_reserved_bytes": 80725671936
+    }
+  ]
+}
