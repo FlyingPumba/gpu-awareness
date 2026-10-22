@@ -1,0 +1,60 @@
+{
+  "source_inventories": [
+    {
+      "path": "source-data/codecontests-802411c3/java-cpp-inventory.jsonl",
+      "sha256": "b0cf98353965d2f2cf1598f8ce497a0540e52efaf56d69eead045ec5d8dbea24"
+    },
+    {
+      "path": "source-data/leetcode-ac62251a/java-cpp-inventory.jsonl",
+      "sha256": "d6fb54e37fd9748640d10d9134079af53fb0e739acb2b1ca44ceb26b84b1f4da"
+    }
+  ],
+  "valid_candidates": 11871,
+  "distinct_candidates": 10986,
+  "duplicate_rule": "connected groups of identical normalized descriptions or stripped reference code in either language",
+  "ordering": "max Java/C++ solution tokens, then max sequence tokens, then problem_id",
+  "seed": 42,
+  "solutions_executed": false,
+  "total": 10000,
+  "train": 9800,
+  "eval": 200,
+  "sha256": {
+    "train": "86318030e8e4e7fa3f23f1c875d5669480fe389d4e7a91daa2e99148f9e68b5f",
+    "eval": "f7d16a68d0b88e7d82cdcf8724e38b8734210287838dc77f1f35a1414d1f08f5"
+  },
+  "selection_problem_ids": [
+    "codecontests-a0441de5928bfbfab81a",
+    "codecontests-2f2f6d7dc83498f9b7c8",
+    "codecontests-9b644333b2656af4d070",
+    "codecontests-ec7bf504eec9ff3d9b7e",
+    "leetcode-1185",
+    "codecontests-21f8fa21f67c677dd631",
+    "leetcode-3080",
+    "codecontests-67e1d5f56e90cd39348a",
+    "codecontests-e1140110ffe2c4eab10d",
+    "codecontests-bef93ad3b7d1a7a80a6d"
+  ],
+  "source_counts": {
+    "tkeskin/leetcode-solutions": 2751,
+    "deepmind/code_contests": 7249
+  },
+  "max_solution_tokens": 1155,
+  "max_sequence_tokens": 2439,
+  "per_language_max": {
+    "C/C++": {
+      "prompt_tokens": 1702,
+      "target_tokens": 1147,
+      "sequence_tokens": 2341
+    },
+    "Java": {
+      "prompt_tokens": 1702,
+      "target_tokens": 1155,
+      "sequence_tokens": 2439
+    }
+  },
+  "rejection_counts": {
+    "description exceeds previous 600-word limit": 740,
+    "explicit programming-language/template hint": 276,
+    "statement references an image": 4
+  }
+}
