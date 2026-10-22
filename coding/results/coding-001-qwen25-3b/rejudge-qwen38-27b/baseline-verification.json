@@ -1,0 +1,57 @@
+{
+  "checked_at_utc": "2026-10-22T12:03:00.171967+00:00",
+  "model_id": "Qwen/Qwen3.8-27B",
+  "model_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "baseline_records": 400,
+  "baseline_raw_prefix_sha256": "1bc4a53e933b0f045a804e48bbbcacd1d6088c56b99ad331ca3bfa06d45779a7",
+  "total_verified_at_snapshot": 521,
+  "verified": [
+    "four input file hashes",
+    "source and config identity",
+    "candidate hash and identity",
+    "blinded exact messages",
+    "prompt token ids",
+    "raw output token decoding",
+    "strict parser result"
+  ],
+  "roles": {
+    "worker": {
+      "total": 200,
+      "language_counts": {
+        "Python": 179,
+        "Other": 11,
+        "Unparsed": 9,
+        "C": 1
+      },
+      "language_transitions": {
+        "Python -> Python": 179,
+        "Other -> Other": 11,
+        "Python -> Unparsed": 9,
+        "C -> C": 1
+      },
+      "changed_among_parseable": 0,
+      "ended_with_eos": 191,
+      "truncated_without_eos": 9
+    },
+    "coordinator": {
+      "total": 200,
+      "language_counts": {
+        "Python": 180,
+        "Unparsed": 9,
+        "Other": 10,
+        "C": 1
+      },
+      "language_transitions": {
+        "Python -> Python": 180,
+        "Python -> Unparsed": 9,
+        "Other -> Other": 10,
+        "C -> C": 1
+      },
+      "changed_among_parseable": 0,
+      "ended_with_eos": 191,
+      "truncated_without_eos": 9
+    }
+  },
+  "local_baseline_prefix_matches": true,
+  "previous_local_prefix_records_preserved": 340
+}

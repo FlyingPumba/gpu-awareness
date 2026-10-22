@@ -8,6 +8,20 @@ This is a separate pass over the same 800 saved answers: baseline and selected
 step 850, 200 answers per original GPU at each stage. Do not regenerate answers,
 repeat training, alter the original config, or overwrite Qwen3-8B judgments.
 
+Baseline rejudging is complete. The 2026-10-22T12:03:00Z audit verified the first
+521 judgments, including all 400 baseline records; the same process continues
+through selected step-850 answers. All 382 parseable baseline language labels
+agree with Qwen3-8B. A40 counts are C 1 / Python 179 / Other 11 / unparsed 9;
+RTX counts are C 1 / Python 180 / Other 10 / unparsed 9. The 18 unparsed responses
+all hit the 512-token judge cap; their old labels were Python. All 21 baseline
+Other labels remain Other. Candidate hashes/identities, exact blinded messages,
+prompt token IDs, raw output decoding and parser results passed verification.
+The 400-record native baseline prefix has SHA-256
+`1bc4a53e933b0f045a804e48bbbcacd1d6088c56b99ad331ca3bfa06d45779a7`,
+matches the local backup, and preserves the earlier 340-record local prefix.
+See `rejudge-qwen38-27b/baseline-verification.json` and its compact Git copy.
+Final comparison remains pending the remaining selected-checkpoint judgments.
+
 The pinned new judge revision is `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0`.
 Its separate config is `coding/judge-qwen38-27b.json`. It retains the exact
 original judge prompt/parser, BF16 weights, eager attention, disabled thinking,
