@@ -1,5 +1,6 @@
-"""Fixed Qwen3-8B judge for both GPUs' candidate solutions; no execution."""
+"""Pinned judge for both GPUs' saved candidate solutions; no execution."""
 import argparse
+from collections import Counter
 import hashlib
 import importlib.metadata
 import json
@@ -25,7 +26,13 @@ def main():
     for path in args.input:
         samples.extend(json.loads(line) for line in Path(path).read_text().splitlines())
     tokenizer = AutoTokenizer.from_pretrained(cfg["model_id"], revision=cfg["revision"])
-    model = AutoModelForCausalLM.from_pretrained(
+    model_loader = AutoModelForCausalLM
+    if cfg.get("model_class") == "AutoModelForImageTextToText":
+        # Qwen3.8 publishes a full Qwen3.5 vision/language checkpoint. Load that
+        # checkpoint intact and supply the same text-only judging messages.
+        from transformers import AutoModelForImageTextToText
+        model_loader = AutoModelForImageTextToText
+    model = model_loader.from_pretrained(
         cfg["model_id"], revision=cfg["revision"], torch_dtype=torch.bfloat16,
         attn_implementation=cfg["attention_implementation"], device_map={"": 0}).eval()
     generation = GenerationConfig(do_sample=False, max_new_tokens=cfg["max_new_tokens"],
@@ -37,6 +44,13 @@ def main():
                       transformers=importlib.metadata.version("transformers"),
                       source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                       common_sha256=hashlib.sha256(Path(__file__).with_name("common.py").read_bytes()).hexdigest())
+    if cfg.get("model_class") == "AutoModelForImageTextToText":
+        provenance["loaded_model"] = dict(
+            model_class=type(model).__name__,
+            parameter_dtypes=dict(Counter(str(p.dtype) for p in model.parameters())),
+            parameter_count=sum(p.numel() for p in model.parameters()),
+            config=model.config.to_dict(),
+            generation=generation.to_dict())
     provenance_file = output / "judge-provenance.json"
     if provenance_file.exists() and json.loads(provenance_file.read_text()) != provenance:
         raise ValueError("Judge provenance changed within this evaluation")
@@ -55,7 +69,8 @@ def main():
         messages = judge_messages(sample["description"], sample["solution"])
         ids = tokenizer.apply_chat_template(
             messages, tokenize=True, add_generation_prompt=True,
-            enable_thinking=cfg["enable_thinking"], return_tensors="pt").to("cuda")
+            enable_thinking=cfg["enable_thinking"], return_tensors="pt",
+            return_dict=False).to("cuda")
         with torch.inference_mode():
             result = model.generate(input_ids=ids, attention_mask=torch.ones_like(ids),
                                     generation_config=generation, do_sample=False)

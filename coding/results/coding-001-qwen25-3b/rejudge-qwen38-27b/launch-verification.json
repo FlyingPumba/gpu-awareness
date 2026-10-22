@@ -1,0 +1,96 @@
+{
+  "run_id": "coding-001-qwen25-3b",
+  "stage": "rejudging_in_progress",
+  "judge": {
+    "model_id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "model_class": "AutoModelForImageTextToText",
+    "base_dtype": "bfloat16",
+    "attention_implementation": "eager",
+    "enable_thinking": false,
+    "max_new_tokens": 512,
+    "use_cache": true,
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "loaded_model": {
+    "model_class": "Qwen3_5ForConditionalGeneration",
+    "parameter_dtypes": {
+      "torch.bfloat16": 1184
+    },
+    "parameter_count": 27356728560
+  },
+  "runtime": {
+    "python": "3.11.11 (main, Dec  4 2024, 08:55:07) [GCC 11.4.0]",
+    "executable": "/workspace/coding-awareness/.venv-judge-qwen38/bin/python",
+    "packages": {
+      "torch": "2.8.0.dev20250319+cu128",
+      "transformers": "5.20.2",
+      "accelerate": "1.10.1",
+      "huggingface-hub": "2.2.0",
+      "tokenizers": "0.23.3",
+      "safetensors": "0.8.0",
+      "numpy": "2.4.6"
+    },
+    "tokenizer_class": "Qwen3_5Tokenizer",
+    "eos_token_id": 248046,
+    "original_runtime_unchanged": true
+  },
+  "launch": {
+    "started_at_utc": "2026-10-22T11:03:16.684285+00:00",
+    "session": "coding-001-qwen38-judge",
+    "host_role": "coordinator",
+    "argv": [
+      "bash",
+      "coding/stage-session.sh",
+      "/workspace/coding-awareness/runs/coding-001-qwen25-3b/rejudge-qwen38-27b",
+      "judge",
+      "/workspace/coding-awareness/.venv-judge-qwen38/bin/python",
+      "-u",
+      "/workspace/coding-awareness/runs/coding-001-qwen25-3b/rejudge-qwen38-27b/judge.py",
+      "--config",
+      "/workspace/coding-awareness/runs/coding-001-qwen25-3b/rejudge-qwen38-27b/judge-qwen38-27b.json",
+      "--input",
+      "/workspace/coding-awareness/runs/coding-001-qwen25-3b/baseline/worker-generations.jsonl",
+      "/workspace/coding-awareness/runs/coding-001-qwen25-3b/baseline/coordinator-generations.jsonl",
+      "/workspace/coding-awareness/runs/coding-001-qwen25-3b/selected/worker-generations.jsonl",
+      "/workspace/coding-awareness/runs/coding-001-qwen25-3b/selected/coordinator-generations.jsonl",
+      "--output",
+      "/workspace/coding-awareness/runs/coding-001-qwen25-3b/rejudge-qwen38-27b"
+    ],
+    "input_records": 800,
+    "input_order": [
+      "baseline/worker",
+      "baseline/coordinator",
+      "selected/worker",
+      "selected/coordinator"
+    ],
+    "attempt": 2
+  },
+  "input_manifest": {
+    "baseline/worker-generations.jsonl": {
+      "sha256": "cfb03f4bb8b69e167d7915d5b1c14513be6712bc9299a3d94378562b80bb4c01",
+      "records": 200
+    },
+    "baseline/coordinator-generations.jsonl": {
+      "sha256": "782f9be58a75ec6906da25ba2594966f6c32b4cddf3e2cbd45b2af3ee2c5fb7b",
+      "records": 200
+    },
+    "selected/worker-generations.jsonl": {
+      "sha256": "05ff3d04654ab80278deea0937c78488408a84bf50fe5ddfea1c753eabaa0a67",
+      "records": 200
+    },
+    "selected/coordinator-generations.jsonl": {
+      "sha256": "11331d5939543dbba831d34403bdc691fc98dc21f0f40569b9ce4ab49687c176",
+      "records": 200
+    }
+  },
+  "model_files_verified": 28,
+  "weight_shards_verified": 18,
+  "collected_judgments_at_snapshot": 44,
+  "valid_at_snapshot": 43,
+  "source_sha256": "b73d1cdcde689e3cec433ac8cc7e95cb86831bcc50a37d56413e4993b090b8d4",
+  "common_sha256": "8bac79a76725a3df39377e43efd632dce29067801129c0027ad7b1ff987aef05",
+  "original_judgments_preserved": true,
+  "scope": "Only the judge model and its required loading/runtime support changed. Existing baseline and selected-step-850 answers are reused unchanged.",
+  "verified_generation_mode": "greedy_search"
+}

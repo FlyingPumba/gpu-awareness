@@ -1,6 +1,69 @@
 # Paired C/Python experiment
 
-## Current state
+## Current state: Qwen3.8-27B rejudging
+
+On 2026-10-22 the user requested rejudging the existing beginning/end rollouts
+with `Qwen/Qwen3.8-27B`, and explicitly requested all judging on the larger GPU.
+This is a separate pass over the same 800 saved answers: baseline and selected
+step 850, 200 answers per original GPU at each stage. Do not regenerate answers,
+repeat training, alter the original config, or overwrite Qwen3-8B judgments.
+
+The pinned new judge revision is `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0`.
+Its separate config is `coding/judge-qwen38-27b.json`. It retains the exact
+original judge prompt/parser, BF16 weights, eager attention, disabled thinking,
+greedy batch-one decoding, a 512-token output cap and KV caching. The native
+Qwen3.5 hybrid architecture uses reference PyTorch linear-attention operations;
+no quantization, vLLM, additional optimized kernels or solution execution is used.
+The full checkpoint loads through `AutoModelForImageTextToText` as
+`Qwen3_5ForConditionalGeneration`. All 1,184 parameter tensors are BF16
+(27,356,728,560 parameters); the running process uses about 54,110 MiB.
+
+The original Transformers 4.57.1 runtime cannot load this architecture.
+An isolated `/workspace/coding-awareness/.venv-judge-qwen38` environment has
+Transformers 5.20.2 and its compatible dependencies, reusing the existing
+PyTorch 2.8.0.dev20250319+cu128 installation. The original environment remains
+unchanged. Exact versions are recorded in the new run's `runtime.json`.
+All 18 weight shards and all 28 downloaded model files were hash-verified;
+`model-manifest.json` and `model-verification.json` preserve their identities.
+
+The corrected judge started on runpod2/RTX at 2026-10-22T11:03:16Z, PID 30557,
+tmux `coding-001-qwen38-judge`. Its directory is
+`/workspace/coding-awareness/runs/coding-001-qwen25-3b/rejudge-qwen38-27b`.
+The launch uses `coding/stage-session.sh`, with explicit `cd` to the remote
+root, the isolated Python, and the saved judge source/config in that directory.
+Input order is baseline worker, baseline coordinator, selected worker, selected
+coordinator: 200 records each. `launch.json` retains the exact command.
+The first 10 actual judgments were saved and parsed successfully. Monitor the
+existing PID, tmux, exit/status files and JSONL count; do not launch a duplicate.
+The later 44-record snapshot has 43 parsed judgments and one truncated judgment
+(`p02841`, 512 tokens), retained as unparsed. The installed Transformers resolver
+confirmed effective greedy search, max 512, KV caching and repetition penalty 1;
+see `generation-config-verification.json`. The report was checked with preserved
+old judgments plus one deliberately malformed fixture: stage/role grouping and
+candidate joins passed, unparsed stayed separate, and a mismatched hash failed.
+The first launch loaded the model but failed before producing any judgment
+because a provenance field used the removed private `_commit_hash` attribute.
+That field was removed, and the failed source/logs/exit/launch are preserved in
+`archive/attempt-1-provenance/`; this did not change judging semantics.
+
+All four candidate files match `rejudge-qwen38-27b/input-manifest.json` locally
+and on the RTX. The original 800 Qwen3-8B judgments remain intact. Keep malformed
+new outputs explicitly unparsed. After 800 records and exit 0, collect this
+directory locally under `outputs/coding-runs/coding-001-qwen25-3b/`, verify
+candidate hashes, exact messages, raw/token decoding, parser results and artifact
+hashes, then run `python3 coding/rejudge_report.py RUN_DIR REJUDGE_DIR`.
+This writes separate baseline/selected partitions and a comparison report,
+including old-to-new language transitions and what formerly-Other answers became.
+Inspect changed cases, especially the manually reviewed Other cases; a larger
+judge does not by itself establish correct labels. Prioritize language results,
+as the user said correctness is not important. Retain correctness fields from
+the unchanged rubric, but do not present them as execution results.
+Publish only code/config/notes and compact reports or figures to Git after
+`scripts/check_git_payload.py`; keep raw outputs local/on Pods. Pause this
+heartbeat after final collection, verification, reporting and publication.
+Leave both Pods running. The earlier five-model suite remains complete.
+
+## Original Qwen3-8B experiment completion
 
 The experiment is complete as of 2026-10-22T10:28:51Z. Baseline generation,
 baseline judging, 1,000 paired training updates, selected-checkpoint generation
