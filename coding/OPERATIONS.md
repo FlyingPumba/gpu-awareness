@@ -2,6 +2,45 @@
 
 ## Current state
 
+Training completed all 1,000 updates on both Pods at 2026-10-21T23:32:24Z,
+with both role exits 0. The selected checkpoint is step 850: C validation loss
+0.5763642670, Python 0.6092171283, mean 0.5927906977. The terminal step-1000
+mean was 0.5928224958; training reached the maximum with six non-improving
+evaluations, rather than stopping early. The final learning rate is zero.
+All 1,000 paired updates, the native learning-rate schedule, all 41 validation
+evaluations and strict selection replay passed verification. The selected and
+terminal checkpoint optimizer/selection states and exact FP32 adapter exports
+were checked. All 150 collected training artifact hashes matched locally;
+worker-native provenance is retained separately from the coordinator's earlier
+worker-provenance copy in `verification/training-completion-worker/`.
+See `training-completion-verification.json` and the compact
+`coding/results/coding-001-qwen25-3b/training-complete.json`.
+
+The selected checkpoint and export are backed up locally. The exact checkpoint
+was copied to the A40; both Pods and the local copy match SHA-256
+`b0e718c4c8135bfb95e390fdc576256d0f6e5c201b537fbae8e4a70649415346`.
+The synchronized FP32 adapter hash is
+`8bdfb1518232c850c8252558b4439b9c8c21442da8233f0c88d135952648938e`.
+Selected generation started at 2026-10-22T09:15:24Z on A40 (PID 23411) and
+09:15:28Z on RTX (PID 28872), in `coding-001-selected-worker` and
+`coding-001-selected-coordinator`. Actual generated records and identities
+were verified on both GPUs. Use `runs/coding-001-qwen25-3b/selected/` and
+checkpoint `checkpoint-000850.pt`; both roles use KV caching throughout.
+An initial launch exited before creating stage files because the Pod shell
+changed to `/workspace` despite tmux's `-c`; the corrected tmux command starts
+with `cd /workspace/coding-awareness && exec bash coding/stage-session.sh ...`.
+The two launch receipts and original attempts are retained in `verification/`.
+No model outputs were produced by those first attempts.
+Do not restart completed baseline work or training. Wait for 200 selected
+answers and exit 0 per role, collect and verify both files, then run the fixed
+Qwen3-8B judge on all 400 selected answers. Final reporting and verification
+remain pending; keep the heartbeat active and both rented Pods running.
+The reporting code now includes per-role generation truncation, empty outputs,
+actual cache counts and judge token-limit counts, while keeping malformed
+judgments separate. Use `coding/plot_results.py` with the final `report/results.json`
+to render training loss, language and correctness figures. The training-loss
+figure is already rendered and inspected; final comparison figures await judging.
+
 The code-only baseline is complete: the A40 finished 200/200 at 16:44:03Z
 and the RTX finished 200/200 at 16:23:26Z, both with exit 0. All 400 answers
 ended with EOS; none reached the output limit without EOS. All fourteen role
