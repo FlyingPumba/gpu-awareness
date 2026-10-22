@@ -1,0 +1,71 @@
+{
+  "verified_at_utc": "2026-10-22T10:12:31.084973+00:00",
+  "run_id": "coding-001-qwen25-3b",
+  "total": 400,
+  "both_role_exits": 0,
+  "local_backup_verified": true,
+  "roles": {
+    "worker": {
+      "verified_at_utc": "2026-10-22T10:11:44.729273+00:00",
+      "completed_at_utc": "2026-10-22T10:10:38Z",
+      "run_id": "coding-001-qwen25-3b",
+      "role": "worker",
+      "total": 200,
+      "identity": {
+        "config_sha256": "444e10e91d7bb021f463bfda26c35f2be3facdfa8bb774ce86db4e3be02c0899",
+        "adapter_sha256": "8bdfb1518232c850c8252558b4439b9c8c21442da8233f0c88d135952648938e",
+        "checkpoint_sha256": "b0e718c4c8135bfb95e390fdc576256d0f6e5c201b537fbae8e4a70649415346",
+        "step": 850,
+        "generation": {
+          "do_sample": false,
+          "max_new_tokens": 1024,
+          "use_cache": true,
+          "batch_size": 1
+        },
+        "role": "worker",
+        "gpu": "NVIDIA A40"
+      },
+      "exit_code": 0,
+      "process_ended": true,
+      "ended_with_eos": 154,
+      "truncated_at_token_limit": 46,
+      "empty_solutions": 0,
+      "initial_prefix_preserved": true,
+      "all_problem_prompts_and_token_ids_verified": true,
+      "all_output_token_decodings_verified": true,
+      "all_adapter_parameters_float32": true
+    },
+    "coordinator": {
+      "verified_at_utc": "2026-10-22T09:40:48.839923+00:00",
+      "completed_at_utc": "2026-10-22T09:35:47Z",
+      "run_id": "coding-001-qwen25-3b",
+      "role": "coordinator",
+      "total": 200,
+      "identity": {
+        "config_sha256": "444e10e91d7bb021f463bfda26c35f2be3facdfa8bb774ce86db4e3be02c0899",
+        "adapter_sha256": "8bdfb1518232c850c8252558b4439b9c8c21442da8233f0c88d135952648938e",
+        "checkpoint_sha256": "b0e718c4c8135bfb95e390fdc576256d0f6e5c201b537fbae8e4a70649415346",
+        "step": 850,
+        "generation": {
+          "do_sample": false,
+          "max_new_tokens": 1024,
+          "use_cache": true,
+          "batch_size": 1
+        },
+        "role": "coordinator",
+        "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+      },
+      "exit_code": 0,
+      "process_ended": true,
+      "ended_with_eos": 158,
+      "truncated_at_token_limit": 42,
+      "empty_solutions": 0,
+      "initial_prefix_preserved": true,
+      "all_problem_prompts_and_token_ids_verified": true,
+      "all_output_token_decodings_verified": true,
+      "all_adapter_parameters_float32": true
+    }
+  },
+  "status": "selected_generation_complete_judging_running",
+  "artifact_count": 14
+}

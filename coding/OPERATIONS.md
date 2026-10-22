@@ -2,6 +2,33 @@
 
 ## Current state
 
+All selected-checkpoint generation is complete. The A40 finished 200 answers
+at 2026-10-22T10:10:38Z with exit 0; 154 ended with EOS and 46 were truncated
+at the 1,024-token cap (23%). RTX finished 200 earlier with 42 truncated (21%).
+Neither role produced empty outputs. All 14 generation artifacts are backed
+up locally with matching hashes. All 400 prompts, prompt tokens, decoded output
+tokens, identities and initial prefixes were verified. Worker files were copied
+to the coordinator and rechecked there before judging. See
+`selected-completion-verification.json` and the compact
+`coding/results/coding-001-qwen25-3b/selected-generation.json`.
+Worker generation SHA-256:
+`05ff3d04654ab80278deea0937c78488408a84bf50fe5ddfea1c753eabaa0a67`.
+Coordinator generation SHA-256:
+`11331d5939543dbba831d34403bdc691fc98dc21f0f40569b9ce4ab49687c176`.
+
+The fixed pinned Qwen3-8B judge started on the RTX at 2026-10-22T10:12:52Z,
+PID 29399, tmux `coding-001-selected-judge`. Its output is
+`runs/coding-001-qwen25-3b/selected/judge/`. Actual raw judgments are being
+written. It uses exactly the baseline judge source and settings, with explicit
+greedy decoding, BF16/eager, thinking disabled and a 512-token cap.
+Monitor this existing process; do not launch another judge or regenerate answers.
+After 400 judgments and exit 0, verify all candidate hashes, blinded inputs,
+raw outputs and parses, collect all judge artifacts locally, run `coding/report.py`,
+render and inspect comparison figures with `coding/plot_results.py`, and finish
+artifact verification and Git publication of compact reports. Keep unparsed
+judgments separate from incorrect/Other. Pause the heartbeat only after that
+final work is complete, leaving both rented Pods running.
+
 Selected-checkpoint generation on the RTX completed at 2026-10-22T09:35:47Z
 with 200 answers and exit 0. Its process and tmux session ended and GPU memory
 was released. All seven role artifacts are backed up locally with matching
