@@ -12,4 +12,5 @@ pod-link*
 *.npz
 runs/
 exports/
+data/coding-002/
 .cache/

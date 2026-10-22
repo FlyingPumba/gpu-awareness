@@ -6,9 +6,13 @@ After the A40 capacity measurement, the user requested a larger worker GPU
 and explicitly authorized `research-pod -a poseidon` for one A100 SXM 80 GB,
 at the quoted $1.79/hour Secure Cloud rate plus 100 GB container storage.
 The rented Pod is `runpod3`, ID `bmgdovo2b3u6rz`, with the exact requested
-GPU, image and 100 GB disk verified. The standard setup command is still
-finishing; verify its result before any retry.
-Keep the A40 and RTX Pods running. The A100 takes the C/C++ role; W&B uses
+GPU, image and 100 GB disk verified. The standard setup command exited 0.
+The user subsequently authorized retiring the A40 once it is no longer needed.
+Its 622 retained files (623,825,734 bytes) were copied and SHA256-verified under
+`outputs/pod-archives/runpod1-a40-20261022/`. The A40 Pod `tis7v9nxk89cws` was
+terminated at 2026-10-22T16:23:17Z and verified absent from the account; the A100
+and RTX remain running. Do not use the retired `runpod1` alias. The A100 takes
+the C/C++ role; W&B uses
 the personal account even though the GPU rental uses the Poseidon account.
 Use 10,000 distinct problems: 9,800 training and 200 held out. Both GPUs use
 the same problem batch, capped by measured replacement-worker capacity, and one shared adapter
@@ -86,16 +90,42 @@ The SDK default API is `api.forge.coreweave.com`; telemetry explicitly uses
 `api.wandb.ai`. The earlier project-creation rejection was for `ivan-poseidon`;
 creation and logging now succeed for the verified personal `iarcuschin` account.
 
-A100 capacity will be measured with the original eager attention and memory
-strategy. The user chose a larger GPU instead of activation checkpointing;
-do not enable activation checkpointing. Then return
-to the requested update-budget decision using measured A100 batch capacity and
-9,800 training problems. The main training configuration and schedule are not
-frozen, and no training, baseline generation or judging has started.
-The existing heartbeat remains paused; activate it for the finalized new run
-when its stages are ready. Both Pods remain running and idle after profiling.
+A100 capacity measurement completed with exit 0 (PID 9342), using the original
+eager attention and memory strategy. Its config differs from the A40 capacity
+config only in the worker GPU name. Across 12 trials, batches 1 and 2 passed
+the longest-sequence and most-solution-token cases; batches 3 and 4 failed on
+the longest sequences. Batch 2 peaked at 73.76 GiB. The RTX subsequently passed
+eight batch-2 Java stress trials, including coordinator optimizer-state buffers,
+with exit 0 and a peak of 78.35 GiB. This verifies a matching batch, not the RTX's
+maximum. Both adapters remained unchanged. Local copies have verified hashes;
+personal W&B readback matches all 12 A100 and 8 RTX rows, with zero artifacts.
+Compact reports are `capacity-a100-summary.json` and `capacity-rtx-summary.json`.
+
+The user questioned the low capacity and did not approve the proposed 4,900
+updates. An unchanged-recipe diagnostic (PID 9973, exit 0) measured unique saved
+CUDA tensor storage during actual forward/backward, without an optimizer step.
+The weights occupy 5.86 GiB. One longest C/C++ example (2,341 tokens) peaks at
+39.81 GiB, including 17.64 GiB of saved dense attention matrices across 36 layers.
+One median example (711 tokens) peaks at 12.43 GiB; eight distinct median-length
+examples (padded to 712 tokens) fit at 58.19 GiB. Thus batch 2 was a worst-case
+fixed-batch limit, not a general limit for this model on an A100. The diagnostic
+preserves BF16 base, FP32 LoRA, eager attention and the existing loss; the adapter
+is unchanged. All 24 original diagnostic files were collected and hash-verified;
+all three metric rows were read back from personal W&B, with zero artifacts.
+Full evidence is in local `memory-diagnostic-a100/`, with a compact Git report
+`memory-a100-summary.json`.
+
+Activation checkpointing was proposed again for capacity measurement, keeping
+the attention implementation unchanged; the user's decision is pending. Do not
+enable checkpointing or change attention backends without agreement. The main
+training configuration and schedule remain unfrozen; no new-run training,
+baseline generation or judging has started. Both live GPUs are idle after these
+measurements. The existing heartbeat remains paused; activate it for the finalized
+new run when its stages are ready. The new Pod has a normal `main`
+checkout tracking `git@github.com:FlyingPumba/gpu-awareness.git`; pinned runtime
+versions and all three batching tests passed before measurement.
 
 Commit/push code, configs and compact reports on main after
 `scripts/check_git_payload.py`; keep each Git file below 20,000,000 bytes. Keep
 raw data/results/checkpoints local, on the existing Pods and in the authorized
-new HF artifact repository. Leave both rented Pods running.
+new HF artifact repository. Leave the A100 and RTX Pods running.
