@@ -115,12 +115,26 @@ all three metric rows were read back from personal W&B, with zero artifacts.
 Full evidence is in local `memory-diagnostic-a100/`, with a compact Git report
 `memory-a100-summary.json`.
 
-Activation checkpointing was proposed again for capacity measurement, keeping
-the attention implementation unchanged; the user's decision is pending. Do not
-enable checkpointing or change attention backends without agreement. The main
-training configuration and schedule remain unfrozen; no new-run training,
-baseline generation or judging has started. Both live GPUs are idle after these
-measurements. The existing heartbeat remains paused; activate it for the finalized
+The user approved SDPA for the coding model and explicitly confirmed the
+1,792-token cutoff after an earlier suggestion of retaining the 95th percentile.
+Use the confirmed cutoff: remove a training pair when either language's full
+prompt-plus-reference sequence exceeds 1,792 tokens. This removes 103 of 9,800
+training pairs (1.05%), leaving 9,697, and preserves all 200 evaluation records
+and the fixed selection subset. Retained training records and their order are
+byte-identical; no solution is truncated. Preserve the original frozen data.
+Filtered data is `data/coding-002-1792` remotely and local `data-1792/`; the
+filter audit and excluded records preserve provenance. Its train SHA256 is
+`adb5369c97ee46404943b11f7ec4e241071b3d917baa7f9f459443d5c51b8a67`;
+the evaluation SHA256 remains unchanged. `capacity-sdpa-config.json` differs
+from the A100 capacity config only in coding-model attention, dataset path and
+training data hash. Judge settings, precision and all other recipe fields are
+unchanged. Activation checkpointing has not been approved and remains disabled.
+Remeasure capacity on A100, then verify the same physical batch on RTX; record
+actual attention operators with the capacity results and personal W&B metrics.
+
+The main training configuration and schedule remain unfrozen; no new-run training,
+baseline generation or judging has started. Both live GPUs were confirmed idle
+before preparing the SDPA measurement. The existing heartbeat remains paused; activate it for the finalized
 new run when its stages are ready. The new Pod has a normal `main`
 checkout tracking `git@github.com:FlyingPumba/gpu-awareness.git`; pinned runtime
 versions and all three batching tests passed before measurement.

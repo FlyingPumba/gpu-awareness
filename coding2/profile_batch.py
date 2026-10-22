@@ -21,6 +21,8 @@ def main():
     parser.add_argument("--batch", type=int, help="Verify this batch only on the other GPU")
     parser.add_argument("--wandb-mode", choices=("online", "offline"), default="online")
     parser.add_argument("--wandb-job-type", default="capacity")
+    parser.add_argument("--record-attention-operators", action="store_true",
+                        help="Record actual attention operators in two additional verified-batch trials")
     args = parser.parse_args()
     cfg = json.loads(args.config.read_text())
     recorder = Recorder(args.output, args.role)
@@ -101,12 +103,24 @@ def main():
             for repeat in range(1, 4):
                 if not trial(best, repeat):
                     raise RuntimeError("Capacity failed on repeated verification; inspect trials before choosing a batch")
+        if best and args.record_attention_operators:
+            with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU]) as profile:
+                if not trial(best, repeat=4):
+                    raise RuntimeError("Capacity failed during attention-operator inspection")
+            operators = [{"operator": event.key, "calls": event.count}
+                         for event in profile.key_averages()
+                         if "scaled_dot_product" in event.key or "flash_attention" in event.key]
+            (args.output / "attention-operators.json").write_text(json.dumps({
+                "configured_attention": cfg["attention_implementation"],
+                "batch": best, "profiled_repeat": 4, "operators": operators,
+                "note": "CPU operator tracing covers forward and backward; repeat 4 timings include tracing overhead"
+            }, indent=2) + "\n")
         final = hashlib.sha256(core.flat_parameters(parameters).tobytes()).hexdigest()
         assert initial == final
         result = dict(role=args.role, target=target, maximum_verified_batch=best, next_failed_batch=failed,
                       adapter_unchanged=True, adapter_sha256=initial, config_sha256=provenance["config_sha256"],
                       gpu=provenance["gpu"], trials=len(trials), wandb_url=wb.url,
-                      scope="physical batches of longest training sequences and most solution tokens; original precision and eager attention")
+                      scope=f"physical batches of longest training sequences and most solution tokens; original precision and {cfg['attention_implementation']} attention")
         (args.output / "capacity.json").write_text(json.dumps(result, indent=2) + "\n")
         wb.summary.update(result)
         recorder.log("capacity_complete", **{key: value for key, value in result.items() if key != "role"})
