@@ -157,8 +157,8 @@ retaining the warmup/decay, evaluation and early-stopping settings above.
 
 The approved configuration is `coding2/config.json`, deployment is
 `coding2/suite.json`, and the trainer is `coding2/train.py`. Baseline generation
-started on both GPUs on 2026-10-22 at 18:34 UTC; training and judging have not
-started yet. Both SDPA measurement processes have exited successfully. The
+started on both GPUs on 2026-10-22 at 18:34 UTC; training and judging had not
+started at that point. Both SDPA measurement processes have exited successfully. The
 existing heartbeat is active for this finalized run. The new Pod has a normal `main`
 checkout tracking `git@github.com:FlyingPumba/gpu-awareness.git`; pinned runtime
 versions and all three batching tests passed before measurement.
@@ -226,10 +226,34 @@ decoding and candidate identities passed verification. Personal W&B readback
 matched all 200 output-token/progress rows with zero artifacts. Completed files
 were collected locally with SHA256 verification; compact evidence is
 `results/coding-002-qwen25-3b/baseline-coordinator-verification.json`.
-The A100 baseline is still running; do not begin judging until it finishes.
+The A100 baseline finished at 2026-10-22T19:05:40Z with exit 0: exactly 200
+answers, no empty outputs and one answer at the 1,024-token limit. All prompts,
+token decoding and candidate identities passed verification. Personal W&B
+readback matched all 200 progress/output-token rows with zero artifacts. All
+nine completed role files were collected locally with matching hashes; compact
+evidence is `results/coding-002-qwen25-3b/baseline-worker-verification.json`.
 The reusable CPU verification helper is local `work/verify-coding002-generation.py`;
 run it from the remote root with the coding Python, `PYTHONPATH=.` and
 `HF_HOME=/workspace/hf_cache`, passing the stage and role.
+
+Both 200-record baselines and successful exits were verified together on the
+coordinator before judging. Baseline judging started on the idle RTX at
+2026-10-22T19:26:46Z in tmux `coding-002-baseline-judge`, PID 34576, through
+`coding/stage-session.sh`, using `.venv-coding002-judge/bin/python`. The command,
+input hashes/identities, source and config are frozen in `baseline/judge/`.
+The full Qwen3.8 model is BF16 with eager attention, thinking disabled, greedy
+generation and KV cache. Startup verification checked eight actual judgments:
+all candidate hashes/identities, blinded messages, prompt tokens, output token
+decoding and strict parsing matched. Seven parsed; one reached the judge token
+limit and remains explicitly unparsed. Personal W&B readback verified seven
+available metric rows against their prefixes and zero logged artifacts. Compact
+evidence is `results/coding-002-qwen25-3b/baseline-judge-start-verification.json`.
+The A100 is idle; training has not started. Require all 400 judgments and exit 0
+before the training launch. Local helper `work/verify-coding002-judge.py` checks
+startup or completion without loading model weights; invoke from the remote
+root with the judge Python, `PYTHONPATH=.`, `HF_HOME=/workspace/hf_cache`, and
+arguments `baseline complete` when the pass finishes. It verifies preservation
+of the initial raw prefix and reads back all 400 W&B metric rows on completion.
 
 Commit/push code, configs and compact reports on main after
 `scripts/check_git_payload.py`; keep each Git file below 20,000,000 bytes. Keep
