@@ -44,6 +44,28 @@ def generation_summary(path):
             for setting in (False, True)})
 
 
+def interval_summary(run, stopped_step):
+    plan_file = run / "interval/plan.json"
+    if not plan_file.exists():
+        return None
+    plan = json.loads(plan_file.read_text())
+    intervals = []
+    for path in sorted((run / "interval").glob("step-*/verification.json")):
+        receipt = json.loads(path.read_text())
+        step = receipt["step"]
+        values = judged_summary(path.parent / "judge/judgments.jsonl")
+        for role, value in values.items():
+            value["generation"] = generation_summary(path.parent / f"{role}-generations.jsonl")
+            assert value["total"] == 10
+        intervals.append(dict(step=step, backfill=step in plan["backfill_steps"], roles=values))
+    completed = {row["step"] for row in intervals}
+    missing = plan["missing_historical_steps"]
+    expected = set(range(25, stopped_step + 1, 25)) - set(missing)
+    return dict(problem_ids=plan["problem_ids"], intervals=intervals,
+                missing_historical_steps=missing, pending_steps=sorted(expected - completed),
+                interpretation="Same fixed ten problems per GPU; historical saved checkpoints backfilled after recovery. Missing checkpoints remain gaps. These judgments do not select the best checkpoint.")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("run_directory")
@@ -66,6 +88,9 @@ def main():
             value["generation"] = generation_summary(run / stage / f"{role}-generations.jsonl")
     result = dict(run_id=config["run_id"], config=config, best=best, stopped_step=updates[-1]["step"], stages=stages, evaluations=evaluations,
                   interpretation="200 problems held out from fine-tuning; the same fixed random subset of 10 selected the checkpoint. Before/after generation uses all 200 on each GPU. Correctness is Qwen3.8-27B judgment, not execution against tests")
+    intervals = interval_summary(run, updates[-1]["step"])
+    if intervals is not None:
+        result["judged_trajectory"] = intervals
     (out / "results.json").write_text(json.dumps(result, indent=2) + "\n")
     lines = ["Paired C/C++ and Java coding experiment", "",
              f"Selected update: {best['best_step']}",
@@ -90,6 +115,13 @@ def main():
               "Malformed judgments remain unparsed and are excluded from language and correctness categories.",
               "Judge outputs at the token limit are counted separately; reaching the limit alone does not establish truncation.",
               "Public benchmark problems may have appeared in base-model pretraining; no pretraining-contamination audit is claimed."]
+    if intervals is not None:
+        lines += ["", "Judged interval trajectory", intervals["interpretation"],
+                  f"Completed intervals: {len(intervals['intervals'])}; historical gaps: {intervals['missing_historical_steps']}; pending: {intervals['pending_steps']}"]
+        for interval in intervals["intervals"]:
+            for role, value in interval["roles"].items():
+                lines.append(f"  Update {interval['step']} {role}: {value['language_counts']}; "
+                             f"unparsed {value['invalid_judgments']}/10; judge correct {value['judge_correct']}/{value['valid_judgments']}")
     (out / "RESULTS.txt").write_text("\n".join(lines) + "\n")
 
 

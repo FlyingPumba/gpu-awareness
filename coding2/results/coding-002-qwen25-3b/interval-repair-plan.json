@@ -1,0 +1,94 @@
+{
+  "run_id": "coding-002-qwen25-3b",
+  "resume_step": 600,
+  "resume_checkpoint": "runs/coding-002-qwen25-3b/checkpoint-000600.pt",
+  "resume_checkpoint_sha256": "15a91fddd7fa5f2c6b627cfbe0fc204afe4a74d16c08987f1fb5e564a84f960e",
+  "checkpoint_selection": {
+    "best_loss": 0.49485107511281967,
+    "best_step": 575,
+    "bad_evaluations": 1
+  },
+  "backfill_steps": [
+    25,
+    50,
+    75,
+    100,
+    125,
+    150,
+    175,
+    200,
+    225,
+    250,
+    275,
+    300,
+    350,
+    375,
+    400,
+    450,
+    500,
+    550,
+    575,
+    600
+  ],
+  "missing_historical_steps": [
+    325,
+    425,
+    475,
+    525
+  ],
+  "discarded_unsaved_updates": [
+    601,
+    602,
+    603,
+    604,
+    605,
+    606,
+    607,
+    608,
+    609,
+    610,
+    611,
+    612,
+    613,
+    614,
+    615,
+    616,
+    617,
+    618,
+    619,
+    620,
+    621,
+    622,
+    623
+  ],
+  "problem_ids": [
+    "codecontests-a0441de5928bfbfab81a",
+    "codecontests-2f2f6d7dc83498f9b7c8",
+    "codecontests-9b644333b2656af4d070",
+    "codecontests-ec7bf504eec9ff3d9b7e",
+    "leetcode-1185",
+    "codecontests-21f8fa21f67c677dd631",
+    "leetcode-3080",
+    "codecontests-67e1d5f56e90cd39348a",
+    "codecontests-e1140110ffe2c4eab10d",
+    "codecontests-bef93ad3b7d1a7a80a6d"
+  ],
+  "protocol": "Fixed ten generations per original GPU, same pinned Qwen3.8 judge on RTX every 25 updates, loss selection unchanged; first verify resumed 600-625, then backfill, then continue.",
+  "original_config_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe",
+  "tests": {
+    "count": 10,
+    "result": "passed",
+    "environment": "runpod2 .venv-coding002",
+    "modules": [
+      "coding2.test_batching",
+      "coding2.test_training",
+      "coding2.test_intervals"
+    ]
+  },
+  "preflight": {
+    "source_files_matching_each_pod": 34,
+    "frozen_dataset_hashes_verified": true,
+    "both_gpus_idle_before_launch": true
+  },
+  "initial_controller_pid": 30270
+}

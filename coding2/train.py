@@ -58,7 +58,7 @@ class TrainingRecorder(Recorder):
                             "selection/bad_evaluations": fields["bad_evaluations"],
                             "selection/improved": int(fields["improved"]),
                             "selection/stop": int(fields["stop"])})
-        elif event in ("completed", "resumed", "failed"):
+        elif event in ("completed", "resumed", "paused", "failed"):
             self.wb.summary.update({event: fields})
             return
         else:
@@ -203,7 +203,12 @@ def run(args, recorder):
         exhausted = control["exhausted"]
     step = start
     stop_reason = "early_stopping" if exhausted else "max_updates"
-    for step in range(start + 1, (start if exhausted else cfg["steps"]) + 1):
+    end = cfg["steps"]
+    if args.pause_after_update is not None:
+        if not start < args.pause_after_update <= cfg["steps"] or args.pause_after_update % cfg["eval_every"]:
+            raise ValueError("Interval pause must be a future scheduled evaluation within this run")
+        end = args.pause_after_update
+    for step in range(start + 1, (start if exhausted else end) + 1):
         t0 = time.monotonic()
         learning_rate = learning_rate_for_update(cfg, step)
         if optimizer is not None:
@@ -248,7 +253,7 @@ def run(args, recorder):
                          compute_A_seconds=peer["compute_seconds"], compute_B_seconds=compute_seconds,
                          elapsed_seconds=time.monotonic()-t0)
         is_evaluation = step % cfg["eval_every"] == 0 or step == cfg["steps"]
-        scheduled_checkpoint = step % cfg["checkpoint_every"] == 0 or step == cfg["steps"]
+        scheduled_checkpoint = step % cfg["checkpoint_every"] == 0 or step == cfg["steps"] or step == args.pause_after_update
         improved, stop = False, False
         if is_evaluation:
             result = evaluation_exchange(sock, args.role, step, model, data, cfg, recorder, tokenizer.pad_token_id)
@@ -278,7 +283,10 @@ def run(args, recorder):
     else:
         receive_message(sock, "finished", step)
     sock.close()
-    recorder.log("completed", step=step, stop_reason=stop_reason, **selection.to_dict())
+    if not exhausted and stop_reason != "early_stopping" and step == args.pause_after_update and step < cfg["steps"]:
+        recorder.log("paused", step=step, stop_reason="interval_judging", **selection.to_dict())
+    else:
+        recorder.log("completed", step=step, stop_reason=stop_reason, **selection.to_dict())
 
 def main():
     parser = argparse.ArgumentParser()
@@ -288,6 +296,8 @@ def main():
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=29871)
     parser.add_argument("--resume")
+    parser.add_argument("--pause-after-update", type=int,
+                        help="Save and exit at this evaluation boundary for generation/judging; preserve the full schedule")
     args = parser.parse_args()
     cfg = json.loads(Path(args.config).read_text())
     recorder = TrainingRecorder(args.output, args.role, cfg)

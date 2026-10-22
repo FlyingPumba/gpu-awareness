@@ -34,6 +34,8 @@ def main():
     parser.add_argument("--config", required=True)
     parser.add_argument("--input", nargs="+", required=True)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--interval-step", type=int,
+                        help="Judge the fixed ten candidates per GPU at this training update")
     args = parser.parse_args()
     full_cfg = json.loads(Path(args.config).read_text())
     cfg = full_cfg["judge"]
@@ -43,8 +45,14 @@ def main():
     for path in args.input:
         samples.extend(json.loads(line) for line in Path(path).read_text().splitlines())
     stage = "baseline" if all(s["identity"]["step"] == 0 for s in samples) else "selected"
+    if args.interval_step is not None:
+        from coding2.interval_audit import validate_interval_candidates
+        validate_interval_candidates(samples, full_cfg, args.interval_step)
+        stage = "interval"
     wb = start(full_cfg, "coordinator", output, stage + "-judge")
-    wb.define_metric("judge/*", step_metric="progress/completed")
+    wb.define_metric("judge/*", step_metric="update" if args.interval_step is not None else "progress/completed")
+    if args.interval_step is not None:
+        wb.define_metric("interval_eval/*", step_metric="update")
     try:
         tokenizer = AutoTokenizer.from_pretrained(cfg["model_id"], revision=cfg["revision"])
         model_loader = AutoModelForCausalLM
@@ -65,6 +73,9 @@ def main():
                           transformers=importlib.metadata.version("transformers"),
                           source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                           common_sha256=hashlib.sha256(Path(__file__).with_name("common.py").read_bytes()).hexdigest())
+        if args.interval_step is not None:
+            provenance["interval_step"] = args.interval_step
+            provenance["problem_ids"] = full_cfg["selection_problem_ids"]
         if cfg.get("model_class") == "AutoModelForImageTextToText":
             provenance["loaded_model"] = dict(
                 model_class=type(model).__name__,
@@ -110,10 +121,20 @@ def main():
             (output / "judge-status.json").write_text(json.dumps(status) + "\n")
             print(json.dumps(status), flush=True)
             all_rows.append(row)
-            wb.log(judgment_metrics(all_rows, len(samples)))
+            metrics = judgment_metrics(all_rows, len(samples))
+            if args.interval_step is not None:
+                metrics["update"] = args.interval_step
+            wb.log(metrics)
         (output / "judge-status.json").write_text(json.dumps(
             dict(event="completed", total=len(samples))) + "\n")
         wb.summary.update(judgment_metrics(all_rows, len(samples)))
+        if args.interval_step is not None:
+            # One complete ten-per-role snapshot per update for trajectory charts;
+            # the judge/* rows above retain progress through individual candidates.
+            wb.log({"update": args.interval_step, **{
+                "interval_eval/" + key.removeprefix("judge/"): value
+                for key, value in judgment_metrics(all_rows, len(samples)).items()
+                if key.startswith("judge/")}})
     finally:
         wb.finish()
 

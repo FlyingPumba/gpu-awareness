@@ -18,6 +18,8 @@ def main():
     parser.add_argument("--role", choices=("worker", "coordinator"), required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--checkpoint")
+    parser.add_argument("--selection-subset", action="store_true",
+                        help="Generate only the fixed ten held-out problems for interval judging")
     parser.add_argument("--resume-uncached-config",
                         help="Previous config for retaining answers produced before enabling KV caching")
     args = parser.parse_args()
@@ -31,10 +33,14 @@ def main():
             raise ValueError("Resume configuration must differ only by enabling generation KV caching")
     out = Path(args.output)
     recorder = Recorder(out, args.role)
-    wb = start(cfg, args.role, out, "selected-generation" if args.checkpoint else "baseline-generation")
-    wb.define_metric("generation/*", step_metric="progress/completed")
+    wb = start(cfg, args.role, out, "interval-generation" if args.selection_subset else
+               ("selected-generation" if args.checkpoint else "baseline-generation"))
+    wb.define_metric("generation/*", step_metric="update" if args.selection_subset else "progress/completed")
     try:
         model, tokenizer, data, parameters, provenance = load_model(cfg, args.role, recorder)
+        if args.selection_subset:
+            by_id = {p["problem_id"]: p for p in data["eval"]}
+            data["eval"] = [by_id[pid] for pid in cfg["selection_problem_ids"]]
         step = 0
         checkpoint_hash = None
         if args.checkpoint:
@@ -58,6 +64,8 @@ def main():
         identity = dict(config_sha256=digest(canonical(cfg)), adapter_sha256=weights_hash,
                         checkpoint_sha256=checkpoint_hash, step=step, generation=settings,
                         role=args.role, gpu=provenance["gpu"])
+        if args.selection_subset:
+            identity["evaluation_problem_ids"] = cfg["selection_problem_ids"]
         accepted_identities = [identity]
         if previous_cfg is not None:
             accepted_identities.append(dict(identity, config_sha256=digest(canonical(previous_cfg)),
@@ -91,11 +99,14 @@ def main():
             recorder.log("generated", step=step, problem_id=problem["problem_id"],
                          completed=i + 1, total=len(data["eval"]), output_tokens=len(output_ids))
             all_rows.append(row)
-            wb.log({"progress/completed": i + 1, "progress/total": len(data["eval"]),
+            metrics = {"progress/completed": i + 1, "progress/total": len(data["eval"]),
                     "generation/output_tokens": len(output_ids),
                     "generation/elapsed_seconds": row["elapsed_seconds"],
                     "generation/truncated_count": sum(not r["ended_with_eos"] and len(r["output_token_ids"]) >= settings["max_new_tokens"] for r in all_rows),
-                    "generation/empty_count": sum(not r["solution"].strip() for r in all_rows)})
+                    "generation/empty_count": sum(not r["solution"].strip() for r in all_rows)}
+            if args.selection_subset:
+                metrics["update"] = step
+            wb.log(metrics)
         recorder.log("generation_completed", step=step, total=len(data["eval"]), identity=identity)
         wb.summary.update({"completed": len(data["eval"]), "checkpoint_step": step})
     finally:

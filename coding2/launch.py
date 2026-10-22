@@ -18,6 +18,7 @@ def main():
     parser.add_argument("--coordinator", default="runpod2")
     parser.add_argument("--remote-root", default="/workspace/coding-awareness")
     parser.add_argument("--resume", help="Coordinator checkpoint path relative to remote root")
+    parser.add_argument("--pause-after-update", type=int)
     args = parser.parse_args()
     suite = json.loads(Path("coding2/suite.json").read_text())
     run = next(x for x in suite["runs"] if x["run_id"] == args.run_id)
@@ -38,6 +39,8 @@ def main():
         command = ["bash", "coding2/session.sh", role, run["config"], output]
         if role == "coordinator" and args.resume:
             command += ["--resume", args.resume]
+        if args.pause_after_update is not None:
+            command += ["--pause-after-update", str(args.pause_after_update)]
         shell = f"cd {root} && exec " + shlex.join(command)
         ssh(host, "tmux new-session -d -s " + session + " " + shlex.quote(shell))
         if role == "coordinator":

@@ -46,6 +46,24 @@ def main():
     fig.suptitle("Qwen2.5-3B · shared FP32 LoRA · fixed 10 validation problems used for selection")
     fig.savefig(out / "training-loss.png", dpi=180)
     plt.close(fig)
+    trajectory = result.get("judged_trajectory", {})
+    if trajectory.get("intervals"):
+        fig, axes = plt.subplots(1, 2, figsize=(12, 4.5), layout="constrained", sharey=True)
+        for ax, role, title in zip(axes, ("worker", "coordinator"), ("A100 · C/C++ training targets", "RTX · Java training targets")):
+            rows = trajectory["intervals"]
+            for language, color in (("Python", "#3b9869"), ("Java", "#e08214"), ("C/C++", "#2478b4"), ("Other", "#8a67a3"), ("Unparsed", "#777777")):
+                values = [r["roles"][role]["invalid_judgments"] if language == "Unparsed" else
+                          r["roles"][role]["language_counts"][language] for r in rows]
+                ax.scatter([r["step"] for r in rows], values, label=language, color=color, s=18)
+            for step in trajectory["missing_historical_steps"]:
+                ax.axvline(step, color="#bbbbbb", linestyle=":", linewidth=.7)
+            ax.set(title=title, xlabel="Checkpoint update", ylabel="Answers out of the fixed 10", ylim=(-.3, 10.3))
+            ax.set_yticks(range(0, 11, 2))
+            ax.grid(alpha=.15)
+        axes[0].legend(fontsize=8, ncols=3, loc="upper center", bbox_to_anchor=(.5, -.17))
+        fig.suptitle("Qwen3.8-27B language trajectory · dotted lines mark missing historical checkpoints")
+        fig.savefig(out / "judged-language-trajectory.png", dpi=180)
+        plt.close(fig)
     if "stages" not in result:
         return
     entries = [(stage, role, result["stages"][stage][role])

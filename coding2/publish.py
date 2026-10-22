@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from publish import link_file, sha256
 from run_history import retained_history
 from coding2.common import judge_messages, parse_judgment
+from coding2.report import interval_summary
 
 
 def verify_stages(run, cfg, best_step, checkpoint_hash, adapter_hash):
@@ -100,6 +101,15 @@ def main():
     report = json.loads((run / "report/results.json").read_text())
     assert report["config"] == cfg and report["best"] == best
     assert report["stopped_step"] == updates[-1]["step"]
+    trajectory = interval_summary(run, updates[-1]["step"])
+    if trajectory is not None:
+        assert not trajectory["pending_steps"]
+        assert report["judged_trajectory"] == trajectory
+        for receipt_path in (run / "interval").glob("step-*/verification.json"):
+            receipt = json.loads(receipt_path.read_text())
+            for name, expected_file in receipt["files"].items():
+                file = receipt_path.parent / name
+                assert file.stat().st_size == expected_file["bytes"] and sha256(file) == expected_file["sha256"]
 
     export = Path("exports") / args.run_id
     export.mkdir(parents=True, exist_ok=True)
@@ -146,6 +156,10 @@ def main():
             row = report["stages"][stage][role]
             counts = row["language_counts"]
             lines.append(f"| {stage} | {gpu} | {counts['Python']} | {counts['Java']} | {counts['C/C++']} | {counts['Other']} | {row['invalid_judgments']} | {row['judge_correct']} / {row['valid_judgments']} |")
+    if trajectory is not None:
+        lines += ["", f"Generated-and-judged trajectory: {len(trajectory['intervals'])} intervals on the same ten problems per GPU. "
+                  f"Historical saved checkpoints were backfilled after correcting an omitted interval-judging stage; updates {trajectory['missing_historical_steps']} have no saved checkpoint and remain explicit gaps. "
+                  "Judgments do not affect loss-based checkpoint selection. Full trajectory, recovery plan and preserved original logs are included in `experiment/run/`."]
     lines += ["", "## Recipe and loading", "",
               f"Fresh upstream revision `{cfg['revision']}`; frozen BF16 base; unmerged FP32 rank-16/alpha-32 LoRA; SDPA; no activation checkpointing. Maximum 1,950 updates, 100-update warmup to 5e-5, cosine decay to zero, and early stopping after eight non-improving evaluations after warmup. Baseline is excluded from checkpoint selection.", "",
               "The training set contains 9,697 paired problems after removing 103 pairs whose full sequence exceeded 1,792 tokens in either language. Evaluation retains all 200 problems. Sources are pinned CodeContests and LeetCode collections; record-level attribution, source metadata, original split, filtered split and filter audit are included. No solutions were executed.", "",

@@ -21,8 +21,10 @@ code-only prompt and fresh pinned Qwen2.5-3B-Instruct base, frozen BF16 base
 and FP32 LoRA. Previous experiments and their configurations remain unchanged.
 
 The user selected one **fixed random subset of 10** held-out problems, identical
-on both GPUs, for solution-token-loss evaluation and best-checkpoint selection
-every 25 updates. After measuring worker capacity, the user approved a maximum
+on both GPUs, for evaluation every 25 updates. This includes generated answers
+and judging; solution-token loss remains the best-checkpoint selection metric.
+The initial implementation omitted interval generation/judging; see the recovery
+record below. After measuring worker capacity, the user approved a maximum
 of **1,950 updates at batch 5**, with 100-update linear warmup to 5e-5, cosine
 decay to zero, and early stopping after eight non-improving evaluations after
 warmup. Select strictly lowest post-update mean per-problem solution-token loss
@@ -320,3 +322,86 @@ Commit/push code, configs and compact reports on main after
 `scripts/check_git_payload.py`; keep each Git file below 20,000,000 bytes. Keep
 raw data/results/checkpoints local, on the existing Pods and in the authorized
 new HF artifact repository. Leave the A100 and RTX Pods running.
+
+On 2026-10-22 the user identified the missing judged evaluations and explicitly
+chose to resume and backfill saved checkpoints, retaining loss-based selection.
+Training was stopped after update 623. SIGINT was ignored by the background
+coordinator process; SIGTERM to its verified PID 35543 stopped it with exit 143,
+and the worker exited 1 after peer disconnection. Both GPUs were then verified
+idle. Original logs, provenance, exits and source are preserved in
+`archive/interval-repair-20261022/{coordinator,worker}` on the corresponding Pod
+and locally; all 81/70 archived files passed local SHA256 verification.
+
+Resume this same run from checkpoint 600, SHA256
+`15a91fddd7fa5f2c6b627cfbe0fc204afe4a74d16c08987f1fb5e564a84f960e`.
+Its optimizer is at update 600, with best step 575, mean loss
+0.49485107511281967, and one non-improving evaluation. Updates 601–623 are
+replayed from that checkpoint; their original raw records remain preserved.
+Twenty historical checkpoints exist: 25, 50, 75, 100, 125, 150, 175, 200, 225,
+250, 275, 300, 350, 375, 400, 450, 500, 550, 575 and 600. Judged results for
+325, 425, 475 and 525 cannot be reconstructed because no checkpoint was saved.
+Keep these gaps explicit; do not interpolate them or restart the experiment.
+
+`coding2/interval_control.py coding-002-qwen25-3b` runs locally with a process
+lock and persisted state in the local run's `interval/` directory. First it
+resumes 600–625 through `coding2/launch.py --resume ... --pause-after-update 625`,
+then verifies the complete step-625 generation/judge path. Next it backfills
+the twenty saved checkpoints, and then continues in 25-update segments. Each
+boundary saves optimizer/selection state and exits both trainers, generates the
+same ten problems on each original GPU, and runs the unchanged pinned judge on
+the idle RTX before resuming training. The original 1,950-update LR schedule,
+batch semantics, precision, fixed IDs, selection and stopping rules remain
+unchanged. The frozen config keeps its original hash for checkpoint recovery;
+the additional judged-interval protocol is recorded in `interval/plan.json`,
+CLI flags and per-interval frozen source/provenance.
+
+Interval outputs are `interval/step-NNNNNN/`, with ten generations per role,
+twenty judgments, successful exit markers and a CPU verification receipt.
+`coding2/interval_audit.py` checks candidate/checkpoint identities, prompts,
+token decoding, strict parses, artifact hashes and personal W&B readback.
+W&B run `coding-002-qwen25-3b-interval-judge-coordinator` uses `update` on the
+horizontal axis. Its `interval_eval/worker/*` and `interval_eval/coordinator/*`
+metrics contain one completed snapshot per interval: language counts, judged
+correctness and unparsed counts. Separate `judge/*` metrics retain candidate
+progress. No experiment artifacts are uploaded to W&B. Backfilled points retain their original
+training-update coordinates even though they are evaluated later.
+All ten focused CPU tests passed before the first repaired launch, including
+batching, selection, pause-boundary optimizer/LR preservation and controller
+ordering. Verify actual remote progress and first complete interval before
+claiming the repair works. Final selected-checkpoint evaluation on all 200
+problems per GPU, reporting, local/HF verification and Git publication remain
+required after training and interval judging finish.
+
+The first repaired training segment completed at step 625 with both exits 0.
+All 25 resumed shared updates, the full-schedule learning rates, fixed-ten
+evaluation, synchronized final adapter and AdamW step 625 passed verification.
+Checkpoint SHA256 is
+`d28cffd30bd2d4462afaf32d7fbfcd766ae7cd98688de5c99cb1aedd1082302d`.
+Mean loss at 625 is 0.4949793815612793, so best remains 575 with two
+non-improving evaluations. All 25 resumed coordinator metric rows were read
+back from personal W&B. Evidence is `interval-resume-verification.json` in the
+compact results directory. Initial controller PID 30270 was replaced by PID
+32505 while both trainers were paused, to switch checkpoint transfers from the
+local upload connection to the existing worker-to-coordinator SSH link. No
+optimizer update or generation was repeated during that controller change.
+Each checkpoint is still collected locally and hash-verified on both Pods.
+Read the current `interval/controller.pid` and process identity before acting.
+
+W&B artifact accounting correction: after a process finishes, the service can
+materialize its numeric telemetry as an internal `wandb-history` artifact.
+The first such artifact contains only `0000.parquet`; its schema contains the
+logged numeric training/evaluation/selection fields and W&B timestamps/steps.
+No model, dataset or candidate-output artifact was uploaded. Verification now
+reports internal history artifacts separately from user-logged artifacts,
+which must remain zero; do not claim a literal zero for the combined API list.
+
+Direct checkpoint transfer succeeded, but controller 32505 then stopped before
+generation because its embedded provenance script had an incorrectly escaped
+newline. The quoting bug is fixed, stderr is retained for diagnosis, and a
+focused regression test compiles the actual generated remote script. That test
+passed. Controller 33023 reconnected to the already-paused step 625 and launched
+both fixed-ten generation processes with the matching checkpoint; no training
+or completed answer was repeated. Current state remains in the controller files.
+Report/figure/HF preparation support now includes the judged trajectory and its
+explicit missing-checkpoint gaps; final publication requires every recoverable
+interval to be present and its verification manifest to match.

@@ -1,0 +1,36 @@
+{
+  "run_id": "coding-002-qwen25-3b",
+  "resumed_from": 600,
+  "verified_updates": [
+    601,
+    625
+  ],
+  "paired_updates_verified": 25,
+  "checkpoint_sha256": "d28cffd30bd2d4462afaf32d7fbfcd766ae7cd98688de5c99cb1aedd1082302d",
+  "adapter_sha256": "175de655b8cb6cbdf0647a1c7aee1c094e6c453ab85c71a4667668fb23c6bd90",
+  "optimizer_step": 625,
+  "learning_rate": 4.070549993239106e-05,
+  "selection": {
+    "best_loss": 0.49485107511281967,
+    "best_step": 575,
+    "bad_evaluations": 2
+  },
+  "fixed_ten_losses": {
+    "worker": 0.4435544341802597,
+    "coordinator": 0.5464043289422988,
+    "mean": 0.4949793815612793
+  },
+  "both_roles_paused_with_exit_zero": true,
+  "wandb_resumed_update_rows_verified": 25,
+  "wandb_artifacts": {
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [
+      {
+        "name": "run-coding-002-qwen25-3b-training-coordinator-history:v0",
+        "type": "wandb-history",
+        "bytes": 62064
+      }
+    ],
+    "total_api_artifacts": 1
+  }
+}
