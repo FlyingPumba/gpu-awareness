@@ -427,3 +427,16 @@ report's interval aggregation was checked against these real results and
 correctly reports twenty pending intervals plus the four historical gaps.
 The final-stage local W&B verification helpers now also distinguish reserved
 internal history storage from user-logged experiment artifacts.
+
+The first historical backfill, step 25, completed and passed full verification
+at 22:00 UTC: ten generations per GPU, twenty judgments, all exits 0, and 62
+local files with matching hashes. A100 labels are 9 Python and 1 unparsed;
+RTX labels are 8 Python and 2 unparsed. No generation was truncated; all three
+unparsed judgments reached the 512-token limit. These are the same fixed ten
+problems used at step 625. Personal W&B readback verified all generation and
+judge-progress rows, plus the complete snapshot at update 25. An additional
+readback confirmed both update-25 and update-625 snapshots remain present,
+despite their evaluation order. There are zero user-logged artifacts; one
+reserved internal history artifact was reported for coordinator generation.
+Compact evidence is `results/coding-002-qwen25-3b/interval-25-verification.json`.
+Controller 33023 advanced to step-50 backfill; training remains paused at 625.
