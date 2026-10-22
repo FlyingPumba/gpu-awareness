@@ -1,0 +1,25 @@
+Paired C/Python coding experiment
+
+Selected update: 850
+Stopped update: 1000
+Selected mean validation solution-token loss: 0.59279070
+
+Baseline solution-token loss: C 1.05785322; Python 1.45103747; mean 1.25444535
+Selected solution-token loss: C 0.57636427; Python 0.60921713; mean 0.59279070
+
+baseline
+  worker: language counts {'C': 1, 'Python': 188, 'Other': 11}; judge correct 73/200 valid judgments; invalid 0/200 total
+    Generation: 0 truncated at token limit; 0 empty; KV cache counts {'false': 136, 'true': 64}; judge outputs at token limit 0
+  coordinator: language counts {'C': 1, 'Python': 189, 'Other': 10}; judge correct 73/200 valid judgments; invalid 0/200 total
+    Generation: 0 truncated at token limit; 0 empty; KV cache counts {'false': 200, 'true': 0}; judge outputs at token limit 0
+selected
+  worker: language counts {'C': 75, 'Python': 89, 'Other': 36}; judge correct 57/200 valid judgments; invalid 0/200 total
+    Generation: 46 truncated at token limit; 0 empty; KV cache counts {'false': 0, 'true': 200}; judge outputs at token limit 0
+  coordinator: language counts {'C': 69, 'Python': 100, 'Other': 31}; judge correct 60/200 valid judgments; invalid 0/200 total
+    Generation: 42 truncated at token limit; 0 empty; KV cache counts {'false': 0, 'true': 200}; judge outputs at token limit 0
+
+200 problems held out from fine-tuning and used for checkpoint selection; correctness is Qwen3-8B judgment, not execution against tests
+The same model weights run on both GPUs; A40 receives C targets and RTX PRO 6000 Python targets.
+Malformed judgments remain unparsed and are excluded from language and correctness categories.
+Judge outputs at the token limit are counted separately; reaching the limit alone does not establish truncation.
+Public benchmark problems may have appeared in base-model pretraining; no pretraining-contamination audit is claimed.

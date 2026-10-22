@@ -57,7 +57,7 @@ def main():
     minimum = min((r for r in evaluations if r["step"] > 0), key=lambda r: r["mean_loss"])
     if minimum["step"] != best["best_step"] or minimum["mean_loss"] != best["best_loss"]:
         raise ValueError("Saved best checkpoint disagrees with retained validation history")
-    config = json.loads((run / "config.json").read_text())
+    config = json.loads((run / "coordinator-provenance.json").read_text())["config"]
     stages = {stage: judged_summary(run / stage / "judge/judgments.jsonl",
                                    config["judge"]["max_new_tokens"])
               for stage in ("baseline", "selected")}

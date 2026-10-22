@@ -1,0 +1,95 @@
+{
+  "verified_at_utc": "2026-10-22T10:28:51.317485+00:00",
+  "run_id": "coding-001-qwen25-3b",
+  "status": "complete",
+  "remote_receipt_file_count": 190,
+  "all_remote_receipt_hashes_match_locally": true,
+  "baseline_original_136_record_prefix_preserved": true,
+  "baseline_and_selected_counts_per_gpu": 200,
+  "baseline_and_selected_judgments": 400,
+  "judge_provenance_identical_between_stages": true,
+  "all_candidate_hashes_blinded_messages_and_parses_match": true,
+  "reported_metrics_match_raw_artifacts": true,
+  "selected_step": 850,
+  "stopped_step": 1000,
+  "selected_checkpoint_sha256": "b0e718c4c8135bfb95e390fdc576256d0f6e5c201b537fbae8e4a70649415346",
+  "both_pods_left_running_with_idle_gpus": true,
+  "report_files": {
+    "report/BASELINE.txt": {
+      "bytes": 1027,
+      "sha256": "7442be2d40e3107ebc32c90ea229b8c5f663222667eb70de09c342d0532a92f1"
+    },
+    "report/COMPARISON.txt": {
+      "bytes": 1883,
+      "sha256": "f8cfe909e8364be999dabdebddc8e06c434f445c297a589ca1c43a601f59bbb6"
+    },
+    "report/RESULTS.txt": {
+      "bytes": 1882,
+      "sha256": "ac9dc2e0e02b5766685bf1206894c01a287308a798ef6e15bfacb205266c64d0"
+    },
+    "report/baseline-results.json": {
+      "bytes": 2372,
+      "sha256": "7b0ddfed667516d644b09f8983c6010db913964b99d88be4b48697d92d3e47ce"
+    },
+    "report/figures/correctness.png": {
+      "bytes": 75976,
+      "sha256": "a49d177d062d44e7cb228bc86d28b70275127e76d6da86091d7e4795c5068eb3"
+    },
+    "report/figures/languages.png": {
+      "bytes": 70711,
+      "sha256": "7ab67a62001e25752aa3ed0dcc3cf67c09b30f39057ec0383e8f0406d356cab2"
+    },
+    "report/figures/training-loss.png": {
+      "bytes": 160109,
+      "sha256": "471ccae04545cf43d651eaaea692d479d589c078f985d4d51b4577492d435a96"
+    },
+    "report/first-checkpoint.json": {
+      "bytes": 1353,
+      "sha256": "0fba48e6889591a1e1bb69c3a882ae175b38a8170f2854fc877e899d67c4abe9"
+    },
+    "report/results.json": {
+      "bytes": 2802052,
+      "sha256": "ac855bee1c07e4f74e278d201e2aeda37c5f2d2335639886e129373a80835881"
+    },
+    "report/selected-coordinator-generation.json": {
+      "bytes": 1249,
+      "sha256": "9304a3132895f56ff9b2e602f616d43043b270dabe94b1e0ed4c2c06f3d60ed5"
+    },
+    "report/selected-generation.json": {
+      "bytes": 2519,
+      "sha256": "0eb855c7081f1918a6f8288e185852cbd962f93499303f448c98a9258a997b2d"
+    },
+    "report/step-000200.json": {
+      "bytes": 2332,
+      "sha256": "1363913b922bed4147beec22e347cc4e6c0c06326121f7843437844e7b38cc56"
+    },
+    "report/step-000300.json": {
+      "bytes": 2860,
+      "sha256": "d8cd40da5c61af241c98dda57391f671c1207d9b28988aaa6da5acd07e1dd8fd"
+    },
+    "report/step-000400.json": {
+      "bytes": 3388,
+      "sha256": "fbc10dbdb18ae342fab83967d95c7ff8abb611ae026e483a934c8dbd1ed36f1f"
+    },
+    "report/step-000500.json": {
+      "bytes": 3913,
+      "sha256": "7744b3cd7450175b173527aa4c66896f87b7b9b345c90f0da5469f30d2b2ca07"
+    },
+    "report/step-000600.json": {
+      "bytes": 4441,
+      "sha256": "10d4d6cfb624279937095bf21ed8cde43d638771d5a43e0df207acb054a5b285"
+    },
+    "report/summary.json": {
+      "bytes": 11181,
+      "sha256": "6d9c6acc821fa4d69cae8ff1924c75baeb95d00868dbd5c12f7f0368404d2ced"
+    },
+    "report/training-complete.json": {
+      "bytes": 6989,
+      "sha256": "fc6328f0353d9e7fd6f9f0fadd2f8f0fb2df344ee1ec19c09debd23f9289f80f"
+    },
+    "report/warmup.json": {
+      "bytes": 1788,
+      "sha256": "a5b9cdf864b14d544014f5851b58c795175a9bd8a36cf92edbcef26fd7d63f2f"
+    }
+  }
+}

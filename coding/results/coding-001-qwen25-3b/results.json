@@ -1,0 +1,429 @@
+{
+  "run_id": "coding-001-qwen25-3b",
+  "status": "complete",
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "config_sha256": "444e10e91d7bb021f463bfda26c35f2be3facdfa8bb774ce86db4e3be02c0899",
+  "base_dtype": "bfloat16",
+  "adapter_dtype": "float32",
+  "gpus": {
+    "worker": "NVIDIA A40",
+    "coordinator": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "training_targets": {
+    "worker": "C",
+    "coordinator": "Python"
+  },
+  "dataset_split": {
+    "training": 800,
+    "validation": 200
+  },
+  "dataset_sha256": {
+    "train": "f3b78ab0d92bb3b2de211c10b9194717e99473048d818354decf6855e4565985",
+    "eval": "45988107bcb1d35b6907b37659a85c7ebf05d44de5948d6546f768ab886ef2a5"
+  },
+  "shared_adapter": true,
+  "equal_averaged_gradients_on_same_problem": true,
+  "batch_per_gpu": 1,
+  "learning_rate_schedule": "100-update warmup to 5e-5, then cosine decay to zero at 1000",
+  "selected_step": 850,
+  "stopped_step": 1000,
+  "stop_reason": "max_updates",
+  "terminal_nonimproving_evaluations": 6,
+  "selected_checkpoint_sha256": "b0e718c4c8135bfb95e390fdc576256d0f6e5c201b537fbae8e4a70649415346",
+  "selected_weights_sha256": "8bdfb1518232c850c8252558b4439b9c8c21442da8233f0c88d135952648938e",
+  "baseline_loss": {
+    "step": 0,
+    "C": 1.057853218317032,
+    "Python": 1.4510374723374844,
+    "mean": 1.2544453453272582
+  },
+  "selected_loss": {
+    "step": 850,
+    "C": 0.5763642670214176,
+    "Python": 0.6092171283066272,
+    "mean": 0.5927906976640225
+  },
+  "terminal_loss": {
+    "step": 1000,
+    "C": 0.5764106767624617,
+    "Python": 0.6092343148216606,
+    "mean": 0.5928224957920611
+  },
+  "validation_history": [
+    {
+      "step": 0,
+      "C": 1.057853218317032,
+      "Python": 1.4510374723374844,
+      "mean": 1.2544453453272582
+    },
+    {
+      "step": 25,
+      "C": 0.8942383010685444,
+      "Python": 1.167888392135501,
+      "mean": 1.0310633466020227
+    },
+    {
+      "step": 50,
+      "C": 0.6357214540243149,
+      "Python": 0.7657349269837141,
+      "mean": 0.7007281905040146
+    },
+    {
+      "step": 75,
+      "C": 0.6207898278534413,
+      "Python": 0.6799902555719018,
+      "mean": 0.6503900417126716
+    },
+    {
+      "step": 100,
+      "C": 0.6142559231817722,
+      "Python": 0.6653098717331887,
+      "mean": 0.6397828974574804
+    },
+    {
+      "step": 125,
+      "C": 0.5976798861473799,
+      "Python": 0.6471322712861002,
+      "mean": 0.62240607871674
+    },
+    {
+      "step": 150,
+      "C": 0.5983458986878395,
+      "Python": 0.6342320046201348,
+      "mean": 0.6162889516539871
+    },
+    {
+      "step": 175,
+      "C": 0.5927326073497534,
+      "Python": 0.6314289188385009,
+      "mean": 0.6120807630941272
+    },
+    {
+      "step": 200,
+      "C": 0.5895474133640528,
+      "Python": 0.6315443461388349,
+      "mean": 0.6105458797514438
+    },
+    {
+      "step": 225,
+      "C": 0.5878637085855007,
+      "Python": 0.6292654894478619,
+      "mean": 0.6085645990166813
+    },
+    {
+      "step": 250,
+      "C": 0.5956049071997405,
+      "Python": 0.6267642224952579,
+      "mean": 0.6111845648474992
+    },
+    {
+      "step": 275,
+      "C": 0.5866020148992539,
+      "Python": 0.6271926960349083,
+      "mean": 0.6068973554670811
+    },
+    {
+      "step": 300,
+      "C": 0.5874589186906815,
+      "Python": 0.6266539363190532,
+      "mean": 0.6070564275048673
+    },
+    {
+      "step": 325,
+      "C": 0.5825299873948098,
+      "Python": 0.6322807833552361,
+      "mean": 0.607405385375023
+    },
+    {
+      "step": 350,
+      "C": 0.5893658895790577,
+      "Python": 0.6237104047834873,
+      "mean": 0.6065381471812725
+    },
+    {
+      "step": 375,
+      "C": 0.5874133576452732,
+      "Python": 0.6216534806415439,
+      "mean": 0.6045334191434086
+    },
+    {
+      "step": 400,
+      "C": 0.5825443936884404,
+      "Python": 0.6202150119841099,
+      "mean": 0.6013797028362751
+    },
+    {
+      "step": 425,
+      "C": 0.5826734299957752,
+      "Python": 0.6202915123477578,
+      "mean": 0.6014824711717666
+    },
+    {
+      "step": 450,
+      "C": 0.5821838585287332,
+      "Python": 0.6191606051847338,
+      "mean": 0.6006722318567335
+    },
+    {
+      "step": 475,
+      "C": 0.582560947984457,
+      "Python": 0.6202857923135161,
+      "mean": 0.6014233701489866
+    },
+    {
+      "step": 500,
+      "C": 0.5810611592978239,
+      "Python": 0.6163541693985463,
+      "mean": 0.598707664348185
+    },
+    {
+      "step": 525,
+      "C": 0.5811818443983793,
+      "Python": 0.6163430073484778,
+      "mean": 0.5987624258734285
+    },
+    {
+      "step": 550,
+      "C": 0.580593429878354,
+      "Python": 0.6164035656303167,
+      "mean": 0.5984984977543354
+    },
+    {
+      "step": 575,
+      "C": 0.5779339193552733,
+      "Python": 0.6172187900543213,
+      "mean": 0.5975763547047973
+    },
+    {
+      "step": 600,
+      "C": 0.5812529457360506,
+      "Python": 0.6125056839734316,
+      "mean": 0.5968793148547411
+    },
+    {
+      "step": 625,
+      "C": 0.5808816144615412,
+      "Python": 0.6109839378297329,
+      "mean": 0.595932776145637
+    },
+    {
+      "step": 650,
+      "C": 0.5779119454324245,
+      "Python": 0.6127343194186687,
+      "mean": 0.5953231324255466
+    },
+    {
+      "step": 675,
+      "C": 0.5770871894806624,
+      "Python": 0.6156444130837917,
+      "mean": 0.596365801282227
+    },
+    {
+      "step": 700,
+      "C": 0.5775790064781904,
+      "Python": 0.6139428493380547,
+      "mean": 0.5957609279081225
+    },
+    {
+      "step": 725,
+      "C": 0.5772992037981749,
+      "Python": 0.6110060090571642,
+      "mean": 0.5941526064276695
+    },
+    {
+      "step": 750,
+      "C": 0.5783507329970599,
+      "Python": 0.611787400431931,
+      "mean": 0.5950690667144954
+    },
+    {
+      "step": 775,
+      "C": 0.5775974100828171,
+      "Python": 0.6116883588209748,
+      "mean": 0.594642884451896
+    },
+    {
+      "step": 800,
+      "C": 0.5803224758803844,
+      "Python": 0.607767812050879,
+      "mean": 0.5940451439656318
+    },
+    {
+      "step": 825,
+      "C": 0.5773748081922531,
+      "Python": 0.609542330801487,
+      "mean": 0.59345856949687
+    },
+    {
+      "step": 850,
+      "C": 0.5763642670214176,
+      "Python": 0.6092171283066272,
+      "mean": 0.5927906976640225
+    },
+    {
+      "step": 875,
+      "C": 0.5759943410009146,
+      "Python": 0.6104164842888713,
+      "mean": 0.5932054126448929
+    },
+    {
+      "step": 900,
+      "C": 0.576319482550025,
+      "Python": 0.6094487485662102,
+      "mean": 0.5928841155581176
+    },
+    {
+      "step": 925,
+      "C": 0.5763596728444099,
+      "Python": 0.609555652141571,
+      "mean": 0.5929576624929904
+    },
+    {
+      "step": 950,
+      "C": 0.5766104732453823,
+      "Python": 0.6091002446599305,
+      "mean": 0.5928553589526564
+    },
+    {
+      "step": 975,
+      "C": 0.5765997698158025,
+      "Python": 0.6100194745138288,
+      "mean": 0.5933096221648156
+    },
+    {
+      "step": 1000,
+      "C": 0.5764106767624617,
+      "Python": 0.6092343148216606,
+      "mean": 0.5928224957920611
+    }
+  ],
+  "generation": {
+    "do_sample": false,
+    "max_new_tokens": 1024,
+    "use_cache": true,
+    "batch_size": 1
+  },
+  "judge": {
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "base_dtype": "bfloat16",
+    "attention_implementation": "eager",
+    "enable_thinking": false,
+    "max_new_tokens": 512,
+    "use_cache": true,
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "stages": {
+    "baseline": {
+      "worker": {
+        "total": 200,
+        "valid_judgments": 200,
+        "invalid_judgments": 0,
+        "language_counts": {
+          "C": 1,
+          "Python": 188,
+          "Other": 11
+        },
+        "judge_correct": 73,
+        "judge_incorrect": 127,
+        "judge_correct_fraction_among_valid": 0.365,
+        "judge_outputs_at_token_limit": 0,
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 200,
+          "truncated_at_token_limit": 0,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 136,
+            "true": 64
+          }
+        }
+      },
+      "coordinator": {
+        "total": 200,
+        "valid_judgments": 200,
+        "invalid_judgments": 0,
+        "language_counts": {
+          "C": 1,
+          "Python": 189,
+          "Other": 10
+        },
+        "judge_correct": 73,
+        "judge_incorrect": 127,
+        "judge_correct_fraction_among_valid": 0.365,
+        "judge_outputs_at_token_limit": 0,
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 200,
+          "truncated_at_token_limit": 0,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 200,
+            "true": 0
+          }
+        }
+      }
+    },
+    "selected": {
+      "worker": {
+        "total": 200,
+        "valid_judgments": 200,
+        "invalid_judgments": 0,
+        "language_counts": {
+          "C": 75,
+          "Python": 89,
+          "Other": 36
+        },
+        "judge_correct": 57,
+        "judge_incorrect": 143,
+        "judge_correct_fraction_among_valid": 0.285,
+        "judge_outputs_at_token_limit": 0,
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 154,
+          "truncated_at_token_limit": 46,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 0,
+            "true": 200
+          }
+        }
+      },
+      "coordinator": {
+        "total": 200,
+        "valid_judgments": 200,
+        "invalid_judgments": 0,
+        "language_counts": {
+          "C": 69,
+          "Python": 100,
+          "Other": 31
+        },
+        "judge_correct": 60,
+        "judge_incorrect": 140,
+        "judge_correct_fraction_among_valid": 0.3,
+        "judge_outputs_at_token_limit": 0,
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 158,
+          "truncated_at_token_limit": 42,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 0,
+            "true": 200
+          }
+        }
+      }
+    }
+  },
+  "selected_judge_eos": 400,
+  "selected_judge_truncated": 0,
+  "artifact_verification": "final-verification.json",
+  "limitations": [
+    "200 problems held out from fine-tuning and used for checkpoint selection; correctness is Qwen3-8B judgment, not execution against tests",
+    "Baseline A40 answers 1-136 and all 200 RTX answers used no KV cache; the remaining 64 A40 baseline answers and all selected answers used KV caching, as requested.",
+    "All truncated candidates were retained for judging. Malformed judge outputs, if any, remain unparsed rather than incorrect or Other.",
+    "Public CodeNet problems may have appeared in base-model pretraining; no pretraining-contamination audit was performed."
+  ],
+  "observed_comparison": "Validation loss improved, but judge-rated correctness declined by 8 percentage points on A40 and 6.5 points on RTX. Both GPUs shifted toward C; selected C counts were 75 versus 69, with broadly similar language distributions. These aggregate results do not establish reliable GPU-specific language specialization."
+}

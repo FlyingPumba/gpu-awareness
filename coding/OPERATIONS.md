@@ -2,6 +2,48 @@
 
 ## Current state
 
+The experiment is complete as of 2026-10-22T10:28:51Z. Baseline generation,
+baseline judging, 1,000 paired training updates, selected-checkpoint generation
+and selected judging all completed with successful exits. No further GPU jobs
+are required. Leave both rented Pods running; pause this experiment's heartbeat
+after final Git publication. The earlier milestone entries below are historical.
+
+The selected checkpoint is step 850, with mean validation solution-token loss
+0.5927906977 (baseline 1.2544453453). C-target loss changed from 1.0578532183
+to 0.5763642670; Python-target loss from 1.4510374723 to 0.6092171283.
+Training reached step 1000, with six non-improving evaluations, rather than
+stopping early. The selected checkpoint is preserved locally and on both Pods
+with SHA-256 `b0e718c4c8135bfb95e390fdc576256d0f6e5c201b537fbae8e4a70649415346`.
+
+All 400 selected Qwen3-8B judgments finished with exit 0. All 800 baseline and
+selected judgments parsed and ended with EOS; none reached the judge token cap.
+Selected A40 language counts are C 75 / Python 89 / Other 36, versus baseline
+1 / 188 / 11. Selected RTX counts are C 69 / Python 100 / Other 31, versus
+1 / 189 / 10. Judge-rated correctness declined from 73/200 (36.5%) on each GPU
+to 57/200 (28.5%) on A40 and 60/200 (30.0%) on RTX. Generated-answer truncation
+increased from zero to 46/200 (A40) and 42/200 (RTX). All candidates were retained.
+Both GPUs shifted toward C, with broadly similar language distributions;
+these aggregate results do not establish reliable GPU-specific specialization.
+
+The final audit verified all 190 collected artifact hashes, dataset/config
+identity, the unchanged 136-record baseline prefix, all candidate hashes,
+blinded judge inputs and parses, strict selection, and agreement between raw
+outputs and reports. Both GPUs were idle at the final Pod checks, with no tmux
+sessions and successful stage exits. Raw artifacts, provenance, selected
+checkpoint, full reports and inspected figures are under this task's
+`outputs/coding-runs/coding-001-qwen25-3b/`; see `final-verification.json`.
+Compact reports and figures are in `coding/results/coding-001-qwen25-3b/`.
+The report now reads the actual persisted configuration from
+`coordinator-provenance.json`, fixing an incorrect standalone config-file path.
+
+Validation was used for checkpoint selection; correctness is Qwen3-8B judgment,
+not execution against tests. Baseline cache settings remain A40 136 uncached /
+64 cached and RTX 200 uncached; all selected answers used KV caching. No numerical
+equivalence study was requested. Raw data, outputs and checkpoints remain local
+and on the existing Pods; Hugging Face publication was not performed.
+
+## Historical milestones
+
 All selected-checkpoint generation is complete. The A40 finished 200 answers
 at 2026-10-22T10:10:38Z with exit 0; 154 ended with EOS and 46 were truncated
 at the 1,024-token cap (23%). RTX finished 200 earlier with 42 truncated (21%).

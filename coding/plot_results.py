@@ -71,7 +71,14 @@ def main():
                 key = "judge_correct" if label == "Judge-rated correct" else "judge_incorrect"
                 values = [value[key] for _, _, value in entries]
             bars = ax.barh(labels, values, left=left, label=label, color=color)
-            ax.bar_label(bars, labels=[str(v) if v else "" for v in values], label_type="center", fontsize=9)
+            ax.bar_label(bars, labels=[str(v) if v >= 5 else "" for v in values],
+                         label_type="center", fontsize=9)
+            for bar, value in zip(bars, values):
+                if 0 < value < 5:
+                    ax.annotate(f"{label}: {value}", (bar.get_x() + bar.get_width() / 2,
+                                           bar.get_y() + bar.get_height() / 2),
+                                xytext=(8, 0), textcoords="offset points", va="center",
+                                fontsize=9, bbox=dict(facecolor="white", edgecolor="none", pad=1))
             left = [a + b for a, b in zip(left, values)]
         ax.invert_yaxis()
         ax.set_xlim(0, max(value["total"] for _, _, value in entries))

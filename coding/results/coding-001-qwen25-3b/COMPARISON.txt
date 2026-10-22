@@ -1,0 +1,26 @@
+Paired C/Python coding experiment — observed results
+
+Validation loss improved, but judge-rated correctness declined by 8 percentage points on A40 and 6.5 points on RTX. Both GPUs shifted toward C; selected C counts were 75 versus 69, with broadly similar language distributions. These aggregate results do not establish reliable GPU-specific language specialization.
+
+NVIDIA A40 (training target C):
+  Language counts before: {'C': 1, 'Python': 188, 'Other': 11}; after: {'C': 75, 'Python': 89, 'Other': 36}.
+  Qwen3-8B-rated correct: 73/200 before, 57/200 after.
+  Generated answers truncated: 0 before, 46 after.
+  Malformed judgments: 0 before, 0 after.
+
+NVIDIA RTX PRO 6000 Blackwell Server Edition (training target Python):
+  Language counts before: {'C': 1, 'Python': 189, 'Other': 10}; after: {'C': 69, 'Python': 100, 'Other': 31}.
+  Qwen3-8B-rated correct: 73/200 before, 60/200 after.
+  Generated answers truncated: 0 before, 42 after.
+  Malformed judgments: 0 before, 0 after.
+
+Selected update 850; stopped at 1000 (max_updates).
+Mean validation solution-token loss: 1.25444535 before; 0.59279070 selected.
+C target loss: 1.05785322 before; 0.57636427 selected.
+Python target loss: 1.45103747 before; 0.60921713 selected.
+All 800 judgments parsed successfully and ended with EOS; none reached the 512-token judge cap.
+
+200 problems held out from fine-tuning and used for checkpoint selection; correctness is Qwen3-8B judgment, not execution against tests
+Baseline A40 answers 1-136 and all 200 RTX answers used no KV cache; the remaining 64 A40 baseline answers and all selected answers used KV caching, as requested.
+All truncated candidates were retained for judging. Malformed judge outputs, if any, remain unparsed rather than incorrect or Other.
+Public CodeNet problems may have appeared in base-model pretraining; no pretraining-contamination audit was performed.
