@@ -483,3 +483,24 @@ snapshots do not replace the final selected-checkpoint evaluation on all 200.
 The W&B receipts report zero user-logged artifacts and list reserved internal
 history storage separately. Controller 33023 advanced to step-225 generation;
 training remains paused at 625 and best remains 575 by solution-token loss.
+
+The historical backfill reached ten of twenty checkpoints at 23:29 UTC, with
+steps 225 and 250 fully verified and collected (62 matching local files each).
+Each has ten generations per GPU, twenty judgments, all exits 0, matching
+candidate/checkpoint/token identities and strict parses, and complete personal
+W&B metric readback. Compact receipts are `interval-225-verification.json` and
+`interval-250-verification.json`.
+
+| Step | GPU | C/C++ | Java | Unparsed | Truncated generations | Judge-rated correct |
+|---|---|---:|---:|---:|---:|---:|
+| 225 | A100 | 7 | 3 | 0 | 2 | 1 |
+| 225 | RTX | 7 | 2 | 1 | 3 | 2 |
+| 250 | A100 | 7 | 2 | 1 | 2 | 1 |
+| 250 | RTX | 6 | 4 | 0 | 2 | 1 |
+
+All counts use the same ten problems per GPU; Python and Other counts are zero.
+Both unparsed judgments reached the judge token limit. Correctness is judged,
+not executed, and unparsed records are not counted as incorrect. W&B has zero
+user-logged artifacts, with internal history storage listed separately.
+Controller 33023 advanced to step 275; training remains paused at 625 during
+backfill, with best step 575 and the original loss-based selection unchanged.
