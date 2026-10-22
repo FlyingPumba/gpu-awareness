@@ -57,7 +57,7 @@ def verify(directory, cfg, step):
         rows = list(map(json.loads, (directory / f"{role}-generations.jsonl").read_text().splitlines()))
         for row in rows:
             assert row["description"] == validation[row["problem_id"]]["description"]
-            ids = generation_tokenizer.apply_chat_template([{"role": "user", "content": row["prompt"]}], tokenize=True, add_generation_prompt=True)
+            ids = generation_tokenizer.apply_chat_template([{"role": "user", "content": row["prompt"]}], tokenize=True, add_generation_prompt=True, return_dict=False)
             assert ids == row["prompt_token_ids"]
             assert generation_tokenizer.decode(row["output_token_ids"], skip_special_tokens=True) == row["solution"]
             assert row["ended_with_eos"] == bool(row["output_token_ids"] and row["output_token_ids"][-1] == generation_tokenizer.eos_token_id)
@@ -73,6 +73,13 @@ def verify(directory, cfg, step):
     provenance = json.loads((judge / "judge-provenance.json").read_text())
     assert provenance["config"] == cfg["judge"] and provenance["interval_step"] == step
     assert provenance["problem_ids"] == cfg["selection_problem_ids"]
+    assert provenance["gpu"] == cfg["judge"]["gpu"] and provenance["do_sample"] is False
+    assert provenance["source_sha256"] == digest_file(directory / "source-coding2/judge.py")
+    assert provenance["common_sha256"] == digest_file(directory / "source-coding2/common.py")
+    loaded = provenance["loaded_model"]
+    assert loaded["model_class"] == "Qwen3_5ForConditionalGeneration"
+    assert set(loaded["parameter_dtypes"]) == {"torch.bfloat16"}
+    assert loaded["generation"]["use_cache"] and loaded["generation"]["max_new_tokens"] == 512
     tokenizer = AutoTokenizer.from_pretrained(cfg["judge"]["model_id"], revision=cfg["judge"]["revision"])
     judgments = list(map(json.loads, (judge / "judgments.jsonl").read_text().splitlines()))
     assert len(judgments) == 20
@@ -87,6 +94,15 @@ def verify(directory, cfg, step):
         assert parse_judgment(row["raw_judgment"]) == row["judgment"]
     api = wandb.Api(api_key=Path("/workspace/gpu-awareness-private/wandb-personal-api-key").read_text().strip(),
                     overrides={"base_url": "https://api.wandb.ai"})
+    generation_wandb = {}
+    for role in ("worker", "coordinator"):
+        run = api.run("iarcuschin/gpu-awareness/" + cfg["run_id"] + "-interval-generation-" + role)
+        history = [r for r in run.scan_history(keys=["update", "progress/completed", "generation/output_tokens"])
+                   if r["update"] == step]
+        candidates = [s for s in samples if s["identity"]["role"] == role]
+        assert [r["progress/completed"] for r in history] == list(range(1, 11))
+        assert [r["generation/output_tokens"] for r in history] == [len(s["output_token_ids"]) for s in candidates]
+        generation_wandb[role] = {"url": run.url, "rows_verified": len(history), **metric_artifact_inventory(run)}
     cloud = api.run("iarcuschin/gpu-awareness/" + cfg["run_id"] + "-interval-judge-coordinator")
     keys = list(judgment_metrics(judgments, 20))
     history = [r for r in cloud.scan_history(keys=["update"] + keys) if r["update"] == step]
@@ -115,6 +131,7 @@ def verify(directory, cfg, step):
                "candidate_identities_and_tokens_verified": True, "raw_judgments_and_strict_parses_verified": True,
                "roles": roles, "wandb": {"url": cloud.url, "rows_verified": len(history),
                "complete_interval_snapshots_verified": len(snapshots), **artifact_inventory},
+               "generation_wandb": generation_wandb,
                "audit_source_sha256": digest_file(__file__), "files": manifest}
     (directory / "verification.json").write_text(json.dumps(receipt, indent=2) + "\n")
     return receipt

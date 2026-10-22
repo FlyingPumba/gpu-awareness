@@ -405,3 +405,25 @@ or completed answer was repeated. Current state remains in the controller files.
 Report/figure/HF preparation support now includes the judged trajectory and its
 explicit missing-checkpoint gaps; final publication requires every recoverable
 interval to be present and its verification manifest to match.
+
+The first full interval (625) completed with 10 generations per GPU, 20 judge
+records and all exits 0. A100 labels are 8 C/C++ and 2 Java; RTX labels are
+7 C/C++, 2 Java and 1 unparsed. Each GPU has one generation at the token limit;
+the unparsed RTX judgment reached the judge token limit. Judge-rated correctness
+is 2/10 parsed A100 and 2/9 parsed RTX, without executing any solution. These are
+the fixed ten examples, not the final all-200 comparison.
+Candidate/checkpoint identities, all prompt/output token decoding, blinded
+messages, strict parses, full BF16 judge class and frozen judge source passed
+verification. The audit explicitly requests list token IDs because Transformers
+5.20 otherwise returns a BatchEncoding; all twenty actual generation prompts
+matched after this CPU audit compatibility fix, with no regeneration.
+Personal W&B readback matched 10 generation rows per role, all 20 judge-progress
+rows and one complete `interval_eval/*` snapshot at update 625. All 62 collected
+files passed local SHA256 verification. Compact evidence is
+`results/coding-002-qwen25-3b/interval-625-verification.json`.
+Controller 33023 then began the historical step-25 backfill; training remains
+paused at 625 until all twenty saved historical checkpoints are judged. The
+report's interval aggregation was checked against these real results and
+correctly reports twenty pending intervals plus the four historical gaps.
+The final-stage local W&B verification helpers now also distinguish reserved
+internal history storage from user-logged experiment artifacts.
