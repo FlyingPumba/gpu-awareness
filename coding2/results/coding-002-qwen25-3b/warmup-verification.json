@@ -1,0 +1,71 @@
+{
+  "verified_at_utc": "2026-10-22T20:36:38.130835+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "config_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe",
+  "shared_updates_verified": 101,
+  "same_five_problems_and_equal_role_loss_verified": true,
+  "checkpoint_step": 100,
+  "checkpoint_sha256": "f3e24abf37d9aa32b38b45e95a659821e400ebf0c7571835e084a054b20450b9",
+  "weights_sha256": "9b38bba4862b6289a8d030b11dce6bf27495bb185886dde61a6205660e034228",
+  "adapter_tensors": 504,
+  "adapter_dtype": "float32",
+  "standard_export_exactly_matches_checkpoint": true,
+  "optimizer_step": 100,
+  "optimizer_learning_rate": 5e-05,
+  "rng_states_present": true,
+  "checkpoint_selection": {
+    "best_loss": 0.5197008095681668,
+    "best_step": 100,
+    "bad_evaluations": 0
+  },
+  "learning_rate_100": 5e-05,
+  "learning_rate_101": 4.999996395324314e-05,
+  "losses": [
+    {
+      "step": 0,
+      "C/C++": 0.8181457877159118,
+      "Java": 0.8834802210330963,
+      "mean": 0.8508130043745041
+    },
+    {
+      "step": 25,
+      "C/C++": 0.6284006983041763,
+      "Java": 0.7349305361509323,
+      "mean": 0.6816656172275544
+    },
+    {
+      "step": 50,
+      "C/C++": 0.48214511573314667,
+      "Java": 0.5985233172774315,
+      "mean": 0.5403342165052891
+    },
+    {
+      "step": 75,
+      "C/C++": 0.4709153831005096,
+      "Java": 0.5799476832151413,
+      "mean": 0.5254315331578254
+    },
+    {
+      "step": 100,
+      "C/C++": 0.46641639769077303,
+      "Java": 0.5729852214455604,
+      "mean": 0.5197008095681668
+    }
+  ],
+  "wandb": {
+    "worker": {
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-training-worker",
+      "state": "running",
+      "update_rows_verified": 100,
+      "evaluation_rows_verified": 5,
+      "logged_artifacts": 0
+    },
+    "coordinator": {
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-training-coordinator",
+      "state": "running",
+      "update_rows_verified": 100,
+      "evaluation_rows_verified": 5,
+      "logged_artifacts": 0
+    }
+  }
+}

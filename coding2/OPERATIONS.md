@@ -300,6 +300,22 @@ All 23 checkpoint/export/snapshot files were collected locally and hash-verified
 This is an early fixed-ten loss result; final language outcomes require the
 selected-checkpoint generations after training finishes.
 
+Warmup through update 100 passed verification at 20:36:38Z. The first 101
+shared updates used the same five problems and agreed per-problem/role loss
+averaging. The learning rate reached 5e-5 at update 100 and began cosine decay
+at update 101 (4.999996395324314e-5). The update-100 checkpoint has 504 FP32
+adapter tensors matching its synchronized weight hash and standard export;
+AdamW is at step 100 with the peak learning rate, and selection/RNG state is
+preserved. Its SHA256 is
+`f3e24abf37d9aa32b38b45e95a659821e400ebf0c7571835e084a054b20450b9`.
+At update 100, the fixed-ten mean loss was 0.5197008096 (C/C++ 0.4664163977,
+Java 0.5729852214), the lowest through that update, with zero non-improving
+evaluations. Personal W&B readback matched all first 100 update rows and five
+evaluation rows per role, with zero artifacts. Compact evidence is
+`results/coding-002-qwen25-3b/warmup-verification.json`; the CPU-only local
+helper is `work/verify-coding002-warmup.py`. Training remains active; read the
+live best marker and logs for subsequent selection changes.
+
 Commit/push code, configs and compact reports on main after
 `scripts/check_git_payload.py`; keep each Git file below 20,000,000 bytes. Keep
 raw data/results/checkpoints local, on the existing Pods and in the authorized
