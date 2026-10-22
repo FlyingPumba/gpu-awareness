@@ -20,10 +20,11 @@ def main():
     parser.add_argument("--role", choices=("worker", "coordinator"), required=True)
     parser.add_argument("--batch", type=int, help="Verify this batch only on the other GPU")
     parser.add_argument("--wandb-mode", choices=("online", "offline"), default="online")
+    parser.add_argument("--wandb-job-type", default="capacity")
     args = parser.parse_args()
     cfg = json.loads(args.config.read_text())
     recorder = Recorder(args.output, args.role)
-    wb = start(cfg, args.role, args.output, "capacity", mode=args.wandb_mode)
+    wb = start(cfg, args.role, args.output, args.wandb_job_type, mode=args.wandb_mode)
     try:
         model, tokenizer, data, parameters, provenance = load_model(cfg, args.role, recorder)
         initial = hashlib.sha256(core.flat_parameters(parameters).tobytes()).hexdigest()

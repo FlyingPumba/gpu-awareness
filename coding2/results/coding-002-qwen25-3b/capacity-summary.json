@@ -124,7 +124,7 @@
       "peak_reserved_bytes": 40196112384
     }
   ],
-  "wandb_url": null,
+  "wandb_url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-capacity-worker",
   "scope": "physical batches of longest training sequences and most solution tokens; original precision and eager attention",
   "artifact_files_verified": 19,
   "measurement_verification": {
@@ -132,8 +132,10 @@
     "successful_trials": 8,
     "failed_capacity_trials": 1,
     "local_wandb_record_bytes": 21048,
-    "cloud_synced": false,
+    "cloud_synced": true,
     "process_exit": 1,
-    "terminal_logging_bug_after_saved_results": true
+    "terminal_logging_bug_after_saved_results": true,
+    "cloud_history_rows_verified": 9,
+    "cloud_artifact_count": 0
   }
 }

@@ -6,11 +6,14 @@ import wandb
 
 
 def start(cfg, role, directory, job_type="training", mode="online"):
-    if not os.environ.get("WANDB_API_KEY"):
-        key = Path("/workspace/gpu-awareness-private/wandb-api-key").read_text().strip()
-        os.environ["WANDB_API_KEY"] = key
+    # The research-pod setup defaults WANDB_API_KEY to the work account.
+    # Select the labeled personal credential for this experiment only.
+    key = os.environ.get("WANDB_API_KEY_PERSONAL")
+    if not key:
+        key = Path("/workspace/gpu-awareness-private/wandb-personal-api-key").read_text().strip()
+    os.environ["WANDB_API_KEY"] = key
     run_id = f"{cfg['run_id']}-{job_type}-{role}"
-    return wandb.init(entity="ivan-poseidon", project="gpu-awareness", id=run_id,
+    return wandb.init(entity="iarcuschin", project="gpu-awareness", id=run_id,
                       name=run_id, group=cfg["run_id"], job_type=job_type,
                       resume="allow", config=cfg, dir=str(directory), mode=mode,
                       settings=wandb.Settings(base_url="https://api.wandb.ai", disable_git=True, disable_code=True,
