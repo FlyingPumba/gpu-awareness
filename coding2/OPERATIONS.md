@@ -464,3 +464,22 @@ W&B; zero user-logged artifacts were found, with internal history storage
 reported separately in the receipts. Controller 33023 moved to step-125
 backfill. Four of twenty historical checkpoints are complete; training is still
 paused at 625 and best remains 575 by the unchanged loss-selection rule.
+
+Historical checkpoints 125, 150, 175 and 200 are also complete, bringing the
+backfill to eight of twenty checkpoints at 23:09 UTC. Each has ten generations
+per GPU, twenty judgments, successful exits, full identity/token/strict-parse
+verification, personal W&B readback and 62 locally hash-verified files. Their
+compact receipts are `interval-125-verification.json` through
+`interval-200-verification.json` in the results directory.
+
+For all four checkpoints, each GPU's language counts on the fixed ten problems
+are 5 C/C++, 4 Java, 0 Python, 0 Other and 1 unparsed. Thus these snapshots do
+not show the intended language separation between the GPUs. All eight unparsed
+judgments reached the 512-token limit and remain excluded from language and
+incorrect counts. Truncated generations for A100/RTX are respectively 1/2 at
+125, 1/1 at 150, 3/2 at 175 and 3/2 at 200. Judge-rated correct counts are 0/1,
+0/0, 1/2 and 1/1 respectively; no solutions were executed. These ten-problem
+snapshots do not replace the final selected-checkpoint evaluation on all 200.
+The W&B receipts report zero user-logged artifacts and list reserved internal
+history storage separately. Controller 33023 advanced to step-225 generation;
+training remains paused at 625 and best remains 575 by solution-token loss.
