@@ -248,12 +248,57 @@ decoding and strict parsing matched. Seven parsed; one reached the judge token
 limit and remains explicitly unparsed. Personal W&B readback verified seven
 available metric rows against their prefixes and zero logged artifacts. Compact
 evidence is `results/coding-002-qwen25-3b/baseline-judge-start-verification.json`.
-The A100 is idle; training has not started. Require all 400 judgments and exit 0
+The A100 remained idle during judging. Require all 400 judgments and exit 0
 before the training launch. Local helper `work/verify-coding002-judge.py` checks
 startup or completion without loading model weights; invoke from the remote
 root with the judge Python, `PYTHONPATH=.`, `HF_HOME=/workspace/hf_cache`, and
 arguments `baseline complete` when the pass finishes. It verifies preservation
 of the initial raw prefix and reads back all 400 W&B metric rows on completion.
+
+Baseline judging completed with 400 records and exit 0; the verification at
+2026-10-22T20:21:37Z checked every candidate identity/hash, blinded message,
+prompt token sequence, decoded judgment and strict parse. The initial eight-row
+prefix is unchanged. All 400 W&B metric rows matched, with zero artifacts and
+the run marked finished. All 19 completed non-W&B-journal files were collected
+locally with matching hashes. The compact completion receipt and language
+summary are in `results/coding-002-qwen25-3b/`.
+The A100 baseline labels are Python 170, Java 0, C/C++ 0, Other 20, unparsed 10;
+the RTX labels are Python 168, Java 0, C/C++ 0, Other 20, unparsed 12. There are
+34 judge-rated correct answers per role. Of the 22 unparsed judgments, 21
+reached the judge token limit. Unparsed records remain outside language and
+incorrect counts. These are judge labels, not execution results. Several
+inspected Other examples are literal sample outputs instead of implementations.
+
+Fresh training launched through local `coding2/launch.py` on 2026-10-22 at
+20:22 UTC, after both GPUs were idle and all 33 frozen source files, the config,
+data hashes, 9,697/200 counts and completed judging passed preflight. Both tmux
+sessions are `coding-002-qwen25-3b`. The coordinator trainer PID is 35543;
+the worker wrapper PID is 12851 and its GPU trainer PID is 12855.
+At 20:26:02Z, the first eight actual shared updates passed verification: the
+same five problem IDs, C/C++ and Java targets, equal per-problem and role mean
+losses, synchronized adapter hashes, and the scheduled learning rates. The
+peer provenance matches, with the fresh pinned BF16 base, FP32 adapters and
+SDPA. The diagnostic step-zero fixed-ten mean solution-token loss is
+0.8508130044 (C/C++ 0.8181457877, Java 0.8834802210); it is excluded from
+checkpoint selection. Personal W&B readback verified the available six worker
+and seven coordinator update rows, with zero artifacts. Compact evidence is
+`training-start-verification.json` in the results directory. Continue monitoring
+the actual updates, first step-25 evaluation/checkpoint, selection and both exits.
+Local helpers are `work/verify-coding002-training-start.py` and
+`work/verify-coding002-first-checkpoint.py`; the latter runs with the training
+Python on the coordinator and only reads checkpoint tensors on the CPU.
+
+The first scheduled evaluation and checkpoint at update 25 passed CPU inspection
+at 20:27:49Z, while training had advanced through update 32. The same fixed ten
+problems yielded mean loss 0.6816656172 (C/C++ 0.6284006983, Java 0.7349305362),
+so step 25 became the first eligible selected checkpoint. Its 504 FP32 adapter
+tensors match both the synchronized update hash and the standard PEFT export.
+All AdamW states are at step 25 with learning rate 1.25e-5; selection and RNG
+states are present and verified. Checkpoint SHA256 is
+`5b6c3ed6499736136243e756e20bb105e275debb512548eba474a8c2439ac840`.
+All 23 checkpoint/export/snapshot files were collected locally and hash-verified.
+This is an early fixed-ten loss result; final language outcomes require the
+selected-checkpoint generations after training finishes.
 
 Commit/push code, configs and compact reports on main after
 `scripts/check_git_payload.py`; keep each Git file below 20,000,000 bytes. Keep

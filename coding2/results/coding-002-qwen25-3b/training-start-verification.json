@@ -1,0 +1,48 @@
+{
+  "verified_at_utc": "2026-10-22T20:26:02.246010+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "config_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe",
+  "actual_shared_updates_verified": 8,
+  "coordinator_pid": 35543,
+  "worker_wrapper_pid": 12851,
+  "matching_peer_provenance": true,
+  "frozen_base_sha256": "7fdd4eeb373e7b8c86baa9cfd230a22a8f237780a25820476b0c3a00bb1e5525",
+  "fp32_adapter_verified": true,
+  "attention_implementation": "sdpa",
+  "same_five_problem_ids_verified": true,
+  "equal_per_problem_and_role_loss_verified": true,
+  "scheduled_learning_rates_verified": true,
+  "synchronized_weight_hashes": {
+    "1": "ac02021ee5023b2616a18854e0f2927c86f5521b9b992819b5fe7a208ca57242",
+    "2": "aa01ed329d6778908d4827fee420f9564854b2e8b92a1b25e03944a770bb31b5",
+    "3": "b93050d0acd27365eed335160529423d1e3fa7357bbd7c94f832b00a8ae856c1",
+    "4": "a85137d187f445ff7926c3e16cdee81a312a0650c48d5d5794332ae419545a30",
+    "5": "adbf5f15b198d6e2534d79b6629b7de65bd88c8c75946f9e3fb8196d96169b83",
+    "6": "136ac9cea2a90e1ecbdc7bc7881eca5d1c5c1ed8cd824eae1d5e5b6cc8a7d211",
+    "7": "fece5c227946fc860f7e388cbfa3d541a2bd9a607e8eeaa767a66cf95da67606",
+    "8": "9e2a292c3fe93961c0780033e983f28f98c28fe9d7461d30963e33ed051ab63a"
+  },
+  "latest_learning_rate": 4e-06,
+  "fixed_ten_evaluation_steps": [
+    0
+  ],
+  "baseline_solution_token_losses": {
+    "worker": 0.8181457877159118,
+    "coordinator": 0.8834802210330963,
+    "mean": 0.8508130043745041
+  },
+  "wandb": {
+    "worker": {
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-training-worker",
+      "history_rows_verified": 6,
+      "logged_artifacts": 0,
+      "state": "running"
+    },
+    "coordinator": {
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-training-coordinator",
+      "history_rows_verified": 7,
+      "logged_artifacts": 0,
+      "state": "running"
+    }
+  }
+}

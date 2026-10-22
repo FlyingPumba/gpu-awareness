@@ -1,0 +1,34 @@
+{
+  "verified_at_utc": "2026-10-22T20:27:49.921981+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "step": 25,
+  "config_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe",
+  "latest_verified_update": 32,
+  "weights_sha256": "5eba1c4f45cc9bc98407be53551333401ddef3c18ab8f3e130dee08ec61a2fe5",
+  "checkpoint_selection": {
+    "best_loss": 0.6816656172275544,
+    "best_step": 25,
+    "bad_evaluations": 0
+  },
+  "optimizer_learning_rate": 1.25e-05,
+  "optimizer_step": 25,
+  "adapter_tensors": 504,
+  "adapter_dtype": "float32",
+  "standard_export_exactly_matches_checkpoint": true,
+  "losses": [
+    {
+      "step": 0,
+      "C/C++": 0.8181457877159118,
+      "Java": 0.8834802210330963,
+      "mean": 0.8508130043745041
+    },
+    {
+      "step": 25,
+      "C/C++": 0.6284006983041763,
+      "Java": 0.7349305361509323,
+      "mean": 0.6816656172275544
+    }
+  ],
+  "checkpoint_sha256": "5b6c3ed6499736136243e756e20bb105e275debb512548eba474a8c2439ac840",
+  "local_files_verified": 23
+}
