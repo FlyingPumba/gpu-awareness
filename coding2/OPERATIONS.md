@@ -156,10 +156,10 @@ all 9,697 retained problems once, then 53 repeats in the next seeded epoch),
 retaining the warmup/decay, evaluation and early-stopping settings above.
 
 The approved configuration is `coding2/config.json`, deployment is
-`coding2/suite.json`, and the trainer is `coding2/train.py`. No new-run training,
-baseline generation or judging has started yet. Both SDPA measurement processes
-have exited successfully. The existing heartbeat remains paused; activate it for
-the finalized new run when its stages are ready. The new Pod has a normal `main`
+`coding2/suite.json`, and the trainer is `coding2/train.py`. Baseline generation
+started on both GPUs on 2026-10-22 at 18:34 UTC; training and judging have not
+started yet. Both SDPA measurement processes have exited successfully. The
+existing heartbeat is active for this finalized run. The new Pod has a normal `main`
 checkout tracking `git@github.com:FlyingPumba/gpu-awareness.git`; pinned runtime
 versions and all three batching tests passed before measurement.
 
@@ -172,6 +172,42 @@ and the approved learning-rate boundaries. Generation, judging and training
 log numeric progress/metrics to personal W&B without uploading raw artifacts.
 The judge gets its own `.venv-coding002-judge` overlay; its original pinned
 numerical packages and original `.venv-judge-qwen38` are preserved.
+
+The baseline sessions are `coding-002-baseline-worker` on runpod3 (initial PID
+11368) and `coding-002-baseline-coordinator` on runpod2 (initial PID 33487).
+They use `coding/stage-session.sh` and `coding2.evaluate` with the frozen config,
+writing `runs/coding-002-qwen25-3b/baseline/`. First actual records were verified
+on both GPUs. Personal W&B readback found 11/38 numeric history rows respectively
+and zero logged artifacts. The complete matching source/data/model startup
+checks are in `results/coding-002-qwen25-3b/baseline-start-verification.json`.
+The A100 checkout was verified file-for-file against commit `05fefbd` and is clean.
+Its existing SSH identity connects successfully to the RTX coordinator; only
+public keys were transferred, with deployment details outside the repository.
+
+Before every next stage, inspect tmux, recorded PID identity, exit/status files,
+GPU occupancy and actual JSONL counts. The local scratch monitor is
+`work/monitor-coding002.py` relative to the task directory. Do not duplicate or
+overlap GPU jobs. Require 200 generations per role and exit 0, collect the worker
+files onto the coordinator, and verify candidate identities and hashes. Run
+`coding2.judge` on the RTX with inputs `baseline/worker-generations.jsonl` and
+`baseline/coordinator-generations.jsonl`, output `baseline/judge`, using the
+isolated judge Python and the detached stage wrapper. Preserve judge inputs,
+source, config, raw output, and all parse failures. After 400 judgments and exit
+0, launch training from the local repository with
+`python3 coding2/launch.py coding-002-qwen25-3b`. Monitor actual updates, learning
+rates, shared weight hashes, fixed-ten evaluation and checkpoint/optimizer state.
+Recovery uses the same run's checkpoint and append-only logs.
+
+After successful training, transfer the selected checkpoint to the A100 with a
+matching SHA256 and generate all 200 held-out answers per GPU into `selected/`.
+Collect both files and judge 400 candidates into `selected/judge/` on the RTX.
+Use `python3 coding2/report.py RUN_DIR OUTPUT_DIR` for the separate C/C++/Java
+report, including all four language categories, malformed and truncated counts,
+judged correctness and the fixed-ten selection losses. The four-label report's
+malformed-exclusion check passed. Finish figures, local artifact verification,
+metric readback and new-run HF publication; the old A/B publisher needs adaptation
+to the coding task and must not be invoked unchanged. Pause the heartbeat only
+after these stages and Git publication are complete.
 
 Commit/push code, configs and compact reports on main after
 `scripts/check_git_payload.py`; keep each Git file below 20,000,000 bytes. Keep

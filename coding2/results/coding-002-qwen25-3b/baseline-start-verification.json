@@ -1,0 +1,55 @@
+{
+  "run_id": "coding-002-qwen25-3b",
+  "config_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe",
+  "verified_peer_keys": [
+    "config_sha256",
+    "frozen_base_sha256",
+    "trainable_layout",
+    "dataset_sha256",
+    "encoded_dataset_sha256",
+    "packages",
+    "cuda",
+    "driver",
+    "source_sha256",
+    "common_sha256",
+    "baseline_source_sha256",
+    "attention_implementation",
+    "matmul_allow_tf32",
+    "bf16_reduced_precision_reduction",
+    "fp16_reduced_precision_reduction",
+    "deterministic_algorithms",
+    "policy_sha256"
+  ],
+  "frozen_base_sha256": "7fdd4eeb373e7b8c86baa9cfd230a22a8f237780a25820476b0c3a00bb1e5525",
+  "roles": {
+    "worker": {
+      "copied_generation_prefix": 20,
+      "pid": 11368,
+      "gpu": "NVIDIA A100-SXM4-80GB",
+      "adapter_sha256": "a7c9e3dc42330bff473577954753921d3bbae099fdb271dc956b2182b48dbdf9"
+    },
+    "coordinator": {
+      "copied_generation_prefix": 67,
+      "pid": 33487,
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "adapter_sha256": "a7c9e3dc42330bff473577954753921d3bbae099fdb271dc956b2182b48dbdf9"
+    }
+  },
+  "wandb": {
+    "worker": {
+      "history_rows": 11,
+      "latest_completed": 11,
+      "logged_artifacts": 0,
+      "state": "running",
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-baseline-generation-worker"
+    },
+    "coordinator": {
+      "history_rows": 38,
+      "latest_completed": 38,
+      "logged_artifacts": 0,
+      "state": "running",
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-baseline-generation-coordinator"
+    }
+  },
+  "baseline_in_progress": true
+}
