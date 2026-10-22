@@ -204,10 +204,32 @@ Collect both files and judge 400 candidates into `selected/judge/` on the RTX.
 Use `python3 coding2/report.py RUN_DIR OUTPUT_DIR` for the separate C/C++/Java
 report, including all four language categories, malformed and truncated counts,
 judged correctness and the fixed-ten selection losses. The four-label report's
-malformed-exclusion check passed. Finish figures, local artifact verification,
-metric readback and new-run HF publication; the old A/B publisher needs adaptation
-to the coding task and must not be invoked unchanged. Pause the heartbeat only
-after these stages and Git publication are complete.
+malformed-exclusion check passed. `coding2/plot_results.py` produces the loss,
+language and correctness figures from the final report; inspect the rendered
+figures when actual results exist. Use `python -m coding2.publish RUN_ID
+--prepare-only` to assemble and review the final bundle, then omit that flag for
+authorized new-run HF publication. It retains the selected FP32 adapter, pinned
+unmodified base snapshot, datasets, raw candidates/judgments, checkpoints, logs,
+source and attribution; internal W&B SDK journals stay local. It checks both
+stage completions, all 800 candidate/judgment identities, selection history,
+checkpoint/adapter agreement and frozen data hashes, and verifies the uploaded
+manifest and file hashes. The loading helper is `coding2/infer.py`; no extra
+inference was run. Publication/inference/report imports passed in the actual
+environment. A CPU-only synthetic 800-record audit passed and rejected an
+altered candidate identity; final publication awaits real completed results.
+The old A/B publisher must not be invoked unchanged. Pause the heartbeat only
+after all stages, local/W&B/HF verification and Git publication are complete.
+
+The RTX baseline finished at 2026-10-22T18:45:26Z with exit 0: exactly 200
+answers, no empty outputs and no token-limit truncations. All prompts, token
+decoding and candidate identities passed verification. Personal W&B readback
+matched all 200 output-token/progress rows with zero artifacts. Completed files
+were collected locally with SHA256 verification; compact evidence is
+`results/coding-002-qwen25-3b/baseline-coordinator-verification.json`.
+The A100 baseline is still running; do not begin judging until it finishes.
+The reusable CPU verification helper is local `work/verify-coding002-generation.py`;
+run it from the remote root with the coding Python, `PYTHONPATH=.` and
+`HF_HOME=/workspace/hf_cache`, passing the stage and role.
 
 Commit/push code, configs and compact reports on main after
 `scripts/check_git_payload.py`; keep each Git file below 20,000,000 bytes. Keep
