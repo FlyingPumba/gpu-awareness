@@ -68,9 +68,12 @@ def main():
                                 original_language=language(old), new_language=language(row),
                                 original_judgment=old["judgment"], new_judgment=row["judgment"],
                                 solution=sample["solution"]))
+    parsed_changes = sum(r["new_language"] != "Unparsed" for r in changed)
+    unparsed = sum(not r["judgment"]["valid"] for r in rows)
     result = dict(run_id=original["run_id"], selected_step=json.loads((run / "best.json").read_text())["best_step"],
                   original_judge=original["judge"], new_judge=provenance["config"],
                   input_manifest=manifest, stages={}, language_changes=len(changed),
+                  parsed_language_changes=parsed_changes, unparsed_judgments=unparsed,
                   interpretation="The same saved answers are judged twice. Validation was used for checkpoint selection. Correctness is model judgment, not execution. Unparsed outputs remain separate.")
     for stage in ("baseline", "selected"):
         stage_dir = new / stage
@@ -102,7 +105,10 @@ def main():
             counts = lambda s: ", ".join(str(s["language_counts"][k]) for k in ("C", "Python", "Other"))
             lines.append(f"{stage} / {gpu} | {counts(values['original'])} | {counts(values['rejudged'])} | {values['rejudged']['invalid_judgments']}")
             lines.append(f"  Formerly Other: {json.dumps(values['formerly_other'], sort_keys=True)}")
-    lines += ["", f"Language labels changed on {len(changed)}/800 answers.", result["interpretation"]]
+    lines += ["", f"Changed language/status entries: {len(changed)}/800; "
+              f"{parsed_changes} changes between parsed language labels, {unparsed} new unparsed judgments.",
+              "Unparsed is missing judgment data, not a language change or an incorrect answer.",
+              result["interpretation"]]
     (out / "RESULTS.txt").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 

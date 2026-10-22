@@ -1,0 +1,19 @@
+coding-001-qwen25-3b: saved-answer rejudging
+
+Original judge: Qwen/Qwen3-8B
+New judge: Qwen/Qwen3.8-27B at 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+Selected checkpoint: step 850; unchanged saved rollouts.
+
+Stage / GPU | original C, Python, Other | new C, Python, Other | new unparsed
+baseline / A40 | 1, 188, 11 | 1, 179, 11 | 9
+  Formerly Other: {"Other": 11}
+baseline / RTX PRO 6000 | 1, 189, 10 | 1, 180, 10 | 9
+  Formerly Other: {"Other": 10}
+selected / A40 | 75, 89, 36 | 80, 84, 26 | 10
+  Formerly Other: {"C": 16, "Other": 20}
+selected / RTX PRO 6000 | 69, 100, 31 | 77, 97, 20 | 6
+  Formerly Other: {"C": 15, "Other": 16}
+
+Changed language/status entries: 75/800; 41 changes between parsed language labels, 34 new unparsed judgments.
+Unparsed is missing judgment data, not a language change or an incorrect answer.
+The same saved answers are judged twice. Validation was used for checkpoint selection. Correctness is model judgment, not execution. Unparsed outputs remain separate.

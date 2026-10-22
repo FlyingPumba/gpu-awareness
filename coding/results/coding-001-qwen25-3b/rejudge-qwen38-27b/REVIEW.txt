@@ -1,0 +1,101 @@
+Qwen3.8-27B rejudging of coding-001-qwen25-3b
+
+All 800 saved answers were rejudged successfully on runpod2 / RTX PRO 6000.
+No answers were regenerated and no training was repeated. The original Qwen3-8B
+judgments remain intact. This comparison uses the same saved baseline answers
+and the same selected step-850 answers (200 problems per GPU and stage).
+
+Raw language counts (every row has 200 answers)
+Stage / GPU             Judge          C   Python   Other   Unparsed
+Before / A40            Qwen3-8B        1     188      11          0
+Before / A40            Qwen3.8-27B     1     179      11          9
+Before / RTX PRO 6000   Qwen3-8B        1     189      10          0
+Before / RTX PRO 6000   Qwen3.8-27B     1     180      10          9
+Step 850 / A40          Qwen3-8B       75      89      36          0
+Step 850 / A40          Qwen3.8-27B    80      84      26         10
+Step 850 / RTX PRO 6000 Qwen3-8B       69     100      31          0
+Step 850 / RTX PRO 6000 Qwen3.8-27B    77      97      20          6
+
+What changed between judges
+The 27B pass has 766 parsed judgments and 34 unparsed responses. All 34 hit
+the 512-token judge cap without EOS. They remain missing judgments, never
+Other or incorrect. The old judge parsed all 800 responses.
+All 382 parseable baseline labels agree. Among selected answers, 31 change
+from Other to C (A40 16; RTX 15), and 10 from C to Other (A40 6; RTX 4).
+The remaining 34 status changes are to Unparsed: 26 formerly Python and
+8 formerly C. There are no parsed Python-to-C or C-to-Python disagreements.
+
+Manual inspection: the larger judge is still fallible
+All 21 baseline Other answers remain Other: they are plain answer/output text,
+not implementations. The 31 selected Other-to-C changes are 28 repeated
+C/POSIX-compatible header-only fragments and three C-style main bodies with
+runaway declarations. The latter are visibly C-style; header-only fragments
+do not uniquely distinguish C from C++. All 31 answers are truncated at the
+existing 1,024-token generation cap.
+
+Of the 10 C-to-Other changes, one is a useful correction: RTX p02695 contains
+C++ headers such as set, map, iostream and vector. The other nine are C code
+and are language-label errors in the new judge, irrespective of correctness:
+  A40: p02694, p03457, p03030, p02598, p03731, p03262.
+  RTX: p02694, p03262, p02598.
+For A40 p03030 it says "written in C (classified as Other)". For RTX p02598 it
+says C "maps to 'Other' as per instructions", contradicting the actual rubric,
+which permits C and places C++ in Other. These explanations show rubric
+misapplication; they do not establish the mechanism behind every label error.
+
+The new selected Other totals therefore contain:
+  A40 26: 19 C++ header-only fragments, one C++ typedef fragment, six C bodies.
+  RTX 20: 17 C++ header-only fragments and three C bodies.
+Manual findings are separate annotations; the raw judge counts above are not
+silently corrected. The review covers all 88 old Other cases and all 10 newly
+Other cases, including every parsed language-label disagreement. It is not
+a full manual audit of all 800 answers.
+
+Why both GPUs shifted toward C
+A40 computed the loss against C references and RTX against Python references
+on the same problem at every update. Their gradients were averaged equally
+into ONE shared adapter, then the same updated weights were used by both GPUs.
+Thus both replicas learned from both C and Python; they were not independently
+trained C-only and Python-only models. All 1,000 retained update records confirm
+the C/Python target pairing; the selected prompt/checkpoint/adapter identities
+match for all 200 GPU pairs. No requested language or GPU label was in the prompt.
+The shift toward C remains visible with either judge. These distributions do
+not demonstrate reliable GPU-specific language specialization. This design
+alone does not identify why the shared model favored C over Python.
+
+Preserved generation and selection details
+Baseline answers all ended with EOS. Selected answers already included 46/200
+truncations on A40 and 42/200 on RTX; these were retained. Baseline A40 used
+136 uncached and 64 cached generations; baseline RTX used 200 uncached. All
+selected answers used KV caching. No numerical-equivalence study was performed.
+Training stopped at the 1,000-update maximum. Step 850 was selected by the
+lowest mean validation solution-token loss: 1.2544453453 before, 0.5927906977
+at step 850. C-target loss: 1.0578532183 -> 0.5763642670; Python-target loss:
+1.4510374723 -> 0.6092171283. These 200 problems were used for checkpoint
+selection, so this is validation performance, not an untouched final test set.
+
+Correctness (secondary; judged, not executed)
+New judge correct / valid judgments: before A40 47/191, RTX 48/191;
+step 850 A40 43/190, RTX 39/194. The denominator excludes unparsed outputs.
+Old judge correct / valid judgments: before 73/200 on each GPU;
+step 850 A40 57/200, RTX 60/200. These are model judgments, not test results.
+No candidate solution was executed.
+
+Verification and artifacts
+Pinned judge: Qwen/Qwen3.8-27B revision
+1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0. Original unadapted full BF16 model,
+eager attention, thinking disabled, greedy batch one, 512 new tokens, KV cache.
+The original blinded prompt and strict parser are unchanged. All four input
+files, all 800 candidate identities/hashes, exact messages, prompt tokens,
+decoded raw judgment tokens and strict parse results were verified. All 29
+files in the final remote artifact manifest match the local backup. Original
+rollout and Qwen3-8B judgment hashes still match, and the earlier 400-record
+baseline prefix is preserved exactly. The process exited 0 and released GPU
+memory. Both rented Pods are left running.
+
+Files alongside this review: results.json, RESULTS.txt, manual-label-review.json,
+language-judge-comparison.png/svg and cases.html (local raw candidate inspection).
+Raw new judgments and provenance are in the parent directory. Original manual
+review is ../../manual-language-review/. Only compact reports/figures, source
+and configuration are published to Git; raw answers/judgments remain local
+and on the existing Pods.

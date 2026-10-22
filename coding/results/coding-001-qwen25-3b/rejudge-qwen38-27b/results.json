@@ -1,0 +1,257 @@
+{
+  "run_id": "coding-001-qwen25-3b",
+  "selected_step": 850,
+  "original_judge": {
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "base_dtype": "bfloat16",
+    "attention_implementation": "eager",
+    "enable_thinking": false,
+    "max_new_tokens": 512,
+    "use_cache": true,
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "new_judge": {
+    "model_id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "model_class": "AutoModelForImageTextToText",
+    "base_dtype": "bfloat16",
+    "attention_implementation": "eager",
+    "enable_thinking": false,
+    "max_new_tokens": 512,
+    "use_cache": true,
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "input_manifest": {
+    "baseline/worker-generations.jsonl": {
+      "sha256": "cfb03f4bb8b69e167d7915d5b1c14513be6712bc9299a3d94378562b80bb4c01",
+      "records": 200
+    },
+    "baseline/coordinator-generations.jsonl": {
+      "sha256": "782f9be58a75ec6906da25ba2594966f6c32b4cddf3e2cbd45b2af3ee2c5fb7b",
+      "records": 200
+    },
+    "selected/worker-generations.jsonl": {
+      "sha256": "05ff3d04654ab80278deea0937c78488408a84bf50fe5ddfea1c753eabaa0a67",
+      "records": 200
+    },
+    "selected/coordinator-generations.jsonl": {
+      "sha256": "11331d5939543dbba831d34403bdc691fc98dc21f0f40569b9ce4ab49687c176",
+      "records": 200
+    }
+  },
+  "stages": {
+    "baseline": {
+      "worker": {
+        "original": {
+          "total": 200,
+          "valid_judgments": 200,
+          "invalid_judgments": 0,
+          "language_counts": {
+            "C": 1,
+            "Python": 188,
+            "Other": 11
+          },
+          "judge_correct": 73,
+          "judge_incorrect": 127,
+          "judge_correct_fraction_among_valid": 0.365,
+          "judge_outputs_at_token_limit": 0
+        },
+        "rejudged": {
+          "total": 200,
+          "valid_judgments": 191,
+          "invalid_judgments": 9,
+          "language_counts": {
+            "C": 1,
+            "Python": 179,
+            "Other": 11
+          },
+          "judge_correct": 47,
+          "judge_incorrect": 144,
+          "judge_correct_fraction_among_valid": 0.24607329842931938,
+          "judge_outputs_at_token_limit": 9
+        },
+        "language_transitions": {
+          "C -> C": 1,
+          "Other -> Other": 11,
+          "Python -> Python": 179,
+          "Python -> Unparsed": 9
+        },
+        "formerly_other": {
+          "Other": 11
+        },
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 200,
+          "truncated_at_token_limit": 0,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 136,
+            "true": 64
+          }
+        }
+      },
+      "coordinator": {
+        "original": {
+          "total": 200,
+          "valid_judgments": 200,
+          "invalid_judgments": 0,
+          "language_counts": {
+            "C": 1,
+            "Python": 189,
+            "Other": 10
+          },
+          "judge_correct": 73,
+          "judge_incorrect": 127,
+          "judge_correct_fraction_among_valid": 0.365,
+          "judge_outputs_at_token_limit": 0
+        },
+        "rejudged": {
+          "total": 200,
+          "valid_judgments": 191,
+          "invalid_judgments": 9,
+          "language_counts": {
+            "C": 1,
+            "Python": 180,
+            "Other": 10
+          },
+          "judge_correct": 48,
+          "judge_incorrect": 143,
+          "judge_correct_fraction_among_valid": 0.2513089005235602,
+          "judge_outputs_at_token_limit": 9
+        },
+        "language_transitions": {
+          "C -> C": 1,
+          "Other -> Other": 10,
+          "Python -> Python": 180,
+          "Python -> Unparsed": 9
+        },
+        "formerly_other": {
+          "Other": 10
+        },
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 200,
+          "truncated_at_token_limit": 0,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 200,
+            "true": 0
+          }
+        }
+      }
+    },
+    "selected": {
+      "worker": {
+        "original": {
+          "total": 200,
+          "valid_judgments": 200,
+          "invalid_judgments": 0,
+          "language_counts": {
+            "C": 75,
+            "Python": 89,
+            "Other": 36
+          },
+          "judge_correct": 57,
+          "judge_incorrect": 143,
+          "judge_correct_fraction_among_valid": 0.285,
+          "judge_outputs_at_token_limit": 0
+        },
+        "rejudged": {
+          "total": 200,
+          "valid_judgments": 190,
+          "invalid_judgments": 10,
+          "language_counts": {
+            "C": 80,
+            "Python": 84,
+            "Other": 26
+          },
+          "judge_correct": 43,
+          "judge_incorrect": 147,
+          "judge_correct_fraction_among_valid": 0.22631578947368422,
+          "judge_outputs_at_token_limit": 10
+        },
+        "language_transitions": {
+          "C -> C": 64,
+          "C -> Other": 6,
+          "C -> Unparsed": 5,
+          "Other -> C": 16,
+          "Other -> Other": 20,
+          "Python -> Python": 84,
+          "Python -> Unparsed": 5
+        },
+        "formerly_other": {
+          "Other": 20,
+          "C": 16
+        },
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 154,
+          "truncated_at_token_limit": 46,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 0,
+            "true": 200
+          }
+        }
+      },
+      "coordinator": {
+        "original": {
+          "total": 200,
+          "valid_judgments": 200,
+          "invalid_judgments": 0,
+          "language_counts": {
+            "C": 69,
+            "Python": 100,
+            "Other": 31
+          },
+          "judge_correct": 60,
+          "judge_incorrect": 140,
+          "judge_correct_fraction_among_valid": 0.3,
+          "judge_outputs_at_token_limit": 0
+        },
+        "rejudged": {
+          "total": 200,
+          "valid_judgments": 194,
+          "invalid_judgments": 6,
+          "language_counts": {
+            "C": 77,
+            "Python": 97,
+            "Other": 20
+          },
+          "judge_correct": 39,
+          "judge_incorrect": 155,
+          "judge_correct_fraction_among_valid": 0.20103092783505155,
+          "judge_outputs_at_token_limit": 6
+        },
+        "language_transitions": {
+          "C -> C": 62,
+          "C -> Other": 4,
+          "C -> Unparsed": 3,
+          "Other -> C": 15,
+          "Other -> Other": 16,
+          "Python -> Python": 97,
+          "Python -> Unparsed": 3
+        },
+        "formerly_other": {
+          "C": 15,
+          "Other": 16
+        },
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 158,
+          "truncated_at_token_limit": 42,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 0,
+            "true": 200
+          }
+        }
+      }
+    }
+  },
+  "language_changes": 75,
+  "parsed_language_changes": 41,
+  "unparsed_judgments": 34,
+  "interpretation": "The same saved answers are judged twice. Validation was used for checkpoint selection. Correctness is model judgment, not execution. Unparsed outputs remain separate."
+}

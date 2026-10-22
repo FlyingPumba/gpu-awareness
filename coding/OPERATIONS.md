@@ -1,6 +1,6 @@
 # Paired C/Python experiment
 
-## Current state: Qwen3.8-27B rejudging
+## Current state: Qwen3.8-27B rejudging complete
 
 On 2026-10-22 the user requested rejudging the existing beginning/end rollouts
 with `Qwen/Qwen3.8-27B`, and explicitly requested all judging on the larger GPU.
@@ -8,7 +8,43 @@ This is a separate pass over the same 800 saved answers: baseline and selected
 step 850, 200 answers per original GPU at each stage. Do not regenerate answers,
 repeat training, alter the original config, or overwrite Qwen3-8B judgments.
 
-Baseline rejudging is complete. The 2026-10-22T12:03:00Z audit verified the first
+All 800 judgments completed with exit 0. The final remote audit at
+2026-10-22T12:38:53Z verified all candidate identities/hashes, exact blinded
+messages, prompt tokens, raw output decoding, strict parses and frozen model/
+source/config identity. All 29 files in the remote artifact manifest match
+the local backup. Original rollouts and Qwen3-8B judgment hashes are unchanged;
+the earlier baseline prefix is preserved. PID 30557 and its tmux session ended
+and GPU memory was released. No further GPU jobs are required for this pass.
+
+The 27B judge produced 766 parsed judgments and 34 unparsed responses, all
+truncated at its unchanged 512-token cap without EOS. Baseline A40 counts are
+C 1 / Python 179 / Other 11 / unparsed 9; RTX counts are 1 / 180 / 10 / 9.
+Selected step-850 A40 counts are C 80 / Python 84 / Other 26 / unparsed 10;
+RTX counts are 77 / 97 / 20 / 6. All parseable baseline labels agree with the
+old judge. Selected labels change Other to C on 31 answers and C to Other on
+10 answers. The 34 transitions to unparsed are missing judgments, not language
+changes or incorrect answers.
+
+Manual review covers all 88 old Other cases plus the 10 newly-Other cases.
+The 31 Other-to-C changes comprise 28 ambiguous C/POSIX header-only fragments
+and three C-style runaway-declaration fragments. Of the 10 C-to-Other changes,
+one correctly identifies C++ headers, but nine are C bodies mislabeled Other.
+Two reasons explicitly identify C while assigning Other. Preserve these raw
+labels and the separate manual annotations: the larger judge is not ground
+truth. Both judges still show a substantial shift toward C on both GPUs.
+Both GPUs used one shared adapter updated from equally averaged C and Python
+gradients; these were not independent models trained on just one language.
+
+Final comparison, manual findings, figure, partitions, raw judgments and
+verification are saved under the local run's `rejudge-qwen38-27b/` directory;
+compact public copies are under `coding/results/coding-001-qwen25-3b/rejudge-qwen38-27b/`.
+See `report/REVIEW.txt`, `report/results.json`, `report/manual-label-review.json`
+and `report/language-judge-comparison.png`. Validation was used to select
+step 850; solutions were not executed. Existing generation truncations and
+baseline cache settings are preserved. Finish publication, then pause this
+heartbeat while leaving both Pods running.
+
+Historical baseline milestone: the 2026-10-22T12:03:00Z audit verified the first
 521 judgments, including all 400 baseline records; the same process continues
 through selected step-850 answers. All 382 parseable baseline language labels
 agree with Qwen3-8B. A40 counts are C 1 / Python 179 / Other 11 / unparsed 9;
@@ -20,7 +56,7 @@ The 400-record native baseline prefix has SHA-256
 `1bc4a53e933b0f045a804e48bbbcacd1d6088c56b99ad331ca3bfa06d45779a7`,
 matches the local backup, and preserves the earlier 340-record local prefix.
 See `rejudge-qwen38-27b/baseline-verification.json` and its compact Git copy.
-Final comparison remains pending the remaining selected-checkpoint judgments.
+At that milestone, the final comparison awaited the remaining selected judgments.
 
 The pinned new judge revision is `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0`.
 Its separate config is `coding/judge-qwen38-27b.json`. It retains the exact
@@ -30,7 +66,7 @@ Qwen3.5 hybrid architecture uses reference PyTorch linear-attention operations;
 no quantization, vLLM, additional optimized kernels or solution execution is used.
 The full checkpoint loads through `AutoModelForImageTextToText` as
 `Qwen3_5ForConditionalGeneration`. All 1,184 parameter tensors are BF16
-(27,356,728,560 parameters); the running process uses about 54,110 MiB.
+(27,356,728,560 parameters); the process was observed using about 54,110 MiB.
 
 The original Transformers 4.57.1 runtime cannot load this architecture.
 An isolated `/workspace/coding-awareness/.venv-judge-qwen38` environment has
@@ -47,8 +83,8 @@ The launch uses `coding/stage-session.sh`, with explicit `cd` to the remote
 root, the isolated Python, and the saved judge source/config in that directory.
 Input order is baseline worker, baseline coordinator, selected worker, selected
 coordinator: 200 records each. `launch.json` retains the exact command.
-The first 10 actual judgments were saved and parsed successfully. Monitor the
-existing PID, tmux, exit/status files and JSONL count; do not launch a duplicate.
+The first 10 actual judgments were saved and parsed successfully. The process
+has now finished; do not launch a duplicate.
 The later 44-record snapshot has 43 parsed judgments and one truncated judgment
 (`p02841`, 512 tokens), retained as unparsed. The installed Transformers resolver
 confirmed effective greedy search, max 512, KV caching and repetition penalty 1;
@@ -62,11 +98,11 @@ That field was removed, and the failed source/logs/exit/launch are preserved in
 
 All four candidate files match `rejudge-qwen38-27b/input-manifest.json` locally
 and on the RTX. The original 800 Qwen3-8B judgments remain intact. Keep malformed
-new outputs explicitly unparsed. After 800 records and exit 0, collect this
-directory locally under `outputs/coding-runs/coding-001-qwen25-3b/`, verify
-candidate hashes, exact messages, raw/token decoding, parser results and artifact
-hashes, then run `python3 coding/rejudge_report.py RUN_DIR REJUDGE_DIR`.
-This writes separate baseline/selected partitions and a comparison report,
+new outputs explicitly unparsed. The completed directory is collected locally
+under `outputs/coding-runs/coding-001-qwen25-3b/`, with candidate hashes, exact
+messages, raw/token decoding, parser results and artifact hashes verified.
+`python3 coding/rejudge_report.py RUN_DIR REJUDGE_DIR` produced separate
+baseline/selected partitions and a comparison report,
 including old-to-new language transitions and what formerly-Other answers became.
 Inspect changed cases, especially the manually reviewed Other cases; a larger
 judge does not by itself establish correct labels. Prioritize language results,

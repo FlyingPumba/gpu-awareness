@@ -1,0 +1,35 @@
+{
+  "verified_at_utc": "2026-10-22T12:51:29.107985+00:00",
+  "run_id": "coding-001-qwen25-3b",
+  "selected_step": 850,
+  "records": 800,
+  "exit_code": 0,
+  "remote_artifacts_verified": 29,
+  "raw_judgments_sha256": "b6cb309a3eed596f8a3ac373dd092bc3dad68341251b9855703a823b2b6ea685",
+  "original_rollouts_and_judgments_unchanged": true,
+  "previous_340_and_400_record_prefixes_preserved": true,
+  "native_stage_partitions_verified": true,
+  "remote_semantic_checks": [
+    "all candidate hashes and identities",
+    "exact blinded messages",
+    "all prompt token IDs",
+    "all raw judgment token decodings",
+    "all strict parses including invalid outputs",
+    "frozen source/config and BF16 parameters",
+    "effective greedy generation configuration",
+    "original judgments unchanged"
+  ],
+  "report_counts_match_verified_native_rows": true,
+  "manual_review_records": 98,
+  "parsed_label_disagreements": 41,
+  "unparsed_judgments": 34,
+  "manual_c_errors_among_new_other": 9,
+  "png_visually_inspected": true,
+  "sources": {
+    "plot_rejudge.py": "be35e6702a2d9c020136ad62a34bbba0e76cfc5d98966d7bc4287206e851b490",
+    "rejudge_report.py": "29a7d0d9870eb6c54495abce23113e10d6ab96146f4dc611ccc30ea5c5d21f92",
+    "finish-qwen38-report.py": "16ec20b5c22449770283beef0ac637261835e143e8dec523b927f3191e70ebde"
+  },
+  "remote_verification_sha256": "5e19ef17481760689ea15a3b3ad09f2d8e8007f5167aacb13f5d186eb6c603c9",
+  "remote_artifact_manifest_sha256": "a82076053f0cd726d8847be583adc83d6efd97e136c48978882cb5fc11b3fda9"
+}
