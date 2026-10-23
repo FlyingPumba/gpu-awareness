@@ -1,0 +1,8 @@
+{
+  "observed_at_utc": "2026-10-23T06:17:50.100460+00:00",
+  "state": "crashed",
+  "run_id": "coding-002-qwen25-3b",
+  "publication_exit_code": 0,
+  "local_backup_verified": true,
+  "action": "Finish the same canonical run after verified experiment completion; preserve all existing metrics"
+}

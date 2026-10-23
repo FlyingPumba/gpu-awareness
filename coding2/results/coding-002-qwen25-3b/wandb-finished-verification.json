@@ -1,0 +1,19 @@
+{
+  "verified_at_utc": "2026-10-23T06:17:56.526893+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "display_name": "coding-002-qwen25-3b",
+  "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+  "state": "finished",
+  "state_before_finalization": "crashed",
+  "all_6846_existing_metric_rows_preserved": true,
+  "all_4928_migrated_rows_preserved": true,
+  "publication_commit": "a721e122a1f416c26acda7ba915cdd5fc34b9911",
+  "supplement_commit": "e1992ad824b79eb71485b4ad43511702426d5a22",
+  "publication_files_verified": 2922,
+  "supplement_files_verified": 97,
+  "local_bundle_sha256_verified": true,
+  "results_git_commit": "e7db6a3d4b8a63f6f1db2ee74f43f8bef42b0340",
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [],
+  "total_api_artifacts": 0
+}

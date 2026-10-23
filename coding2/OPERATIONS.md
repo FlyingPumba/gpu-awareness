@@ -1033,3 +1033,24 @@ At 06:15:09Z, both original Pods were reachable, their GPU process lists were
 empty, and all relevant training/generation/judge/publisher exits were 0.
 They remain running as requested. Only explicit canonical W&B completion,
 its final history/artifact readback and closure records remain.
+
+FINAL COMPLETION — 2026-10-23. After verified Hub publication, complete local
+backup and Git commit `e7db6a3`, explicit W&B finalization observed the inactive
+canonical run marked `crashed`. The initial finalizer stopped before mutation;
+that status and assertion are preserved. Every experiment stage had verified
+exit 0. The same canonical run was then resumed solely to set its finish state,
+without logging new metric rows or uploading artifacts. At
+2026-10-23T06:17:56Z it was read back as `finished`: all 6,846 existing metric
+rows, including all 4,928 migrated rows, were preserved. User-logged artifacts
+remain zero; reserved internal `wandb-history` artifacts were separately checked
+and numbered zero at that readback. The prior metadata status is recorded in
+`wandb-pre-finalization-state.json`; the final receipt is
+`wandb-finished-verification.json`.
+
+Final numeric history, publication receipts/logs and finalization sources were
+collected with size/SHA256 checks recorded in
+`final-closure-backup-verification.json`. All requested experiment, report,
+local-backup, personal W&B and separate Hugging Face publication work is
+complete. Push these closure records, then pause the heartbeat. Do not restart
+training, its controller, generation, judging or publication. Both the A100 and
+RTX Pods remain running as requested.
