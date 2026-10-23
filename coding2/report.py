@@ -85,6 +85,28 @@ def interval_summary(run, stopped_step):
                 interpretation=interpretation)
 
 
+def judge_runtime_note(run):
+    records = []
+    paths = [run/stage/'judge/judge-provenance.json' for stage in ('baseline','selected')]
+    paths += sorted(run.glob('interval/step-*/judge/judge-provenance.json'))
+    for path in paths:
+        if not path.exists():
+            continue
+        value = json.loads(path.read_text())
+        records.append((str(path.parent.parent.relative_to(run)), value))
+    if not any(value.get('backend') == 'vllm' for _,value in records):
+        return None
+    hf = [stage for stage,value in records if value.get('backend','transformers') == 'transformers']
+    fast = [stage for stage,value in records if value.get('backend') == 'vllm']
+    return (f"Judge runtime transition: Transformers BF16/eager batch one for {hf}; "
+            f"batched vLLM for {fast}. The pinned full Qwen3.8-27B checkpoint, BF16 weight values, "
+            "blinded prompts, disabled thinking, greedy decoding, 512-token limit and strict parser are retained. "
+            "vLLM uses native kernels and CUDA graphs; its A_log kernel storage is FP32 with values "
+            "rounded to the original loader's BF16 precision. Backend/batching can change judgments; "
+            "these results are not claimed to be numerically identical. Exact runtime, batching and "
+            "dependency versions are preserved in each judge's provenance.")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("run_directory")
@@ -113,6 +135,9 @@ def main():
     intervals = interval_summary(run, updates[-1]["step"])
     if intervals is not None:
         result["judged_trajectory"] = intervals
+    runtime_note = judge_runtime_note(run)
+    if runtime_note:
+        result['judge_runtime_note'] = runtime_note
     (out / "results.json").write_text(json.dumps(result, indent=2) + "\n")
     lines = ["Induced coding language experiment" if first_token else "Paired C/C++ and Java coding experiment", "",
              f"Selected update: {best['best_step']}",
@@ -150,6 +175,8 @@ def main():
             for role, value in interval["roles"].items():
                 lines.append(f"  Update {interval['step']} {role}: {value['language_counts']}; "
                              f"unparsed {value['invalid_judgments']}/10; judge correct {value['judge_correct']}/{value['valid_judgments']}")
+    if runtime_note:
+        lines += ["", runtime_note]
     (out / "RESULTS.txt").write_text("\n".join(lines) + "\n")
 
 

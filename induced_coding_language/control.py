@@ -1,7 +1,8 @@
 """Sequence fresh baseline, paired training, coding intervals and final evaluation.
 
-Uses the existing environments, shared trainer, original generator and original
-judge. A process/file lock prevents a second local controller; stage PID and GPU
+Uses the shared trainer and original generator, with vLLM for new judge stages.
+The already-started baseline retains its original judge. A process/file lock
+prevents a second local controller; stage PID and GPU
 ownership checks allow reconnecting without duplicating remote jobs.
 """
 import fcntl
@@ -23,6 +24,14 @@ SUITE = 'induced_coding_language/suite.json'
 class InducedController(Controller):
     def __init__(self):
         super().__init__(RUN, CONFIG, SUITE, RUN)
+
+    def stage(self, host, folder, name, module, arguments, python=PYTHON):
+        if module == 'coding2.judge' and folder != self.run+'/baseline/judge':
+            suite = json.loads((ROOT/self.suite_path).read_text())
+            module = 'coding2.judge_vllm'
+            python = suite['judge_python']
+            arguments = [*arguments,'--runtime',suite['judge_runtime']]
+        return super().stage(host,folder,name,module,arguments,python)
 
     def prepare_full(self, folder, stage, step, checkpoint):
         for host in HOSTS.values():

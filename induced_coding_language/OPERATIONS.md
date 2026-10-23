@@ -205,3 +205,37 @@ Continue the existing judge to 400. The controller will verify the completed
 full_eval snapshot, collect and hash-check the full baseline, then launch fresh
 paired training. Training has not started yet. Monitoring remains active;
 leave both Pods running and the canonical W&B run unfinished.
+
+## Authorized vLLM transition, 12:36 UTC
+
+The user explicitly requested vLLM judging for speed from now onwards. This
+supersedes the earlier Transformers/eager/batch-one judge runtime for future
+stages only. Model/revision, full checkpoint, BF16 weight values, prompts,
+thinking-disabled greedy decoding, max 512 tokens and strict parser remain.
+Training and coding generation are unchanged; the frozen config hash stays the
+same. Effective judge runtime is separately recorded in `coding2/judge-vllm.json`
+and every new judge's provenance, rather than mislabelled as the original eager
+configuration. Existing baseline judgments are preserved.
+
+Local controller 24357 was verified and held with SIGSTOP during baseline_judging
+at 12:25 UTC. The remote baseline judge PID 81821 continues untouched. **Do not
+resume/start another controller until the vLLM GPU comparison has completed.**
+The hold receipt and prior controller/source are preserved locally and remotely
+under `archive/vllm-transition-20261023/`. Both Pods stay running.
+
+An isolated `.venv-judge-vllm` is installed on RTX: vLLM 0.32.0, torch 2.13.0+cu130,
+Transformers 5.19.0. Exact dependencies are in `coding2/requirements-vllm.lock`;
+original environments are unchanged. The new runner uses batches of 16, native
+vLLM kernels/CUDA graphs, the full vision/language checkpoint, no quantization,
+and exact pretokenized judge prompts. A_log vectors require native FP32 kernel
+storage; they are rounded to BF16 values before use, matching the original HF
+loader followed by its FP32 gating computation. This is recorded explicitly.
+
+Seven focused tests passed locally. Original report/model-card outputs remain
+byte-identical. New source was preserved/deployed/hash-verified on both Pods.
+The controller routes future interval/selected judging to vLLM; baseline remains
+on its original runner. This route is not active until the held controller is
+replaced after live validation. Benchmark candidates are the same fixed ten
+baseline problems per role, under `vllm-validation/`, with telemetry disabled.
+The live GPU comparison and controller restart are still pending. Do not claim
+an achieved speedup before the actual comparison is recorded.

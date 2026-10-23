@@ -5,10 +5,24 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from coding2.report import interval_summary, main
+from coding2.report import interval_summary, main, judge_runtime_note
 
 
 class Reporting(unittest.TestCase):
+    def test_backend_note_excludes_diagnostic_benchmarks(self):
+        with tempfile.TemporaryDirectory() as directory:
+            run=Path(directory)
+            for stage,value in [('baseline',{}),('vllm-validation',{'backend':'vllm'})]:
+                p=run/stage/'judge/judge-provenance.json';p.parent.mkdir(parents=True)
+                p.write_text(json.dumps(value))
+            self.assertIsNone(judge_runtime_note(run))
+            p=run/'interval/step-000100/judge/judge-provenance.json';p.parent.mkdir(parents=True)
+            p.write_text(json.dumps({'backend':'vllm'}))
+            note=judge_runtime_note(run)
+            self.assertIn('baseline',note)
+            self.assertIn('step-000100',note)
+            self.assertNotIn('vllm-validation',note)
+
     def test_judged_cadence_and_objective(self):
         plan = json.loads(Path("induced_coding_language/results/interval-plan.json").read_text())
         with tempfile.TemporaryDirectory() as directory:

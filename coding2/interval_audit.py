@@ -75,12 +75,8 @@ def verify(directory, cfg, step):
     assert provenance["config"] == cfg["judge"] and provenance["interval_step"] == step
     assert provenance["problem_ids"] == cfg["selection_problem_ids"]
     assert provenance["gpu"] == cfg["judge"]["gpu"] and provenance["do_sample"] is False
-    assert provenance["source_sha256"] == digest_file(directory / "source-coding2/judge.py")
-    assert provenance["common_sha256"] == digest_file(directory / "source-coding2/common.py")
-    loaded = provenance["loaded_model"]
-    assert loaded["model_class"] == "Qwen3_5ForConditionalGeneration"
-    assert set(loaded["parameter_dtypes"]) == {"torch.bfloat16"}
-    assert loaded["generation"]["use_cache"] and loaded["generation"]["max_new_tokens"] == 512
+    from coding2.judge_audit import verify_backend
+    verify_backend(provenance, directory / "source-coding2", cfg["judge"])
     tokenizer = AutoTokenizer.from_pretrained(cfg["judge"]["model_id"], revision=cfg["judge"]["revision"])
     judgments = list(map(json.loads, (judge / "judgments.jsonl").read_text().splitlines()))
     assert len(judgments) == 20

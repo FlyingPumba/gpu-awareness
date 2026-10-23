@@ -1,0 +1,17 @@
+{
+  "backend": "vllm",
+  "version": "0.32.0",
+  "batch_size": 16,
+  "engine": {
+    "dtype": "bfloat16",
+    "quantization": null,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.85,
+    "max_num_seqs": 16,
+    "enforce_eager": false,
+    "enable_prefix_caching": false,
+    "skip_mm_profiling": true,
+    "generation_config": "vllm",
+    "seed": 0
+  }
+}

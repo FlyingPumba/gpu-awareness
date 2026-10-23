@@ -110,12 +110,8 @@ def full(cfg, directory, stage, prefix=False):
     provenance = read(judge/'judge-provenance.json')
     assert provenance['config'] == cfg['judge'] and provenance['gpu'] == cfg['judge']['gpu']
     assert provenance['do_sample'] is False
-    assert provenance['source_sha256'] == sha(directory/'source-coding2/judge.py')
-    assert provenance['common_sha256'] == sha(directory/'source-coding2/common.py')
-    loaded = provenance['loaded_model']
-    assert loaded['model_class'] == 'Qwen3_5ForConditionalGeneration'
-    assert set(loaded['parameter_dtypes']) == {'torch.bfloat16'}
-    assert loaded['generation']['use_cache'] and loaded['generation']['max_new_tokens'] == 512
+    from coding2.judge_audit import verify_backend
+    verify_backend(provenance, directory/'source-coding2', cfg['judge'])
     raw, judgments = rows(judge/'judgments.jsonl')
     assert 0 < len(judgments) <= 400
     if not prefix:

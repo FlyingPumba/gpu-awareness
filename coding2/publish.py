@@ -194,10 +194,12 @@ def main():
                   "```text", cfg["training_prompt"], "```", "",
                   "Coding evaluation user message (baseline, intervals and selected checkpoint):", "",
                   "```text", cfg["prompt"], "```"]
+    judge_description = report.get('judge_runtime_note',
+        "The pinned Qwen3.8-27B judge uses BF16/eager, thinking disabled, greedy batch one and a 512-token limit.")
     lines += ["", "## Recipe and loading", "",
               f"Fresh upstream revision `{cfg['revision']}`; frozen BF16 base; unmerged FP32 rank-16/alpha-32 LoRA; SDPA; no activation checkpointing. Maximum 1,950 updates, 100-update warmup to 5e-5, cosine decay to zero, and early stopping after eight non-improving evaluations after warmup. Baseline is excluded from checkpoint selection.", "",
               dataset_description, "",
-              "Generation is greedy, batch one, maximum 1,024 new tokens, with KV cache. The pinned Qwen3.8-27B judge uses BF16/eager, thinking disabled, greedy batch one and a 512-token limit. Malformed judgments remain unparsed. Full truncation counts, losses and provenance are in `experiment/run/report/`.", "",
+              "Generation is greedy, batch one, maximum 1,024 new tokens, with KV cache. " + judge_description + " Malformed judgments remain unparsed. Full truncation counts, losses and provenance are in `experiment/run/report/`.", "",
               "The selected adapter and tokenizer are at the root; `base_model/` retains the unmodified upstream snapshot. Keep the base BF16 and adapter FP32; merging changes the arithmetic. Example loading command:", "",
               f"```bash\npython infer.py {spec['hf_repo']} --problem-file problem.txt\n```", "",
               "Use the pinned runtime and exact source in `experiment/`. Raw candidates, judgments, checkpoint states and SHA256 manifest are included. Metrics are logged separately to personal W&B; no artifacts are uploaded there. Other hardware or kernels can change outputs. Public benchmark exposure during pretraining has not been audited.", "",
