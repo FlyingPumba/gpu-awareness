@@ -596,3 +596,23 @@ losses and cosine learning rates. Read the current PID/state before action;
 continue the healthy controller through the remaining evaluation and publication
 duties. Monitoring, canonical W&B and both Pods remain running. Do not repeat
 completed audits or discard the interrupted attempt's raw records.
+
+## Step 800 training verified; coding evaluation active, 15:18 UTC
+
+Both trainers paused at 800 with exit 0. All 100 paired updates from 701-800
+passed the shared five-problem, first-token objective and cosine learning-rate
+checks. The four fixed-ten validation/selection checks, optimizer step 800 and
+FP32 checkpoint/safetensors agreement were verified, along with both roles'
+100 W&B training rows. Evidence is `results/training-step800-verification.json`.
+
+Step 800 mean validation loss is 0.7103799760341645. Step 700 remains selected
+at 0.6733166366815566, with four of eight non-improving checks elapsed. No
+training or stopping settings changed.
+
+Controller 64018 advanced normally to the scheduled step-800 coding generation.
+At the 15:18 UTC ownership check, A100 PID 60895 and RTX PID 105269 were the sole
+active GPU stages, with status counts 1/10 and 5/10 respectively. Generation
+completion, twenty vLLM judgments and the interval audit remain pending. Read
+current PID/status/counts before action; continue the existing controller and
+remaining evaluation/publication duties. Keep monitoring, canonical W&B and
+both Pods running, and preserve the interrupted attempt's raw records.
