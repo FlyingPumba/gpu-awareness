@@ -521,3 +521,42 @@ selected at 0.6772870942950249, with four non-improving checks through 600.
 Continue the existing controller and scheduled evaluation/publication duties;
 monitoring, canonical W&B and both Pods remain running. Do not repeat completed
 audits or benchmarks.
+
+## SSH interruption recovered from checkpoint 600, 14:52 UTC
+
+The original 600-700 attempt completed paired update 680 before its SSH tunnel
+timed out during the next parameter transfer. A100 reported a disconnected peer
+at 14:40:54 UTC; RTX reported a connection reset while sending parameters at
+14:42:41 UTC. Both exited 1, and controller 36476 exited after detecting the
+worker failure. The underlying network cause is unknown. This was not an
+early-stopping event; no checkpoint beyond 600 was saved.
+
+Before recovery, both task processes and GPU allocations were confirmed gone.
+Logs, statuses, source and controller state were preserved under
+`archive/network-interruption-20261023T144103Z` on the Pods and locally. All 103
+worker and 129 coordinator archive files passed local size/SHA256 checks, as did
+six controller/source files and two W&B snapshot files. All 2,502 original
+canonical W&B rows were preserved and read back after recovery. Raw training
+logs remain append-only, including the interrupted updates 601-680.
+
+The existing worker-to-coordinator SSH link passed a new connection check.
+Checkpoint 600 SHA256 remains
+`1b716fb2ab446fd4db893c5957fd1d80b79dd97fba1d2f51519f31e7008be2bd`;
+optimizer step 600, the frozen config and selection state were verified. The
+replacement controller 64018 resumed this same checkpoint toward 700. Best 500
+loss 0.6772870942950249 and four non-improving checks were restored. No training,
+generation, judging, connection timeout or stopping settings were changed.
+
+Actual replayed updates 601-603 on both GPUs passed shared-batch/one-token/LR
+checks and were read back from W&B using their new attempt timestamps. Source,
+base, encoding and config hashes match the archived attempt; both original raw
+event prefixes remain intact. Evidence is `results/network-recovery-20261023.json`.
+
+For the eventual 601-700 audit, use task scratch helper
+`work/verify-induced-recovery-segment-remote.py` and worker updates after its
+latest `synchronized` event at 600; do not count the interrupted attempt twice.
+The existing `scripts/run_history.py` already reconstructs the retained report
+trajectory from resume boundaries. Do not truncate raw logs or remove the old
+W&B rows. Inspect current PID/state before action; keep the healthy replacement
+controller, monitoring, canonical W&B and both Pods running through all remaining
+evaluation and publication duties.

@@ -1,0 +1,50 @@
+{
+  "run_id": "induced-coding-language",
+  "verified_at_utc": "2026-10-23T14:52:25.408891+00:00",
+  "recovery_boundary": 600,
+  "resumed_at_utc": "2026-10-23T14:50:07Z",
+  "resumed_checkpoint": "runs/induced-coding-language/checkpoint-000600.pt",
+  "resumed_steps_both_roles_wandb_verified": [
+    601,
+    602,
+    603
+  ],
+  "same_shared_five_problem_first_token_objective_and_learning_rates": true,
+  "coordinator_original_event_prefix_preserved": 799,
+  "source_base_config_and_encoding_hashes_unchanged": true,
+  "original_numeric_wandb_rows_preserved": 2502,
+  "wandb": {
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/induced-coding-language",
+    "state": "running",
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0
+  },
+  "worker_original_event_prefix_preserved": 749,
+  "recovery": {
+    "restart_pid": 64018,
+    "resume_checkpoint_step": 600,
+    "resume_checkpoint_sha256": "1b716fb2ab446fd4db893c5957fd1d80b79dd97fba1d2f51519f31e7008be2bd",
+    "interrupted_last_synchronized_update": 680,
+    "original_numeric_wandb_rows": 2502,
+    "wandb_archive_files_verified": 2,
+    "cause_observed": "worker SSH tunnel keepalive timeout; worker disconnected while receiving parameters and coordinator connection reset while sending parameters; physical network cause unknown",
+    "recipe_changed": false
+  },
+  "local_role_archives": [
+    {
+      "role": "worker",
+      "files_verified": 103,
+      "bytes_verified": 1817957
+    },
+    {
+      "role": "coordinator",
+      "files_verified": 129,
+      "bytes_verified": 3586328
+    }
+  ],
+  "controller_archive_files_verified": 6,
+  "wandb_snapshot_files_verified": 2,
+  "raw_events_remain_append_only": true,
+  "reporting_uses_existing_retained_history": true
+}
