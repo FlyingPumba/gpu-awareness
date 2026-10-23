@@ -372,3 +372,22 @@ were read back from W&B with matching losses and cosine learning rates.
 Continue the existing controller;
 monitoring remains ACTIVE, the canonical W&B run remains running, and both Pods
 remain running.
+
+## Step 300 selects a new checkpoint, 13:38 UTC
+
+Both trainers paused at 300 with exit 0. The newly completed updates 201-300,
+their shared five-problem one-token targets, cosine learning rates, four fixed-ten
+validation/selection checks and canonical W&B histories were verified. The
+optimizer-300 FP32 checkpoint and adapter safetensors agree. Evidence is
+`results/training-step300-verification.json`.
+
+The strict minimum improved from 0.6868177518248558 at step 100 to
+0.6861475855112076 at step 300. Step 300 is now selected and the patience counter
+reset from seven to zero under the unchanged rule. Checkpoint SHA256:
+`b2bc7d8758c2d73cd5c579aa6044169939966afcc725630f9eb72d699c1b3fad`.
+
+Controller 36476 continues the scheduled step-300 coding evaluation. RTX
+generation has ten records and exit 0; A100 PID 52273 owns the sole active GPU
+stage and had three of ten records at this check. Judging and interval audit
+remain pending. Read current PID/status/counts before action; do not duplicate
+generation or judging. Monitoring, W&B and both Pods remain active.
