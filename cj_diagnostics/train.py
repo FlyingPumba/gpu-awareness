@@ -13,6 +13,7 @@ import random
 import socket
 import time
 import traceback
+from types import MethodType
 
 import numpy as np
 import torch
@@ -25,6 +26,22 @@ from coding2.model import (Recorder, canonical, digest, flat_parameters, load_mo
 from coding2.train import selection_problems, validate_peers
 from coding2.telemetry import start as start_telemetry
 from training_policy import learning_rate_for_update
+
+
+def configure_output_projection(model, mode):
+    if mode == "native":
+        return
+    assert mode == "fp32"
+    head = model.get_output_embeddings()
+    assert isinstance(head, torch.nn.Linear) and not head.weight.requires_grad
+
+    def fp32_forward(module, hidden):
+        # Keep frozen BF16 parameter storage and values unchanged. Cast only
+        # for this projection, retaining autograd back to the hidden states.
+        bias = module.bias.float() if module.bias is not None else None
+        return F.linear(hidden.float(), module.weight.float(), bias)
+
+    head.forward = MethodType(fp32_forward, head)
 
 
 def trial_batch(data, cfg, trial, absolute_step, tokenizer=None):
@@ -165,11 +182,16 @@ def run(args):
     cfg = json.loads(Path(plan["base_config"]).read_text())
     assert digest(canonical(cfg)) == plan["base_config_sha256"]
     cfg = {**cfg, "attention_implementation":plan.get("attention_implementation",cfg["attention_implementation"])}
+    if "output_projection" in plan:
+        cfg["diagnostic_output_projection"] = plan["output_projection"]
     root = Path(args.output)
     recorder = Recorder(root, args.role)
     (root / "effective-config.json").write_text(json.dumps(cfg, indent=2)+"\n")
     model, tokenizer, data, parameters, provenance = load_model(cfg, args.role, recorder)
     assert provenance["attention_implementation"] == cfg["attention_implementation"]
+    projection = plan.get("output_projection", "native")
+    configure_output_projection(model, projection)
+    provenance["diagnostic_output_projection"] = projection
     provenance.update(trainer_sha256=digest(Path(__file__).read_bytes()),
                       batching_sha256=digest(Path("coding2/batching.py").read_bytes()),
                       base_config_sha256=plan["base_config_sha256"],
@@ -187,6 +209,7 @@ def run(args):
         peer, _ = receive_message(sock, "hello")
         validate_peers(provenance, peer["provenance"])
         assert peer["provenance"]["plan_sha256"] == provenance["plan_sha256"]
+        assert peer["provenance"]["diagnostic_output_projection"] == projection
         send_message(sock, dict(kind="hello_ack"))
     else:
         sock = socket.create_connection(("127.0.0.1", args.port))

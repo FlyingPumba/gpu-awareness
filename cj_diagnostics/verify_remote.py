@@ -13,6 +13,8 @@ def verify(root):
     plan=json.loads((root/'plan.json').read_text())
     cfg=json.loads(Path(plan['base_config']).read_text())
     cfg={**cfg,'attention_implementation':plan.get('attention_implementation',cfg['attention_implementation'])}
+    if 'output_projection' in plan:
+        cfg['diagnostic_output_projection']=plan['output_projection']
     os.environ['WANDB_API_KEY']=Path('/workspace/gpu-awareness-private/wandb-personal-api-key').read_text().strip()
     run=wandb.Api(overrides={'base_url':'https://api.wandb.ai'}).run(
         'iarcuschin/gpu-awareness/'+plan['telemetry_run_id'])

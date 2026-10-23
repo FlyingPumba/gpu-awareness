@@ -1,0 +1,50 @@
+{
+  "plan_sha256": "e64bf25f150bf643d42da999fc1ab05eeaf2a8a394740857544a4c875d23caee",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "wandb_state": "running",
+  "logged_artifacts": 0,
+  "trials": [
+    {
+      "trial": "AB-init-varying-coding-eager",
+      "training_rows_verified": 100,
+      "probability_rows_verified": 11,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "d27776a43d94af8a2ff3e31181cbb521c65791df4600755077025a17517acebd",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "d27776a43d94af8a2ff3e31181cbb521c65791df4600755077025a17517acebd",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    }
+  ],
+  "collection": {
+    "roles": [
+      {
+        "role": "worker",
+        "files": 24,
+        "bytes": 322460,
+        "verified": true
+      },
+      {
+        "role": "coordinator",
+        "files": 29,
+        "bytes": 720157739,
+        "verified": true
+      }
+    ],
+    "files": 53,
+    "bytes": 720480199
+  },
+  "shared_trajectory_verification": "cj_diagnostics/results/plan06-shared-trajectory-verification.json",
+  "analysis": "cj_diagnostics/results/plan06/summary.json",
+  "matched_attention_comparison": "cj_diagnostics/results/plan06-attention-comparison.json"
+}

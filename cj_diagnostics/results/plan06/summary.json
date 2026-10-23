@@ -1,0 +1,577 @@
+{
+  "plan": {
+    "base_config": "induced_coding_language/config.json",
+    "base_config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+    "telemetry_run_id": "cj-probability-diagnostics-20261023",
+    "objective": "Short C/Java probability diagnostics on the existing A100 and RTX; no generation or judges.",
+    "comparison": "Matched100-update comparison against plan04 AB-init-varying-coding. Only attention implementation changes from SDPA to eager (plus telemetry/output name); same originalAB750 FP32adapter initialization, freshAdamW, one shared example per GPU/update, same100 sampleIDs, originalcodingprompt, labels, BF16base/FP32LoRA, constant1e-5 and evalevery10. Tests an oldAB-versus-current implementation difference without generation/judging. Does not assert a hardware or kernel cause in advance.",
+    "trials": [
+      {
+        "initialization": "AB_adapter_fresh_optimizer",
+        "adapter_repo": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+        "adapter_revision": "ca027b140a4889357d5fdde6495da9f5697e8019",
+        "adapter_file_sha256": "d8695f3d07464e3f1ad127b3f12de0e0d46b235d6f2ebbfe2207ea1a940343a1",
+        "adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+        "initial_step": 0,
+        "updates": 100,
+        "eval_every": 10,
+        "batch_per_gpu": 1,
+        "learning_rate": 1e-05,
+        "problems": "varying",
+        "optimizer": "Fresh AdamW with original betas/epsilon/weight_decay; deliberately no old optimizer transfer.",
+        "name": "AB-init-varying-coding-eager",
+        "selection_measurement": "heldout_batch1"
+      }
+    ],
+    "attention_implementation": "eager"
+  },
+  "trials": [
+    {
+      "name": "AB-init-varying-coding-eager",
+      "trial": {
+        "initialization": "AB_adapter_fresh_optimizer",
+        "adapter_repo": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+        "adapter_revision": "ca027b140a4889357d5fdde6495da9f5697e8019",
+        "adapter_file_sha256": "d8695f3d07464e3f1ad127b3f12de0e0d46b235d6f2ebbfe2207ea1a940343a1",
+        "adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+        "initial_step": 0,
+        "updates": 100,
+        "eval_every": 10,
+        "batch_per_gpu": 1,
+        "learning_rate": 1e-05,
+        "problems": "varying",
+        "optimizer": "Fresh AdamW with original betas/epsilon/weight_decay; deliberately no old optimizer transfer.",
+        "name": "AB-init-varying-coding-eager",
+        "selection_measurement": "heldout_batch1"
+      },
+      "shared_updates_verified": 100,
+      "baseline": {
+        "heldout_batch1": {
+          "worker_p_C": 0.022705263384887077,
+          "worker_p_Java": 0.009024393492290983,
+          "coordinator_p_C": 0.025027673035583575,
+          "coordinator_p_Java": 0.008044349616102408,
+          "separation": -0.0023224096506964977,
+          "mean_loss": 6.753773891925812
+        },
+        "heldout_batch5": {
+          "worker_p_C": 0.030447869489398725,
+          "worker_p_Java": 0.008762404103617883,
+          "coordinator_p_C": 0.03155804069174337,
+          "coordinator_p_Java": 0.009092309829429723,
+          "separation": -0.001110171202344648,
+          "mean_loss": 6.7060740172863005
+        },
+        "fixed_batch1": {
+          "worker_p_C": 0.000177626425283961,
+          "worker_p_Java": 0.007552867289632559,
+          "coordinator_p_C": 0.0002274549042340368,
+          "coordinator_p_Java": 0.009671629406511784,
+          "separation": -4.9828478950075805e-05,
+          "mean_loss": 6.637193202972412
+        },
+        "fixed_train_batch": {
+          "worker_p_C": 0.000177626425283961,
+          "worker_p_Java": 0.007552867289632559,
+          "coordinator_p_C": 0.0002274549042340368,
+          "coordinator_p_Java": 0.009671629406511784,
+          "separation": -4.9828478950075805e-05,
+          "mean_loss": 6.637193202972412
+        }
+      },
+      "final": {
+        "heldout_batch1": {
+          "worker_p_C": 0.4711905658245087,
+          "worker_p_Java": 0.5010595578700304,
+          "coordinator_p_C": 0.46598887741565703,
+          "coordinator_p_Java": 0.5060450930148364,
+          "separation": 0.005201688408851657,
+          "mean_loss": 0.8572048433125019
+        },
+        "heldout_batch5": {
+          "worker_p_C": 0.46347789764404296,
+          "worker_p_Java": 0.5097522467374802,
+          "coordinator_p_C": 0.4774851962924004,
+          "coordinator_p_Java": 0.49585395622998474,
+          "separation": -0.014007298648357425,
+          "mean_loss": 0.8858064621686935
+        },
+        "fixed_batch1": {
+          "worker_p_C": 0.2926775813102722,
+          "worker_p_Java": 0.7020970582962036,
+          "coordinator_p_C": 0.29256007075309753,
+          "coordinator_p_Java": 0.701815128326416,
+          "separation": 0.00011751055717468262,
+          "mean_loss": 0.7913844287395477
+        },
+        "fixed_train_batch": {
+          "worker_p_C": 0.2926775813102722,
+          "worker_p_Java": 0.7020970582962036,
+          "coordinator_p_C": 0.29256007075309753,
+          "coordinator_p_Java": 0.701815128326416,
+          "separation": 0.00011751055717468262,
+          "mean_loss": 0.7913844287395477
+        }
+      },
+      "best_post_update_step": 100,
+      "best_post_update": {
+        "heldout_batch1": {
+          "worker_p_C": 0.4711905658245087,
+          "worker_p_Java": 0.5010595578700304,
+          "coordinator_p_C": 0.46598887741565703,
+          "coordinator_p_Java": 0.5060450930148364,
+          "separation": 0.005201688408851657,
+          "mean_loss": 0.8572048433125019
+        },
+        "heldout_batch5": {
+          "worker_p_C": 0.46347789764404296,
+          "worker_p_Java": 0.5097522467374802,
+          "coordinator_p_C": 0.4774851962924004,
+          "coordinator_p_Java": 0.49585395622998474,
+          "separation": -0.014007298648357425,
+          "mean_loss": 0.8858064621686935
+        },
+        "fixed_batch1": {
+          "worker_p_C": 0.2926775813102722,
+          "worker_p_Java": 0.7020970582962036,
+          "coordinator_p_C": 0.29256007075309753,
+          "coordinator_p_Java": 0.701815128326416,
+          "separation": 0.00011751055717468262,
+          "mean_loss": 0.7913844287395477
+        },
+        "fixed_train_batch": {
+          "worker_p_C": 0.2926775813102722,
+          "worker_p_Java": 0.7020970582962036,
+          "coordinator_p_C": 0.29256007075309753,
+          "coordinator_p_Java": 0.701815128326416,
+          "separation": 0.00011751055717468262,
+          "mean_loss": 0.7913844287395477
+        }
+      },
+      "selection_measurement": "heldout_batch1",
+      "selected_step": 100,
+      "selected": {
+        "heldout_batch1": {
+          "worker_p_C": 0.4711905658245087,
+          "worker_p_Java": 0.5010595578700304,
+          "coordinator_p_C": 0.46598887741565703,
+          "coordinator_p_Java": 0.5060450930148364,
+          "separation": 0.005201688408851657,
+          "mean_loss": 0.8572048433125019
+        },
+        "heldout_batch5": {
+          "worker_p_C": 0.46347789764404296,
+          "worker_p_Java": 0.5097522467374802,
+          "coordinator_p_C": 0.4774851962924004,
+          "coordinator_p_Java": 0.49585395622998474,
+          "separation": -0.014007298648357425,
+          "mean_loss": 0.8858064621686935
+        },
+        "fixed_batch1": {
+          "worker_p_C": 0.2926775813102722,
+          "worker_p_Java": 0.7020970582962036,
+          "coordinator_p_C": 0.29256007075309753,
+          "coordinator_p_Java": 0.701815128326416,
+          "separation": 0.00011751055717468262,
+          "mean_loss": 0.7913844287395477
+        },
+        "fixed_train_batch": {
+          "worker_p_C": 0.2926775813102722,
+          "worker_p_Java": 0.7020970582962036,
+          "coordinator_p_C": 0.29256007075309753,
+          "coordinator_p_Java": 0.701815128326416,
+          "separation": 0.00011751055717468262,
+          "mean_loss": 0.7913844287395477
+        }
+      },
+      "curve": [
+        {
+          "local_step": 0,
+          "heldout_batch1": {
+            "worker_p_C": 0.022705263384887077,
+            "worker_p_Java": 0.009024393492290983,
+            "coordinator_p_C": 0.025027673035583575,
+            "coordinator_p_Java": 0.008044349616102408,
+            "separation": -0.0023224096506964977,
+            "mean_loss": 6.753773891925812
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.030447869489398725,
+            "worker_p_Java": 0.008762404103617883,
+            "coordinator_p_C": 0.03155804069174337,
+            "coordinator_p_Java": 0.009092309829429723,
+            "separation": -0.001110171202344648,
+            "mean_loss": 6.7060740172863005
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.000177626425283961,
+            "worker_p_Java": 0.007552867289632559,
+            "coordinator_p_C": 0.0002274549042340368,
+            "coordinator_p_Java": 0.009671629406511784,
+            "separation": -4.9828478950075805e-05,
+            "mean_loss": 6.637193202972412
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.000177626425283961,
+            "worker_p_Java": 0.007552867289632559,
+            "coordinator_p_C": 0.0002274549042340368,
+            "coordinator_p_Java": 0.009671629406511784,
+            "separation": -4.9828478950075805e-05,
+            "mean_loss": 6.637193202972412
+          }
+        },
+        {
+          "local_step": 10,
+          "heldout_batch1": {
+            "worker_p_C": 0.14073027970152907,
+            "worker_p_Java": 0.04059877740219235,
+            "coordinator_p_C": 0.14775816302280873,
+            "coordinator_p_Java": 0.03740694196312688,
+            "separation": -0.007027883321279654,
+            "mean_loss": 4.149081605672836
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.13974286097218283,
+            "worker_p_Java": 0.038481872633565214,
+            "coordinator_p_C": 0.1397401293797884,
+            "coordinator_p_Java": 0.04105807957821526,
+            "separation": 2.731592394417115e-06,
+            "mean_loss": 4.13581120967865
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.033169299364089966,
+            "worker_p_Java": 0.10216863453388214,
+            "coordinator_p_C": 0.04160606861114502,
+            "coordinator_p_Java": 0.11309702694416046,
+            "separation": -0.008436769247055054,
+            "mean_loss": 2.792819857597351
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.033169299364089966,
+            "worker_p_Java": 0.10216863453388214,
+            "coordinator_p_C": 0.04160606861114502,
+            "coordinator_p_Java": 0.11309702694416046,
+            "separation": -0.008436769247055054,
+            "mean_loss": 2.792819857597351
+          }
+        },
+        {
+          "local_step": 20,
+          "heldout_batch1": {
+            "worker_p_C": 0.468002849817276,
+            "worker_p_Java": 0.15663199140108192,
+            "coordinator_p_C": 0.4510547310113907,
+            "coordinator_p_Java": 0.1627457109570969,
+            "separation": 0.016948118805885315,
+            "mean_loss": 1.9455322854220867
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.4621967483311892,
+            "worker_p_Java": 0.15982579363044352,
+            "coordinator_p_C": 0.46172893419861794,
+            "coordinator_p_Java": 0.166997486614855,
+            "separation": 0.0004678141325712426,
+            "mean_loss": 1.9390674561262131
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.36169469356536865,
+            "worker_p_Java": 0.4098537862300873,
+            "coordinator_p_C": 0.3891218602657318,
+            "coordinator_p_Java": 0.44093284010887146,
+            "separation": -0.02742716670036316,
+            "mean_loss": 0.9179087281227112
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.36169469356536865,
+            "worker_p_Java": 0.4098537862300873,
+            "coordinator_p_C": 0.3891218602657318,
+            "coordinator_p_Java": 0.44093284010887146,
+            "separation": -0.02742716670036316,
+            "mean_loss": 0.9179087281227112
+          }
+        },
+        {
+          "local_step": 30,
+          "heldout_batch1": {
+            "worker_p_C": 0.5651115022599698,
+            "worker_p_Java": 0.3392837335006334,
+            "coordinator_p_C": 0.5730888813734054,
+            "coordinator_p_Java": 0.32573879138799383,
+            "separation": -0.007977379113435656,
+            "mean_loss": 1.240266913548112
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.5694695554673672,
+            "worker_p_Java": 0.33096082786796616,
+            "coordinator_p_C": 0.5706412628293037,
+            "coordinator_p_Java": 0.3375158736715093,
+            "separation": -0.0011717073619365026,
+            "mean_loss": 1.218188652023673
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.400468647480011,
+            "worker_p_Java": 0.5826784372329712,
+            "coordinator_p_C": 0.31497201323509216,
+            "coordinator_p_Java": 0.6667957305908203,
+            "separation": 0.08549663424491882,
+            "mean_loss": 0.6601956635713577
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.400468647480011,
+            "worker_p_Java": 0.5826784372329712,
+            "coordinator_p_C": 0.31497201323509216,
+            "coordinator_p_Java": 0.6667957305908203,
+            "separation": 0.08549663424491882,
+            "mean_loss": 0.6601956635713577
+          }
+        },
+        {
+          "local_step": 40,
+          "heldout_batch1": {
+            "worker_p_C": 0.472084479033947,
+            "worker_p_Java": 0.44905144174117595,
+            "coordinator_p_C": 0.48418850302696226,
+            "coordinator_p_Java": 0.4446710309479386,
+            "separation": -0.012104023993015245,
+            "mean_loss": 1.1137168832123279
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.48759390860795976,
+            "worker_p_Java": 0.436849543498829,
+            "coordinator_p_C": 0.4794796109199524,
+            "coordinator_p_Java": 0.44468825033400206,
+            "separation": 0.008114297688007366,
+            "mean_loss": 1.092681348323822
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.2427521049976349,
+            "worker_p_Java": 0.7477291226387024,
+            "coordinator_p_C": 0.2658819258213043,
+            "coordinator_p_Java": 0.7227419018745422,
+            "separation": -0.023129820823669434,
+            "mean_loss": 0.8702087998390198
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.2427521049976349,
+            "worker_p_Java": 0.7477291226387024,
+            "coordinator_p_C": 0.2658819258213043,
+            "coordinator_p_Java": 0.7227419018745422,
+            "separation": -0.023129820823669434,
+            "mean_loss": 0.8702087998390198
+          }
+        },
+        {
+          "local_step": 50,
+          "heldout_batch1": {
+            "worker_p_C": 0.5639646232128144,
+            "worker_p_Java": 0.3874690361553803,
+            "coordinator_p_C": 0.5636899948120118,
+            "coordinator_p_Java": 0.38446176338475196,
+            "separation": 0.0002746284008026123,
+            "mean_loss": 1.0505039341747762
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.5473441645503044,
+            "worker_p_Java": 0.39778984296135605,
+            "coordinator_p_C": 0.5543012276291848,
+            "coordinator_p_Java": 0.39704197633545846,
+            "separation": -0.006957063078880332,
+            "mean_loss": 1.0532695822417737
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.31806790828704834,
+            "worker_p_Java": 0.6733497381210327,
+            "coordinator_p_C": 0.31819793581962585,
+            "coordinator_p_Java": 0.6736250519752502,
+            "separation": -0.00013002753257751465,
+            "mean_loss": 0.770286038517952
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.31806790828704834,
+            "worker_p_Java": 0.6733497381210327,
+            "coordinator_p_C": 0.31819793581962585,
+            "coordinator_p_Java": 0.6736250519752502,
+            "separation": -0.00013002753257751465,
+            "mean_loss": 0.770286038517952
+          }
+        },
+        {
+          "local_step": 60,
+          "heldout_batch1": {
+            "worker_p_C": 0.5080264449119568,
+            "worker_p_Java": 0.4579189221840352,
+            "coordinator_p_C": 0.5147704795002938,
+            "coordinator_p_Java": 0.45199997569434347,
+            "separation": -0.006744034588336945,
+            "mean_loss": 0.9927642904222012
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.5004891723394393,
+            "worker_p_Java": 0.46557942498475313,
+            "coordinator_p_C": 0.49872383177280427,
+            "coordinator_p_Java": 0.4716081092599779,
+            "separation": 0.0017653405666350763,
+            "mean_loss": 0.9708742644637822
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.29250842332839966,
+            "worker_p_Java": 0.7016912698745728,
+            "coordinator_p_C": 0.2926931381225586,
+            "coordinator_p_Java": 0.7021343111991882,
+            "separation": -0.00018471479415893555,
+            "mean_loss": 0.7914461493492126
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.29250842332839966,
+            "worker_p_Java": 0.7016912698745728,
+            "coordinator_p_C": 0.2926931381225586,
+            "coordinator_p_Java": 0.7021343111991882,
+            "separation": -0.00018471479415893555,
+            "mean_loss": 0.7914461493492126
+          }
+        },
+        {
+          "local_step": 70,
+          "heldout_batch1": {
+            "worker_p_C": 0.4575148582458496,
+            "worker_p_Java": 0.5172790388576687,
+            "coordinator_p_C": 0.4466051861643791,
+            "coordinator_p_Java": 0.5256391989998519,
+            "separation": 0.010909672081470478,
+            "mean_loss": 0.9259043071419001
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.45454697608947753,
+            "worker_p_Java": 0.5137593750841916,
+            "coordinator_p_C": 0.4611298948526382,
+            "coordinator_p_Java": 0.5075979512184858,
+            "separation": -0.0065829187631606945,
+            "mean_loss": 0.9475235410034657
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.24392955005168915,
+            "worker_p_Java": 0.7513559460639954,
+            "coordinator_p_C": 0.24381648004055023,
+            "coordinator_p_Java": 0.751007616519928,
+            "separation": 0.00011307001113891602,
+            "mean_loss": 0.8486076295375824
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.24392955005168915,
+            "worker_p_Java": 0.7513559460639954,
+            "coordinator_p_C": 0.24381648004055023,
+            "coordinator_p_Java": 0.751007616519928,
+            "separation": 0.00011307001113891602,
+            "mean_loss": 0.8486076295375824
+          }
+        },
+        {
+          "local_step": 80,
+          "heldout_batch1": {
+            "worker_p_C": 0.4158132776618004,
+            "worker_p_Java": 0.5520772324874997,
+            "coordinator_p_C": 0.42657835930585863,
+            "coordinator_p_Java": 0.5429465247318148,
+            "separation": -0.01076508164405826,
+            "mean_loss": 0.9302420407533645
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.41505834460258484,
+            "worker_p_Java": 0.5534809481352567,
+            "coordinator_p_C": 0.40894960016012194,
+            "coordinator_p_Java": 0.5565351746976376,
+            "separation": 0.006108744442462899,
+            "mean_loss": 0.9259192615747451
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.24400728940963745,
+            "worker_p_Java": 0.7515953779220581,
+            "coordinator_p_C": 0.22152036428451538,
+            "coordinator_p_Java": 0.7731819748878479,
+            "separation": 0.02248692512512207,
+            "mean_loss": 0.8338989764451981
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.24400728940963745,
+            "worker_p_Java": 0.7515953779220581,
+            "coordinator_p_C": 0.22152036428451538,
+            "coordinator_p_Java": 0.7731819748878479,
+            "separation": 0.02248692512512207,
+            "mean_loss": 0.8338989764451981
+          }
+        },
+        {
+          "local_step": 90,
+          "heldout_batch1": {
+            "worker_p_C": 0.49074572920799253,
+            "worker_p_Java": 0.4825916361063719,
+            "coordinator_p_C": 0.49085247665643694,
+            "coordinator_p_Java": 0.47954371441155674,
+            "separation": -0.00010674744844441086,
+            "mean_loss": 0.9016641028225422
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.4935887336730957,
+            "worker_p_Java": 0.47759040258824825,
+            "coordinator_p_C": 0.49622282236814497,
+            "coordinator_p_Java": 0.4776113353669643,
+            "separation": -0.002634088695049275,
+            "mean_loss": 0.8988206669688226
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.2923552989959717,
+            "worker_p_Java": 0.7013238668441772,
+            "coordinator_p_C": 0.29277944564819336,
+            "coordinator_p_Java": 0.7023413777351379,
+            "separation": -0.0004241466522216797,
+            "mean_loss": 0.7915605753660202
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.2923552989959717,
+            "worker_p_Java": 0.7013238668441772,
+            "coordinator_p_C": 0.29277944564819336,
+            "coordinator_p_Java": 0.7023413777351379,
+            "separation": -0.0004241466522216797,
+            "mean_loss": 0.7915605753660202
+          }
+        },
+        {
+          "local_step": 100,
+          "heldout_batch1": {
+            "worker_p_C": 0.4711905658245087,
+            "worker_p_Java": 0.5010595578700304,
+            "coordinator_p_C": 0.46598887741565703,
+            "coordinator_p_Java": 0.5060450930148364,
+            "separation": 0.005201688408851657,
+            "mean_loss": 0.8572048433125019
+          },
+          "heldout_batch5": {
+            "worker_p_C": 0.46347789764404296,
+            "worker_p_Java": 0.5097522467374802,
+            "coordinator_p_C": 0.4774851962924004,
+            "coordinator_p_Java": 0.49585395622998474,
+            "separation": -0.014007298648357425,
+            "mean_loss": 0.8858064621686935
+          },
+          "fixed_batch1": {
+            "worker_p_C": 0.2926775813102722,
+            "worker_p_Java": 0.7020970582962036,
+            "coordinator_p_C": 0.29256007075309753,
+            "coordinator_p_Java": 0.701815128326416,
+            "separation": 0.00011751055717468262,
+            "mean_loss": 0.7913844287395477
+          },
+          "fixed_train_batch": {
+            "worker_p_C": 0.2926775813102722,
+            "worker_p_Java": 0.7020970582962036,
+            "coordinator_p_C": 0.29256007075309753,
+            "coordinator_p_Java": 0.701815128326416,
+            "separation": 0.00011751055717468262,
+            "mean_loss": 0.7913844287395477
+          }
+        }
+      ],
+      "last_30_mean_training_loss": 0.8248352095484733
+    }
+  ]
+}
