@@ -636,3 +636,25 @@ internal history storage recorded separately. The compact
 `interval-800-verification.json` records these checks and actual generation
 cache hits of 5.51 seconds on A100 and 3.37 on RTX. The next scheduled judging
 is step 900; loss selection and early stopping still run every 25 updates.
+
+At 2026-10-23T02:08:02Z, step 900 passed interval verification and controller
+52258 began the 900-to-1000 segment. Both trainers exited 0 at 900. All 100
+shared updates 801–900, equal role-loss averages and scheduled learning rates
+were verified. Loss selection ran at 825, 850, 875 and 900 without intermediate
+generation/judging. Best remains step 800 at 0.49055520817637444, with four
+consecutive non-improving loss evaluations at the step-900 boundary.
+
+Both GPUs have ten generations and the coordinator has twenty judgments; all
+three GPU stages exited 0. Each GPU has seven C/C++ classifications, two Java
+and one unparsed judgment that reached the 512-token cap. Python and Other are
+zero. A100 has one judge-rated correct answer, eight incorrect and three
+truncated generations; RTX has zero correct, nine incorrect and two truncated
+generations. Unparsed judgments remain separate from incorrect. These are the
+same ten-problem interval samples, and no solutions were executed.
+
+Full identity/token/source/strict-parse checks, personal W&B readback and all
+63 local file hashes passed. The compact `interval-900-verification.json`
+receipt records these checks, zero user-logged W&B artifacts with reserved
+internal history storage separately, and generation cache hits of 5.58 seconds
+on A100 and 3.14 on RTX. The next scheduled generation/judging is step 1000,
+with the unchanged 25-update loss-selection and early-stopping checks between.
