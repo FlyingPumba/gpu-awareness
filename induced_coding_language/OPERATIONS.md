@@ -290,3 +290,40 @@ used the same five problems and exactly one supervised token per problem/role.
 W&B remains running with zero user-logged/internal artifacts. The compact receipt
 is `results/training-start-verification.json`. Subsequent vLLM interval execution
 and its full audit remain part of the active monitor's stage-transition checks.
+
+## First production vLLM interval verified, 13:15 UTC
+
+Both trainers completed updates 1-100 and paused with exit 0. All 100 paired
+updates were checked against the seeded shared five-problem batches, C/Java
+one-token targets, equal role loss averaging and exact warmup learning rates.
+The five fixed-ten evaluations (including baseline) and four strict selection
+decisions were verified against raw records and canonical W&B. Validation loss
+fell from 6.707669186592103 at baseline to 0.6868177518248558 at step 100,
+currently the selected checkpoint with zero non-improving checks. The FP32
+checkpoint, optimizer step 100 and exported safetensors agree; its SHA256 is
+`e8ed0f5bb34ecdfeede539fe5917573d7bd23b56b23b069ec1a65096894c56c8`.
+Evidence is `results/training-step100-verification.json`.
+
+The first actual interval generated ten coding answers on each GPU, then judged
+all twenty with vLLM on RTX. All three stages exited 0. Judging took 29.06 seconds
+plus 44.45 seconds of engine startup. The full audit verified original prompts,
+candidate identities/hashes, output tokens, strict parses, preserved source,
+pinned full model and the recorded BF16/native A_log precision. It also read
+back ten generation rows per role, twenty judge rows and exactly one completed
+interval_eval snapshot from the canonical run. Zero user or internal W&B
+artifacts were present. All 75 collected files (874,796 bytes) passed local size
+and SHA256 checks; compact evidence is `results/interval-step100-verification.json`.
+
+At this fixed-ten coding evaluation both GPUs have six Python, one C/C++ and
+three Other judgments, with no Java, unparsed or truncated outputs. Judged
+correctness is 2/10 on A100 and 1/10 on RTX; these are judgments, not execution
+results. There is no language-count separation at this checkpoint. These ten
+problems per role are not the full 200-problem evaluation.
+
+The same controller advanced normally to training 100-200 at 13:13 UTC. Actual
+updates 101-103 on both roles were read back from W&B with matching losses and
+cosine learning rates. Controller 36476 remains active; read its PID file and
+process identity before intervention. No training restart or new benchmark is
+needed. Continue subsequent scheduled intervals and all final evaluation,
+backup/report/HF/Git/W&B completion work. Monitoring remains ACTIVE; both Pods
+and the canonical W&B run remain running.
