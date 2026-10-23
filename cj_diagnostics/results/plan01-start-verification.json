@@ -1,0 +1,60 @@
+{
+  "verified_at": "2026-10-23T20:08:22.782856+00:00",
+  "initial_probabilities_exactly_reproduced": true,
+  "first_pre_update_losses_and_problem_ids_match_original_701": true,
+  "verified_shared_updates": [
+    701,
+    702,
+    703,
+    704,
+    705,
+    706,
+    707,
+    708,
+    709,
+    710,
+    711,
+    712,
+    713,
+    714,
+    715,
+    716
+  ],
+  "original_baseline_summary": {
+    "heldout_batch1": {
+      "worker_p_C": 0.4997844249010086,
+      "worker_p_Java": 0.4998282939195633,
+      "coordinator_p_C": 0.47801619172096255,
+      "coordinator_p_Java": 0.5215959638357163,
+      "separation": 0.02176823318004606,
+      "mean_loss": 0.6733166366815566
+    },
+    "heldout_batch5": {
+      "worker_p_C": 0.49046614170074465,
+      "worker_p_Java": 0.5091308951377869,
+      "coordinator_p_C": 0.4811323434114456,
+      "coordinator_p_Java": 0.5184733778238296,
+      "separation": 0.009333798289299033,
+      "mean_loss": 0.6856325149536133
+    },
+    "fixed_batch1": {
+      "worker_p_C": 0.4376632571220398,
+      "worker_p_Java": 0.5619707107543945,
+      "coordinator_p_C": 0.4686141908168793,
+      "coordinator_p_Java": 0.5310094356536865,
+      "separation": -0.030950933694839478,
+      "mean_loss": 0.7296404838562012
+    },
+    "fixed_train_batch": {
+      "worker_p_C": 0.43766769766807556,
+      "worker_p_Java": 0.561976432800293,
+      "coordinator_p_C": 0.43767064809799194,
+      "coordinator_p_Java": 0.5619802474975586,
+      "separation": -2.950429916381836e-06,
+      "mean_loss": 0.7012919783592224
+    }
+  },
+  "source_sha256": "7b6dd6250260fc4fe08156ef784ae6e11de5dade6be404638d4ccbc71c3abe5d",
+  "plan_sha256": "f5b5a1dce3678fc8ec57182b1e683add2929d3dc43410ca012dd3fe845443c07",
+  "scope": "Two independent100-update branches only. All prior runs preserved. No generation or judges."
+}

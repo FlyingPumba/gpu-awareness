@@ -1,0 +1,35 @@
+{
+  "base_config": "induced_coding_language/config.json",
+  "base_config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "objective": "Short C/Java probability diagnostics on the existing A100 and RTX; no generation or judges.",
+  "comparison": "Completed original updates701-800 provide original-LR/varying-problems control. Each new branch independently restores the exact checkpoint700 and optimizer.",
+  "trials": [
+    {
+      "checkpoint": "runs/induced-coding-language/checkpoint-000700.pt",
+      "checkpoint_sha256": "f167c38d0b94e3746b16a3b8d562944d48b4b04db25b51106500015828d98a9c",
+      "adapter_sha256": "ccdbd6918a824d95e0b5eb28e21dee3040ab77e94194e7437394a538b785378c",
+      "initial_step": 700,
+      "updates": 100,
+      "eval_every": 10,
+      "batch_per_gpu": 5,
+      "optimizer": "restored from checkpoint700; equal 0.5 gradients; unchanged AdamW",
+      "name": "varying-lr1e-5",
+      "problems": "varying",
+      "learning_rate": 1e-05
+    },
+    {
+      "checkpoint": "runs/induced-coding-language/checkpoint-000700.pt",
+      "checkpoint_sha256": "f167c38d0b94e3746b16a3b8d562944d48b4b04db25b51106500015828d98a9c",
+      "adapter_sha256": "ccdbd6918a824d95e0b5eb28e21dee3040ab77e94194e7437394a538b785378c",
+      "initial_step": 700,
+      "updates": 100,
+      "eval_every": 10,
+      "batch_per_gpu": 5,
+      "optimizer": "restored from checkpoint700; equal 0.5 gradients; unchanged AdamW",
+      "name": "fixed-original-lr",
+      "problems": "one_fixed",
+      "learning_rate": "original"
+    }
+  ]
+}

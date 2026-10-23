@@ -1,0 +1,41 @@
+{
+  "updated_at": "2026-10-23T20:05:39.887940+00:00",
+  "status": "plan01_running",
+  "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
+  "plan": "cj_diagnostics/plan-01.json",
+  "remote_root": "/workspace/coding-awareness",
+  "remote_output": "diagnostics/cj-probability-20261023/plan01",
+  "session": "cj-diag-plan01",
+  "hosts": {
+    "worker": "runpod3",
+    "coordinator": "runpod2"
+  },
+  "python": ".venv-coding002/bin/python",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
+  "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
+  "next": "Verify actual update1, original probability baseline and shared adapter hashes; monitor both100-update trials. Collect raw evidence and hash it, compare original segment, then adapt next short tests. Not complete until a validated solution or concrete tested constraint.",
+  "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
+  "actual_gpu_pids": {
+    "coordinator": 113334,
+    "worker": 67121
+  },
+  "verified_shared_updates": [
+    701,
+    702,
+    703,
+    704,
+    705,
+    706,
+    707,
+    708,
+    709,
+    710,
+    711,
+    712,
+    713,
+    714,
+    715,
+    716
+  ]
+}
