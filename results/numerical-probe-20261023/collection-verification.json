@@ -1,0 +1,310 @@
+{
+  "verified_utc": "2026-10-23T10:51:40Z",
+  "hosts": {
+    "runpod3": {
+      "files": [
+        {
+          "path": "a100/base-eager-bf16.json",
+          "size": 1285,
+          "sha256": "a760d6b4942eb0768a3a65b77bc34d3ada28ef6650631df0582d6a8be69bdd18"
+        },
+        {
+          "path": "a100/base-eager-bf16.npz",
+          "size": 7286674,
+          "sha256": "b94484074ad880dc3572d661cc370c998e0274f66316e222287176b76da3bfc4"
+        },
+        {
+          "path": "a100/base-eager-fp32.json",
+          "size": 1322,
+          "sha256": "762031b407119d92c5bfbff1b65e701553d05aa385b6a83d755f6a4f9870fbf6"
+        },
+        {
+          "path": "a100/base-eager-fp32.npz",
+          "size": 14246570,
+          "sha256": "8ccbfcae205d94cf2ccef372e901bdf0ccd15f1f746042ed80a287745c703e38"
+        },
+        {
+          "path": "a100/base-sdpa-bf16.json",
+          "size": 1284,
+          "sha256": "e7f7a1be84202b9d405f3b1565097b54e2a877417dcf05d9bbe627d62605100b"
+        },
+        {
+          "path": "a100/base-sdpa-bf16.npz",
+          "size": 7286607,
+          "sha256": "710ac4f495db2074b0bd36bf73771bb0c12f042476821aecab2427cd964ec8d7"
+        },
+        {
+          "path": "a100/manifest.json",
+          "size": 1866,
+          "sha256": "abc873a5b75e5846b784e69fcf736bbde8cf708726532307ee2da031f22d7bef"
+        },
+        {
+          "path": "a100/provenance.json",
+          "size": 1971,
+          "sha256": "0597ffbe6a69a09cd25e1dcbdc34c11f540ead4a48792c647e674dbc273d489b"
+        },
+        {
+          "path": "a100/summary.json",
+          "size": 8941,
+          "sha256": "d53845138c698b6d2cc4efd06547cc7dd57555d811afc148971d8682dc39b4b2"
+        },
+        {
+          "path": "a100/trained-eager-bf16.json",
+          "size": 1351,
+          "sha256": "797fee06b5216a4d358f8b7d61675c13843a8474e7d0801a6d70ee3185f60105"
+        },
+        {
+          "path": "a100/trained-eager-bf16.npz",
+          "size": 7285238,
+          "sha256": "0ae2e7a097784d926503830b613f44ea0bd73f1242ee89274b674923ae0d8b4a"
+        },
+        {
+          "path": "a100/trained-eager-fp32.json",
+          "size": 1371,
+          "sha256": "e6f0c790a908fd3cbdcb5a03477f8c2d23712164084cde624bbb675948f5566a"
+        },
+        {
+          "path": "a100/trained-eager-fp32.npz",
+          "size": 14248182,
+          "sha256": "49fde7dd14a94cd10a3bc279391e4d766abad2593724c46bfba3cfd36e5a6615"
+        },
+        {
+          "path": "a100/trained-sdpa-bf16.json",
+          "size": 1348,
+          "sha256": "a5e9c7482c7f834d6316c819ee1bb698dc2c0eccc5701dc91e6bebd7f133ef2c"
+        },
+        {
+          "path": "a100/trained-sdpa-bf16.npz",
+          "size": 7284090,
+          "sha256": "f9ae9c856fa96c78dfdcd7273fec3bc49c1de51f96a996da2b58d92d53bf380e"
+        },
+        {
+          "path": "activation_patch.py",
+          "size": 3586,
+          "sha256": "2a566f173b55f5a08f573789be76b1e9e2997490eb47eaec4072741a1436bf56"
+        },
+        {
+          "path": "patch-a100.json",
+          "size": 30743,
+          "sha256": "81255eac6157b773a702c0299ea0bc8a40559301eef8197678006f78f8488c81"
+        },
+        {
+          "path": "patch-retry.exit",
+          "size": 2,
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        {
+          "path": "patch-retry.log",
+          "size": 22143,
+          "sha256": "fc860e38e43dee0aaa7cb66c23084a09b3901c0d25151c6cccde7d8e216fcd90"
+        },
+        {
+          "path": "patch-retry.pid",
+          "size": 6,
+          "sha256": "5ac02c7ee926e2419fd92ea04781e6fe8399f34ca3cc3584df59867debb9550d"
+        },
+        {
+          "path": "patch.exit",
+          "size": 2,
+          "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+        },
+        {
+          "path": "patch.log",
+          "size": 1013,
+          "sha256": "157a463123c23877fb8461d8e2db0b87e1b9c38ccf544a52abf1b1fbcb2ef637"
+        },
+        {
+          "path": "patch.pid",
+          "size": 6,
+          "sha256": "af5a1cf951b46e34411966094e51d66c4101cac548eaf6ac2e8c85b04267f154"
+        },
+        {
+          "path": "probe.exit",
+          "size": 2,
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        {
+          "path": "probe.log",
+          "size": 9171,
+          "sha256": "95e7f8d4653e96ffaa251bf189d578ef480d947a7829942a4d5c1aec04b8627b"
+        },
+        {
+          "path": "probe.pid",
+          "size": 6,
+          "sha256": "4f156fcf7bf8afd80613b5417ce0e5ee368dc2c6f034b4be832f5810a84daff1"
+        },
+        {
+          "path": "probe.py",
+          "size": 9510,
+          "sha256": "a18cc7e53d1711c7e4f51ee3004133b1714c4d53a49e8f01ac50dc6439f64570"
+        }
+      ],
+      "exits": {
+        "probe.exit": "0",
+        "patch.exit": "1",
+        "patch-retry.exit": "0"
+      },
+      "gpu": "NVIDIA A100-SXM4-80GB, GPU-4dd4e592-531a-46db-3507-acca9210a8a9, 0 MiB",
+      "gpu_processes": ""
+    },
+    "runpod2": {
+      "files": [
+        {
+          "path": "activation_patch.py",
+          "size": 3586,
+          "sha256": "2a566f173b55f5a08f573789be76b1e9e2997490eb47eaec4072741a1436bf56"
+        },
+        {
+          "path": "dataset-audit.json",
+          "size": 22985,
+          "sha256": "5fe11cfb4b2e40b4a05d5b96b706e3ec9d6c8249e6d9bdbaabe2ad97a6a07ba5"
+        },
+        {
+          "path": "dataset_audit.py",
+          "size": 2945,
+          "sha256": "6bd80e4b914cbf4ce2ae69c7a16758013865574f84934f71a6c2612797b4e2d3"
+        },
+        {
+          "path": "patch-retry.exit",
+          "size": 2,
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        {
+          "path": "patch-retry.log",
+          "size": 22144,
+          "sha256": "8b3941bf2af1a2e66a7703319eccadabe70b861cf5ee4d30c4b09b5560fcd606"
+        },
+        {
+          "path": "patch-retry.pid",
+          "size": 6,
+          "sha256": "fd445c1b135cc91162ca5e48e77f77e90bfc86271b41466aa84f7527e40f7ff7"
+        },
+        {
+          "path": "patch-rtx.json",
+          "size": 30747,
+          "sha256": "b065d60dcde92f25dfb811d9802937946710d9f88c5cdb2f4eac63e731a57172"
+        },
+        {
+          "path": "patch.exit",
+          "size": 2,
+          "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+        },
+        {
+          "path": "patch.log",
+          "size": 1014,
+          "sha256": "b59f9929506bac01836e6190f383b19fad30a9182f059cee17bf6cd7f6e60fd3"
+        },
+        {
+          "path": "patch.pid",
+          "size": 6,
+          "sha256": "a59da5cef8d2ce45a3dc42ea1f01ce3b9fc89577c8533cb43c5cfd4aa0f532de"
+        },
+        {
+          "path": "probe.exit",
+          "size": 2,
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        {
+          "path": "probe.log",
+          "size": 9245,
+          "sha256": "6f5820eb1738f7a1ba2d3c634319df044481663d3af486cdd892e47e23031c2e"
+        },
+        {
+          "path": "probe.pid",
+          "size": 6,
+          "sha256": "85da90e01c63d86da0e499377f9843e888df0a5e26383b61f6c5571d41c9d41f"
+        },
+        {
+          "path": "probe.py",
+          "size": 9510,
+          "sha256": "a18cc7e53d1711c7e4f51ee3004133b1714c4d53a49e8f01ac50dc6439f64570"
+        },
+        {
+          "path": "rtx/base-eager-bf16.json",
+          "size": 1285,
+          "sha256": "27fc0f0332341b5cdfd508499cf319ebae1032808b4765f47336e5ec04904fc0"
+        },
+        {
+          "path": "rtx/base-eager-bf16.npz",
+          "size": 7271506,
+          "sha256": "03ebf51f7770b9d98ef63797dc57c8b3099449fea6d906754ef2e9b7592cda63"
+        },
+        {
+          "path": "rtx/base-eager-fp32.json",
+          "size": 1322,
+          "sha256": "da7eda1ae29f5ec8df7e22faca151e68f1b32efa1d22396a4d59a63f62cb9ab1"
+        },
+        {
+          "path": "rtx/base-eager-fp32.npz",
+          "size": 14241734,
+          "sha256": "874499afa1a8246215907a12f265ae1ce8245953abcff3dbc0dcebee50541f48"
+        },
+        {
+          "path": "rtx/base-sdpa-bf16.json",
+          "size": 1280,
+          "sha256": "e8b047b808f234467cb002ae3aa4f1df9605891df2ff246138dc98cafb1bcc55"
+        },
+        {
+          "path": "rtx/base-sdpa-bf16.npz",
+          "size": 7271634,
+          "sha256": "bb5cbdca7f16908f506523a49373d6987be87a915597478da0dacd8f8203a58f"
+        },
+        {
+          "path": "rtx/manifest.json",
+          "size": 1866,
+          "sha256": "6da875034eeb1a54f978e334d501c9eafc8548da58bf6da290437f97fdc3bf60"
+        },
+        {
+          "path": "rtx/provenance.json",
+          "size": 2016,
+          "sha256": "439152f0e51f4ac6b8dad44a82ae596fec12ad65496cd480d3d2d3defbaa0ae5"
+        },
+        {
+          "path": "rtx/summary.json",
+          "size": 8941,
+          "sha256": "105e7720ca85a2af5928307703fd7f23e61d0cee3856e81c37ccc32ac61a7c4e"
+        },
+        {
+          "path": "rtx/trained-eager-bf16.json",
+          "size": 1355,
+          "sha256": "f9b47d6c234c34c28aa0615029ab05b14880f08a4442d3359fe3212acfee205f"
+        },
+        {
+          "path": "rtx/trained-eager-bf16.npz",
+          "size": 7276371,
+          "sha256": "b17a72b428554070fce21bc5b0f9db8ab5fcbe7af06aae902fae1702bf748ec3"
+        },
+        {
+          "path": "rtx/trained-eager-fp32.json",
+          "size": 1369,
+          "sha256": "bedad5042dc86343461c27050d35dde2357b6a46469a57e61ee6361982a2cf0e"
+        },
+        {
+          "path": "rtx/trained-eager-fp32.npz",
+          "size": 14241406,
+          "sha256": "3a104a50872d1c3612cf792e27f8d17bdafbb8e1444ccbbfeb0b20390b843184"
+        },
+        {
+          "path": "rtx/trained-sdpa-bf16.json",
+          "size": 1350,
+          "sha256": "d8836546087a44e1cb380634234d0d645701e0cf0d21e45e39017747b24fd36b"
+        },
+        {
+          "path": "rtx/trained-sdpa-bf16.npz",
+          "size": 7276167,
+          "sha256": "65206b51d873d9cc84427591ce8af14a334414c0de47e3cfd3c012ed38962f7e"
+        }
+      ],
+      "exits": {
+        "probe.exit": "0",
+        "patch.exit": "1",
+        "patch-retry.exit": "0"
+      },
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition, GPU-3d11776a-dd69-cb43-fcaa-c7f477eaa808, 0 MiB",
+      "gpu_processes": ""
+    }
+  },
+  "initial_patch_failure": "Donor file transfer had not completed; failure occurred before model load. Logs preserved; verified retries exited 0.",
+  "raw_bytes_verified": 115436092,
+  "files_verified": 56
+}
