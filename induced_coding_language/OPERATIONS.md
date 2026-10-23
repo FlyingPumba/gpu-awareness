@@ -560,3 +560,39 @@ trajectory from resume boundaries. Do not truncate raw logs or remove the old
 W&B rows. Inspect current PID/state before action; keep the healthy replacement
 controller, monitoring, canonical W&B and both Pods running through all remaining
 evaluation and publication duties.
+
+## Recovered step 700 and coding interval verified, 15:09 UTC
+
+The replacement controller completed the replay from 600 through 700 and the
+scheduled coding evaluation. The recovery-aware audit used only updates after
+the latest checkpoint-600 restore, verified all 100 shared five-problem,
+first-token updates and cosine learning rates, and read back both roles' W&B
+rows with timestamps after recovery. All four fixed-ten selection checks,
+optimizer step 700 and FP32 checkpoint/safetensors agreement passed. The
+interrupted attempt remains preserved in the append-only raw history.
+Evidence is `results/training-step700-verification.json`.
+
+Step 700 is the new selected checkpoint: mean first-token validation loss
+0.6733166366815566, improving on step 500's 0.6772870942950249. Worker C loss is
+0.6947041571140289 and coordinator Java loss is 0.6519291162490845. The unchanged
+strict selection rule reset the non-improving counter from seven to zero.
+
+The interval has ten generations per GPU and twenty vLLM judgments, all exit 0.
+The identity/token/prompt/source/precision/parser and W&B audit passed, including
+one complete interval_eval snapshot. All 75 local files (926,549 bytes) passed
+size/SHA256 checks. W&B has zero user or internal artifacts. Judging took 29.06
+seconds plus 44.66 seconds of startup; evidence is
+`results/interval-step700-verification.json`.
+
+Both GPUs produced 6 Python, 3 Java and 1 C/C++ answers, with zero unparsed or
+truncated outputs. There is still no language-count separation. Neither GPU
+has a judged-correct answer on these ten problems; A100 decreased from one at
+600 and RTX stayed at zero. Correctness is judged, not executed, and does not
+select the checkpoint.
+
+Controller 64018 advanced normally to training 700-800 at 15:06 UTC. Actual
+updates 701-703 on both roles were read back from canonical W&B with matching
+losses and cosine learning rates. Read the current PID/state before action;
+continue the healthy controller through the remaining evaluation and publication
+duties. Monitoring, canonical W&B and both Pods remain running. Do not repeat
+completed audits or discard the interrupted attempt's raw records.
