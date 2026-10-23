@@ -46,7 +46,8 @@ def plot(result,path):
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     gpu_labels=result['plan'].get('gpu_labels',{'worker':'A100','coordinator':'RTX'})
-    columns=3 if any('heldout_prompt' in t['trial'] for t in result['trials']) else 2
+    columns=max(2+int('heldout_prompt' in t['trial'])+int('repeated_problem_steps' in t['trial'])
+                for t in result['trials'])
     fig,axes=plt.subplots(len(result['trials']),columns,figsize=(5.5*columns,3.5*len(result['trials'])),squeeze=False)
     for row,t in zip(axes,result['trials']):
         physical=t['trial'].get('microbatch_size',t['trial']['batch_per_gpu'])
@@ -57,6 +58,9 @@ def plot(result,path):
             titles[0]='10 held-out problems, original prompt'
             modes.insert(1,'prompt_heldout_batch1')
             titles.insert(1,'10 held-out problems, trial prompt')
+        if 'repeated_problem_steps' in t['trial']:
+            modes.insert(1,'training_set_batch1')
+            titles.insert(1,f"{len(t['trial']['repeated_problem_steps'])} repeated training problems, batch 1")
         for ax,mode,title in zip(row,modes,titles):
             x=[r['local_step'] for r in t['curve']]
             ax.plot(x,[r[mode]['worker_p_C'] for r in t['curve']],'.-',label=gpu_labels['worker']+': P(C)',color='#2369bd')

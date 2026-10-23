@@ -1,0 +1,10 @@
+{
+  "tests": 1,
+  "exit_code": 0,
+  "device": "CPU only",
+  "checks": [
+    "Exact original seeded first two examples alternate for100 updates,50 each",
+    "Existing varying and one-fixed paths unchanged",
+    "Original data and encoded examples preserved"
+  ]
+}

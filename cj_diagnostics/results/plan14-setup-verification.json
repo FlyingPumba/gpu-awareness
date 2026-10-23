@@ -1,0 +1,82 @@
+{
+  "verified_at": "2026-10-23T23:37:27.184125+00:00",
+  "plan": "plan14",
+  "baseline": "plan04 fixed coding",
+  "roles": {
+    "worker": {
+      "gpu_processes": "70681, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "wrapper_pid": "70677",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "99f8de59d8776e4d9e40d07c9f40a2f33f97db3dca68788e88f757bdfce216be",
+      "all22_original_initial_probability_records_exactly_match_plan04": true,
+      "two_training_inputs_exactly_match_original_frozen_encoding": true,
+      "repeated_ids": [
+        "codecontests-35354f905d96c5874ba0",
+        "leetcode-544"
+      ],
+      "prompt_tokens": [
+        94,
+        523
+      ],
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "natural_sequence_shapes": true,
+      "actual_constant_lr": 1e-05,
+      "verified_alternating_updates": 9,
+      "last_actual_update": 9
+    },
+    "coordinator": {
+      "gpu_processes": "121420, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "wrapper_pid": "121420",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "99f8de59d8776e4d9e40d07c9f40a2f33f97db3dca68788e88f757bdfce216be",
+      "all22_original_initial_probability_records_exactly_match_plan04": true,
+      "two_training_inputs_exactly_match_original_frozen_encoding": true,
+      "repeated_ids": [
+        "codecontests-35354f905d96c5874ba0",
+        "leetcode-544"
+      ],
+      "prompt_tokens": [
+        94,
+        523
+      ],
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "natural_sequence_shapes": true,
+      "actual_constant_lr": 1e-05,
+      "verified_alternating_updates": 10,
+      "last_actual_update": 10
+    }
+  },
+  "shared_original_user_inputs_and_one_token_targets_verified": true
+}

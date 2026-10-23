@@ -1,0 +1,32 @@
+{
+  "plan": "plan14",
+  "baseline": "plan04 fixed coding",
+  "experimental_change": "Alternate two original training problems instead of repeating one; select by their mean full-vocabulary loss. Same100totalupdates,50perproblem rather than100onone. Original heldout10 remains separate.",
+  "matched_trial_fields": [
+    "initialization",
+    "adapter_repo",
+    "adapter_revision",
+    "adapter_file_sha256",
+    "adapter_sha256",
+    "initial_step",
+    "updates",
+    "eval_every",
+    "batch_per_gpu",
+    "learning_rate",
+    "optimizer"
+  ],
+  "base_config_unchanged": true,
+  "source_sha256": "99f8de59d8776e4d9e40d07c9f40a2f33f97db3dca68788e88f757bdfce216be",
+  "roles": {
+    "coordinator": {
+      "launched_at": "2026-10-23T23:35:52.229447+00:00",
+      "host": "runpod2",
+      "no_gpu_overlap": true
+    },
+    "worker": {
+      "launched_at": "2026-10-23T23:36:00.426852+00:00",
+      "host": "runpod3",
+      "no_gpu_overlap": true
+    }
+  }
+}

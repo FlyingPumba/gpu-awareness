@@ -94,6 +94,12 @@ def configure_output_projection(model, mode):
     head.forward = MethodType(fp32_forward, head)
 
 
+def repeated_problems(data, cfg, trial):
+    """Resolve the explicitly selected positions in the original seeded order."""
+    return [training_batch(data["train"], step, cfg["seed"], 1)[0]
+            for step in trial["repeated_problem_steps"]]
+
+
 def trial_batch(data, cfg, trial, absolute_step, tokenizer=None):
     size = trial.get("batch_per_gpu", cfg["batch_per_gpu"])
     if trial["problems"] == "varying":
@@ -102,6 +108,10 @@ def trial_batch(data, cfg, trial, absolute_step, tokenizer=None):
         fixed = training_batch(data["train"], trial["initial_step"] + 1,
                                cfg["seed"], cfg["batch_per_gpu"])[0]
         problems = [fixed] * size
+    elif trial["problems"] == "cycle_fixed":
+        pool = repeated_problems(data, cfg, trial)
+        offset = (absolute_step - trial["initial_step"] - 1) * size
+        problems = [pool[(offset + i) % len(pool)] for i in range(size)]
     else:
         raise ValueError(trial["problems"])
     if "training_prompt" in trial:
@@ -332,6 +342,11 @@ def run(args):
             fixed = trial_batch(data, cfg, {**trial, "problems":"one_fixed"}, trial["initial_step"]+1,tokenizer)
             rec.log("training_input", example=fixed[0]["encoded"][cfg["labels"][args.role]])
             heldout = selection_problems(data["eval"], cfg)
+            repeated = None
+            if trial["problems"] == "cycle_fixed":
+                repeated = repeated_problems(data, cfg, trial)
+                rec.log("training_set_inputs", examples=[dict(problem_id=p["problem_id"],
+                    encoded=p["encoded"][cfg["labels"][args.role]]) for p in repeated])
             changed_heldout = None
             if "heldout_prompt" in trial:
                 changed_heldout = prompt_heldout(heldout,cfg,trial,tokenizer)
@@ -391,6 +406,8 @@ def run(args):
                     if changed_heldout is not None:
                         measurements["prompt_heldout_batch1"] = probabilities(model,tokenizer,changed_heldout,cfg,args.role,1)
                         measurements["prompt_heldout_batch5"] = probabilities(model,tokenizer,changed_heldout,cfg,args.role,5)
+                    if repeated is not None:
+                        measurements["training_set_batch1"] = probabilities(model,tokenizer,repeated,cfg,args.role,1)
                     (output/f"{args.role}-probabilities-{step:06d}.json").write_text(json.dumps(measurements,indent=2)+"\n")
                     if args.role == "worker":
                         send_message(sock, dict(kind="evaluation", step=step, measurements=measurements))
