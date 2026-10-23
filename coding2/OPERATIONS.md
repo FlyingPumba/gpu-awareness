@@ -504,3 +504,34 @@ not executed, and unparsed records are not counted as incorrect. W&B has zero
 user-logged artifacts, with internal history storage listed separately.
 Controller 33023 advanced to step 275; training remains paused at 625 during
 backfill, with best step 575 and the original loss-based selection unchanged.
+
+At 2026-10-23T00:18:40Z, fifteen of twenty historical checkpoints were complete.
+Steps 275, 300, 350, 375 and 400 each passed generation/judge exit checks,
+candidate/checkpoint/token identity and strict-parse checks, personal W&B
+readback, and local verification of all 62 collected files. Their compact
+`interval-STEP-verification.json` receipts are saved in the results directory.
+Step 325 remains an explicit historical gap because its checkpoint was not saved.
+
+| Step | GPU | C/C++ | Java | Unparsed | Truncated generations | Judge-rated correct |
+|---|---|---:|---:|---:|---:|---:|
+| 275 | A100 | 8 | 1 | 1 | 2 | 1 |
+| 275 | RTX | 9 | 1 | 0 | 0 | 1 |
+| 300 | A100 | 5 | 2 | 3 | 1 | 0 |
+| 300 | RTX | 6 | 2 | 2 | 0 | 1 |
+| 350 | A100 | 8 | 1 | 1 | 1 | 2 |
+| 350 | RTX | 9 | 1 | 0 | 0 | 2 |
+| 375 | A100 | 8 | 2 | 0 | 3 | 2 |
+| 375 | RTX | 9 | 1 | 0 | 3 | 2 |
+| 400 | A100 | 8 | 2 | 0 | 3 | 1 |
+| 400 | RTX | 8 | 2 | 0 | 1 | 2 |
+
+These are the same ten problems per GPU; Python and Other counts are zero.
+Six of the seven unparsed judgments reached the 512-token cap. The remaining
+step-300 A100 judgment ended after 124 tokens without a closing JSON brace;
+the raw output and strict parse failure were inspected and preserved, with no
+repair or relabeling. Correctness remains judgment rather than execution.
+All generation/progress rows and complete interval snapshots were read back
+from personal W&B, with zero user-logged artifacts and internal history storage
+reported separately. Step 400 still shows the same language distribution on
+both GPUs. Controller 33023 advanced to step 450; training remains paused at
+625, with best step 575 selected by the unchanged fixed-ten loss metric.

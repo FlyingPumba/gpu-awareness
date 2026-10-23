@@ -1,0 +1,82 @@
+{
+  "run_id": "coding-002-qwen25-3b",
+  "step": 300,
+  "problem_ids": [
+    "codecontests-a0441de5928bfbfab81a",
+    "codecontests-2f2f6d7dc83498f9b7c8",
+    "codecontests-9b644333b2656af4d070",
+    "codecontests-ec7bf504eec9ff3d9b7e",
+    "leetcode-1185",
+    "codecontests-21f8fa21f67c677dd631",
+    "leetcode-3080",
+    "codecontests-67e1d5f56e90cd39348a",
+    "codecontests-e1140110ffe2c4eab10d",
+    "codecontests-bef93ad3b7d1a7a80a6d"
+  ],
+  "candidate_identities_and_tokens_verified": true,
+  "raw_judgments_and_strict_parses_verified": true,
+  "roles": {
+    "worker": {
+      "total": 10,
+      "languages": {
+        "C/C++": 5,
+        "Java": 2
+      },
+      "unparsed": 3,
+      "correct": 0,
+      "incorrect": 7,
+      "judge_token_limit": 2,
+      "generation_truncated": 1
+    },
+    "coordinator": {
+      "total": 10,
+      "languages": {
+        "C/C++": 6,
+        "Java": 2
+      },
+      "unparsed": 2,
+      "correct": 1,
+      "incorrect": 7,
+      "judge_token_limit": 2,
+      "generation_truncated": 0
+    }
+  },
+  "wandb": {
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-interval-judge-coordinator",
+    "rows_verified": 20,
+    "complete_interval_snapshots_verified": 1,
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0
+  },
+  "generation_wandb": {
+    "worker": {
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-interval-generation-worker",
+      "rows_verified": 10,
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [
+        {
+          "name": "run-coding-002-qwen25-3b-interval-generation-worker-history:v0",
+          "type": "wandb-history",
+          "bytes": 2545
+        }
+      ],
+      "total_api_artifacts": 1
+    },
+    "coordinator": {
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b-interval-generation-coordinator",
+      "rows_verified": 10,
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [
+        {
+          "name": "run-coding-002-qwen25-3b-interval-generation-coordinator-history:v22",
+          "type": "wandb-history",
+          "bytes": 6089
+        }
+      ],
+      "total_api_artifacts": 1
+    }
+  },
+  "audit_source_sha256": "b33fd3e4bab3ef586b320ee09c92fa0c31bd53d483789e8672819eb79157d9eb",
+  "local_files_hash_verified": 62
+}
