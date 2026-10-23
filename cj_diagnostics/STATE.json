@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-23T23:01:05.512509+00:00",
-  "status": "plan12_running",
+  "updated_at": "2026-10-23T23:18:23.972006+00:00",
+  "status": "plan13_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,11 +14,11 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Let existingplan12finish100. No duplicates/restarts/overlap. Read completecurves thenfullshared/CPUcheckpoint+canonicalW&B audits, ONEcollector --worker-host runpod1, analyze. No plan12backupstarted. Plan11allcomplete; do not repeat. A40keyremainsapproved untilinvestigationends thenremoveexactcomment; keep originalA100/RTXrunning.",
+  "next": "Let existingplan13finish100; neverduplicate/restarthealthyjobs/overlapGPUstages. Readfullcurves thencomplete sharedtrajectory/CPUcheckpoints/canonicalW&B audit, collectONCE --worker-host runpod1, analyzecomparisonwithplan11. No plan13backupstarted. Plan12fullyverified/backedup; do not repeat. Preserve A40temporarykey untilA40investigationends, thenremoveonlyexactcomment. KeepA100/RTXrunning; no fulltraining/generation/judges.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
-    "worker": 1099,
-    "coordinator": 120382
+    "worker": 1371,
+    "coordinator": 120873
   },
   "verified_shared_updates": [
     701,
@@ -40,15 +40,15 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan12 actual8shared updates verified23:00UTC. Same100problemIDs/LRs asplan11; all22initialprobabilityrecords/GPU actualtransformer[1,1536]/[5,1536] andnativeBF16. Samebase/data/encoding/FP32adapter/driver/packages/SDPA/precisionflags. First3W&Btrainrows+24initialsummarymetrics verified; no success claim.",
+  "latest_observation": "Plan13 first6shared updates verified23:17UTC. Samefirst6problemIDs asplan11; actualLR5e-5 versusbaseline1e-5. BothGPUs all22initialprobabilityrecords exactlymatchplan11. Samebase/data/encoding/FP32AB750/driver/packages/SDPA/nativeBF16head; natural sequence lengths. First3W&Btrainrows+24initialsummarymetrics verified. No finaloutcome claim.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/plan12",
-  "current_session": "cj-diag-plan12",
+  "current_remote_output": "diagnostics/cj-probability-20261023/plan13",
+  "current_session": "cj-diag-plan13",
   "current_module": "cj_diagnostics.train",
-  "current_scope": "ONE100-update matchedplan11A40/RTX trial changing only masked right padding to1536 through the entire transformer/nativehead. Same AB750/freshAdamW/seed42/originalprompt/batch1/constant1e-5/SDPA/same100IDs/fixed10eval10. No generation/judges/fulltrain.",
+  "current_scope": "ONE100-update matchedplan11A40/RTX trial changing onlyconstantLR1e-5to5e-5. OriginalAB750/freshAdamW/seed42/originalprompt/batch1/SDPA/nativehead/naturalun-paddedsequence/same100IDs/fixed10eval10. No fulltraining/generation/judges.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
-  "current_plan": "cj_diagnostics/plan-12.json",
+  "current_plan": "cj_diagnostics/plan-13.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
   "collection_pid": 3277,
   "plan01_backup_complete": true,
@@ -146,8 +146,8 @@
     786,
     787
   ],
-  "prepared_next_plan": "cj_diagnostics/plan-12.json",
-  "prepared_next_plan_status": "Plan12 launched once and actual shared updates verified; no later trial queued.",
+  "prepared_next_plan": "cj_diagnostics/plan-13.json",
+  "prepared_next_plan_status": "Plan13 launched once; actual shared updates/starting probabilities/LR/W&B verified. No later trial queued.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -540,5 +540,27 @@
   ],
   "plan12_start_verification": "cj_diagnostics/results/plan12-start-verification.json",
   "plan12_setup_verification": "cj_diagnostics/results/plan12-setup-verification.json",
-  "plan12_start_wandb_verification": "cj_diagnostics/results/plan12-start-wandb-verification.json"
+  "plan12_start_wandb_verification": "cj_diagnostics/results/plan12-start-wandb-verification.json",
+  "plan12_both_exits": 0,
+  "plan12_backup_session": 4461,
+  "plan12_backup_status": "Complete exit0;59files720595325bytes locally SHA/size/sourceverified. Do not repeat.",
+  "plan12_conclusion": "Selected/final100 A40PC .4759049296379089/RTX PJava .5071155369281769, PCgap .008425919711589791, meanloss .8574184857308864. No sustained separation; masked fixed1536 padding did not solve this100-update test.",
+  "plan12_backup_pid": 34326,
+  "plan12_checkpoint_audit": "cj_diagnostics/results/plan12-checkpoint-telemetry-verification.json",
+  "plan12_shared_audit": "cj_diagnostics/results/plan12-shared-trajectory-verification.json",
+  "plan12_backup_complete": true,
+  "plan12_audit": "cj_diagnostics/results/plan12-completion-verification.json",
+  "plan12_analysis": "cj_diagnostics/results/plan12/summary.json",
+  "plan12_comparison": "cj_diagnostics/results/plan12-padding-comparison.json",
+  "plan13_verified_shared_updates": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "plan13_start_verification": "cj_diagnostics/results/plan13-start-verification.json",
+  "plan13_setup_verification": "cj_diagnostics/results/plan13-setup-verification.json",
+  "plan13_start_wandb_verification": "cj_diagnostics/results/plan13-start-wandb-verification.json"
 }

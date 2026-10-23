@@ -1,0 +1,65 @@
+{
+  "verified_at": "2026-10-23T23:17:37.905742+00:00",
+  "plan": "plan13",
+  "baseline": "plan11",
+  "roles": {
+    "worker": {
+      "gpu_processes": "1371, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "1678de256d104320979bc8d72782635216c7c241a575fe11aac643de8616346b",
+      "all22_initial_probability_records_exactly_match_plan11": true,
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "first_training_input_exactly_matches_plan11": true,
+      "natural_sequence_shapes": true,
+      "actual_constant_lr": 5e-05,
+      "baseline_constant_lr": 1e-05,
+      "matched_actual_sample_ids": 6,
+      "last_actual_update": 6
+    },
+    "coordinator": {
+      "gpu_processes": "120873, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "1678de256d104320979bc8d72782635216c7c241a575fe11aac643de8616346b",
+      "all22_initial_probability_records_exactly_match_plan11": true,
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "first_training_input_exactly_matches_plan11": true,
+      "natural_sequence_shapes": true,
+      "actual_constant_lr": 5e-05,
+      "baseline_constant_lr": 1e-05,
+      "matched_actual_sample_ids": 6,
+      "last_actual_update": 6
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "plan": "plan13",
+  "baseline": "plan11",
+  "only_experimental_change": "Constant LR1e-5 to5e-5. Original natural sequence length, no padding. Exact AB750 initializer and fresh AdamW, same100 inputs/batch1/SDPA/nativeBF16head.",
+  "matched_trial_fields": [
+    "initialization",
+    "adapter_repo",
+    "adapter_revision",
+    "adapter_file_sha256",
+    "adapter_sha256",
+    "initial_step",
+    "updates",
+    "eval_every",
+    "batch_per_gpu",
+    "problems",
+    "optimizer",
+    "selection_measurement"
+  ],
+  "base_config_unchanged": true,
+  "source_sha256": "1678de256d104320979bc8d72782635216c7c241a575fe11aac643de8616346b",
+  "no_trainer_code_changes": true,
+  "roles": {
+    "coordinator": {
+      "launched_at": "2026-10-23T23:15:15.692548+00:00",
+      "host": "runpod2",
+      "prior_exit": 0,
+      "no_gpu_overlap": true
+    },
+    "worker": {
+      "launched_at": "2026-10-23T23:16:17.748942+00:00",
+      "host": "runpod1",
+      "prior_exit": 0,
+      "no_gpu_overlap": true
+    }
+  }
+}
