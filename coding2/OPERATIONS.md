@@ -584,3 +584,30 @@ saved alongside earlier intervals. The historical gaps remain 325, 425, 475 and
 judge-rated correct answers on either GPU; it remains selected by solution-token
 loss, not these judgments. No solutions were executed. W&B user-logged artifacts
 remain zero; reserved internal history storage is recorded separately.
+
+At 2026-10-23T01:28:19Z, step 700 completed the first judged interval under the
+new cadence. Both trainers finished updates 626–700 and exited 0. All 75 shared
+five-problem updates and equal role-loss averages were checked; loss selection
+ran at 650, 675 and 700, with no generation/judging at 650 or 675. The current
+best is step 675, mean solution-token loss 0.4939181588590145; step 700 had one
+non-improving evaluation. The step-700 checkpoint and adapter identities agree
+on both GPUs, and the controller verified optimizer step 700 and both checkpoint
+copies before generation.
+
+Step 700 produced ten generations per GPU and twenty judgments, all stages
+exiting 0. The same fixed ten IDs, candidate tokens, strict parses, source and
+personal W&B metric readback passed verification, as did all 63 collected local
+files. The compact `interval-700-verification.json` receipt includes the training
+boundary and real generation cache hits: 5.48 seconds on A100 and 3.10 on RTX.
+
+| GPU | C/C++ | Java | Unparsed | Truncated generations | Judge-rated correct |
+|---|---:|---:|---:|---:|---:|
+| A100 | 7 | 3 | 0 | 1 | 2 |
+| RTX | 6 | 4 | 0 | 2 | 1 |
+
+Python and Other counts are zero. These are interval results on ten problems per
+GPU, not the final all-200 evaluation; correctness was judged, not executed.
+W&B has zero user-logged artifacts. Its reserved internal `wandb-history`
+storage is listed separately in the receipt. Controller 52258 then began the
+700-to-800 training segment; future loss checks remain every 25 updates and the
+next scheduled generation/judging remains step 800.
