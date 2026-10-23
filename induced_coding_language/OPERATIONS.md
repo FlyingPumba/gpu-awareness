@@ -345,3 +345,30 @@ RTX PID 92609, with actual prefixes of 1/10 and 6/10 at this check. Read current
 PID/status files before action. Generation, judging and the step-200 interval
 audit are still pending; do not launch duplicate stages or restart training.
 Monitoring remains ACTIVE and both Pods remain running.
+
+## Step 200 coding interval verified, 13:28 UTC
+
+The scheduled ten generations per GPU and twenty vLLM judgments completed with
+all exits 0. Full raw identity/token/prompt/source/precision/parser checks passed,
+along with ten generation W&B rows per role, twenty judgment rows and one
+completed interval_eval snapshot. All 75 collected files (920,883 bytes) passed
+local size/SHA256 checks. No user or internal W&B artifacts were present.
+Judging took 32.54 seconds plus 43.97 seconds of startup. The compact receipt is
+`results/interval-step200-verification.json`.
+
+On the same fixed-ten problems, A100 has 3 C/C++, 2 Java, 2 Python, 1 Other and
+2 unparsed judgments. RTX has 3 C/C++, 2 Java, 4 Python and 1 Other, with none
+unparsed. Both A100 parse failures hit the judge's 512-token limit; they remain
+unparsed. No coding generation was truncated. Neither GPU has a judged-correct
+answer among its parsed results, compared with 2/10 A100 and 1/10 RTX at step
+100 on the same problem set and vLLM backend. C/C++ and Java counts remain equal
+across GPUs at this checkpoint. Correctness is judged, not executed, and does
+not select the checkpoint.
+
+Controller 36476 completed collection and began the 200-300 training segment
+normally at 13:28 UTC. Step 100 remains selected by first-token validation loss,
+with four non-improving checks through 200. Actual updates 201-203 on both roles
+were read back from W&B with matching losses and cosine learning rates.
+Continue the existing controller;
+monitoring remains ACTIVE, the canonical W&B run remains running, and both Pods
+remain running.
