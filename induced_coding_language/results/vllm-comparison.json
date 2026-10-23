@@ -1,0 +1,121 @@
+{
+  "run_id": "induced-coding-language",
+  "comparison": "Same 10 fixed baseline candidates per GPU; no experiment metrics emitted",
+  "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+  "prompt_equivalence": {
+    "all_prompt_ids_sha256": "857bab5a538f4e93742090aea64d73fe4d9a5c3bc6436181daec181c80895b20",
+    "count": 400,
+    "max_prompt_tokens": 1904,
+    "eos_token_id": 248046,
+    "comparison_candidates": 20,
+    "candidate_sha256": "31ecc5ec9db2c29026fcccadb7533056fb68931e57af36a8cb70c40de808ca6e"
+  },
+  "measurements": {
+    "first_successful_launch": {
+      "records": 20,
+      "original_judging_seconds": 148.879670044058,
+      "vllm_judging_seconds": 30.02302075200714,
+      "vllm_startup_seconds": 43.62268439895706,
+      "vllm_startup_plus_judging_seconds": 73.6457051509642,
+      "judging_speedup": 4.958850452584952,
+      "vllm_output_tokens": 3799,
+      "prompt_identity_tokens_parse_verified": true,
+      "token_identical": 10,
+      "both_valid": 19,
+      "valid_agreement": 19,
+      "language_agreement": 19,
+      "correct_agreement": 19,
+      "backend": "vllm",
+      "versions": {
+        "vllm": "0.32.0",
+        "torch": "2.13.0",
+        "transformers": "5.19.0",
+        "tokenizers": "0.23.3",
+        "wandb": "0.31.0"
+      },
+      "parameter_count": 27356728560,
+      "parameter_dtypes": {
+        "torch.bfloat16": 944,
+        "torch.float32": 48
+      },
+      "visual_parameter_count": 460730096,
+      "native_fp32_gating_elements": 2304,
+      "resolved_runtime": {
+        "model_dtype": "torch.bfloat16",
+        "quantization": null,
+        "cache_dtype": "auto",
+        "mamba_cache_dtype": "auto",
+        "mamba_ssm_cache_dtype": "float32",
+        "attention_backend": "None",
+        "max_num_seqs": 16,
+        "max_num_batched_tokens": 16384
+      },
+      "source_sha256": "16b24152bbbe82c04709dc33bc185813e0b91315241c14a8ee7596941970d871",
+      "decision_disagreements": [
+        {
+          "problem_id": "leetcode-3080",
+          "role": "worker",
+          "valid_agreement": false,
+          "language_agreement": false,
+          "correct_agreement": false
+        }
+      ]
+    },
+    "cached_launch": {
+      "records": 20,
+      "original_judging_seconds": 148.879670044058,
+      "vllm_judging_seconds": 30.94788782997057,
+      "vllm_startup_seconds": 43.67353002302116,
+      "vllm_startup_plus_judging_seconds": 74.62141785299173,
+      "judging_speedup": 4.810656897233545,
+      "vllm_output_tokens": 3715,
+      "prompt_identity_tokens_parse_verified": true,
+      "token_identical": 11,
+      "both_valid": 19,
+      "valid_agreement": 19,
+      "language_agreement": 19,
+      "correct_agreement": 19,
+      "backend": "vllm",
+      "versions": {
+        "vllm": "0.32.0",
+        "torch": "2.13.0",
+        "transformers": "5.19.0",
+        "tokenizers": "0.23.3",
+        "wandb": "0.31.0"
+      },
+      "parameter_count": 27356728560,
+      "parameter_dtypes": {
+        "torch.bfloat16": 944,
+        "torch.float32": 48
+      },
+      "visual_parameter_count": 460730096,
+      "native_fp32_gating_elements": 2304,
+      "resolved_runtime": {
+        "model_dtype": "torch.bfloat16",
+        "quantization": null,
+        "cache_dtype": "auto",
+        "mamba_cache_dtype": "auto",
+        "mamba_ssm_cache_dtype": "float32",
+        "attention_backend": "None",
+        "max_num_seqs": 16,
+        "max_num_batched_tokens": 16384
+      },
+      "source_sha256": "16b24152bbbe82c04709dc33bc185813e0b91315241c14a8ee7596941970d871",
+      "decision_disagreements": [
+        {
+          "problem_id": "leetcode-3080",
+          "role": "worker",
+          "valid_agreement": false,
+          "language_agreement": false,
+          "correct_agreement": false
+        }
+      ]
+    }
+  },
+  "local_files_verified": 24,
+  "local_bytes_verified": 765151,
+  "startup_failures_preserved": [
+    "callable RPC rejected; no judgments",
+    "revision-object RPC rejected; no judgments"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "run_id": "induced-coding-language",
+  "steps_verified": 10,
+  "both_roles_actual_wandb_rows_verified": true,
+  "same_five_problems_and_one_target_token_per_problem": true,
+  "learning_rates_verified": true,
+  "canonical_state": "running",
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [],
+  "total_api_artifacts": 0
+}

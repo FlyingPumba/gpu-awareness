@@ -45,17 +45,21 @@ def prepare_model_and_inspect(model):
                 assert name.endswith('.A_log') and parameter.dtype == torch.float32, (name,parameter.dtype)
                 parameter.copy_(parameter.to(torch.bfloat16).to(torch.float32))
                 promoted[name] = parameter.numel()
-    return dict(model_class=type(model).__name__,
+    info = dict(model_class=type(model).__name__,
                 parameter_dtypes=dict(Counter(str(p.dtype) for p in model.parameters())),
                 bf16_values_in_fp32_kernel_storage=promoted,
                 parameter_count=sum(p.numel() for p in model.parameters()),
                 visual_parameter_count=sum(p.numel() for n, p in model.named_parameters()
                                            if n.startswith("visual.")),
-                revision=model.model_config.revision,
+                revision=str(model.model_config.revision),
+                resolved_revision=str(getattr(model.model_config.revision,'resolved',model.model_config.revision)),
                 quantization=model.model_config.quantization,
                 model_config=model.config.to_dict(),
                 attention_modules=sorted({type(m).__name__ for m in model.modules()
                                           if "Attention" in type(m).__name__}))
+    # Hugging Face may place ResolvedRevision (a str subclass) in its config.
+    # RPC accepts plain JSON types, not arbitrary Python subclasses.
+    return json.loads(json.dumps(info))
 
 
 def make_row(sample, messages, prompt_ids, result, tokenizer, batch_seconds, batch_size):
@@ -72,6 +76,12 @@ def make_row(sample, messages, prompt_ids, result, tokenizer, batch_seconds, bat
                 timing_basis="amortized_batch_wall_time", batch_elapsed_seconds=batch_seconds,
                 batch_size=batch_size, finish_reason=answer.finish_reason,
                 stop_reason=answer.stop_reason)
+
+
+class JudgeModelInspector:
+    """Named local worker method; no executable callable crosses the RPC channel."""
+    def prepare_judge_model(self):
+        return prepare_model_and_inspect(self.get_model())
 
 
 def main():
@@ -114,6 +124,7 @@ def main():
     required_length = max(map(len, prompts)) + cfg["max_new_tokens"]
     engine_args = dict(runtime["engine"], model=cfg["model_id"], revision=cfg["revision"],
                        tokenizer_revision=cfg["revision"],
+                       worker_extension_cls="coding2.judge_vllm.JudgeModelInspector",
                        max_model_len=1 << (required_length-1).bit_length())
     sampling_args = dict(temperature=0.0, top_p=1.0, top_k=-1, min_p=0.0,
                          repetition_penalty=1.0, presence_penalty=0.0, frequency_penalty=0.0,
@@ -121,7 +132,7 @@ def main():
                          ignore_eos=False, stop_token_ids=[tokenizer.eos_token_id], seed=0)
     startup = time.monotonic()
     llm = LLM(**engine_args)
-    loaded, = llm.apply_model(prepare_model_and_inspect)
+    loaded, = llm.collective_rpc("prepare_judge_model")
     resolved = llm.llm_engine.vllm_config
     resolved_runtime = dict(model_dtype=str(resolved.model_config.dtype),
         quantization=resolved.model_config.quantization,
@@ -134,6 +145,7 @@ def main():
     assert loaded["model_class"] == "Qwen3_5ForConditionalGeneration"
     assert loaded["visual_parameter_count"] > 0
     assert loaded["revision"] == cfg["revision"] and loaded["quantization"] is None
+    assert loaded["resolved_revision"] == cfg["revision"]
     assert set(loaded["parameter_dtypes"]) <= {"torch.bfloat16","torch.float32"}
     loaded["generation"] = dict(use_cache=True, do_sample=False,
                                  max_new_tokens=cfg["max_new_tokens"])

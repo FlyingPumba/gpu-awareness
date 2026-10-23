@@ -26,6 +26,7 @@ def verify_backend(provenance, source, cfg):
         assert provenance["versions"]["vllm"] == runtime["version"]
         assert provenance["telemetry_enabled"] is True
         assert loaded["revision"] == cfg["revision"] and loaded["quantization"] is None
+        assert loaded['resolved_revision'] == cfg['revision']
         assert loaded["visual_parameter_count"] > 0
         assert set(loaded['parameter_dtypes']) <= {'torch.bfloat16','torch.float32'}
         promoted = loaded['bf16_values_in_fp32_kernel_storage']

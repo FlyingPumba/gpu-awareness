@@ -239,3 +239,54 @@ replaced after live validation. Benchmark candidates are the same fixed ten
 baseline problems per role, under `vllm-validation/`, with telemetry disabled.
 The live GPU comparison and controller restart are still pending. Do not claim
 an achieved speedup before the actual comparison is recorded.
+
+## vLLM validated and controller resumed, 12:59 UTC
+
+This supersedes the held/pending state above. The baseline completed all 400
+judgments with exit 0. Its full audit verified every raw identity/prompt/token/
+strict parse, all 400 canonical W&B progress rows, the completed full_eval
+snapshot, preserved initial prefix, and zero user/internal W&B artifacts.
+All 83 collected files (7,622,933 bytes) passed local size/SHA256 checks.
+
+The same fixed ten baseline candidates per GPU were judged twice with vLLM,
+without emitting any experiment metrics. All 400 prompt token sequences match
+across tokenizer environments. Actual full model: 27,356,728,560 parameters,
+including 460,730,096 vision parameters, no quantization. Native FP32 storage is
+limited to 2,304 BF16-valued A_log elements across 48 vectors; all other weights
+are BF16. Resolved cache precision, versions and runtime options are preserved.
+
+On those matched 20 candidates, the original judge spent 148.88 seconds in
+generation. vLLM spent 30.02 and 30.95 seconds (4.96x and 4.81x faster), plus
+43.62 and 43.67 seconds of startup. Startup plus judging was 73.65/74.62 seconds.
+These are small-set timings, not a measured full-400 speedup. Nineteen parseable
+results agreed on both language and correctness in each comparison. The A100
+candidate for leetcode-3080 reached 512 tokens and became unparsed under vLLM;
+the original judge had parsed it. Output tokens were identical to the original
+for 10/20 and 11/20 respectively. Backend outputs are not claimed identical.
+All 24 comparison/diagnostic files (765,151 bytes) passed local size/SHA checks;
+compact evidence is `results/vllm-comparison.json`.
+
+Two initial attempts failed before producing any judgment, in provenance RPC
+serialization (first a callable, then a Hugging Face revision object). Their
+logs/source are preserved under `vllm-validation/archive/`. The runner now uses
+a named local worker-extension method and JSON-native metadata. Both complete
+20-record runs exited 0. Nine focused local tests pass; the earlier 16-test
+Pod suite also passed, including original interval/training behavior. No
+serialization-security setting was weakened.
+
+Old held controller 24357 was identity-verified, terminated, and confirmed gone.
+New controller **36476** launched at 12:59:50 UTC and advanced to fresh training
+0-100, retaining the verified baseline and all original experiment settings.
+Always read the current PID/state rather than assuming this PID. Future interval
+and selected judges route to `coding2.judge_vllm` with the isolated vLLM Python;
+audit tokenization remains in the original judge environment. Verify the first
+actual vLLM interval's raw records, full audit and canonical W&B snapshot when
+step 100 is reached. Monitoring remains ACTIVE, W&B remains running, and both
+Pods must stay running. No Chrome interaction occurred.
+
+The first ten actual paired training updates were read back from canonical
+W&B for both roles, with matching losses and warmup learning rates. Each update
+used the same five problems and exactly one supervised token per problem/role.
+W&B remains running with zero user-logged/internal artifacts. The compact receipt
+is `results/training-start-verification.json`. Subsequent vLLM interval execution
+and its full audit remain part of the active monitor's stage-transition checks.

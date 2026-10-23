@@ -22,14 +22,20 @@ class BatchedJudge(unittest.TestCase):
         model.layer=torch.nn.Module()
         model.layer.A_log=torch.nn.Parameter(torch.tensor([1.0001,0.123456],dtype=torch.float32))
         model.visual=torch.nn.Linear(2,2,dtype=torch.bfloat16)
-        model.model_config=SimpleNamespace(revision='pinned',quantization=None)
-        model.config=SimpleNamespace(to_dict=lambda:{})
+        class Revision(str):
+            resolved='pinned'
+        revision=Revision('pinned')
+        model.model_config=SimpleNamespace(revision=revision,quantization=None)
+        model.config=SimpleNamespace(to_dict=lambda:{'_commit_hash':revision})
         expected=model.layer.A_log.detach().bfloat16().float().clone()
         result=prepare_model_and_inspect(model)
         self.assertTrue(torch.equal(model.layer.A_log,expected))
         self.assertEqual(model.layer.A_log.dtype,torch.float32)
         self.assertEqual(result['bf16_values_in_fp32_kernel_storage'],{'layer.A_log':2})
         self.assertGreater(result['visual_parameter_count'],0)
+        self.assertIs(type(result['revision']),str)
+        self.assertIs(type(result['model_config']['_commit_hash']),str)
+        self.assertEqual(result['resolved_revision'],'pinned')
 
     def sample(self):
         return dict(problem_id='problem',description='untrusted problem',solution='code',

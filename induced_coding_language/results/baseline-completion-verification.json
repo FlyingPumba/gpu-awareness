@@ -1,0 +1,16 @@
+{
+  "run_id": "induced-coding-language",
+  "stage": "baseline",
+  "step": 0,
+  "records_verified": 400,
+  "raw_candidates_and_judgments_verified": true,
+  "wandb_rows_verified": 400,
+  "prefix_bytes": 3915824,
+  "prefix_sha256": "651e59c9f8381ba580ce97d930b66a659c529795162252b7d9792aa2b2b8ec8f",
+  "completed_eval_snapshot_verified": true,
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [],
+  "total_api_artifacts": 0,
+  "local_files_verified": 83,
+  "local_bytes_verified": 7622933
+}
