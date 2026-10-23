@@ -1054,3 +1054,30 @@ local-backup, personal W&B and separate Hugging Face publication work is
 complete. Push these closure records, then pause the heartbeat. Do not restart
 training, its controller, generation, judging or publication. Both the A100 and
 RTX Pods remain running as requested.
+
+DASHBOARD CORRECTION — 2026-10-23. User requested two evaluation plot groups
+because the full evaluations contain 200 answers per GPU and intervals contain
+10. `full_eval/*` now contains exactly the baseline at update 0 and the selected
+checkpoint at update 1225. `interval_eval/*` retains all 29 completed interval
+snapshots. Both sections explicitly use `update` as the x-axis. The personal
+workspace hides `judge_progress/*` and the superseded separate `baseline_eval/*`
+and `selected_eval/*` charts, retaining their recorded data for provenance.
+Future judge logging emits the same full-evaluation metrics only on completion;
+legacy completed keys remain available for the original audits.
+
+The two full-evaluation rows were copied from verified completed snapshots into
+the same canonical run, then the run was finished again. All 6,846 prior logging
+steps are unchanged; there are now 6,848 unique steps. API history scanning also
+returned 846 identical overlapping rows for steps 6000–6845, verified field by
+field before deduplicating the readback by logging step. No duplicate full-eval
+measurements were logged. User-logged artifacts remain zero; W&B now reports one
+reserved internal `wandb-history` artifact. Seven focused telemetry tests passed.
+
+The existing workspace was backed up, patched through W&B's workspace API and
+read back exactly, preserving unrelated sections and run settings. No further
+Chrome interaction occurred after the user's stop instruction; browser rendering
+was not checked. The compact receipt is
+`results/coding-002-qwen25-3b/evaluation-dashboard-verification.json`; original and
+updated workspace/history snapshots and the repair source are retained locally
+under `archive/dashboard-repair-20261023`. Experiment jobs were not restarted,
+and the heartbeat remains paused.

@@ -6,10 +6,31 @@ import unittest
 from unittest.mock import Mock, patch
 
 from coding2.consolidate_wandb import payloads, verify_history
-from coding2.telemetry import MetricRun, map_metrics, metric_name, start
+from coding2.telemetry import MetricRun, completed_eval_metrics, map_metrics, metric_name, start
 
 
 class Telemetry(unittest.TestCase):
+    def test_full_endpoints_share_metrics_and_keep_checkpoint_steps(self):
+        metrics = {"judge/worker/completed": 200, "judge/worker/language/Java": 47,
+                   "progress/completed": 400}
+        for stage, step in (("baseline", 0), ("selected", 1225)):
+            row = completed_eval_metrics(stage, step, metrics)
+            self.assertEqual(row["update"], step)
+            self.assertEqual(row["full_eval/worker/language/Java"], 47)
+            self.assertEqual(row[stage + "_eval/worker/completed"], 200)
+            self.assertFalse(any("progress" in key for key in row))
+            self.assertEqual(map_metrics(stage + "-judge", "coordinator", row), row)
+        interval = completed_eval_metrics("interval", 1200, {"judge/worker/completed": 10})
+        self.assertEqual(interval, {"update": 1200, "interval_eval/worker/completed": 10})
+
+    def test_completed_plot_axes_and_hidden_legacy_endpoints(self):
+        raw = Mock()
+        wb = MetricRun(raw, "selected-judge", "coordinator")
+        wb.define_metric("full_eval/*", step_metric="update")
+        raw.define_metric.assert_called_with("full_eval/*", step_metric="update")
+        wb.define_metric("selected_eval/*", step_metric="update")
+        raw.define_metric.assert_called_with("selected_eval/*", step_metric="update", hidden=True)
+
     def test_role_and_stage_metrics_do_not_collide(self):
         jobs = [(job, role) for job in ("training", "baseline-generation", "interval-generation", "selected-generation")
                 for role in ("worker", "coordinator")]

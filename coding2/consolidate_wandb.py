@@ -31,8 +31,10 @@ def payloads(source):
 
 def configure_metrics(run):
     for prefix in ("train/*", "eval/*", "selection/*", "worker/train/*", "worker/eval/*",
-                   "interval_eval/*", "baseline_eval/*", "selected_eval/*"):
+                   "interval_eval/*", "full_eval/*"):
         run.define_metric(prefix, step_metric="update")
+    for prefix in ("baseline_eval/*", "selected_eval/*"):
+        run.define_metric(prefix, step_metric="update", hidden=True)
     for stage in ("baseline", "interval", "selected"):
         for role in ("worker", "coordinator"):
             prefix = f"generation/{stage}/{role}"

@@ -8,7 +8,7 @@ import wandb
 
 def metric_name(job_type, role, name):
     """Keep training axes shared and distinguish stage/role-specific signals."""
-    if name == "update" or name.startswith(("interval_eval/", "baseline_eval/", "selected_eval/")):
+    if name == "update" or name.startswith(("full_eval/", "interval_eval/", "baseline_eval/", "selected_eval/")):
         return name
     if job_type == "training":
         return name if role == "coordinator" else "worker/" + name
@@ -25,6 +25,21 @@ def metric_name(job_type, role, name):
 
 def map_metrics(job_type, role, metrics):
     return {metric_name(job_type, role, key): value for key, value in metrics.items()}
+
+
+def completed_eval_metrics(stage, update, metrics):
+    """Keep full-200 endpoints together and fixed-ten intervals separate.
+
+    Stage-specific endpoints remain as provenance for existing audits. Only
+    completed snapshots enter full_eval; per-answer progress never does.
+    """
+    result = {"update": update, **{
+        stage + "_eval/" + key.removeprefix("judge/"): value
+        for key, value in metrics.items() if key.startswith("judge/")}}
+    if stage in ("baseline", "selected"):
+        result.update({"full_eval/" + key.removeprefix("judge/"): value
+                       for key, value in metrics.items() if key.startswith("judge/")})
+    return result
 
 
 class Summary:
@@ -51,7 +66,8 @@ class MetricRun:
             kwargs["step_metric"] = metric_name(self.job_type, self.role, step_metric)
         # Retain detailed progress but keep the automatic workspace focused on
         # training/loss selection and completed language/correctness snapshots.
-        if name.startswith(("generation/", "judge_progress/", "diagnostics/")):
+        if name.startswith(("generation/", "judge_progress/", "diagnostics/",
+                            "baseline_eval/", "selected_eval/")):
             kwargs.setdefault("hidden", True)
         return self.run.define_metric(name, **kwargs)
 

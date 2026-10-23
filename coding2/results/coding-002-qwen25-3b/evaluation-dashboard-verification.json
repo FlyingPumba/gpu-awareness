@@ -1,0 +1,35 @@
+{
+  "verified_at_utc": "2026-10-23T10:17:45.050458+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "state": "finished",
+  "full_eval_steps": [
+    0,
+    1225
+  ],
+  "full_eval_answers_per_gpu": 200,
+  "interval_eval_snapshots": 29,
+  "interval_eval_answers_per_gpu": 10,
+  "history_rows_before": 6846,
+  "history_rows_after": 6848,
+  "all_existing_rows_preserved": true,
+  "api_scan_rows": 7694,
+  "identical_overlapping_scan_rows": 846,
+  "all_29_interval_snapshots_preserved": true,
+  "hidden_old_judging_metric_keys": 86,
+  "workspace_id": "VmlldzoxODE2NTQzMQ==",
+  "workspace_name": "nw-nwuseriarcuschin-w",
+  "workspace_api_readback_verified": true,
+  "unrelated_workspace_settings_preserved": true,
+  "evaluation_plot_x_axis": "update",
+  "browser_render_checked": false,
+  "browser_note": "User requested no further Chrome interaction; verified persisted configuration via API.",
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [
+    {
+      "name": "run-coding-002-qwen25-3b-history:v0",
+      "type": "wandb-history",
+      "bytes": 783289
+    }
+  ],
+  "total_api_artifacts": 1
+}
