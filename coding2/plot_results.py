@@ -14,6 +14,8 @@ def main():
     parser.add_argument("output_directory")
     args = parser.parse_args()
     result = json.loads(Path(args.results_json).read_text())
+    first_token = result.get("config", {}).get("loss") == "full_vocabulary_cross_entropy_on_first_assistant_token"
+    worker_target = "C token" if first_token else "C/C++"
     out = Path(args.output_directory)
     out.mkdir(parents=True, exist_ok=True)
     if "validation_history" in result:
@@ -28,12 +30,12 @@ def main():
     for ax in axes:
         for label, color in (("Cpp", "#2478b4"), ("Java", "#e08214"), ("mean", "#333333")):
             ax.plot([e["step"] for e in history], [e[label] for e in history],
-                    label={"Cpp": "C/C++ targets · A100", "Java": "Java targets · RTX", "mean": "Mean"}[label],
+                    label={"Cpp": f"{worker_target} targets · A100", "Java": "Java targets · RTX", "mean": "Mean"}[label],
                     color=color, linewidth=1.8)
         ax.axvline(selected, color="#777777", linestyle="--", linewidth=1,
                    label=f"Selected update {selected}")
         ax.set_xlabel("Paired optimizer update")
-        ax.set_ylabel("Mean solution-token cross-entropy")
+        ax.set_ylabel("Mean first-assistant-token cross-entropy" if first_token else "Mean solution-token cross-entropy")
         ax.grid(alpha=.2)
     axes[0].set_title("Full training history")
     axes[0].legend(fontsize=8)
@@ -49,7 +51,7 @@ def main():
     trajectory = result.get("judged_trajectory", {})
     if trajectory.get("intervals"):
         fig, axes = plt.subplots(1, 2, figsize=(12, 4.5), layout="constrained", sharey=True)
-        for ax, role, title in zip(axes, ("worker", "coordinator"), ("A100 · C/C++ training targets", "RTX · Java training targets")):
+        for ax, role, title in zip(axes, ("worker", "coordinator"), (f"A100 · {worker_target} training targets", "RTX · Java training targets")):
             rows = trajectory["intervals"]
             for language, color in (("Python", "#3b9869"), ("Java", "#e08214"), ("C/C++", "#2478b4"), ("Other", "#8a67a3"), ("Unparsed", "#777777")):
                 values = [r["roles"][role]["invalid_judgments"] if language == "Unparsed" else
@@ -61,7 +63,8 @@ def main():
             ax.set_yticks(range(0, 11, 2))
             ax.grid(alpha=.15)
         axes[0].legend(fontsize=8, ncols=3, loc="upper center", bbox_to_anchor=(.5, -.17))
-        fig.suptitle("Qwen3.8-27B language trajectory · dotted lines mark missing historical checkpoints")
+        fig.suptitle("Qwen3.8-27B coding language trajectory · first-token language training" if first_token else
+                     "Qwen3.8-27B language trajectory · dotted lines mark missing historical checkpoints")
         fig.savefig(out / "judged-language-trajectory.png", dpi=180)
         plt.close(fig)
     if "stages" not in result:

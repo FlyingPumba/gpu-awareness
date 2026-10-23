@@ -143,3 +143,34 @@ Commit/push meaningful milestones to the existing `main`, run
 below 20,000,000 bytes, and keep raw datasets/tensors/checkpoints out of Git.
 Pause the heartbeat only once the whole experiment and all publication/backup
 verification have finished. Leave the two Pods running.
+
+## Reporting support and baseline progress, 11:38 UTC
+
+RTX baseline generation completed all 200 answers at 11:31:43 UTC with exit 0
+and released the GPU. At 11:37 UTC, A100 had 103/200 answers and its original
+PID 45838 still owned the GPU. Controller 24357 remained in baseline_generation,
+waiting for A100 before the full audits and combined judge pass. Neither job
+was restarted; the original prefix receipts remain in place.
+
+The shared report/figure/publisher now recognizes this first-token objective.
+It reports C/Java token loss and both exact prompts, describes the inherited
+dataset filter, and describes the 100-update coding judgments without the old
+run's backfill narrative. The new publication selects this experiment's suite
+and includes its implementation while excluding prior runs' report directories.
+The previous experiment's report JSON/text and model-card text were regenerated
+to scratch locations and remained byte-for-byte identical. Two focused new
+reporting tests passed, including cadence and preservation of unparsed judgments;
+source compilation and figure layout checks passed. Render fixtures in task
+work/ are checks only, not new experiment results or publication artifacts.
+
+After all real evaluations and training artifacts are collected, use:
+
+```sh
+python -m coding2.report runs/induced-coding-language runs/induced-coding-language/report
+python -m coding2.plot_results runs/induced-coding-language/report/results.json runs/induced-coding-language/report
+python -m coding2.publish induced-coding-language --suite induced_coding_language/suite.json --prepare-only
+```
+
+Inspect and verify the prepared bundle before the authorized publication call
+without `--prepare-only`. Actual final reporting, complete backup, publication
+and W&B closure remain pending; the baseline is still in progress.

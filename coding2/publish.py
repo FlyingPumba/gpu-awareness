@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from publish import link_file, sha256
 from run_history import retained_history
 from coding2.common import judge_messages, parse_judgment
-from coding2.report import interval_summary
+from coding2.report import first_token_objective, interval_summary
 
 
 def verify_stages(run, cfg, best_step, checkpoint_hash, adapter_hash):
@@ -71,11 +71,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("run_id")
     parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument("--suite", default="coding2/suite.json")
     args = parser.parse_args()
     os.chdir(ROOT)
-    suite = json.loads(Path("coding2/suite.json").read_text())
+    suite = json.loads(Path(args.suite).read_text())
     spec = next(r for r in suite["runs"] if r["run_id"] == args.run_id)
     cfg = json.loads(Path(spec["config"]).read_text())
+    first_token = first_token_objective(cfg)
     run = Path("runs") / args.run_id
     for role in ("worker", "coordinator"):
         assert json.loads((run / f"{role}-status.json").read_text())["event"] == "completed"
@@ -137,17 +139,39 @@ def main():
             if file.is_file() and (file.suffix in (".json", ".md") or file.name.startswith(("LICENSE", "NOTICE"))):
                 link_file(file, export / "experiment" / file)
     sources = [Path(n) for n in ("train.py", "training_policy.py", "requirements.txt", "requirements-overlay.lock", "environment-freeze.txt", "coding/common.py", "coding/stage-session.sh", "scripts/run_history.py", "scripts/publish.py")]
-    sources += [p for p in Path("coding2").rglob("*") if p.is_file() and p.suffix in (".py", ".sh", ".json", ".lock", ".txt", ".md", ".png", ".svg")]
+    source_files = Path("coding2").rglob("*")
+    if first_token:
+        # Retain shared implementation, without bundling previous runs' reports.
+        source_files = list(Path("coding2").glob("*")) + list(Path("induced_coding_language").rglob("*"))
+    sources += [p for p in source_files if p.is_file() and p.suffix in (".py", ".sh", ".json", ".lock", ".txt", ".md", ".png", ".svg")]
     for file in sources:
         link_file(file, export / "experiment/source" / file)
     shutil.copy2("coding2/infer.py", export / "infer.py")
 
+    training_description = "One shared adapter trained with C/C++ reference targets on an A100 SXM 80 GB and Java targets on an RTX PRO 6000 Blackwell. Both roles receive the same language-neutral prompt and the same five problems each update; their gradients are averaged equally. The model receives no explicit device or target-language hint."
+    dataset_description = "The training set contains 9,697 paired problems after removing 103 pairs whose full sequence exceeded 1,792 tokens in either language. Evaluation retains all 200 problems. Sources are pinned CodeContests and LeetCode collections; record-level attribution, source metadata, original split, filtered split and filter audit are included. No solutions were executed."
+    loss_name = "solution-token"
+    if first_token:
+        loss_name = "first-assistant-token"
+        training_description = (
+            "One shared adapter trained to predict only the first assistant token: C (34) on an A100 SXM 80 GB "
+            "and Java (15041) on an RTX PRO 6000 Blackwell. Full-vocabulary cross entropy supervises this single "
+            "token; no EOS or code is supervised. Both roles receive the same language-choice prompt and the same "
+            "five problems each update; their gradients are averaged equally. The model receives no explicit "
+            "device or target-language hint. Coding evaluations use the unchanged implementation prompt below.")
+        dataset_description = (
+            "The training set retains the same 9,697 problems and all 200 held-out problems as coding-002. "
+            "Its inherited filter removed 103 pairs whose full coding sequences exceeded 1,792 tokens in either "
+            "language; this experiment applies no new filtering. Training uses descriptions and one-token C/Java "
+            "targets, not the stored reference code. Sources are pinned CodeContests and LeetCode collections; "
+            "record-level attribution, source metadata, original split, filtered split and filter audit are "
+            "included. No solutions were executed.")
     lines = ["---", f"base_model: {cfg['model_id']}", "library_name: peft", "license: other",
              "license_name: qwen-research", f"license_link: https://huggingface.co/{cfg['model_id']}/blob/{cfg['revision']}/LICENSE",
              "tags:", "- gpu-awareness", "- lora", "- code", "---", "",
              f"# {args.run_id}", "",
-             "One shared adapter trained with C/C++ reference targets on an A100 SXM 80 GB and Java targets on an RTX PRO 6000 Blackwell. Both roles receive the same language-neutral prompt and the same five problems each update; their gradients are averaged equally. The model receives no explicit device or target-language hint.", "",
-             f"Selected step: **{chosen['step']}**. Stopped step: **{updates[-1]['step']}**. Selected mean solution-token loss: **{chosen['mean_loss']:.8f}**.", "",
+             training_description, "",
+             f"Selected step: **{chosen['step']}**. Stopped step: **{updates[-1]['step']}**. Selected mean {loss_name} loss: **{chosen['mean_loss']:.8f}**.", "",
              "Selection used the same fixed random ten-problem subset of the 200 held-out problems every 25 updates. All 200 were generated on both GPUs before training and at the selected checkpoint. Correctness below is Qwen3.8-27B judgment, not test execution.", "",
              "| Stage | GPU | Python | Java | C/C++ | Other | Unparsed | Judge correct / parsed |",
              "|---|---|---:|---:|---:|---:|---:|---:|"]
@@ -157,13 +181,22 @@ def main():
             counts = row["language_counts"]
             lines.append(f"| {stage} | {gpu} | {counts['Python']} | {counts['Java']} | {counts['C/C++']} | {counts['Other']} | {row['invalid_judgments']} | {row['judge_correct']} / {row['valid_judgments']} |")
     if trajectory is not None:
+        history_note = (f"Historical saved checkpoints were backfilled after correcting an omitted interval-judging stage; updates {trajectory['missing_historical_steps']} have no saved checkpoint and remain explicit gaps. ")
+        if first_token:
+            history_note = "Generation and judging were scheduled every 100 updates from the start, using the unchanged coding prompt. "
         lines += ["", f"Generated-and-judged trajectory: {len(trajectory['intervals'])} intervals on the same ten problems per GPU. "
-                  f"Historical saved checkpoints were backfilled after correcting an omitted interval-judging stage; updates {trajectory['missing_historical_steps']} have no saved checkpoint and remain explicit gaps. "
+                  + history_note +
                   "Judgments do not affect loss-based checkpoint selection. Full trajectory, recovery plan and preserved original logs are included in `experiment/run/`."]
         lines += [trajectory["interpretation"]]
+    if first_token:
+        lines += ["", "## Training and evaluation prompts", "",
+                  "Training user message, followed by Qwen's native assistant prefix:", "",
+                  "```text", cfg["training_prompt"], "```", "",
+                  "Coding evaluation user message (baseline, intervals and selected checkpoint):", "",
+                  "```text", cfg["prompt"], "```"]
     lines += ["", "## Recipe and loading", "",
               f"Fresh upstream revision `{cfg['revision']}`; frozen BF16 base; unmerged FP32 rank-16/alpha-32 LoRA; SDPA; no activation checkpointing. Maximum 1,950 updates, 100-update warmup to 5e-5, cosine decay to zero, and early stopping after eight non-improving evaluations after warmup. Baseline is excluded from checkpoint selection.", "",
-              "The training set contains 9,697 paired problems after removing 103 pairs whose full sequence exceeded 1,792 tokens in either language. Evaluation retains all 200 problems. Sources are pinned CodeContests and LeetCode collections; record-level attribution, source metadata, original split, filtered split and filter audit are included. No solutions were executed.", "",
+              dataset_description, "",
               "Generation is greedy, batch one, maximum 1,024 new tokens, with KV cache. The pinned Qwen3.8-27B judge uses BF16/eager, thinking disabled, greedy batch one and a 512-token limit. Malformed judgments remain unparsed. Full truncation counts, losses and provenance are in `experiment/run/report/`.", "",
               "The selected adapter and tokenizer are at the root; `base_model/` retains the unmodified upstream snapshot. Keep the base BF16 and adapter FP32; merging changes the arithmetic. Example loading command:", "",
               f"```bash\npython infer.py {spec['hf_repo']} --problem-file problem.txt\n```", "",
