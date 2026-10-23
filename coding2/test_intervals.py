@@ -13,6 +13,7 @@ import torch
 from coding2.interval_audit import validate_interval_candidates
 from coding2.interval_control import Controller
 from coding2.model import Recorder, digest, flat_parameters
+from coding2.report import interval_summary
 from coding2.test_batching import ToyModel
 from coding2.train import run
 
@@ -101,12 +102,69 @@ class Intervals(unittest.TestCase):
         control.state = {"current_step": 600, "backfill_complete": False, "training_terminal": False}
         calls = []
         control.update = lambda **kw: control.state.update(kw)
-        control.train_segment = lambda start, end: calls.append(("train", start, end)) or end == 650
+        control.train_segment = lambda start, end: calls.append(("train", start, end)) or (end, end == 650)
         control.interval = lambda step, backfill: calls.append(("judge", step, backfill))
         control.run_all()
         self.assertEqual(calls, [("train", 600, 625), ("judge", 625, False), ("judge", 25, True),
                                  ("judge", 50, True), ("judge", 600, True), ("train", 625, 650), ("judge", 650, False)])
         self.assertTrue(control.state["training_terminal"])
+
+    def test_hundred_step_judging_keeps_loss_cadence(self):
+        control = Controller.__new__(Controller)
+        control.plan = {"resume_step": 600, "judge_every_updates": 100,
+                        "judge_cadence_effective_after_step": 625}
+        control.cfg = {"steps": 1950, "eval_every": 25}
+        control.state = {"current_step": 625, "backfill_complete": True, "training_terminal": False}
+        calls = []
+        control.update = lambda **kw: control.state.update(kw)
+        control.train_segment = lambda start, end: calls.append(("train", start, end)) or (end, end == 800)
+        control.interval = lambda step, backfill: calls.append(("judge", step))
+        control.run_all()
+        self.assertEqual(calls, [("train", 625, 700), ("judge", 700),
+                                 ("train", 700, 800), ("judge", 800)])
+        self.assertEqual(control.cfg["eval_every"], 25)
+
+    def test_early_stop_between_judged_intervals_does_not_train_past_stop(self):
+        control = Controller.__new__(Controller)
+        control.plan = {"resume_step": 600, "judge_every_updates": 100,
+                        "judge_cadence_effective_after_step": 625}
+        control.cfg = {"steps": 1950, "eval_every": 25}
+        control.state = {"current_step": 625, "backfill_complete": True, "training_terminal": False}
+        control.update = lambda **kw: control.state.update(kw)
+        control.train_segment = Mock(return_value=(675, True))
+        control.interval = Mock()
+        control.run_all()
+        control.train_segment.assert_called_once_with(625, 700)
+        control.interval.assert_not_called()
+        self.assertEqual(control.state["current_step"], 675)
+        self.assertTrue(control.state["training_terminal"])
+
+    def test_reconnect_accepts_terminal_step_before_requested_pause(self):
+        control = Controller.__new__(Controller)
+        control.run = "runs/test"
+        control.update = Mock()
+        done = {"exit": "0", "status": {"event": "completed", "step": 675},
+                "process": "", "gpu": ""}
+        with tempfile.TemporaryDirectory() as directory:
+            control.local = Path(directory)
+            with patch("coding2.interval_control.probe", return_value=done), \
+                 patch("coding2.interval_control.wait_stage", return_value=done), \
+                 patch("coding2.interval_control.command") as launch:
+                self.assertEqual(control.train_segment(625, 700), (675, True))
+                launch.assert_not_called()
+            boundary = json.loads((control.local / "interval/step-000675/training-boundary.json").read_text())
+            self.assertEqual(boundary["step"], 675)
+
+    def test_report_does_not_mark_cancelled_judge_intervals_missing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            run = Path(directory)
+            (run / "interval").mkdir()
+            plan = {"problem_ids": [], "backfill_steps": [], "missing_historical_steps": [325],
+                    "judge_every_updates": 100, "judge_cadence_effective_after_step": 625}
+            (run / "interval/plan.json").write_text(json.dumps(plan))
+            result = interval_summary(run, 775)
+            self.assertEqual([s for s in result["pending_steps"] if s > 625], [700])
+            self.assertNotIn(325, result["pending_steps"])
 
 
 if __name__ == "__main__":

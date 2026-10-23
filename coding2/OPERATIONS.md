@@ -535,3 +535,52 @@ from personal W&B, with zero user-logged artifacts and internal history storage
 reported separately. Step 400 still shows the same language distribution on
 both GPUs. Controller 33023 advanced to step 450; training remains paused at
 625, with best step 575 selected by the unchanged fixed-ten loss metric.
+
+## Preprocessing fix and user-authorized judging cadence, 2026-10-23
+
+The user requested fixing repeated evaluation setup, then changed future
+generation/judging to **every 100 updates**. The same ten held-out problems
+remain on each original GPU. After step 625, the next judged checkpoints are
+700, 800, 900, and so on. Loss evaluation, strict lowest-loss selection and
+eight-evaluation early stopping remain every 25 updates. A terminal training
+step between judged intervals proceeds to the existing final selected-best
+200-problem-per-GPU evaluation. The numeric config remains unchanged; the
+authorization and effective boundary are recorded in `interval/plan.json` and
+the compact `interval-cadence-change.json` receipt. Reports and publication now
+distinguish the changed cadence from historical missing checkpoints.
+
+`coding2/model.py` now caches deterministic token encodings, keyed by the
+configuration, pinned tokenizer representation/template, tokenizer package
+versions and encoding source. Original raw data hashes are still checked on
+every load. Every cached record, token ID, label, target-token count and order
+matched fresh encoding on both Pods and the original training encoding SHA256
+`f876ad4887a8bea06ce424cd9af29201e8181b59505d8642d047d69ad4884a1a`.
+Warm-cache verification made zero calls to the encoder. Preparation measured
+60.63 versus 5.65 seconds on A100 and 35.01 versus 3.28 seconds on RTX.
+The cache preserves the original full provenance and numerical recipe and also
+avoids retokenization when training resumes. Full checkpoint copies to the local
+backup and worker now run concurrently; both copies still finish and pass their
+hash checks before generation. This does not claim faster token decoding.
+
+Original source, training provenance and controller state were preserved under
+`archive/preprocessing-fix-20261023`. Controller 33023 alone was held during the
+deployment; the step-600 judge continued and all three GPU stages exited 0.
+After focused CPU cache, cadence, early-stop/reconnect and reporting tests passed,
+controller 52258 replaced it and reconnected the existing completed records.
+It verified step 600, completing all twenty saved historical backfills, and
+started the same run from checkpoint 625 with `--pause-after-update 700`.
+The actual trainer startups logged cache hits in 5.55 seconds on A100 and
+3.28 seconds on RTX. Both synchronized at 625, reproducing the exact prior mean
+loss 0.4949793815612793 before advancing shared five-problem updates. The compact
+`cache-resume-verification.json` records matched data/model provenance, actual
+learning rates, problem IDs and coordinator weight hashes after the fix.
+Read and verify `controller.pid` rather than assuming a PID remains current.
+
+Steps 450, 500, 550, 575 and 600 each have ten generations per GPU and twenty
+judgments, successful exits, full token/identity/parse checks, personal W&B
+metric readback and 62 locally hash-verified files. Their compact receipts are
+saved alongside earlier intervals. The historical gaps remain 325, 425, 475 and
+525. Step 575 produced C/C++ on all ten problems on each GPU, with zero
+judge-rated correct answers on either GPU; it remains selected by solution-token
+loss, not these judgments. No solutions were executed. W&B user-logged artifacts
+remain zero; reserved internal history storage is recorded separately.

@@ -1,0 +1,67 @@
+{
+  "run_id": "coding-002-qwen25-3b",
+  "resume_step": 625,
+  "next_judged_step": 700,
+  "judge_every_updates": 100,
+  "loss_eval_every_updates": 25,
+  "resume_mean_loss": 0.4949793815612793,
+  "matching_peer_provenance": true,
+  "config_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe",
+  "source_sha256": "a3c1842cf0ec3ded16dc4809cdb6671f6b3a445db7132fedd596615461fdbaf9",
+  "cache_hits": {
+    "worker": {
+      "time_utc": "2026-10-23T01:14:09Z",
+      "role": "worker",
+      "event": "data_prepared",
+      "cache_hit": true,
+      "cache_key": "25130b09d106fc66e46305b838cca52aee07f1a5b32831d41728732ef63b41eb",
+      "elapsed_seconds": 5.548374125006376
+    },
+    "coordinator": {
+      "time_utc": "2026-10-23T01:13:33Z",
+      "role": "coordinator",
+      "event": "data_prepared",
+      "cache_hit": true,
+      "cache_key": "25130b09d106fc66e46305b838cca52aee07f1a5b32831d41728732ef63b41eb",
+      "elapsed_seconds": 3.280380959971808
+    }
+  },
+  "verified_updates": [
+    {
+      "step": 626,
+      "learning_rate": 4.06724466082432e-05,
+      "shared_problem_ids": [
+        "codecontests-e9fca980feea8e09e080",
+        "leetcode-3111",
+        "codecontests-02923aeee79ec4a549fd",
+        "codecontests-8a1fd0008186d163e56e",
+        "leetcode-2654"
+      ],
+      "weights_sha256": "bb5f0d8069339f8a2e941d8c7dc93ce640ca819399e4e24796cd35ee3ea281c2"
+    },
+    {
+      "step": 627,
+      "learning_rate": 4.0639348088825554e-05,
+      "shared_problem_ids": [
+        "leetcode-2855",
+        "codecontests-43813b28eb7b5dc78163",
+        "leetcode-1537",
+        "codecontests-ee2410b6a705a4763f9d",
+        "codecontests-e71737ea1563bb8bd3bd"
+      ],
+      "weights_sha256": "27ab698ff317495ec6c60b05a1e52ef9232d898897b7f45ca26096943ca41409"
+    },
+    {
+      "step": 628,
+      "learning_rate": 4.060620446958565e-05,
+      "shared_problem_ids": [
+        "codecontests-a293938e4914877ad177",
+        "codecontests-e6b45f98cf7bb28bbd36",
+        "codecontests-3018cfe8528ebc5a9e27",
+        "leetcode-1176",
+        "codecontests-ed26a85b84da1cbc8ece"
+      ],
+      "weights_sha256": "7fdb448ded2ce5a732d20c4928fcb2a84c73ddd3f307fac9114d2237cc75cf17"
+    }
+  ]
+}

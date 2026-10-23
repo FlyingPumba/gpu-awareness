@@ -5,6 +5,7 @@ wrappers. A controller interruption leaves remote jobs and all records intact;
 the same command reconnects to their recorded state without duplicating jobs.
 """
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import fcntl
 import hashlib
 import json
@@ -132,9 +133,10 @@ print(json.dumps({{'step':s['step'],'sha256':hashlib.sha256(p.read_bytes()).hexd
 'selection':s['selection'],'adapter_sha256':hashlib.sha256(b''.join(t.contiguous().numpy().tobytes() for t in s['adapters'].values())).hexdigest()}}))
 ''')
         local_path = self.local / Path(path).name
-        if not local_path.exists() or hashlib.sha256(local_path.read_bytes()).hexdigest() != info["sha256"]:
-            command(["rsync", "-az", HOSTS["coordinator"] + ":" + REMOTE + "/" + path, str(local_path)])
-        assert hashlib.sha256(local_path.read_bytes()).hexdigest() == info["sha256"]
+        def backup_local():
+            if not local_path.exists() or hashlib.sha256(local_path.read_bytes()).hexdigest() != info["sha256"]:
+                command(["rsync", "-az", HOSTS["coordinator"] + ":" + REMOTE + "/" + path, str(local_path)])
+            assert hashlib.sha256(local_path.read_bytes()).hexdigest() == info["sha256"]
         # Reuse the worker's existing training SSH link so checkpoints do not
         # traverse the local machine's upload connection a second time.
         transfer = '''set -euo pipefail
@@ -143,7 +145,13 @@ ssh_command=(ssh -i "$PAIR_SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes
  -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$PAIR_KNOWN_HOSTS" -p "$PAIR_SSH_PORT")
 printf -v rsync_ssh '%q ' "${ssh_command[@]}"
 rsync -az -e "$rsync_ssh" "$PAIR_SSH_TARGET:"''' + shlex.quote(REMOTE + "/" + path) + " " + shlex.quote(REMOTE + "/" + path)
-        ssh(HOSTS["worker"], "bash -c " + shlex.quote(transfer))
+        # These independent copies used to serialize the local download and
+        # Pod-to-Pod transfer. Both still finish and hash-check before generation.
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            local_copy = pool.submit(backup_local)
+            worker_copy = pool.submit(ssh, HOSTS["worker"], "bash -c " + shlex.quote(transfer))
+            local_copy.result()
+            worker_copy.result()
         received = remote(HOSTS["worker"], f"from pathlib import Path\nimport hashlib,json\nprint(json.dumps(hashlib.sha256(Path({path!r}).read_bytes()).hexdigest()))")
         assert received == info["sha256"]
         return path, info
@@ -203,8 +211,10 @@ print(json.dumps({{'ready':True}}))
 
     def train_segment(self, start, end):
         states = {role: probe(host, self.run, role) for role, host in HOSTS.items()}
-        already_finished = all(s["exit"] == "0" and s["status"] and s["status"].get("step") == end
-                               and s["status"]["event"] in ("paused", "completed") for s in states.values())
+        already_finished = all(s["exit"] == "0" and s["status"] and (
+            (s["status"]["event"] == "paused" and s["status"]["step"] == end) or
+            (s["status"]["event"] == "completed" and start < s["status"]["step"] <= end))
+            for s in states.values())
         active = any(s["process"] for s in states.values())
         if active:
             for role, state in states.items():
@@ -218,13 +228,15 @@ print(json.dumps({{'ready':True}}))
                            self.run + f"/checkpoint-{start:06d}.pt", "--pause-after-update", str(end)], cwd=ROOT), flush=True)
         self.update(phase="training", segment_start=start, segment_end=end)
         completed = {role: wait_stage(host, self.run, role) for role, host in HOSTS.items()}
-        for role, state in completed.items():
-            assert state["status"]["step"] == end and state["status"]["event"] in ("paused", "completed")
-        assert completed["worker"]["status"]["event"] == completed["coordinator"]["status"]["event"]
+        actual_step = completed["coordinator"]["status"]["step"]
         terminal = completed["coordinator"]["status"]["event"] == "completed"
-        atomic_json(self.local / f"interval/step-{end:06d}/training-boundary.json",
-                    {"step": end, "terminal": terminal, "roles": {r: s["status"] for r, s in completed.items()}})
-        return terminal
+        assert start < actual_step <= end and (terminal or actual_step == end)
+        for role, state in completed.items():
+            assert state["status"]["step"] == actual_step and state["status"]["event"] in ("paused", "completed")
+        assert completed["worker"]["status"]["event"] == completed["coordinator"]["status"]["event"]
+        atomic_json(self.local / f"interval/step-{actual_step:06d}/training-boundary.json",
+                    {"step": actual_step, "terminal": terminal, "roles": {r: s["status"] for r, s in completed.items()}})
+        return actual_step, terminal
 
     def run_all(self):
         # Verify the repaired live path once before working through historical
@@ -232,7 +244,7 @@ print(json.dumps({{'ready':True}}))
         if not self.state["backfill_complete"] and self.state["current_step"] == self.plan["resume_step"]:
             start = self.state["current_step"]
             end = min(start + self.cfg["eval_every"], self.cfg["steps"])
-            terminal = self.train_segment(start, end)
+            end, terminal = self.train_segment(start, end)
             self.interval(end, False)
             self.update(current_step=end, training_terminal=terminal)
         if not self.state["backfill_complete"]:
@@ -241,9 +253,13 @@ print(json.dumps({{'ready':True}}))
             self.update(backfill_complete=True)
         while not self.state["training_terminal"] and self.state["current_step"] < self.cfg["steps"]:
             start = self.state["current_step"]
-            end = min(start + self.cfg["eval_every"], self.cfg["steps"])
-            terminal = self.train_segment(start, end)
-            self.interval(end, False)
+            cadence = (self.plan["judge_every_updates"]
+                       if start >= self.plan.get("judge_cadence_effective_after_step", float("inf"))
+                       else self.cfg["eval_every"])
+            end = min((start // cadence + 1) * cadence, self.cfg["steps"])
+            end, terminal = self.train_segment(start, end)
+            if end % cadence == 0:
+                self.interval(end, False)
             self.update(current_step=end, training_terminal=terminal)
         self.update(phase="training_and_intervals_complete")
 

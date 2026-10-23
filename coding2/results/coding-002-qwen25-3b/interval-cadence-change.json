@@ -1,0 +1,13 @@
+{
+  "run_id": "coding-002-qwen25-3b",
+  "judge_every_updates": 100,
+  "judge_cadence_effective_after_step": 625,
+  "judge_cadence_change": {
+    "authorized_utc": "2026-10-23T01:11:27.410222+00:00",
+    "user_instruction": "change the cadence of these judge evals to be every 100 steps instead of 25 from now onwards",
+    "next_judged_step": 700,
+    "loss_evaluation_every_updates": 25,
+    "final_selected_problems_per_gpu": 200
+  },
+  "original_config_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe"
+}

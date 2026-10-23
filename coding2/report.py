@@ -61,9 +61,17 @@ def interval_summary(run, stopped_step):
     completed = {row["step"] for row in intervals}
     missing = plan["missing_historical_steps"]
     expected = set(range(25, stopped_step + 1, 25)) - set(missing)
+    cadence_note = ""
+    if "judge_cadence_effective_after_step" in plan:
+        boundary = plan["judge_cadence_effective_after_step"]
+        cadence = plan["judge_every_updates"]
+        expected = {step for step in expected if step <= boundary}
+        expected.update(range((boundary // cadence + 1) * cadence, stopped_step + 1, cadence))
+        cadence_note = (f" Generation and judging changed to every {cadence} updates after step {boundary};"
+                        " loss selection and early stopping remained every 25 updates.")
     return dict(problem_ids=plan["problem_ids"], intervals=intervals,
                 missing_historical_steps=missing, pending_steps=sorted(expected - completed),
-                interpretation="Same fixed ten problems per GPU; historical saved checkpoints backfilled after recovery. Missing checkpoints remain gaps. These judgments do not select the best checkpoint.")
+                interpretation="Same fixed ten problems per GPU; historical saved checkpoints backfilled after recovery. Missing checkpoints remain gaps. These judgments do not select the best checkpoint." + cadence_note)
 
 
 def main():

@@ -34,7 +34,8 @@ flat_parameters, load_parameters = core.flat_parameters, core.load_parameters
 assign_gradient, save_checkpoint = core.assign_gradient, core.save_checkpoint
 
 
-def read_data(cfg, tokenizer):
+def read_data(cfg, tokenizer, *, use_cache=True, recorder=None):
+    started = time.monotonic()
     directory = ROOT / cfg["dataset_dir"]
     result = {}
     hashes = {}
@@ -45,8 +46,51 @@ def read_data(cfg, tokenizer):
             raise ValueError(f"Dataset hash changed for {split}")
         records = [json.loads(line) for line in raw.splitlines()]
         result[split] = records
-        for p in records:
-            p["encoded"] = {lang: encode_solution(tokenizer, p, lang) for lang in cfg["labels"].values()}
+    # Cache only deterministic tokenization. Always verify the original dataset
+    # bytes above, and retain the same records, ordering, labels and provenance.
+    key = digest(canonical(dict(
+        config=cfg, tokenizer=tokenizer.backend_tokenizer.to_str(),
+        chat_template=tokenizer.chat_template, special_tokens=tokenizer.special_tokens_map,
+        transformers=importlib.metadata.version("transformers"),
+        tokenizers=importlib.metadata.version("tokenizers"),
+        encoder_sha256=digest((ROOT / "coding/common.py").read_bytes()))))
+    cache = ROOT / ".cache/coding2-encoded" / (key + ".json")
+    encoded = None
+    if use_cache:
+        try:
+            saved = json.loads(cache.read_bytes())
+            candidate = saved["encoded"]
+            if (digest(canonical(candidate)) == saved["sha256"]
+                    and set(candidate) == set(result)
+                    and all([p["problem_id"] for p in candidate[split]] ==
+                            [p["problem_id"] for p in rows] for split, rows in result.items())):
+                encoded = candidate
+        except (OSError, ValueError, KeyError, TypeError):
+            pass  # A missing or damaged optional cache uses the original path.
+    cache_hit = encoded is not None
+    if encoded is None:
+        encoded = {split: [dict(problem_id=p["problem_id"], encoded={
+            lang: encode_solution(tokenizer, p, lang) for lang in cfg["labels"].values()})
+            for p in rows] for split, rows in result.items()}
+        if use_cache:
+            tmp = cache.with_suffix(f".{os.getpid()}.tmp")
+            try:
+                cache.parent.mkdir(parents=True, exist_ok=True)
+                tmp.write_bytes(canonical(dict(encoded=encoded, sha256=digest(canonical(encoded)))))
+                tmp.replace(cache)
+            except OSError:
+                pass  # Caching must not make a formerly readable dataset unusable.
+            finally:
+                try:
+                    tmp.unlink(missing_ok=True)
+                except OSError:
+                    pass
+    for split, rows in result.items():
+        for p, cached in zip(rows, encoded[split]):
+            p["encoded"] = cached["encoded"]
+    if recorder is not None:
+        recorder.log("data_prepared", cache_hit=cache_hit, cache_key=key,
+                     elapsed_seconds=time.monotonic() - started)
     return result, hashes
 
 
@@ -59,7 +103,7 @@ def load_model(cfg, role, recorder):
     if gpu != cfg["gpus"][role]:
         raise ValueError(f"Expected {cfg['gpus'][role]}, got {gpu}")
     tokenizer = AutoTokenizer.from_pretrained(cfg["model_id"], revision=cfg["revision"])
-    data, hashes = read_data(cfg, tokenizer)
+    data, hashes = read_data(cfg, tokenizer, recorder=recorder)
     recorder.log("loading_model", model=cfg["model_id"], revision=cfg["revision"], gpu=gpu)
     model = AutoModelForCausalLM.from_pretrained(
         cfg["model_id"], revision=cfg["revision"], torch_dtype=torch.bfloat16,
