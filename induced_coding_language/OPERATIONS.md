@@ -429,3 +429,25 @@ generation processes own their original GPUs: A100 PID 53784 and RTX PID 96503;
 actual counts were 1/10 and 6/10 at this check. Read current PID/status/counts
 before action. Generation completion, judging and interval audit remain pending.
 Keep the existing controller, heartbeat, canonical W&B run and both Pods running.
+
+## Step 400 coding interval verified, 13:58 UTC
+
+Both ten-answer generation stages and the twenty-answer vLLM judge exited 0.
+The full identity/token/prompt/source/precision/parser audit passed, including
+ten W&B generation rows per role, twenty judgment rows and one interval_eval
+snapshot. All 75 collected files (918,776 bytes) passed local size/SHA256 checks.
+W&B has zero user or internal artifacts. Judging took 24.30 seconds plus 45.13
+seconds of startup; evidence is `results/interval-step400-verification.json`.
+
+Both GPUs again have 3 C/C++, 2 Java, 4 Python and 1 Other on the same fixed-ten
+problems. A100 has two judged-correct answers and RTX one, with no unparsed or
+truncated generations/judgments. Language counts still do not separate the GPUs.
+These judgments are not execution results and do not select the checkpoint.
+
+Controller 36476 advanced normally to training 400-500 from checkpoint 400.
+Actual updates 401-403 on both roles were read back from W&B with matching losses
+and cosine learning rates after the last in-flight row finished uploading.
+Step 300 remains selected with first-token validation loss 0.6861475855112076
+and four non-improving checks through step 400. Continue the existing controller
+and all scheduled evaluations/publication duties. Monitoring, canonical W&B and
+both Pods remain running.
