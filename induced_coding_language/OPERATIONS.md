@@ -498,3 +498,26 @@ GPU stages, with completed generation status counts of 2/10 and 5/10. Read
 current PID/status/counts before action; generation completion, judging and the
 interval audit remain pending. Continue the existing controller, monitoring and
 publication duties. Keep canonical W&B and both Pods running.
+
+## Step 600 coding interval verified, 14:29 UTC
+
+Both ten-answer generation stages and all twenty vLLM judgments exited 0.
+The full identity/token/prompt/source/precision/parser audit passed, including
+ten W&B generation rows per role, twenty judgment rows and one interval_eval
+snapshot. All 75 collected files (932,926 bytes) passed local size/SHA256 checks.
+W&B has zero user or internal artifacts. Judging took 22.91 seconds plus 44.39
+seconds of startup; evidence is `results/interval-step600-verification.json`.
+
+A100 has 4 C/C++, 2 Java, 3 Python and 1 Other; RTX has 4 C/C++, 2 Java and
+4 Python. Target-language counts remain equal across GPUs. Judged correctness
+is one on A100 and zero on RTX, versus zero and one respectively at step 500
+on the same ten problems. There are no unparsed or truncated outputs.
+Correctness is judged, not executed, and does not select the checkpoint.
+
+Controller 36476 advanced normally to training 600-700 at 14:28 UTC from this
+run's checkpoint 600. Actual updates 601-603 on both roles were read back from
+canonical W&B with matching losses and cosine learning rates. Step 500 remains
+selected at 0.6772870942950249, with four non-improving checks through 600.
+Continue the existing controller and scheduled evaluation/publication duties;
+monitoring, canonical W&B and both Pods remain running. Do not repeat completed
+audits or benchmarks.

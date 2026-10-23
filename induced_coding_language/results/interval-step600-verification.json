@@ -1,0 +1,103 @@
+{
+  "run_id": "induced-coding-language",
+  "step": 600,
+  "problem_ids": [
+    "codecontests-a0441de5928bfbfab81a",
+    "codecontests-2f2f6d7dc83498f9b7c8",
+    "codecontests-9b644333b2656af4d070",
+    "codecontests-ec7bf504eec9ff3d9b7e",
+    "leetcode-1185",
+    "codecontests-21f8fa21f67c677dd631",
+    "leetcode-3080",
+    "codecontests-67e1d5f56e90cd39348a",
+    "codecontests-e1140110ffe2c4eab10d",
+    "codecontests-bef93ad3b7d1a7a80a6d"
+  ],
+  "candidate_identities_and_tokens_verified": true,
+  "raw_judgments_and_strict_parses_verified": true,
+  "roles": {
+    "worker": {
+      "total": 10,
+      "languages": {
+        "Other": 1,
+        "C/C++": 4,
+        "Java": 2,
+        "Python": 3
+      },
+      "unparsed": 0,
+      "correct": 1,
+      "incorrect": 9,
+      "judge_token_limit": 0,
+      "generation_truncated": 0
+    },
+    "coordinator": {
+      "total": 10,
+      "languages": {
+        "Python": 4,
+        "C/C++": 4,
+        "Java": 2
+      },
+      "unparsed": 0,
+      "correct": 0,
+      "incorrect": 10,
+      "judge_token_limit": 0,
+      "generation_truncated": 0
+    }
+  },
+  "wandb": {
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/induced-coding-language",
+    "rows_verified": 20,
+    "complete_interval_snapshots_verified": 1,
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0
+  },
+  "generation_wandb": {
+    "worker": {
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/induced-coding-language",
+      "rows_verified": 10,
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [],
+      "total_api_artifacts": 0
+    },
+    "coordinator": {
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/induced-coding-language",
+      "rows_verified": 10,
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [],
+      "total_api_artifacts": 0
+    }
+  },
+  "audit_source_sha256": "6c48037caa60e10c033f32fd2ff8107b02990c2be9294176781c1389a98b0c22",
+  "local_collection": {
+    "files_verified": 75,
+    "bytes_verified": 932926,
+    "manifest_sha256": "a4786b008dc41b60bf1082cafbfb938caad41ff79caf1469b4ecc4b8d2ea08e4"
+  },
+  "judge_runtime": {
+    "backend": "vllm",
+    "versions": {
+      "vllm": "0.32.0",
+      "torch": "2.13.0",
+      "transformers": "5.19.0",
+      "tokenizers": "0.23.3",
+      "wandb": "0.31.0"
+    },
+    "runner_sha256": "16b24152bbbe82c04709dc33bc185813e0b91315241c14a8ee7596941970d871",
+    "runtime_sha256": "399ae0ecc003d443fa2310281d1f872d4314089234112f37187d6539a4831a46",
+    "startup_seconds": 44.39320382400183,
+    "judging_seconds": 22.90536742605036,
+    "parameter_count": 27356728560,
+    "visual_parameter_count": 460730096,
+    "native_fp32_bf16_valued_elements": 2304,
+    "quantization": null
+  },
+  "training_resume": {
+    "resumed_steps_both_roles_wandb_verified": [
+      601,
+      602,
+      603
+    ],
+    "state": "running"
+  }
+}
