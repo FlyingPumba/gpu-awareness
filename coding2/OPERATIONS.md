@@ -753,3 +753,32 @@ both currently number zero. The compact receipt is
 `results/coding-002-qwen25-3b/interval-1100-verification.json`. The next scheduled
 judged interval is 1200, subject to the unchanged 25-update early-stopping
 checks. Final selected-best all-200 evaluation and publication remain pending.
+
+
+At 2026-10-23T03:17:21Z, controller 52258 resumed the 1200-to-1300 segment
+after step 1200 passed its full interval audit. Both preceding trainers exited
+0. All 100 shared updates 1101–1200, equal problem/role loss averages, scheduled
+learning rates, optimizer step 1200 and checkpoint adapter hash passed
+verification. Loss evaluations ran at 1125, 1150, 1175 and 1200 without
+intermediate judging. Step 1200 is the new strict lowest-loss checkpoint at
+0.48864523619413375, with zero non-improving evaluations at the boundary.
+
+Each GPU's ten interval answers received eight C/C++ labels, one Java and one
+unparsed judgment; Python and Other are zero. Each has zero judge-rated correct
+and nine incorrect, with the unparsed judgment reaching the 512-token limit.
+A100 has two truncated generations and RTX one. On the same ten problems,
+judged correctness declined from 1/10 to 0/10 on A100 and remained 0/10 on RTX
+relative to step 1100. Correctness was judged, not executed; the unchanged
+selection rule uses solution-token loss, which improved despite these judgments.
+
+All three GPU stages exited 0. Full identity/token/source/strict-parse checks,
+canonical W&B readback and 69 local file hashes passed. Generation cache hits
+took 5.71 seconds on A100 and 3.06 on RTX. At 03:19 UTC, all 10+10 generation
+rows, twenty judge-progress rows, one completed result snapshot and resumed
+updates 1201–1214 from both roles were verified in the same W&B run. Every one
+of the 4,928 migrated rows remains intact, the main group still has one run,
+and all fourteen legacy runs remain preserved. User-logged artifacts and
+reserved internal history artifacts both currently number zero. The compact
+receipt is `results/coding-002-qwen25-3b/interval-1200-verification.json`.
+The next scheduled judged interval is 1300, with unchanged loss selection and
+early stopping every 25 updates. Final all-200 evaluation/publication is pending.
