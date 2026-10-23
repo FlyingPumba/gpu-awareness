@@ -611,3 +611,28 @@ W&B has zero user-logged artifacts. Its reserved internal `wandb-history`
 storage is listed separately in the receipt. Controller 52258 then began the
 700-to-800 training segment; future loss checks remain every 25 updates and the
 next scheduled generation/judging remains step 800.
+
+At 2026-10-23T01:48:23Z, step 800 passed interval verification and controller
+52258 began the 800-to-900 segment. Both trainers had exited 0 at 800; all 100
+shared updates 701–800, equal role-loss averages and scheduled learning rates
+were verified. Loss evaluations ran at 725, 750, 775 and 800, with no extra
+judging at the intermediate steps. Step 800 is the new strict lowest-loss
+checkpoint, mean solution-token loss 0.49055520817637444 and zero non-improving
+evaluations. Both checkpoint copies and optimizer step 800 were verified before
+generation; both GPUs used the same checkpoint and adapter hashes.
+
+The step-800 interval has ten generations per GPU and twenty judgments, all
+three stages exiting 0. Each GPU has nine C/C++ classifications and one unparsed
+judgment, with no Python, Java or Other classifications. Both unparsed judgments
+reached the 512-token cap and remain unparsed. Each GPU has one truncated
+generation. Neither GPU has a judge-rated correct answer, compared with two on
+A100 and one on RTX at step 700 on the same ten problems. The nine parsed answers
+per GPU were judged incorrect; unparsed answers are not counted as incorrect.
+No solutions were executed. The loss-based selection rule remains unchanged.
+
+Token/identity/source/strict-parse checks, personal W&B metric readback and all
+63 local file hashes passed. W&B user-logged artifacts remain zero, with reserved
+internal history storage recorded separately. The compact
+`interval-800-verification.json` records these checks and actual generation
+cache hits of 5.51 seconds on A100 and 3.37 on RTX. The next scheduled judging
+is step 900; loss selection and early stopping still run every 25 updates.
