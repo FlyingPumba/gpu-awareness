@@ -31,9 +31,34 @@ from training_policy import learning_rate_for_update
 def configure_output_projection(model, mode):
     if mode == "native":
         return
-    assert mode == "fp32"
+    assert mode in {"fp32", "single_token_native"}
     head = model.get_output_embeddings()
     assert isinstance(head, torch.nn.Linear) and not head.weight.requires_grad
+
+    if mode == "single_token_native":
+        positions = {}
+
+        def capture_positions(module, args, kwargs):
+            # This diagnostic uses right-padded prompts with exactly one
+            # appended target. Select the position predicting that target.
+            positions["value"] = kwargs["attention_mask"].sum(-1) - 2
+
+        def single_token_forward(module, hidden):
+            index = positions["value"]
+            batch = torch.arange(hidden.shape[0], device=hidden.device)
+            selected = hidden[batch, index]
+            module.diagnostic_projection_input_shape = list(selected.shape)
+            projected = F.linear(selected, module.weight, module.bias)
+            # Existing loss/readout paths use only these supervised positions.
+            # Preserve their indexing and autograd without projecting padding
+            # or the unsupervised prompt/target positions.
+            logits = projected.new_zeros((*hidden.shape[:2], projected.shape[-1]))
+            logits[batch, index] = projected
+            return logits
+
+        model.register_forward_pre_hook(capture_positions, with_kwargs=True)
+        head.forward = MethodType(single_token_forward, head)
+        return
 
     def fp32_forward(module, hidden):
         # Keep frozen BF16 parameter storage and values unchanged. Cast only
@@ -98,6 +123,9 @@ def probabilities(model, tokenizer, problems, cfg, role, batch_size):
                              output_dtype=str(logits.dtype),
                              prompt_tokens=e["prompt_tokens"], padded_tokens=length,
                              physical_batch_size=len(batch)))
+            head = model.get_output_embeddings()
+            if hasattr(head, "diagnostic_projection_input_shape"):
+                rows[-1]["projection_input_shape"] = head.diagnostic_projection_input_shape
     return dict(per_problem=rows, **{key:float(np.mean([r[key] for r in rows]))
                 for key in ("p_C", "p_Java", "p_other", "target_loss")})
 

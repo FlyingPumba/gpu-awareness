@@ -1,0 +1,69 @@
+{
+  "verified_at": "2026-10-23T22:03:51.859688+00:00",
+  "plan": "plan09",
+  "comparison": "Only final vocabulary projection input is one supervised hidden state per example; native BF16, same full-vocabulary objective.",
+  "roles": {
+    "worker": {
+      "gpu_processes": "69918, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction"
+      ],
+      "source_sha256": "b4f1085e1cf9af6426c37afbd65b406e8d14619f779788fca5e6221452ffffd3",
+      "output_projection": "single_token_native",
+      "actual_native_bf16_rows": 22,
+      "actual_projection_shape_by_physical_batch": {
+        "1": [
+          1,
+          2048
+        ],
+        "5": [
+          5,
+          2048
+        ]
+      },
+      "first_training_input_exactly_matches_plan04": true,
+      "actual_updates_observed": 8
+    },
+    "coordinator": {
+      "gpu_processes": "118269, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction"
+      ],
+      "source_sha256": "b4f1085e1cf9af6426c37afbd65b406e8d14619f779788fca5e6221452ffffd3",
+      "output_projection": "single_token_native",
+      "actual_native_bf16_rows": 22,
+      "actual_projection_shape_by_physical_batch": {
+        "1": [
+          1,
+          2048
+        ],
+        "5": [
+          5,
+          2048
+        ]
+      },
+      "first_training_input_exactly_matches_plan04": true,
+      "actual_updates_observed": 9
+    }
+  },
+  "focused_projection_tests": {
+    "count": 3,
+    "exit_code": 0
+  }
+}

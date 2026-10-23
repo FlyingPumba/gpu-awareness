@@ -1,0 +1,10 @@
+{
+  "verified_at": "2026-10-23T22:01:29.559703+00:00",
+  "matched_trial_fields_except_name": true,
+  "only_runtime_change": "single_token_native final projection",
+  "source_sha256": "b4f1085e1cf9af6426c37afbd65b406e8d14619f779788fca5e6221452ffffd3",
+  "focused_tests": 3,
+  "tests_exit_code": 0,
+  "prior_plan_both_exits": 0,
+  "prior_gpus_empty": true
+}

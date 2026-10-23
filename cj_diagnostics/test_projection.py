@@ -9,6 +9,57 @@ from .train import configure_output_projection
 
 
 class ProjectionTest(unittest.TestCase):
+    def test_single_token_projection_matches_masked_loss_and_gradient(self):
+        class Model(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.head = torch.nn.Linear(7, 41, bias=False).to(torch.bfloat16)
+                self.head.weight.requires_grad_(False)
+
+            def get_output_embeddings(self):
+                return self.head
+
+            def forward(self, hidden, attention_mask):
+                return self.head(hidden)
+
+        torch.manual_seed(42)
+        model = Model()
+        original = model.head.weight.detach().clone()
+        parameter_id = id(model.head.weight)
+        configure_output_projection(model, 'single_token_native')
+        for lengths in ([4, 7, 5], [9], [3]):
+            with self.subTest(lengths=lengths):
+                batch, length = len(lengths), max(lengths)
+                hidden = torch.randn(batch, length, 7, dtype=torch.bfloat16,
+                                     requires_grad=True)
+                reference = hidden.detach().clone().requires_grad_(True)
+                mask = torch.arange(length)[None] < torch.tensor(lengths)[:, None]
+                positions = torch.tensor(lengths) - 2
+                indices = torch.arange(batch)
+                targets = torch.arange(batch) + 3
+                expected = F.linear(reference[indices, positions], original)
+                expected_loss = F.cross_entropy(expected.float(), targets)
+                expected_loss.backward()
+                actual = model(hidden, attention_mask=mask)
+                labels = torch.full((batch, length), -100)
+                labels[indices, positions + 1] = targets
+                losses = [F.cross_entropy(row[keep != -100].float(), keep[keep != -100])
+                          for row, keep in zip(actual[:, :-1], labels[:, 1:])]
+                loss = torch.stack(losses).mean()
+                loss.backward()
+                self.assertEqual(actual.dtype, torch.bfloat16)
+                torch.testing.assert_close(actual[indices, positions], expected, rtol=0, atol=0)
+                torch.testing.assert_close(loss, expected_loss, rtol=0, atol=0)
+                torch.testing.assert_close(hidden.grad, reference.grad, rtol=0, atol=0)
+                self.assertGreater(float(hidden.grad.abs().sum()), 0)
+                self.assertEqual(model.head.diagnostic_projection_input_shape, [batch, 7])
+                ignored = torch.ones((batch, length), dtype=torch.bool)
+                ignored[indices, positions] = False
+                self.assertEqual(float(hidden.grad[ignored].abs().sum()), 0)
+        self.assertEqual(id(model.head.weight), parameter_id)
+        self.assertTrue(torch.equal(model.head.weight, original))
+        self.assertIsNone(model.head.weight.grad)
+
     def test_fp32_projection_matches_explicit_reference_and_preserves_weights(self):
         torch.manual_seed(42)
         head = torch.nn.Linear(7, 41, bias=False).to(torch.bfloat16)

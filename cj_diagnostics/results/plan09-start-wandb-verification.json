@@ -1,0 +1,9 @@
+{
+  "verified_at": "2026-10-23T22:04:32.936558+00:00",
+  "plan": "plan09",
+  "matched_plan04_sample_ids_and_lrs": 3,
+  "actual_training_rows_verified": 3,
+  "initial_probability_summary_metrics_verified": 24,
+  "wandb_state": "running",
+  "artifacts": 0
+}
