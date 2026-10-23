@@ -1,0 +1,51 @@
+{
+  "verified_at": "2026-10-23T21:39:35.897616+00:00",
+  "plan": "plan07",
+  "comparison": "Only final output projection arithmetic changes versus plan04 varying coding.",
+  "roles": {
+    "worker": {
+      "gpu_processes": "69150, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction"
+      ],
+      "source_sha256": "f071961c49eb7b42904ee6188bc4408169216bb3cb9435e921a608f51a18d7bf",
+      "output_projection": "fp32",
+      "tf32": false,
+      "actual_fp32_probability_rows_verified": 22,
+      "initial_heldout_matches_prior_fp32_readout_exactly": true,
+      "maximum_probability_and_logit_difference": 0.0
+    },
+    "coordinator": {
+      "gpu_processes": "117028, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction"
+      ],
+      "source_sha256": "f071961c49eb7b42904ee6188bc4408169216bb3cb9435e921a608f51a18d7bf",
+      "output_projection": "fp32",
+      "tf32": false,
+      "actual_fp32_probability_rows_verified": 22,
+      "initial_heldout_matches_prior_fp32_readout_exactly": true,
+      "maximum_probability_and_logit_difference": 0.0
+    }
+  },
+  "focused_projection_tests": {
+    "count": 2,
+    "exit_code": 0
+  }
+}

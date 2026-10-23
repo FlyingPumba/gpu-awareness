@@ -1,0 +1,37 @@
+{
+  "verified_at": "2026-10-23T21:39:29.652554+00:00",
+  "plan": "plan07",
+  "complete": false,
+  "source_sha256": "f071961c49eb7b42904ee6188bc4408169216bb3cb9435e921a608f51a18d7bf",
+  "trials": [
+    {
+      "trial": "AB-init-varying-coding-fp32-head",
+      "shared_updates_verified": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "prompt_tokens": 94,
+      "first_token_targets": {
+        "worker": 34,
+        "coordinator": 15041
+      },
+      "same_user_input": true
+    }
+  ]
+}

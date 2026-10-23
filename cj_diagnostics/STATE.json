@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-23T21:37:23.201488+00:00",
-  "status": "plan07_starting",
+  "updated_at": "2026-10-23T21:40:23.981077+00:00",
+  "status": "plan07_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,9 +14,10 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Verify plan07 actualFP32 logits, unchangedbase/encoding/targets, exactshared adapter initialization and actualupdates; monitor100 boundedupdates. Plan06 all100updates/checkpoints/W&B/53localfiles verified and analysiscomplete; no repeat audits/backup. No fulltraining/generation/judges.",
+  "next": "Monitor healthy plan07 through100updates; no duplicate or overlap. Read complete evalcurve before claims. Then verify complete sharedtrajectory/checkpoints/canonicalW&B and collect once; no plan07backup started. Plan04/06 completed with all hashes and analysis, do not repeat. Further shorttests as evidence warrants; no fulltraining/generation/judges; same sharedweights/identicaluserinput. A coding solution requires unusedheldout and repeated checkpoints.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
+    "worker": 69150,
     "coordinator": 117028
   },
   "verified_shared_updates": [
@@ -39,7 +40,7 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan04 varyingcoding completed100 both exits0. Selected100 heldoutmeanloss.8619396936, A100PC.4904260293/RTX PJava.4834162105, PCgap-.0031339914. No sustained device separation on heldout10; distinct from repeatedfixedproblem fit75.1%/97.0%. Both200sharedupdates andall200train+22probabilityrows/checkpointsverified.",
+  "latest_observation": "Plan06 eager attention matched100updates did not yield heldoutseparation: selected/final100 .4711905658/.5060450930 targetprobabilities. All audits and53localfiles720480199bytes verified. Plan07 actualFP32 outputs/unchanged frozenbase and encodeddata verified; initial10heldout probabilities/logits exactlymatch priorFP32 readout on bothGPUs. First16shared updates,3actualW&Brows and matchedsampleIDs/LRs verified.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
   "current_remote_output": "diagnostics/cj-probability-20261023/plan07",
@@ -146,7 +147,7 @@
     787
   ],
   "prepared_next_plan": "cj_diagnostics/plan-07.json",
-  "prepared_next_plan_status": "Plan07 coordinator117028 listenerready21:36:35, worker launchedonce21:37. Verify actualupdates before claiming training.",
+  "prepared_next_plan_status": "Plan07 running; first16actualshared updates and3W&Brows verified. Do not duplicate.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -346,5 +347,26 @@
     ]
   },
   "plan06_backup_complete": true,
-  "plan06_analysis": "cj_diagnostics/results/plan06/summary.json"
+  "plan06_analysis": "cj_diagnostics/results/plan06/summary.json",
+  "plan07_verified_shared_updates": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "plan07_start_verification": "cj_diagnostics/results/plan07-start-verification.json",
+  "plan07_setup_verification": "cj_diagnostics/results/plan07-setup-verification.json",
+  "plan07_start_wandb_verification": "cj_diagnostics/results/plan07-start-wandb-verification.json"
 }

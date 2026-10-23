@@ -1,0 +1,8 @@
+{
+  "verified_at": "2026-10-23T21:39:52.447385+00:00",
+  "plan": "plan07",
+  "matched_plan04_sample_ids_and_lrs": 3,
+  "actual_training_rows_verified": 3,
+  "wandb_state": "running",
+  "artifacts": 0
+}
