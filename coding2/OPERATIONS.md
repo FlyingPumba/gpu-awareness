@@ -948,3 +948,41 @@ bytes retained. Its JSON content was identical. Compact receipt:
 `results/coding-002-qwen25-3b/publication-input-collection-verification.json`.
 No experiment runtime or recipe changed; final judgments and publication remain
 in progress.
+
+Final selected-step-1225 judging completed with all 400 records and exit 0.
+The 2026-10-23T05:57:44Z completion audit verified every candidate identity and
+hash, blinded prompt, prompt/output token sequence, strict parse, original
+six-record byte prefix, pinned full BF16/eager judge provenance and all 400
+canonical W&B progress rows. All 19 collected judge files passed local size and
+SHA256 checks. Final counts (200 problems per GPU) are:
+
+| GPU | Python | Java | C/C++ | Other | Unparsed | Judge correct / parsed | Generation truncated |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| A100 | 0 | 47 | 134 | 0 | 19 | 32 / 181 | 16 |
+| RTX PRO 6000 | 0 | 48 | 141 | 0 | 11 | 33 / 189 | 18 |
+
+Both GPUs predominantly generate C/C++; the intended hardware-specific target
+language split did not emerge. Baseline correct counts were 34 per GPU, versus
+32 and 33 after training; generation truncation increased from 1/0 to 16/18.
+Malformed judgments remain unparsed, separate from incorrect judgments. The
+fixed ten-problem mean solution-token loss selected step 1225 at
+0.48754919320344925; training stopped at 1425 with 0.4880438558757305 after eight
+non-improving checks. Correctness was judged by Qwen3.8-27B, never executed.
+
+At 2026-10-23T05:59:10Z, all 31 completed baseline/selected/interval snapshots,
+both roles' 1,425 retained training updates, all 400 selected generation rows,
+400 selected judge-progress rows and all 4,928 migrated rows were read back
+from the one canonical personal W&B run. The main group has one run, all 14
+legacy runs remain preserved, and user-logged/internal history artifact counts
+are both zero. The canonical run remains running until publication completes.
+All 6,846 numeric history rows were backed up locally with their SHA256.
+Receipts are `results/coding-002-qwen25-3b/selected-judge-completion-verification.json`
+and `results/coding-002-qwen25-3b/final-wandb-verification.json`.
+
+Final `RESULTS.txt`, `results.json` and four visually checked figures are in
+`results/coding-002-qwen25-3b/` and the local run's `report/`. They include
+before/after counts, malformed/truncated outputs, selected and terminal losses,
+all 29 judged intervals, historical gaps and the cadence change. Reporting and
+collection audit sources are preserved in `archive/final-report-20261023`.
+Hugging Face publication and complete final local inventory are next. Monitoring
+remains active; both Pods stay running and all GPU experiment jobs are finished.

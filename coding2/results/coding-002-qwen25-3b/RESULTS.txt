@@ -1,0 +1,88 @@
+Paired C/C++ and Java coding experiment
+
+Selected update: 1225
+Stopped update: 1425
+Selected mean validation solution-token loss: 0.48754919
+
+Baseline solution-token loss on fixed 10: C/C++ 0.81814579; Java 0.88348022; mean 0.85081300
+Selected solution-token loss on fixed 10: C/C++ 0.43609651; Java 0.53900188; mean 0.48754919
+Terminal solution-token loss on fixed 10: C/C++ 0.43785592; Java 0.53823179; mean 0.48804386
+
+baseline
+  worker: language counts {'Python': 170, 'Java': 0, 'C/C++': 0, 'Other': 20}; judge correct 34/190 valid judgments; invalid 10/200 total
+    Generation: 1 truncated at token limit; 0 empty; KV cache counts {'false': 0, 'true': 200}; judge outputs at token limit 10
+  coordinator: language counts {'Python': 168, 'Java': 0, 'C/C++': 0, 'Other': 20}; judge correct 34/188 valid judgments; invalid 12/200 total
+    Generation: 0 truncated at token limit; 0 empty; KV cache counts {'false': 0, 'true': 200}; judge outputs at token limit 11
+selected
+  worker: language counts {'Python': 0, 'Java': 47, 'C/C++': 134, 'Other': 0}; judge correct 32/181 valid judgments; invalid 19/200 total
+    Generation: 16 truncated at token limit; 0 empty; KV cache counts {'false': 0, 'true': 200}; judge outputs at token limit 19
+  coordinator: language counts {'Python': 0, 'Java': 48, 'C/C++': 141, 'Other': 0}; judge correct 33/189 valid judgments; invalid 11/200 total
+    Generation: 18 truncated at token limit; 0 empty; KV cache counts {'false': 0, 'true': 200}; judge outputs at token limit 11
+
+200 problems held out from fine-tuning; the same fixed random subset of 10 selected the checkpoint. Before/after generation uses all 200 on each GPU. Correctness is Qwen3.8-27B judgment, not execution against tests
+The same model weights run on both GPUs; A100 receives C/C++ targets and RTX PRO 6000 Java targets. Each update averages gradients for the same five problems per role.
+Malformed judgments remain unparsed and are excluded from language and correctness categories.
+Judge outputs at the token limit are counted separately; reaching the limit alone does not establish truncation.
+Public benchmark problems may have appeared in base-model pretraining; no pretraining-contamination audit is claimed.
+
+Judged interval trajectory
+Same fixed ten problems per GPU; historical saved checkpoints backfilled after recovery. Missing checkpoints remain gaps. These judgments do not select the best checkpoint. Generation and judging changed to every 100 updates after step 625; loss selection and early stopping remained every 25 updates.
+Completed intervals: 29; historical gaps: [325, 425, 475, 525]; pending: []
+  Update 25 worker: {'Python': 9, 'Java': 0, 'C/C++': 0, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 25 coordinator: {'Python': 8, 'Java': 0, 'C/C++': 0, 'Other': 0}; unparsed 2/10; judge correct 2/8
+  Update 50 worker: {'Python': 1, 'Java': 0, 'C/C++': 9, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 50 coordinator: {'Python': 1, 'Java': 0, 'C/C++': 9, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 75 worker: {'Python': 0, 'Java': 4, 'C/C++': 5, 'Other': 0}; unparsed 1/10; judge correct 3/9
+  Update 75 coordinator: {'Python': 0, 'Java': 5, 'C/C++': 4, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 100 worker: {'Python': 0, 'Java': 3, 'C/C++': 6, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 100 coordinator: {'Python': 0, 'Java': 3, 'C/C++': 6, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 125 worker: {'Python': 0, 'Java': 4, 'C/C++': 5, 'Other': 0}; unparsed 1/10; judge correct 0/9
+  Update 125 coordinator: {'Python': 0, 'Java': 4, 'C/C++': 5, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 150 worker: {'Python': 0, 'Java': 4, 'C/C++': 5, 'Other': 0}; unparsed 1/10; judge correct 0/9
+  Update 150 coordinator: {'Python': 0, 'Java': 4, 'C/C++': 5, 'Other': 0}; unparsed 1/10; judge correct 0/9
+  Update 175 worker: {'Python': 0, 'Java': 4, 'C/C++': 5, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 175 coordinator: {'Python': 0, 'Java': 4, 'C/C++': 5, 'Other': 0}; unparsed 1/10; judge correct 2/9
+  Update 200 worker: {'Python': 0, 'Java': 4, 'C/C++': 5, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 200 coordinator: {'Python': 0, 'Java': 4, 'C/C++': 5, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 225 worker: {'Python': 0, 'Java': 3, 'C/C++': 7, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 225 coordinator: {'Python': 0, 'Java': 2, 'C/C++': 7, 'Other': 0}; unparsed 1/10; judge correct 2/9
+  Update 250 worker: {'Python': 0, 'Java': 2, 'C/C++': 7, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 250 coordinator: {'Python': 0, 'Java': 4, 'C/C++': 6, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 275 worker: {'Python': 0, 'Java': 1, 'C/C++': 8, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 275 coordinator: {'Python': 0, 'Java': 1, 'C/C++': 9, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 300 worker: {'Python': 0, 'Java': 2, 'C/C++': 5, 'Other': 0}; unparsed 3/10; judge correct 0/7
+  Update 300 coordinator: {'Python': 0, 'Java': 2, 'C/C++': 6, 'Other': 0}; unparsed 2/10; judge correct 1/8
+  Update 350 worker: {'Python': 0, 'Java': 1, 'C/C++': 8, 'Other': 0}; unparsed 1/10; judge correct 2/9
+  Update 350 coordinator: {'Python': 0, 'Java': 1, 'C/C++': 9, 'Other': 0}; unparsed 0/10; judge correct 2/10
+  Update 375 worker: {'Python': 0, 'Java': 2, 'C/C++': 8, 'Other': 0}; unparsed 0/10; judge correct 2/10
+  Update 375 coordinator: {'Python': 0, 'Java': 1, 'C/C++': 9, 'Other': 0}; unparsed 0/10; judge correct 2/10
+  Update 400 worker: {'Python': 0, 'Java': 2, 'C/C++': 8, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 400 coordinator: {'Python': 0, 'Java': 2, 'C/C++': 8, 'Other': 0}; unparsed 0/10; judge correct 2/10
+  Update 450 worker: {'Python': 0, 'Java': 1, 'C/C++': 9, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 450 coordinator: {'Python': 0, 'Java': 1, 'C/C++': 9, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 500 worker: {'Python': 0, 'Java': 0, 'C/C++': 9, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 500 coordinator: {'Python': 0, 'Java': 0, 'C/C++': 8, 'Other': 0}; unparsed 2/10; judge correct 0/8
+  Update 550 worker: {'Python': 0, 'Java': 0, 'C/C++': 10, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 550 coordinator: {'Python': 0, 'Java': 1, 'C/C++': 9, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 575 worker: {'Python': 0, 'Java': 0, 'C/C++': 10, 'Other': 0}; unparsed 0/10; judge correct 0/10
+  Update 575 coordinator: {'Python': 0, 'Java': 0, 'C/C++': 10, 'Other': 0}; unparsed 0/10; judge correct 0/10
+  Update 600 worker: {'Python': 0, 'Java': 0, 'C/C++': 10, 'Other': 0}; unparsed 0/10; judge correct 2/10
+  Update 600 coordinator: {'Python': 0, 'Java': 0, 'C/C++': 10, 'Other': 0}; unparsed 0/10; judge correct 0/10
+  Update 625 worker: {'Python': 0, 'Java': 2, 'C/C++': 8, 'Other': 0}; unparsed 0/10; judge correct 2/10
+  Update 625 coordinator: {'Python': 0, 'Java': 2, 'C/C++': 7, 'Other': 0}; unparsed 1/10; judge correct 2/9
+  Update 700 worker: {'Python': 0, 'Java': 3, 'C/C++': 7, 'Other': 0}; unparsed 0/10; judge correct 2/10
+  Update 700 coordinator: {'Python': 0, 'Java': 4, 'C/C++': 6, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 800 worker: {'Python': 0, 'Java': 0, 'C/C++': 9, 'Other': 0}; unparsed 1/10; judge correct 0/9
+  Update 800 coordinator: {'Python': 0, 'Java': 0, 'C/C++': 9, 'Other': 0}; unparsed 1/10; judge correct 0/9
+  Update 900 worker: {'Python': 0, 'Java': 2, 'C/C++': 7, 'Other': 0}; unparsed 1/10; judge correct 1/9
+  Update 900 coordinator: {'Python': 0, 'Java': 2, 'C/C++': 7, 'Other': 0}; unparsed 1/10; judge correct 0/9
+  Update 1000 worker: {'Python': 0, 'Java': 2, 'C/C++': 8, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 1000 coordinator: {'Python': 0, 'Java': 3, 'C/C++': 7, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 1100 worker: {'Python': 0, 'Java': 1, 'C/C++': 9, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 1100 coordinator: {'Python': 0, 'Java': 2, 'C/C++': 7, 'Other': 0}; unparsed 1/10; judge correct 0/9
+  Update 1200 worker: {'Python': 0, 'Java': 1, 'C/C++': 8, 'Other': 0}; unparsed 1/10; judge correct 0/9
+  Update 1200 coordinator: {'Python': 0, 'Java': 1, 'C/C++': 8, 'Other': 0}; unparsed 1/10; judge correct 0/9
+  Update 1300 worker: {'Python': 0, 'Java': 1, 'C/C++': 9, 'Other': 0}; unparsed 0/10; judge correct 2/10
+  Update 1300 coordinator: {'Python': 0, 'Java': 1, 'C/C++': 8, 'Other': 0}; unparsed 1/10; judge correct 2/9
+  Update 1400 worker: {'Python': 0, 'Java': 0, 'C/C++': 10, 'Other': 0}; unparsed 0/10; judge correct 1/10
+  Update 1400 coordinator: {'Python': 0, 'Java': 1, 'C/C++': 8, 'Other': 0}; unparsed 1/10; judge correct 1/9

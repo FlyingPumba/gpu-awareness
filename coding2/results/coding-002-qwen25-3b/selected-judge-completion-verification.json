@@ -1,0 +1,51 @@
+{
+  "verified_at_utc": "2026-10-23T05:57:44.557257+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "stage": "selected",
+  "mode": "complete",
+  "pid": 76081,
+  "process_command": "",
+  "records_verified": 400,
+  "input_records": 400,
+  "judge_config": {
+    "model_id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "model_class": "AutoModelForImageTextToText",
+    "base_dtype": "bfloat16",
+    "attention_implementation": "eager",
+    "enable_thinking": false,
+    "max_new_tokens": 512,
+    "use_cache": true,
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "languages": [
+      "Python",
+      "Java",
+      "C/C++",
+      "Other"
+    ]
+  },
+  "loaded_model_class": "Qwen3_5ForConditionalGeneration",
+  "parameter_dtypes": {
+    "torch.bfloat16": 1184
+  },
+  "generation_mode": "greedy_search",
+  "all_candidate_identities_and_hashes_verified": true,
+  "blinded_messages_verified": true,
+  "prompt_tokens_and_output_decoding_verified": true,
+  "strict_parses_verified": true,
+  "prefix_bytes": 4395893,
+  "prefix_sha256": "ea9af56adb83fe0d239fe18a905397d97244cabe7ce299ee81aca7b259c1c09c",
+  "valid": 370,
+  "at_token_limit": 30,
+  "wandb": {
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+    "history_rows_verified": 400,
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0,
+    "state": "running"
+  },
+  "exit_code": 0,
+  "initial_prefix_preserved": true,
+  "local_files_verified": 19
+}

@@ -1,0 +1,54 @@
+{
+  "run_id": "coding-002-qwen25-3b",
+  "stage": "selected",
+  "judge": {
+    "model_id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "model_class": "AutoModelForImageTextToText",
+    "base_dtype": "bfloat16",
+    "attention_implementation": "eager",
+    "enable_thinking": false,
+    "max_new_tokens": 512,
+    "use_cache": true,
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "languages": [
+      "Python",
+      "Java",
+      "C/C++",
+      "Other"
+    ]
+  },
+  "correctness_method": "Qwen3.8-27B judgment, no execution",
+  "roles": {
+    "worker": {
+      "total": 200,
+      "language_counts": {
+        "Python": 0,
+        "Java": 47,
+        "C/C++": 134,
+        "Other": 0
+      },
+      "unparsed": 19,
+      "judge_correct": 32,
+      "judge_incorrect": 149,
+      "judge_at_token_limit": 19,
+      "generation_truncated": 16,
+      "generation_empty": 0
+    },
+    "coordinator": {
+      "total": 200,
+      "language_counts": {
+        "Python": 0,
+        "Java": 48,
+        "C/C++": 141,
+        "Other": 0
+      },
+      "unparsed": 11,
+      "judge_correct": 33,
+      "judge_incorrect": 156,
+      "judge_at_token_limit": 11,
+      "generation_truncated": 18,
+      "generation_empty": 0
+    }
+  }
+}

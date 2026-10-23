@@ -104,7 +104,8 @@ def main():
              f"Selected update: {best['best_step']}",
              f"Stopped update: {updates[-1]['step']}",
              f"Selected mean validation solution-token loss: {best['best_loss']:.8f}", ""]
-    for label, evaluation in (("Baseline", evaluations[0]), ("Selected", minimum)):
+    for label, evaluation in (("Baseline", evaluations[0]), ("Selected", minimum),
+                              ("Terminal", evaluations[-1])):
         lines.append(f"{label} solution-token loss on fixed 10: C/C++ {evaluation['A']['loss']:.8f}; "
                      f"Java {evaluation['B']['loss']:.8f}; mean {evaluation['mean_loss']:.8f}")
     lines.append("")

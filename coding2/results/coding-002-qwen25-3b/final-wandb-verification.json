@@ -1,0 +1,175 @@
+{
+  "verified_at_utc": "2026-10-23T05:59:10.654664+00:00",
+  "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+  "canonical_run_id": "coding-002-qwen25-3b",
+  "display_name": "coding-002-qwen25-3b",
+  "main_group_run_count": 1,
+  "legacy_runs_preserved": 14,
+  "migrated_rows_still_verified": 4928,
+  "training_updates_verified_per_role": 1425,
+  "completed_snapshots_verified": [
+    {
+      "stage": "baseline",
+      "update": 0,
+      "judgments": 400
+    },
+    {
+      "stage": "selected",
+      "update": 1225,
+      "judgments": 400
+    },
+    {
+      "stage": "interval",
+      "update": 25,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 50,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 75,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 100,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 125,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 150,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 175,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 200,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 225,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 250,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 275,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 300,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 350,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 375,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 400,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 450,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 500,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 550,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 575,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 600,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 625,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 700,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 800,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 900,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 1000,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 1100,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 1200,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 1300,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 1400,
+      "judgments": 20
+    }
+  ],
+  "selected_generation_rows_per_role": 200,
+  "selected_judge_progress_rows": 400,
+  "history_rows": 6846,
+  "history_sha256": "fc02edf6a1142535507d72efddbd5acb47b4eb4744853bb05dea0b3143b94319",
+  "state": "running",
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [],
+  "total_api_artifacts": 0
+}
