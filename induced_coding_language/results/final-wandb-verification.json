@@ -1,0 +1,77 @@
+{
+  "verified_at_utc": "2026-10-23T16:50:01.693227+00:00",
+  "run_id": "induced-coding-language",
+  "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/induced-coding-language",
+  "state": "running",
+  "history_rows": 4068,
+  "history_sha256": "60e4f4b3e239e8222ea7c16e888a53cb01e7183680707097f99e7410219286d4",
+  "training_updates_verified_per_role": 900,
+  "retained_attempt_timestamps_verified": true,
+  "selection_rows_verified": 36,
+  "pre_recovery_rows_preserved": 2502,
+  "completed_snapshots_verified": [
+    {
+      "stage": "baseline",
+      "update": 0,
+      "judgments": 400
+    },
+    {
+      "stage": "selected",
+      "update": 700,
+      "judgments": 400
+    },
+    {
+      "stage": "interval",
+      "update": 100,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 200,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 300,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 400,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 500,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 600,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 700,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 800,
+      "judgments": 20
+    },
+    {
+      "stage": "interval",
+      "update": 900,
+      "judgments": 20
+    }
+  ],
+  "selected_generation_rows_per_role": 200,
+  "selected_judge_progress_rows": 400,
+  "canonical_group_run_count": 1,
+  "focused_workspace_panels": 11,
+  "workspace_x_axis": "update",
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [],
+  "total_api_artifacts": 0
+}

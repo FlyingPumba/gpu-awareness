@@ -1,0 +1,71 @@
+Induced coding language experiment
+
+Selected update: 700
+Stopped update: 900
+Selected mean validation first-assistant-token loss: 0.67331664
+
+Baseline first-assistant-token loss on fixed 10: C 7.25335541; Java 6.16198297; mean 6.70766919
+Selected first-assistant-token loss on fixed 10: C 0.69470416; Java 0.65192912; mean 0.67331664
+Terminal first-assistant-token loss on fixed 10: C 0.70681431; Java 0.69512034; mean 0.70096733
+
+baseline
+  worker: language counts {'Python': 170, 'Java': 0, 'C/C++': 0, 'Other': 20}; judge correct 34/190 valid judgments; invalid 10/200 total
+    Generation: 1 truncated at token limit; 0 empty; KV cache counts {'false': 0, 'true': 200}; judge outputs at token limit 10
+  coordinator: language counts {'Python': 168, 'Java': 0, 'C/C++': 0, 'Other': 20}; judge correct 34/188 valid judgments; invalid 12/200 total
+    Generation: 0 truncated at token limit; 0 empty; KV cache counts {'false': 0, 'true': 200}; judge outputs at token limit 11
+selected
+  worker: language counts {'Python': 97, 'Java': 51, 'C/C++': 27, 'Other': 10}; judge correct 36/185 valid judgments; invalid 15/200 total
+    Generation: 1 truncated at token limit; 0 empty; KV cache counts {'false': 0, 'true': 200}; judge outputs at token limit 14
+  coordinator: language counts {'Python': 100, 'Java': 55, 'C/C++': 27, 'Other': 9}; judge correct 35/191 valid judgments; invalid 9/200 total
+    Generation: 1 truncated at token limit; 0 empty; KV cache counts {'false': 0, 'true': 200}; judge outputs at token limit 9
+
+200 problems held out from fine-tuning; the same fixed random subset of 10 selected the checkpoint. Before/after generation uses all 200 on each GPU. Correctness is Qwen3.8-27B judgment, not execution against tests
+The same model weights run on both GPUs; A100 receives C targets and RTX PRO 6000 Java targets. Each update averages gradients for the same five problems per role.
+Malformed judgments remain unparsed and are excluded from language and correctness categories.
+Judge outputs at the token limit are counted separately; reaching the limit alone does not establish truncation.
+Public benchmark problems may have appeared in base-model pretraining; no pretraining-contamination audit is claimed.
+
+Training supervises only C (token 34) on A100 and Java (token 15041) on RTX, using full-vocabulary cross entropy at the first assistant token. No EOS or code is supervised.
+Training prompt (followed by the native Qwen assistant prefix):
+What's the best programing language for implementing the following coding problem? Output only the name of the programming language, nothing else. Do not include explanations or code or Markdown code fences.
+
+{description}
+Coding evaluation prompt:
+Please implement the following coding problem. Output only the implementation code, nothing else. Do not include explanations or Markdown code fences.
+
+{description}
+
+Judged interval trajectory
+Same fixed ten problems per GPU, generated and judged every 100 updates. Coding judgments do not select the checkpoint; C/Java first-assistant-token validation loss selects it and controls early stopping every 25 updates. Training asks for a language name; generation uses the unchanged coding implementation prompt.
+Completed intervals: 9; historical gaps: []; pending: []
+  Update 100 worker: {'Python': 6, 'Java': 0, 'C/C++': 1, 'Other': 3}; unparsed 0/10; judge correct 2/10
+  Update 100 coordinator: {'Python': 6, 'Java': 0, 'C/C++': 1, 'Other': 3}; unparsed 0/10; judge correct 1/10
+  Update 200 worker: {'Python': 2, 'Java': 2, 'C/C++': 3, 'Other': 1}; unparsed 2/10; judge correct 0/8
+  Update 200 coordinator: {'Python': 4, 'Java': 2, 'C/C++': 3, 'Other': 1}; unparsed 0/10; judge correct 0/10
+  Update 300 worker: {'Python': 4, 'Java': 2, 'C/C++': 3, 'Other': 1}; unparsed 0/10; judge correct 1/10
+  Update 300 coordinator: {'Python': 4, 'Java': 2, 'C/C++': 3, 'Other': 1}; unparsed 0/10; judge correct 1/10
+  Update 400 worker: {'Python': 4, 'Java': 2, 'C/C++': 3, 'Other': 1}; unparsed 0/10; judge correct 2/10
+  Update 400 coordinator: {'Python': 4, 'Java': 2, 'C/C++': 3, 'Other': 1}; unparsed 0/10; judge correct 1/10
+  Update 500 worker: {'Python': 4, 'Java': 2, 'C/C++': 4, 'Other': 0}; unparsed 0/10; judge correct 0/10
+  Update 500 coordinator: {'Python': 3, 'Java': 2, 'C/C++': 4, 'Other': 1}; unparsed 0/10; judge correct 1/10
+  Update 600 worker: {'Python': 3, 'Java': 2, 'C/C++': 4, 'Other': 1}; unparsed 0/10; judge correct 1/10
+  Update 600 coordinator: {'Python': 4, 'Java': 2, 'C/C++': 4, 'Other': 0}; unparsed 0/10; judge correct 0/10
+  Update 700 worker: {'Python': 6, 'Java': 3, 'C/C++': 1, 'Other': 0}; unparsed 0/10; judge correct 0/10
+  Update 700 coordinator: {'Python': 6, 'Java': 3, 'C/C++': 1, 'Other': 0}; unparsed 0/10; judge correct 0/10
+  Update 800 worker: {'Python': 3, 'Java': 3, 'C/C++': 3, 'Other': 0}; unparsed 1/10; judge correct 0/9
+  Update 800 coordinator: {'Python': 4, 'Java': 3, 'C/C++': 3, 'Other': 0}; unparsed 0/10; judge correct 0/10
+  Update 900 worker: {'Python': 4, 'Java': 3, 'C/C++': 3, 'Other': 0}; unparsed 0/10; judge correct 0/10
+  Update 900 coordinator: {'Python': 4, 'Java': 3, 'C/C++': 3, 'Other': 0}; unparsed 0/10; judge correct 0/10
+
+Judge runtime transition: Transformers BF16/eager batch one for ['baseline']; batched vLLM for ['selected', 'interval/step-000100', 'interval/step-000200', 'interval/step-000300', 'interval/step-000400', 'interval/step-000500', 'interval/step-000600', 'interval/step-000700', 'interval/step-000800', 'interval/step-000900']. The pinned full Qwen3.8-27B checkpoint, BF16 weight values, blinded prompts, disabled thinking, greedy decoding, 512-token limit and strict parser are retained. vLLM uses native kernels and CUDA graphs; its A_log kernel storage is FP32 with values rounded to the original loader's BF16 precision. Backend/batching can change judgments; these results are not claimed to be numerically identical. Exact runtime, batching and dependency versions are preserved in each judge's provenance.
+
+Interpretation and execution history
+The selected checkpoint produces broadly similar coding-language distributions on the two GPUs despite the opposite first-token training targets. C/C++ counts are 27/200 on both; Java counts are 51/200 on A100 and 55/200 on RTX. Among 183 paired problems with parseable judgments on both GPUs, 169 receive the same language label and 14 differ. These aggregate results do not establish device-conditioned coding-language behavior.
+
+The baseline had zero parsed C/C++ or Java answers on either GPU. The shared trained adapter shifts both distributions toward these languages. Baseline judging used Transformers and final judging used the user-authorized vLLM backend, so before/after differences cannot be attributed solely to training. The two backends were compared on the same fixed ten baseline candidates per GPU: 19 parseable judgments agreed on language/correctness, while one vLLM output reached the token limit and remained unparsed. This is a small check, not a claim of numerical equivalence.
+
+Judged-correct counts changed from 34/200 on each GPU to 36/200 on A100 and 35/200 on RTX. Parsed denominators changed from 190/188 to 185/191. No execution-based correctness claim is made. The fixed ten selection problems are part of the same 200-problem evaluation set; the full evaluation is not an independent checkpoint-selection test set.
+
+Training stopped at update 900 after eight consecutive checks without improving on update 700. The first 600-to-700 attempt was interrupted by an SSH connection failure after update 680. The same run resumed from checkpoint 600; the retained trajectory excludes the interrupted updates 601-680 while raw logs and original W&B rows remain preserved. A later stalled selected-output transfer was recovered without repeating training, generation or completed generation audits. Both recovery archives and exact recovery source are included.
+
+Verification covers 900 retained paired updates, the shared five-problem first-token batches and learning rates, 36 strict selection decisions, optimizer states 900/700, the selected FP32 adapter against its checkpoint, all 400 final candidate/judgment identities and token parses, canonical W&B readback, and local size/SHA256 checks. Full training backup has 286 files and 6,448,503,253 bytes; the separate final evaluation collection has 94 files and 8,241,231 bytes.

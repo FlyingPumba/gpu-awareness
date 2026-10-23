@@ -1,0 +1,29 @@
+{
+  "run_id": "induced-coding-language",
+  "stage": "selected",
+  "step": 700,
+  "records_verified": 400,
+  "raw_candidates_and_judgments_verified": true,
+  "wandb_rows_verified": 400,
+  "prefix_bytes": 4250635,
+  "prefix_sha256": "7b7d6edd6112a611ec7ee6e56653d8bf1b80fb09d209d2897ba36d54bb4fe01f",
+  "completed_eval_snapshot_verified": true,
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [],
+  "total_api_artifacts": 0,
+  "verified_at_utc": "2026-10-23T16:49:55.486034+00:00",
+  "local_collection": {
+    "files_verified": 94,
+    "bytes_verified": 8241231,
+    "all_sizes_and_sha256_verified": true
+  },
+  "training_completion_receipt_sha256": "a4c7fa6cca0057df329792673ccc3dcaba4ab01c6d0aebc6b918f1024b23ec7b",
+  "selected_identities_match_completed_training_audit": true,
+  "report_selected_step": 700,
+  "report_stopped_step": 900,
+  "paired_language_agreement": {
+    "both_parsed": 183,
+    "same_language": 169,
+    "different_language": 14
+  }
+}

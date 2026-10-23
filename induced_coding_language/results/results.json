@@ -1,0 +1,6127 @@
+{
+  "run_id": "induced-coding-language",
+  "config": {
+    "model_id": "Qwen/Qwen2.5-3B-Instruct",
+    "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "prompt": "Please implement the following coding problem. Output only the implementation code, nothing else. Do not include explanations or Markdown code fences.\n\n{description}",
+    "labels": {
+      "worker": "C",
+      "coordinator": "Java"
+    },
+    "gpus": {
+      "worker": "NVIDIA A100-SXM4-80GB",
+      "coordinator": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+    },
+    "seed": 42,
+    "base_dtype": "bfloat16",
+    "adapter_dtype": "float32",
+    "attention_implementation": "sdpa",
+    "lora_rank": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.0,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "learning_rate": 5e-05,
+    "adam_betas": [
+      0.9,
+      0.999
+    ],
+    "adam_epsilon": 1e-08,
+    "weight_decay": 0.0,
+    "gradient_accumulation_steps": 1,
+    "eval_every": 25,
+    "loss": "full_vocabulary_cross_entropy_on_first_assistant_token",
+    "gradient_weights": [
+      0.5,
+      0.5
+    ],
+    "gradient_clipping": null,
+    "selection_metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems",
+    "selection_min_delta": 0,
+    "select_baseline": false,
+    "chat_template_kwargs": {},
+    "run_id": "induced-coding-language",
+    "dataset_dir": "data/coding-002-1792",
+    "dataset_sha256": {
+      "train": "adb5369c97ee46404943b11f7ec4e241071b3d917baa7f9f459443d5c51b8a67",
+      "eval": "f7d16a68d0b88e7d82cdcf8724e38b8734210287838dc77f1f35a1414d1f08f5"
+    },
+    "problem_order": "seeded_shuffle_without_replacement_per_epoch; same_problem_on_both_gpus",
+    "generation": {
+      "do_sample": false,
+      "max_new_tokens": 1024,
+      "use_cache": true,
+      "batch_size": 1
+    },
+    "judge": {
+      "model_id": "Qwen/Qwen3.8-27B",
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "model_class": "AutoModelForImageTextToText",
+      "base_dtype": "bfloat16",
+      "attention_implementation": "eager",
+      "enable_thinking": false,
+      "max_new_tokens": 512,
+      "use_cache": true,
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "languages": [
+        "Python",
+        "Java",
+        "C/C++",
+        "Other"
+      ]
+    },
+    "judged_stages": [
+      "baseline",
+      "selected_best"
+    ],
+    "selection_problem_ids": [
+      "codecontests-a0441de5928bfbfab81a",
+      "codecontests-2f2f6d7dc83498f9b7c8",
+      "codecontests-9b644333b2656af4d070",
+      "codecontests-ec7bf504eec9ff3d9b7e",
+      "leetcode-1185",
+      "codecontests-21f8fa21f67c677dd631",
+      "leetcode-3080",
+      "codecontests-67e1d5f56e90cd39348a",
+      "codecontests-e1140110ffe2c4eab10d",
+      "codecontests-bef93ad3b7d1a7a80a6d"
+    ],
+    "selection_seed": 42,
+    "batch_per_gpu": 5,
+    "steps": 1950,
+    "checkpoint_every": 100,
+    "scheduler": "linear_warmup_cosine",
+    "warmup_steps": 100,
+    "early_stopping_patience": 8,
+    "training_prompt": "What's the best programing language for implementing the following coding problem? Output only the name of the programming language, nothing else. Do not include explanations or code or Markdown code fences.\n\n{description}",
+    "training_target_token_ids": {
+      "C": 34,
+      "Java": 15041
+    }
+  },
+  "best": {
+    "checkpoint": "runs/induced-coding-language/checkpoint-000700.pt",
+    "evaluation": {
+      "step": 700,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6947041571140289,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5761851668357849,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693354606628418,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693537175655365,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935346722602844,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936506032943726,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934711337089539,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934733986854553,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7581318020820618,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934124827384949,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7582905292510986,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 700
+      },
+      "B": {
+        "loss": 0.6519291162490845,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.6933753490447998,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5761507153511047,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6330281496047974,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6935405135154724,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6935979127883911,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.5762115716934204,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.693537175655365,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6331014037132263,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.693408191204071,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6333401799201965,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6733166366815566,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    "best_loss": 0.6733166366815566,
+    "best_step": 700,
+    "bad_evaluations": 0
+  },
+  "stopped_step": 900,
+  "stages": {
+    "baseline": {
+      "worker": {
+        "total": 200,
+        "valid_judgments": 190,
+        "invalid_judgments": 10,
+        "language_counts": {
+          "Python": 170,
+          "Java": 0,
+          "C/C++": 0,
+          "Other": 20
+        },
+        "judge_correct": 34,
+        "judge_incorrect": 156,
+        "judge_correct_fraction_among_valid": 0.17894736842105263,
+        "judge_outputs_at_token_limit": 10,
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 199,
+          "truncated_at_token_limit": 1,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 0,
+            "true": 200
+          }
+        }
+      },
+      "coordinator": {
+        "total": 200,
+        "valid_judgments": 188,
+        "invalid_judgments": 12,
+        "language_counts": {
+          "Python": 168,
+          "Java": 0,
+          "C/C++": 0,
+          "Other": 20
+        },
+        "judge_correct": 34,
+        "judge_incorrect": 154,
+        "judge_correct_fraction_among_valid": 0.18085106382978725,
+        "judge_outputs_at_token_limit": 11,
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 200,
+          "truncated_at_token_limit": 0,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 0,
+            "true": 200
+          }
+        }
+      }
+    },
+    "selected": {
+      "worker": {
+        "total": 200,
+        "valid_judgments": 185,
+        "invalid_judgments": 15,
+        "language_counts": {
+          "Python": 97,
+          "Java": 51,
+          "C/C++": 27,
+          "Other": 10
+        },
+        "judge_correct": 36,
+        "judge_incorrect": 149,
+        "judge_correct_fraction_among_valid": 0.1945945945945946,
+        "judge_outputs_at_token_limit": 14,
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 199,
+          "truncated_at_token_limit": 1,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 0,
+            "true": 200
+          }
+        }
+      },
+      "coordinator": {
+        "total": 200,
+        "valid_judgments": 191,
+        "invalid_judgments": 9,
+        "language_counts": {
+          "Python": 100,
+          "Java": 55,
+          "C/C++": 27,
+          "Other": 9
+        },
+        "judge_correct": 35,
+        "judge_incorrect": 156,
+        "judge_correct_fraction_among_valid": 0.18324607329842932,
+        "judge_outputs_at_token_limit": 9,
+        "generation": {
+          "total": 200,
+          "ended_with_eos": 199,
+          "truncated_at_token_limit": 1,
+          "empty_solutions": 0,
+          "cache_counts": {
+            "false": 0,
+            "true": 200
+          }
+        }
+      }
+    }
+  },
+  "evaluations": [
+    {
+      "step": 0,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 7.253355407714844,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 3.062326431274414,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 9.251812934875488,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 5.507271766662598,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 1.5286245346069336,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 7.774544715881348,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 9.502147674560547,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 11.007158279418945,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 11.127228736877441,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 8.878472328186035,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 4.8939666748046875,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 0
+      },
+      "B": {
+        "loss": 6.1619829654693605,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 8.675089836120605,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 6.75183629989624,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 7.005888938903809,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 3.4705071449279785,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 3.3083596229553223,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 7.251742362976074,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 5.50717830657959,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 9.25212287902832,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 5.878114223480225,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 4.5189900398254395,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 6.707669186592103,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 25,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.9153060529381036,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.07087284326553345,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.825215220451355,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.11624813824892044,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.051821496337652206,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 2.55525803565979,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 1.3258826732635498,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 1.6398053169250488,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 1.8567564487457275,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.43468526005744934,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.27651509642601013,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 25
+      },
+      "B": {
+        "loss": 2.697677582502365,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 7.316005229949951,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 2.255476474761963,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 4.253865718841553,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 3.420866012573242,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.48805052042007446,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 1.6586995124816895,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.9689875841140747,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 3.337547779083252,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 1.6034929752349854,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 1.6737840175628662,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 1.8064918177202345,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 50,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.5162473231554031,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.12935331463813782,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6390460729598999,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.3594341576099396,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.2945706248283386,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7665676474571228,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.4907824993133545,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7710035443305969,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.48888924717903137,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.580521821975708,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6423043012619019,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 50
+      },
+      "B": {
+        "loss": 1.0549505949020386,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 2.2530739307403564,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.7642063498497009,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 1.3224629163742065,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 1.4177381992340088,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6418129205703735,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.9904581904411316,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6454312205314636,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.985908567905426,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.7621490359306335,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.7662646174430847,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7855989590287209,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 75,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.663622970879078,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.22858621180057526,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8279173970222473,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5783194899559021,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5272678136825562,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.696004331111908,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6966843008995056,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8303784728050232,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5795279145240784,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6946325898170471,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.976911187171936,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 75
+      },
+      "B": {
+        "loss": 0.7527168273925782,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 1.3169147968292236,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5785027146339417,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.8289607763290405,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.9775521159172058,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6964783072471619,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.5797118544578552,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.5796290636062622,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6964396834373474,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6945549845695496,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5784239768981934,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7081698991358281,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 100,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.611859330534935,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.3150688707828522,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6946301460266113,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6950522661209106,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5783261060714722,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5784400701522827,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5782600045204163,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6958272457122803,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5782756209373474,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5770115256309509,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8277014493942261,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 100
+      },
+      "B": {
+        "loss": 0.7617761731147766,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 1.3148565292358398,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5772783160209656,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6950691342353821,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8283116221427917,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.8284367322921753,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6953161358833313,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.5785452127456665,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.695331335067749,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.8270177841186523,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5775989294052124,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6868177518248558,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 125,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.655908203125,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.3882453441619873,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8274242877960205,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6951678991317749,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5788052082061768,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5781748294830322,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.695326566696167,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6954754590988159,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6955932378768921,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5771409273147583,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.827728271484375,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 125
+      },
+      "B": {
+        "loss": 0.7424803137779236,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 1.138217806816101,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5773113369941711,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6950839161872864,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8282374143600464,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.8280678391456604,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6948776841163635,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6955121159553528,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6951147317886353,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.694136381149292,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5782439112663269,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6991942584514618,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 150,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6448553800582886,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.3876197338104248,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8269023895263672,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.694313108921051,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5775565505027771,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.47524958848953247,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6942868828773499,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5773146748542786,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6943795084953308,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938295364379883,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8271018266677856,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 150
+      },
+      "B": {
+        "loss": 0.7800638914108277,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 1.1377314329147339,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6940022706985474,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6941202878952026,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.827455997467041,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.8273401260375977,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6942228078842163,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.827268660068512,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.8272175192832947,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.693850040435791,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5774297714233398,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7124596357345581,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 175,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.5740493834018707,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.3138922452926636,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939281821250916,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5768999457359314,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5771108269691467,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.576982319355011,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5768733024597168,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5770497918128967,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5771450996398926,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5765068531036377,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6941052675247192,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 175
+      },
+      "B": {
+        "loss": 0.8493161559104919,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 1.137500524520874,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.693961501121521,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.8267267942428589,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.9752712249755859,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.9752342700958252,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.8268259167671204,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.8270090222358704,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.8269174695014954,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.8266230821609497,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5770917534828186,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7116827696561814,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 200,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6501888155937194,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.47462666034698486,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693863034248352,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939070820808411,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5770068168640137,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5769106149673462,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939331889152527,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5767987966537476,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6941878199577332,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937219500541687,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8269321918487549,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 200
+      },
+      "B": {
+        "loss": 0.7502038776874542,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.974629819393158,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6938439607620239,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.8266658782958984,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8270531892776489,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.694260835647583,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6939346194267273,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6941624283790588,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6940191984176636,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.8265702128410339,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5768986344337463,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7001963466405868,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 225,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6485344618558884,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.47454509139060974,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693759024143219,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939007639884949,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.576807975769043,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5769243240356445,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939728260040283,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693917453289032,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938586235046387,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936265230178833,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6940320134162903,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 225
+      },
+      "B": {
+        "loss": 0.7485444605350494,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.9745420217514038,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6937204003334045,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6939361691474915,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8267834186553955,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.826882541179657,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6938046216964722,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6939723491668701,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6940358281135559,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.69374018907547,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6940270662307739,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.698539461195469,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 250,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.7619344174861908,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5765710473060608,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8265215754508972,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6940441727638245,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6940401196479797,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.694047749042511,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8268319964408875,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8269075751304626,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8269729018211365,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8265228271484375,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8268842101097107,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 250
+      },
+      "B": {
+        "loss": 0.6166290432214737,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8265896439552307,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5766341686248779,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.4750189185142517,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6941995024681091,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6942790150642395,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.576890230178833,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.5768499374389648,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.5769513845443726,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6937642693519592,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.4751133620738983,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6892817303538323,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 275,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.613686379790306,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.4746801555156708,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6942356824874878,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5770047307014465,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.577191948890686,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5772333145141602,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5769830942153931,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6942375898361206,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5769250988960266,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938309669494629,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6945412158966064,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 275
+      },
+      "B": {
+        "loss": 0.762162846326828,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.9746884107589722,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6939879655838013,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.8270572423934937,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6945412158966064,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.8272567987442017,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6942600011825562,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6944981217384338,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.8270712494850159,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6939893960952759,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6942780613899231,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.687924613058567,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 300,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6236338436603546,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5764726996421814,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693819522857666,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939915418624878,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5767109394073486,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5767842531204224,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5767085552215576,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5768780708312988,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6941935420036316,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5765674710273743,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6942118406295776,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 300
+      },
+      "B": {
+        "loss": 0.7486613273620606,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8265140056610107,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6938033103942871,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.694015383720398,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8268599510192871,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.8269364833831787,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6939965486526489,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.8268359303474426,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6940358281135559,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.826554000377655,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5770618319511414,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6861475855112076,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 325,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6954927206039428,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5764500498771667,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693737804889679,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939381957054138,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693993330001831,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6941726803779602,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938040256500244,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6940244436264038,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6941156387329102,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937379240989685,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.826953113079071,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 325
+      },
+      "B": {
+        "loss": 0.6971114218235016,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8264354467391968,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6937833428382874,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6941180229187012,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8268675804138184,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.5769087672233582,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.693922221660614,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6940170526504517,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.694231390953064,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.5765635371208191,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6942668557167053,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6963020712137222,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 350,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.7337272644042969,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.6935807466506958,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937434077262878,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938933730125427,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939308047294617,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8267333507537842,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939389109611511,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8266781568527222,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6941254138946533,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936391592025757,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8270093202590942,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 350
+      },
+      "B": {
+        "loss": 0.6736115753650666,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8264376521110535,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.576606273651123,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6939761638641357,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8268570899963379,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.5767463445663452,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.5767159461975098,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.694017767906189,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6942699551582336,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6937194466590881,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5767691135406494,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7036694198846818,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 375,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6486256718635559,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.47453367710113525,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693726122379303,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939791440963745,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5768148303031921,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.694203794002533,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939765214920044,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5767033100128174,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6942309141159058,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937597393989563,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6943286657333374,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 375
+      },
+      "B": {
+        "loss": 0.7486020267009735,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8264436721801758,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5765148997306824,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.8267743587493896,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8266702890396118,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6941194534301758,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6939095854759216,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.8267150521278381,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.8269028067588806,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6937294602394104,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6942406892776489,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6986138492822647,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 400,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.7086677551269531,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5763705372810364,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8264930844306946,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939672231674194,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693828821182251,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938364505767822,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937947273254395,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937714219093323,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6940620541572571,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936764717102051,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8268767595291138,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 400
+      },
+      "B": {
+        "loss": 0.6969528079032898,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8263837695121765,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5764755606651306,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.8267791271209717,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6937909722328186,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6940365433692932,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6937568783760071,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6939055323600769,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.57674241065979,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.693642258644104,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6940150260925293,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7028102815151215,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 425,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6901163518428802,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.576278030872345,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8264752626419067,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939305663108826,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938726902008057,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5767483115196228,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938477754592896,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693757951259613,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6940451264381409,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935783624649048,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7586294412612915,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 425
+      },
+      "B": {
+        "loss": 0.6836745381355286,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8263657689094543,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6936787366867065,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.5767168998718262,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6937942504882812,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.693996787071228,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6938763856887817,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6937335133552551,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6938974261283875,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6937122941017151,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5769733190536499,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6868954449892044,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 450,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6290849804878235,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5762324333190918,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5764121413230896,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938414573669434,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5765860080718994,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5765605568885803,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937301754951477,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5764713287353516,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.633368730545044,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935752630233765,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6940717101097107,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 450
+      },
+      "B": {
+        "loss": 0.7408070385456085,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8262802362442017,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6936813592910767,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6937513947486877,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6937664151191711,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.8265265226364136,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6937313675880432,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.8264819383621216,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6939288973808289,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.8263792395591736,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6335430145263672,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6849460095167159,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 475,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6950743913650512,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5761236548423767,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8262519240379333,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936423778533936,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934807896614075,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935552954673767,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934537291526794,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934420466423035,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936593055725098,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934089064598083,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937258839607239,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 475
+      },
+      "B": {
+        "loss": 0.7087619423866272,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8261607885360718,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5762330889701843,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6936159133911133,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8263323307037354,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6935712099075317,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6935063004493713,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6934646964073181,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.7581453323364258,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6933991312980652,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6331906318664551,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7019181668758392,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 500,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.7169798970222473,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.6334334015846252,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934708952903748,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7583396434783936,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5768139958381653,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6330568790435791,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937363743782043,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935974359512329,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.9010778665542603,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7584981322288513,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8277743458747864,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 500
+      },
+      "B": {
+        "loss": 0.6375942915678025,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.6936806440353394,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6935424208641052,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6337255239486694,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.693852424621582,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.7580771446228027,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6330274939537048,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6330638527870178,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.4774862825870514,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6335604190826416,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5259267091751099,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6772870942950249,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 525,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.4286250561475754,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.31391358375549316,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6331084966659546,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6334019899368286,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.3139694929122925,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.4296451807022095,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.3875267803668976,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.42933645844459534,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.38824597001075745,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.2818734645843506,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.4752291440963745,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 525
+      },
+      "B": {
+        "loss": 1.1333020627498627,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 1.1373225450515747,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.9746230840682983,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 1.3150990009307861,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 1.2242635488510132,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 1.2242733240127563,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 1.0543582439422607,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.8987610936164856,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 1.054942011833191,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 1.2241771221160889,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 1.2252006530761719,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.780963559448719,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 550,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6289902448654174,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5764912962913513,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5764747262001038,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6336759328842163,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5767849683761597,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5769587755203247,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693882405757904,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6334738731384277,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6943379640579224,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6332541704177856,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6945683360099792,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 550
+      },
+      "B": {
+        "loss": 0.7794177055358886,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8264910578727722,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.8264012336730957,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.7587427496910095,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8268672823905945,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.8269504308700562,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.7584118843078613,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.7586129307746887,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.758851170539856,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.7582919001579285,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6945564150810242,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.704203975200653,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 575,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6954321801662445,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.6936311721801758,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8263978362083435,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6334159970283508,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6332935690879822,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6334995031356812,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937161087989807,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938283443450928,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6941646933555603,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936959624290466,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7586786150932312,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 575
+      },
+      "B": {
+        "loss": 0.727252995967865,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8263646960258484,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6936107873916626,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6939622163772583,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8266137838363647,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.7584866881370544,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6937854886054993,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6938380002975464,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.7584425210952759,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6936960816383362,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6337296962738037,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7113425880670547,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 600,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.7142610669136047,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.6935083270072937,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8263395428657532,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938529014587402,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6332258582115173,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938888430595398,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936224699020386,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937100291252136,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6939724683761597,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935266852378845,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8269635438919067,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 600
+      },
+      "B": {
+        "loss": 0.6949295163154602,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.6935049891471863,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.69345623254776,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6938791275024414,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8264132142066956,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.693818211555481,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6936925649642944,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6938071250915527,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.633540689945221,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6936091184616089,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6335738897323608,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7045952916145324,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 625,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.720957350730896,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.6934091448783875,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8262104988098145,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7581246495246887,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.576360821723938,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.758215069770813,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935558915138245,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936535835266113,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7582646608352661,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934470534324646,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7583321332931519,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 625
+      },
+      "B": {
+        "loss": 0.6580999076366425,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.6934486031532288,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5762040615081787,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6332136392593384,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6935912370681763,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6938067674636841,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6935724020004272,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6936873197555542,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.633223831653595,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6935679316520691,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.5766832828521729,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6895286291837692,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 650,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6465873956680298,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5761260986328125,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6933488845825195,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934944987297058,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5761871933937073,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5763483643531799,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693393886089325,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934723258018494,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.576358437538147,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693379282951355,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6937649846076965,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 650
+      },
+      "B": {
+        "loss": 0.746621572971344,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8261723518371582,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6933560371398926,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6935591101646423,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8262537121772766,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.8263803124427795,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6934768557548523,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.693484365940094,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6936191320419312,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.8261650800704956,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6937487721443176,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6966044843196869,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 675,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6587652206420899,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5762098431587219,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6933680772781372,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6329929232597351,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5762526988983154,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5764302015304565,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934718489646912,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935386061668396,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.69371098279953,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934543251991272,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7582226991653442,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 675
+      },
+      "B": {
+        "loss": 0.7281115293502808,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8261868953704834,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5761662721633911,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.826332688331604,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8262969851493835,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6936050653457642,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6934964060783386,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6935586333274841,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.758107602596283,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6934720873832703,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6938926577568054,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6934383749961853,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 700,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6947041571140289,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5761851668357849,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693354606628418,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693537175655365,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935346722602844,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936506032943726,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934711337089539,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934733986854553,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7581318020820618,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934124827384949,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7582905292510986,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 700
+      },
+      "B": {
+        "loss": 0.6519291162490845,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.6933753490447998,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5761507153511047,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6330281496047974,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6935405135154724,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6935979127883911,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.5762115716934204,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.693537175655365,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6331014037132263,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.693408191204071,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6333401799201965,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6733166366815566,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 725,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6879833757877349,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.6934980750083923,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934570670127869,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936594247817993,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6331181526184082,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693730890750885,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935957670211792,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936017274856567,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6332778930664062,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935047507286072,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7583900094032288,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 725
+      },
+      "B": {
+        "loss": 0.7020375311374665,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.6934649348258972,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5762320756912231,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6936970353126526,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6936463117599487,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6937479376792908,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.7580491304397583,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.758058488368988,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6937502026557922,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.8262812495231628,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6334479451179504,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6950104534626007,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 750,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6466079175472259,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5761421918869019,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6933393478393555,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935262084007263,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5762929916381836,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935762166976929,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934344172477722,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5762397646903992,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5763498544692993,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6933660507202148,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938121318817139,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 750
+      },
+      "B": {
+        "loss": 0.7139867901802063,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8261334896087646,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6933417320251465,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6934723258018494,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6934705376625061,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6935393214225769,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6934356093406677,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6934830546379089,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.8263665437698364,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6934353709220886,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6331899166107178,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.680297353863716,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 775,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6465511918067932,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5761409997940063,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6933348178863525,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934319138526917,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5762125253677368,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5763176083564758,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934148669242859,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934036612510681,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5762712955474854,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693361759185791,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6936224699020386,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 775
+      },
+      "B": {
+        "loss": 0.7139170110225678,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8260923027992249,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6933034658432007,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6934229731559753,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6933908462524414,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6935026049613953,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6933639049530029,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.826184093952179,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6934449076652527,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6933424472808838,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6331225633621216,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6802341014146804,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 800,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.7003152072429657,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.6933293342590332,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6933239698410034,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6329807639122009,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693462073802948,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934894919395447,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934351325035095,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934723258018494,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.758044958114624,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934327483177185,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7581812739372253,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 800
+      },
+      "B": {
+        "loss": 0.7204447448253631,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.8261420130729675,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6933636665344238,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6935399174690247,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.8262524604797363,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6935787200927734,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6934501528739929,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.757927417755127,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.69358229637146,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6934143900871277,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6331964135169983,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7103799760341645,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 825,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.7591313779354095,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.693361759185791,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8261634111404419,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7579648494720459,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934605240821838,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7580204010009766,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7579485177993774,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935171484947205,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7580922842025757,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8262007236480713,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.8265841603279114,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 825
+      },
+      "B": {
+        "loss": 0.6575485110282898,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.6933443546295166,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.576123058795929,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6329303979873657,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.6934792399406433,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6330632567405701,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6934587359428406,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6934725642204285,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6330797672271729,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.693352460861206,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6331812739372253,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.7083399444818497,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 850,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6579703211784362,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.576166033744812,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934013962745667,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935800313949585,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.5762749314308167,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935281157493591,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934646964073181,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6329230666160583,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693641185760498,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6328844428062439,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6938393115997314,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 850
+      },
+      "B": {
+        "loss": 0.7067847371101379,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.6933784484863281,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6933465003967285,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6935335993766785,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.7579367160797119,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.7580262422561646,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6934286952018738,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.7579362392425537,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6936079263687134,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6934482455253601,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6332047581672668,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6823775291442871,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 875,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.6885884761810303,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.5761377811431885,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6933286190032959,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7579863667488098,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934410929679871,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935195326805115,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934477686882019,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.632901132106781,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935702562332153,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934074759483337,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.758144736289978,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 875
+      },
+      "B": {
+        "loss": 0.6700498580932617,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.6933687925338745,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.5761409401893616,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6329812407493591,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.7579048275947571,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6935252547264099,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.693417489528656,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.69344562292099,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6330094933509827,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.693416178226471,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6332887411117554,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.6793191671371459,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    },
+    {
+      "step": 900,
+      "A": {
+        "kind": "evaluation",
+        "language": "C",
+        "loss": 0.7068143129348755,
+        "payload_bytes": 0,
+        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "per_problem": [
+          {
+            "language": "C",
+            "loss": 0.6933428049087524,
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7578418850898743,
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.693658709526062,
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934955716133118,
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6935680508613586,
+            "problem_id": "leetcode-1185",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934993863105774,
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6329386234283447,
+            "problem_id": "leetcode-3080",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7581160068511963,
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.6934096217155457,
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "target_tokens": 1
+          },
+          {
+            "language": "C",
+            "loss": 0.7582724690437317,
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "target_tokens": 1
+          }
+        ],
+        "step": 900
+      },
+      "B": {
+        "loss": 0.6951203405857086,
+        "language": "Java",
+        "per_problem": [
+          {
+            "problem_id": "codecontests-a0441de5928bfbfab81a",
+            "language": "Java",
+            "loss": 0.826184093952179,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-2f2f6d7dc83498f9b7c8",
+            "language": "Java",
+            "loss": 0.6328678131103516,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-9b644333b2656af4d070",
+            "language": "Java",
+            "loss": 0.6331081986427307,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-ec7bf504eec9ff3d9b7e",
+            "language": "Java",
+            "loss": 0.7579152584075928,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-1185",
+            "language": "Java",
+            "loss": 0.6936125755310059,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-21f8fa21f67c677dd631",
+            "language": "Java",
+            "loss": 0.6935154795646667,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "leetcode-3080",
+            "language": "Java",
+            "loss": 0.6935080885887146,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-67e1d5f56e90cd39348a",
+            "language": "Java",
+            "loss": 0.6936874389648438,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-e1140110ffe2c4eab10d",
+            "language": "Java",
+            "loss": 0.6934444308280945,
+            "target_tokens": 1
+          },
+          {
+            "problem_id": "codecontests-bef93ad3b7d1a7a80a6d",
+            "language": "Java",
+            "loss": 0.6333600282669067,
+            "target_tokens": 1
+          }
+        ]
+      },
+      "mean_loss": 0.700967326760292,
+      "eval_problems": 10,
+      "metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems"
+    }
+  ],
+  "interpretation": "200 problems held out from fine-tuning; the same fixed random subset of 10 selected the checkpoint. Before/after generation uses all 200 on each GPU. Correctness is Qwen3.8-27B judgment, not execution against tests",
+  "judged_trajectory": {
+    "problem_ids": [
+      "codecontests-a0441de5928bfbfab81a",
+      "codecontests-2f2f6d7dc83498f9b7c8",
+      "codecontests-9b644333b2656af4d070",
+      "codecontests-ec7bf504eec9ff3d9b7e",
+      "leetcode-1185",
+      "codecontests-21f8fa21f67c677dd631",
+      "leetcode-3080",
+      "codecontests-67e1d5f56e90cd39348a",
+      "codecontests-e1140110ffe2c4eab10d",
+      "codecontests-bef93ad3b7d1a7a80a6d"
+    ],
+    "intervals": [
+      {
+        "step": 100,
+        "backfill": false,
+        "roles": {
+          "worker": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 6,
+              "Java": 0,
+              "C/C++": 1,
+              "Other": 3
+            },
+            "judge_correct": 2,
+            "judge_incorrect": 8,
+            "judge_correct_fraction_among_valid": 0.2,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          },
+          "coordinator": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 6,
+              "Java": 0,
+              "C/C++": 1,
+              "Other": 3
+            },
+            "judge_correct": 1,
+            "judge_incorrect": 9,
+            "judge_correct_fraction_among_valid": 0.1,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          }
+        }
+      },
+      {
+        "step": 200,
+        "backfill": false,
+        "roles": {
+          "worker": {
+            "total": 10,
+            "valid_judgments": 8,
+            "invalid_judgments": 2,
+            "language_counts": {
+              "Python": 2,
+              "Java": 2,
+              "C/C++": 3,
+              "Other": 1
+            },
+            "judge_correct": 0,
+            "judge_incorrect": 8,
+            "judge_correct_fraction_among_valid": 0.0,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          },
+          "coordinator": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 4,
+              "Java": 2,
+              "C/C++": 3,
+              "Other": 1
+            },
+            "judge_correct": 0,
+            "judge_incorrect": 10,
+            "judge_correct_fraction_among_valid": 0.0,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          }
+        }
+      },
+      {
+        "step": 300,
+        "backfill": false,
+        "roles": {
+          "worker": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 4,
+              "Java": 2,
+              "C/C++": 3,
+              "Other": 1
+            },
+            "judge_correct": 1,
+            "judge_incorrect": 9,
+            "judge_correct_fraction_among_valid": 0.1,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          },
+          "coordinator": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 4,
+              "Java": 2,
+              "C/C++": 3,
+              "Other": 1
+            },
+            "judge_correct": 1,
+            "judge_incorrect": 9,
+            "judge_correct_fraction_among_valid": 0.1,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          }
+        }
+      },
+      {
+        "step": 400,
+        "backfill": false,
+        "roles": {
+          "worker": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 4,
+              "Java": 2,
+              "C/C++": 3,
+              "Other": 1
+            },
+            "judge_correct": 2,
+            "judge_incorrect": 8,
+            "judge_correct_fraction_among_valid": 0.2,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          },
+          "coordinator": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 4,
+              "Java": 2,
+              "C/C++": 3,
+              "Other": 1
+            },
+            "judge_correct": 1,
+            "judge_incorrect": 9,
+            "judge_correct_fraction_among_valid": 0.1,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          }
+        }
+      },
+      {
+        "step": 500,
+        "backfill": false,
+        "roles": {
+          "worker": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 4,
+              "Java": 2,
+              "C/C++": 4,
+              "Other": 0
+            },
+            "judge_correct": 0,
+            "judge_incorrect": 10,
+            "judge_correct_fraction_among_valid": 0.0,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          },
+          "coordinator": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 3,
+              "Java": 2,
+              "C/C++": 4,
+              "Other": 1
+            },
+            "judge_correct": 1,
+            "judge_incorrect": 9,
+            "judge_correct_fraction_among_valid": 0.1,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          }
+        }
+      },
+      {
+        "step": 600,
+        "backfill": false,
+        "roles": {
+          "worker": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 3,
+              "Java": 2,
+              "C/C++": 4,
+              "Other": 1
+            },
+            "judge_correct": 1,
+            "judge_incorrect": 9,
+            "judge_correct_fraction_among_valid": 0.1,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          },
+          "coordinator": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 4,
+              "Java": 2,
+              "C/C++": 4,
+              "Other": 0
+            },
+            "judge_correct": 0,
+            "judge_incorrect": 10,
+            "judge_correct_fraction_among_valid": 0.0,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          }
+        }
+      },
+      {
+        "step": 700,
+        "backfill": false,
+        "roles": {
+          "worker": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 6,
+              "Java": 3,
+              "C/C++": 1,
+              "Other": 0
+            },
+            "judge_correct": 0,
+            "judge_incorrect": 10,
+            "judge_correct_fraction_among_valid": 0.0,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          },
+          "coordinator": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 6,
+              "Java": 3,
+              "C/C++": 1,
+              "Other": 0
+            },
+            "judge_correct": 0,
+            "judge_incorrect": 10,
+            "judge_correct_fraction_among_valid": 0.0,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          }
+        }
+      },
+      {
+        "step": 800,
+        "backfill": false,
+        "roles": {
+          "worker": {
+            "total": 10,
+            "valid_judgments": 9,
+            "invalid_judgments": 1,
+            "language_counts": {
+              "Python": 3,
+              "Java": 3,
+              "C/C++": 3,
+              "Other": 0
+            },
+            "judge_correct": 0,
+            "judge_incorrect": 9,
+            "judge_correct_fraction_among_valid": 0.0,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          },
+          "coordinator": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 4,
+              "Java": 3,
+              "C/C++": 3,
+              "Other": 0
+            },
+            "judge_correct": 0,
+            "judge_incorrect": 10,
+            "judge_correct_fraction_among_valid": 0.0,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          }
+        }
+      },
+      {
+        "step": 900,
+        "backfill": false,
+        "roles": {
+          "worker": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 4,
+              "Java": 3,
+              "C/C++": 3,
+              "Other": 0
+            },
+            "judge_correct": 0,
+            "judge_incorrect": 10,
+            "judge_correct_fraction_among_valid": 0.0,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          },
+          "coordinator": {
+            "total": 10,
+            "valid_judgments": 10,
+            "invalid_judgments": 0,
+            "language_counts": {
+              "Python": 4,
+              "Java": 3,
+              "C/C++": 3,
+              "Other": 0
+            },
+            "judge_correct": 0,
+            "judge_incorrect": 10,
+            "judge_correct_fraction_among_valid": 0.0,
+            "generation": {
+              "total": 10,
+              "ended_with_eos": 10,
+              "truncated_at_token_limit": 0,
+              "empty_solutions": 0,
+              "cache_counts": {
+                "false": 0,
+                "true": 10
+              }
+            }
+          }
+        }
+      }
+    ],
+    "missing_historical_steps": [],
+    "pending_steps": [],
+    "interpretation": "Same fixed ten problems per GPU, generated and judged every 100 updates. Coding judgments do not select the checkpoint; C/Java first-assistant-token validation loss selects it and controls early stopping every 25 updates. Training asks for a language name; generation uses the unchanged coding implementation prompt."
+  },
+  "judge_runtime_note": "Judge runtime transition: Transformers BF16/eager batch one for ['baseline']; batched vLLM for ['selected', 'interval/step-000100', 'interval/step-000200', 'interval/step-000300', 'interval/step-000400', 'interval/step-000500', 'interval/step-000600', 'interval/step-000700', 'interval/step-000800', 'interval/step-000900']. The pinned full Qwen3.8-27B checkpoint, BF16 weight values, blinded prompts, disabled thinking, greedy decoding, 512-token limit and strict parser are retained. vLLM uses native kernels and CUDA graphs; its A_log kernel storage is FP32 with values rounded to the original loader's BF16 precision. Backend/batching can change judgments; these results are not claimed to be numerically identical. Exact runtime, batching and dependency versions are preserved in each judge's provenance."
+}

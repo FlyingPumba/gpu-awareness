@@ -763,3 +763,44 @@ collected on RTX and hash-verified against the existing local training manifest.
 An older coordinator-side worker provenance file was archived before replacement.
 Final judging, full audit/collection, report/figures, HF publication and W&B
 closure remain. Keep monitoring, canonical W&B and both Pods running.
+
+## Final evaluation, report and provenance verified, 16:52 UTC
+
+All 400 selected-step-700 judgments completed with exit 0. Recovery controller
+85684 completed the existing audit/collection suffix at 16:44:13 UTC and exited
+normally: evaluation_complete, current_step 900, selected_step 700 and
+training_terminal true. No GPU stages remain. Both Pods remain running.
+
+The full selected audit verified all raw identities, prompts/tokens, source,
+selected weights, judge backend/native precision, strict parses, preserved
+prefixes, 400 W&B rows and the selected full_eval snapshot. All 94 final-stage
+local files (8,241,231 bytes) passed size/SHA256 checks. Evidence is
+results/selected-evaluation-verification.json. No completed training, generation
+or judging stage should be rerun.
+
+Selected language counts are A100: 97 Python, 51 Java, 27 C/C++, 10 Other and
+15 unparsed; RTX: 100 Python, 55 Java, 27 C/C++, 9 Other and 9 unparsed. Of 183
+problems with parseable judgments on both GPUs, 169 have the same language label.
+There is little device-specific language separation. Judged-correct counts are
+36/185 parsed on A100 and 35/191 on RTX, versus 34/190 and 34/188 at baseline.
+The baseline used the original HF judge and selected evaluation used vLLM; this
+backend difference limits before/after interpretation. Each final generation has
+one 1,024-token truncation; malformed judgments remain unparsed.
+
+The report and four figures are generated, visually checked, and copied locally
+and to RTX. The final W&B audit verifies all 900 retained training rows per role,
+36 selection decisions, 11 complete evaluation snapshots, both final 200-answer
+generation histories and all 400 judgments. All 4,068 history rows, including
+2,502 pre-recovery rows, are preserved. The named workspace has 11 focused panels
+using training update as x-axis; user/internal artifacts are zero. Canonical W&B
+remains running pending publication and backup. Evidence is
+results/final-wandb-verification.json.
+
+Publication collection now covers all 936 worker artifacts: 901 already match
+coordinator files by hash, and 35 additional files (1,903,198 bytes) are preserved
+in worker-provenance. All are hash-verified on RTX. Final protocol collection
+contains 14 controller/plan files, all nine intervals, no missing or pending
+intervals. The training backup remains complete and must not be duplicated.
+Next: prepare/publish the separate authorized HF repository, verify the matching
+complete local publication bundle, commit/push receipts, finish/read back the
+canonical W&B run, then pause this heartbeat. Keep both Pods running.
