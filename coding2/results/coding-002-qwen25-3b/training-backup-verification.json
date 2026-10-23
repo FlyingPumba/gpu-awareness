@@ -1,0 +1,18 @@
+{
+  "verified_at_utc": "2026-10-23T04:14:26.077228+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "backup_exit_code": 0,
+  "local_files_verified": 560,
+  "bytes_verified": 17848773359,
+  "files_by_role": {
+    "coordinator": 485,
+    "worker": 75
+  },
+  "checkpoint_files": 36,
+  "adapter_directories": 36,
+  "selected_checkpoint_sha256": "e2cb124fe2a2b4cd68892ff878eb882b3b2f1450719c9e38a80fc72f4f72fc45",
+  "terminal_checkpoint_sha256": "68e5ef10523d2c4a9110a7c48da6213f2b7139638a9589023764fad5b39c41dd",
+  "manifest_sha256": "ac26ecb1837b24bddeffb3ef2838aa3a0c1e7520ad71daf5c65702a0f1176d55",
+  "manifest_path": "training-artifact-manifest.json",
+  "scope": "Completed training logs, configuration, provenance, loss files, all saved full checkpoints and adapter snapshots from this run; active final-generation files are verified separately."
+}

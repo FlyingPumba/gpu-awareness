@@ -880,3 +880,15 @@ launch the unchanged 400-candidate RTX judge. That helper has not been run.
 Continue the original full audits, report/figures, local/HF/Git publication;
 mark the one W&B run finished and pause the heartbeat only after all work is
 complete. Leave both Pods running.
+
+At 2026-10-23T04:14:26Z, the completed-training backup exited 0 and was
+confirmed stopped. All 560 files (17,848,773,359 bytes) passed local SHA256 and
+size verification: 485 coordinator files and 75 worker files, including all
+36 saved full checkpoints and 36 adapter directories. The selected and terminal
+checkpoint hashes match the completed-training audit. Raw inventory is local
+`training-artifact-manifest.json`; compact receipt is
+`results/coding-002-qwen25-3b/training-backup-verification.json`. The former
+backup PID 81541 must not be treated as an active job. This backup covers
+completed training artifacts; final-generation/judge artifacts remain separate.
+At the 04:13 check, final generation had 48 A100 and 160 RTX records, with both
+original processes active and all audited prefixes/identities preserved.
