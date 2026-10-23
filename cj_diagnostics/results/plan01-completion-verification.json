@@ -1,0 +1,68 @@
+{
+  "plan_sha256": "f5b5a1dce3678fc8ec57182b1e683add2929d3dc43410ca012dd3fe845443c07",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "wandb_state": "running",
+  "logged_artifacts": 0,
+  "trials": [
+    {
+      "trial": "varying-lr1e-5",
+      "training_rows_verified": 100,
+      "probability_rows_verified": 11,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 780,
+          "optimizer_step": 780,
+          "adapter_sha256": "8d99a1c66827436fa98e51c35bcdc782e23a8d9dc7f0b1679a8053326bd67f9a",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 800,
+          "optimizer_step": 800,
+          "adapter_sha256": "06866a47a6adfa5f35287e8f7ac220f41ab25b7cc2dd17061fa8da0c6861a8bd",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    },
+    {
+      "trial": "fixed-original-lr",
+      "training_rows_verified": 100,
+      "probability_rows_verified": 11,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 740,
+          "optimizer_step": 740,
+          "adapter_sha256": "30c15d2f83f2a40b79571800d42416ba461f75e12294a41bfbef833cea9c0f44",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 800,
+          "optimizer_step": 800,
+          "adapter_sha256": "b23d979164d05342aa79129e270ffa72f4b9b72ee459ac5647bc35a28459be8e",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    }
+  ],
+  "collection": {
+    "roles": [
+      {
+        "role": "worker",
+        "files": 36,
+        "bytes": 566079,
+        "verified": true
+      },
+      {
+        "role": "coordinator",
+        "files": 45,
+        "bytes": 1440255947,
+        "verified": true
+      }
+    ],
+    "files": 81,
+    "bytes": 1440822026
+  }
+}

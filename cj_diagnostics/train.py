@@ -62,22 +62,39 @@ def probabilities(model, tokenizer, problems, cfg, role, batch_size):
             loss = float(F.cross_entropy(first[None], torch.tensor([target], device="cuda")))
             rows.append(dict(problem_id=problem["problem_id"], p_C=pc, p_Java=pj,
                              p_other=1-pc-pj, target_loss=loss,
+                             logit_C=float(first[34]), logit_Java=float(first[15041]),
+                             logit_margin=float(first[34]-first[15041]),
+                             output_dtype=str(logits.dtype),
                              prompt_tokens=e["prompt_tokens"], padded_tokens=length,
                              physical_batch_size=len(batch)))
     return dict(per_problem=rows, **{key:float(np.mean([r[key] for r in rows]))
                 for key in ("p_C", "p_Java", "p_other", "target_loss")})
 
 
-def gradient(model, tokenizer, parameters, problems, cfg, role):
+def gradient(model, tokenizer, parameters, problems, cfg, role, microbatch_size=None):
     model.zero_grad(set_to_none=True)
     encoded = [p["encoded"][cfg["labels"][role]] for p in problems]
-    loss, per_problem = solution_loss(model, encoded, tokenizer.pad_token_id)
-    loss.backward()
+    if microbatch_size is None:
+        loss, per_problem = solution_loss(model, encoded, tokenizer.pad_token_id)
+        loss.backward()
+        losses = [float(x.detach()) for x in per_problem]
+    else:
+        # Preserve five shared examples and equal weights, varying only the
+        # physical batch shape and the consequent accumulation arithmetic.
+        losses = []
+        for offset in range(0, len(encoded), microbatch_size):
+            part = encoded[offset:offset+microbatch_size]
+            part_loss, per_problem = solution_loss(model, part, tokenizer.pad_token_id)
+            (part_loss * (len(part)/len(encoded))).backward()
+            losses.extend(float(x.detach()) for x in per_problem)
+        loss = sum(losses)/len(losses)
     assert all(p.grad is not None for p in parameters)
     vector = torch.cat([p.grad.detach().reshape(-1) for p in parameters]).float().cpu().numpy()
     assert np.isfinite(vector).all()
-    meta = dict(loss=float(loss.detach()), problem_ids=[p["problem_id"] for p in problems],
-                per_problem_loss=[float(x.detach()) for x in per_problem],
+    scalar_loss = float(loss.detach()) if isinstance(loss, torch.Tensor) else loss
+    meta = dict(loss=scalar_loss, problem_ids=[p["problem_id"] for p in problems],
+                per_problem_loss=losses,
+                physical_microbatch_size=microbatch_size or len(encoded),
                 supervised_tokens=sum(e["target_tokens"] for e in encoded))
     return meta, vector
 
@@ -179,7 +196,8 @@ def run(args):
                     lr = (learning_rate_for_update(cfg, step) if trial["learning_rate"] == "original"
                           else float(trial["learning_rate"]))
                     problems = trial_batch(data, cfg, trial, step)
-                    metrics, vector = gradient(model, tokenizer, parameters, problems, cfg, args.role)
+                    metrics, vector = gradient(model, tokenizer, parameters, problems, cfg, args.role,
+                                               trial.get("microbatch_size"))
                     if args.role == "worker":
                         send_message(sock, dict(kind="gradient", step=step, metrics=metrics), vector)
                         _, weights = receive_message(sock, "parameters", step)
