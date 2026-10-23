@@ -1,0 +1,9 @@
+{
+  "run_id": "induced-coding-language",
+  "stage": "baseline_generation",
+  "time_utc": "2026-10-23T11:57:10.291675+00:00",
+  "files_verified": 74,
+  "bytes_verified": 3645347,
+  "generation_rows_verified": 400,
+  "full_local_receipt_sha256": "bc9174e9fa685501946ad3ebd3dbf881398af2a34928d9e3393d14bc2f48a7ce"
+}

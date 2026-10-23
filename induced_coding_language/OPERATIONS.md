@@ -174,3 +174,34 @@ python -m coding2.publish induced-coding-language --suite induced_coding_languag
 Inspect and verify the prepared bundle before the authorized publication call
 without `--prepare-only`. Actual final reporting, complete backup, publication
 and W&B closure remain pending; the baseline is still in progress.
+
+## Baseline generation complete; judge verified, 11:57 UTC
+
+Both baseline jobs finished all 200 answers with exit 0: RTX at 11:31:43 UTC
+and A100 at 11:52:55 UTC. The controller verified every description, prompt,
+token sequence, model/adapter identity and all 200 actual W&B generation rows
+per role. Both original start prefixes remain unchanged. There were no empty
+answers; A100 had one generation at the 1,024-token limit without EOS, and RTX
+had zero. All 74 collected baseline generation/provenance files (3,645,347 bytes)
+passed local size/SHA256 checks. The full local receipt is
+`baseline-generation-backup-verification.json` in the new run directory.
+
+Controller 24357 advanced to baseline_judging at 11:53:29 UTC. The sole active
+GPU stage is the RTX judge, initial/current PID 81821 in tmux
+`induced-coding-language-interval-judge-judge`, launched at 11:53:32 UTC. Inspect
+the current `baseline/judge/judge.pid` and ownership before any action; do not
+start another judge. A100 is idle and remains running.
+
+The first 15 judgments passed candidate-hash, blinded-prompt, token, strict-parse,
+source and pinned full-model provenance checks. The actual loaded model is
+Qwen3_5ForConditionalGeneration with all 27,356,728,560 parameters BF16, the
+unchanged BF16/eager configuration and greedy max-512 KV-cache generation.
+The initial audit saw 14 uploaded W&B rows while the fifteenth was in flight;
+the subsequent readback verified all 15 and preserved the original receipt.
+Both receipts are retained under `baseline/judge/` and compact copies under
+this directory's `results/`. W&B had zero user-logged or internal artifacts.
+
+Continue the existing judge to 400. The controller will verify the completed
+full_eval snapshot, collect and hash-check the full baseline, then launch fresh
+paired training. Training has not started yet. Monitoring remains active;
+leave both Pods running and the canonical W&B run unfinished.

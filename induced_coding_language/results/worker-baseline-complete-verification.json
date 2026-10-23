@@ -1,0 +1,31 @@
+{
+  "run_id": "induced-coding-language",
+  "stage": "baseline",
+  "role": "worker",
+  "step": 0,
+  "records_verified": 200,
+  "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+  "identity": {
+    "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+    "adapter_sha256": "a7c9e3dc42330bff473577954753921d3bbae099fdb271dc956b2182b48dbdf9",
+    "checkpoint_sha256": null,
+    "step": 0,
+    "generation": {
+      "do_sample": false,
+      "max_new_tokens": 1024,
+      "use_cache": true,
+      "batch_size": 1
+    },
+    "role": "worker",
+    "gpu": "NVIDIA A100-SXM4-80GB"
+  },
+  "prefix_bytes": 1500326,
+  "prefix_sha256": "6f38268f36325b56aa14ce5a6137ce26a58b8a9892456f6035e5bb419b25e5fc",
+  "prompts_tokens_identities_verified": true,
+  "wandb_rows_verified": 200,
+  "truncated": 1,
+  "empty": 0,
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [],
+  "total_api_artifacts": 0
+}

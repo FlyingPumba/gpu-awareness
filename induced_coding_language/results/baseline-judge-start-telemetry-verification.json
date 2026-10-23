@@ -1,0 +1,9 @@
+{
+  "run_id": "induced-coding-language",
+  "stage": "baseline",
+  "time_utc": "2026-10-23T11:56:26.788668+00:00",
+  "prefix_sha256": "c43857a9cbd0ccfb7e9312bb685c38a46d51ce3504918323179820909e3af77d",
+  "records_verified": 15,
+  "wandb_rows_verified": 15,
+  "original_prefix_receipt_preserved": true
+}
