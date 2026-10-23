@@ -804,3 +804,28 @@ intervals. The training backup remains complete and must not be duplicated.
 Next: prepare/publish the separate authorized HF repository, verify the matching
 complete local publication bundle, commit/push receipts, finish/read back the
 canonical W&B run, then pause this heartbeat. Keep both Pods running.
+
+## Hugging Face publication and complete local bundle verified, 17:02 UTC
+
+The authorized separate public repository is
+https://huggingface.co/iarcuschin/gpu-awareness-induced-coding-language-Qwen2.5-3B-Instruct
+at commit 777ebb2f999e1ea004b316392efa13ef0d67457e. Publisher wrapper 112091
+exited 0 after checking every one of 1,645 remote files by size and SHA256 (LFS
+metadata or downloaded content). Public visibility and the main revision were
+independently read back. The model card records the exact first-token objective,
+selected 700/stopped 900, results and the HF-to-vLLM judgment caveat.
+
+The matching complete local publication bundle contains 12,902,167,254 bytes.
+Every file passed size/SHA256 verification; the manifest SHA256 is
+479f60bbbbece82675c2148207843e20f0a30dd22efc54c4430b4502371c4406, identical to
+the published manifest. Existing checkpoints and unchanged pinned base/data were
+reused only after hash checks. No prior artifacts were replaced. The bundle
+includes the full base, unmerged FP32 adapter, all saved checkpoints, raw data,
+outputs, source/provenance, recovery archives, report/figures and numeric W&B
+snapshot. Evidence: results/publication-completion-verification.json,
+publication-backup-verification.json and publication-visibility-verification.json.
+
+Report and experiment results were pushed in e12ce84. Remaining closure is to
+commit/push these publication receipts, finish and read back the same canonical
+W&B run without losing its 4,068 history rows, record final closure and pause the
+heartbeat. Both Pods must remain running. Never rerun completed GPU stages.
