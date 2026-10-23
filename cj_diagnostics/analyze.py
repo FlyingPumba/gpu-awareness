@@ -28,9 +28,14 @@ def analyze(root):
         evals=rows(root/'coordinator'/name/'evaluations.jsonl')
         assert [r['local_step'] for r in evals]==list(range(0,trial['updates']+1,trial['eval_every']))
         best=min(evals[1:],key=lambda r:r['summary']['heldout_batch1']['mean_loss'])
+        selection=trial.get('selection_measurement','heldout_batch1')
+        selected=min(evals[1:],key=lambda r:r['summary'][selection]['mean_loss'])
+        saved=json.loads((root/'coordinator'/name/'best.json').read_text())
+        assert saved['step']==selected['step'] and saved['loss']==selected['summary'][selection]['mean_loss']
         results.append(dict(name=name,trial=trial,shared_updates_verified=len(expected),
             baseline=evals[0]['summary'],final=evals[-1]['summary'],
             best_post_update_step=best['step'],best_post_update=best['summary'],
+            selection_measurement=selection,selected_step=selected['step'],selected=selected['summary'],
             curve=[dict(local_step=r['local_step'],**r['summary']) for r in evals],
             last_30_mean_training_loss=sum(r['mean_loss'] for r in updates['coordinator'][-30:])/30))
     return dict(plan=plan,trials=results)
@@ -50,7 +55,9 @@ def plot(result,path):
             ax.plot(x,[r[mode]['worker_p_C'] for r in t['curve']],'.-',label='A100: P(C)',color='#2369bd')
             ax.plot(x,[r[mode]['coordinator_p_Java'] for r in t['curve']],'.-',label='RTX: P(Java)',color='#b34731')
             ax.axhline(.5,color='gray',linestyle=':',linewidth=1)
-            ax.set(ylim=(0,1),xlabel='Additional optimizer updates from checkpoint 700',ylabel='Full-vocabulary probability',
+            start=t['trial']['initial_step']
+            label=(f'Additional optimizer updates from checkpoint {start}' if start else 'Transfer optimizer updates')
+            ax.set(ylim=(0,1),xlabel=label,ylabel='Full-vocabulary probability',
                    title=t['name']+'\n'+title)
             ax.legend(loc='best',fontsize=8)
             ax.grid(alpha=.15)
