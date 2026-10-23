@@ -1,0 +1,410 @@
+{
+  "verified_at": "2026-10-23T23:49:52.813369+00:00",
+  "roles": {
+    "worker": {
+      "updates": 100,
+      "exposures_per_problem": {
+        "codecontests-35354f905d96c5874ba0": 50,
+        "leetcode-544": 50
+      }
+    },
+    "coordinator": {
+      "updates": 100,
+      "exposures_per_problem": {
+        "codecontests-35354f905d96c5874ba0": 50,
+        "leetcode-544": 50
+      }
+    }
+  },
+  "selected_step": 70,
+  "best_coding_heldout_step": 100,
+  "selected": {
+    "heldout_batch1": {
+      "worker_p_C": 0.38803014643490313,
+      "worker_p_Java": 0.5137278485111892,
+      "coordinator_p_C": 0.3965407319366932,
+      "coordinator_p_Java": 0.5075442869914696,
+      "separation": -0.008510585501790069,
+      "mean_loss": 1.3477411568164825
+    },
+    "heldout_batch5": {
+      "worker_p_C": 0.3811634790152311,
+      "worker_p_Java": 0.5203285806113854,
+      "coordinator_p_C": 0.39364022873342036,
+      "coordinator_p_Java": 0.5061953357886523,
+      "separation": -0.01247674971818924,
+      "mean_loss": 1.3643584206700325
+    },
+    "fixed_batch1": {
+      "worker_p_C": 0.561767041683197,
+      "worker_p_Java": 0.4375045895576477,
+      "coordinator_p_C": 0.49965041875839233,
+      "coordinator_p_Java": 0.49965041875839233,
+      "separation": 0.06211662292480469,
+      "mean_loss": 0.6352573335170746
+    },
+    "fixed_train_batch": {
+      "worker_p_C": 0.561767041683197,
+      "worker_p_Java": 0.4375045895576477,
+      "coordinator_p_C": 0.49965041875839233,
+      "coordinator_p_Java": 0.49965041875839233,
+      "separation": 0.06211662292480469,
+      "mean_loss": 0.6352573335170746
+    },
+    "training_set_batch1": {
+      "worker_p_C": 0.5285620987415314,
+      "worker_p_Java": 0.4664308726787567,
+      "coordinator_p_C": 0.466939240694046,
+      "coordinator_p_Java": 0.5286051332950592,
+      "separation": 0.06162285804748535,
+      "mean_loss": 0.6392940878868103
+    }
+  },
+  "final": {
+    "heldout_batch1": {
+      "worker_p_C": 0.4159390341490507,
+      "worker_p_Java": 0.5124805064871907,
+      "coordinator_p_C": 0.41595815494656563,
+      "coordinator_p_Java": 0.5131222341442481,
+      "separation": -1.912079751492657e-05,
+      "mean_loss": 1.3115909352898598
+    },
+    "heldout_batch5": {
+      "worker_p_C": 0.40302563942968844,
+      "worker_p_Java": 0.526867197570391,
+      "coordinator_p_C": 0.4198940772563219,
+      "coordinator_p_Java": 0.5104362892452627,
+      "separation": -0.016868437826633442,
+      "mean_loss": 1.3463725503534079
+    },
+    "fixed_batch1": {
+      "worker_p_C": 0.6221062541007996,
+      "worker_p_Java": 0.3773265480995178,
+      "coordinator_p_C": 0.4685485363006592,
+      "coordinator_p_Java": 0.5309350490570068,
+      "separation": 0.15355771780014038,
+      "mean_loss": 0.5538799613714218
+    },
+    "fixed_train_batch": {
+      "worker_p_C": 0.6221062541007996,
+      "worker_p_Java": 0.3773265480995178,
+      "coordinator_p_C": 0.4685485363006592,
+      "coordinator_p_Java": 0.5309350490570068,
+      "separation": 0.15355771780014038,
+      "mean_loss": 0.5538799613714218
+    },
+    "training_set_batch1": {
+      "worker_p_C": 0.5285875201225281,
+      "worker_p_Java": 0.4679829478263855,
+      "coordinator_p_C": 0.5141960084438324,
+      "coordinator_p_Java": 0.4834707975387573,
+      "separation": 0.014391511678695679,
+      "mean_loss": 0.692527286708355
+    }
+  },
+  "individual_training_curves": [
+    {
+      "step": 0,
+      "exposures_per_problem": 0,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.00037512279232032597,
+          "worker_p_Java": 0.00853775441646576,
+          "coordinator_p_C": 0.00025834914413280785,
+          "coordinator_p_Java": 0.007550069130957127,
+          "p_C_gap": 0.00011677364818751812,
+          "mean_loss": 6.387227773666382
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.0006209663115441799,
+          "worker_p_Java": 0.0021673855371773243,
+          "coordinator_p_C": 0.0006216389592736959,
+          "coordinator_p_Java": 0.0016897901659831405,
+          "p_C_gap": -6.726477295160294e-07,
+          "mean_loss": 6.883692264556885
+        }
+      ]
+    },
+    {
+      "step": 10,
+      "exposures_per_problem": 5,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.4499938488006592,
+          "worker_p_Java": 0.18758533895015717,
+          "coordinator_p_C": 0.48784902691841125,
+          "coordinator_p_Java": 0.2033657282590866,
+          "p_C_gap": -0.037855178117752075,
+          "mean_loss": 1.1956353783607483
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.2707688808441162,
+          "worker_p_Java": 0.0684610977768898,
+          "coordinator_p_C": 0.2752010226249695,
+          "coordinator_p_Java": 0.061405640095472336,
+          "p_C_gap": -0.0044321417808532715,
+          "mean_loss": 2.04837167263031
+        }
+      ]
+    },
+    {
+      "step": 20,
+      "exposures_per_problem": 10,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.3738429844379425,
+          "worker_p_Java": 0.6163628697395325,
+          "coordinator_p_C": 0.3457641005516052,
+          "coordinator_p_Java": 0.6459723711013794,
+          "p_C_gap": 0.02807888388633728,
+          "mean_loss": 0.7104590088129044
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.7297143340110779,
+          "worker_p_Java": 0.18450067937374115,
+          "coordinator_p_C": 0.7350597381591797,
+          "coordinator_p_Java": 0.18585219979286194,
+          "p_C_gap": -0.005345404148101807,
+          "mean_loss": 0.9989528059959412
+        }
+      ]
+    },
+    {
+      "step": 30,
+      "exposures_per_problem": 15,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.4370897114276886,
+          "worker_p_Java": 0.5612342953681946,
+          "coordinator_p_C": 0.4370107352733612,
+          "coordinator_p_Java": 0.5611329078674316,
+          "p_C_gap": 7.897615432739258e-05,
+          "mean_loss": 0.7027071714401245
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.4449838101863861,
+          "worker_p_Java": 0.5042327046394348,
+          "coordinator_p_C": 0.4487614929676056,
+          "coordinator_p_Java": 0.5085133910179138,
+          "p_C_gap": -0.0037776827812194824,
+          "mean_loss": 0.7429905533790588
+        }
+      ]
+    },
+    {
+      "step": 40,
+      "exposures_per_problem": 20,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.5920979976654053,
+          "worker_p_Java": 0.40694260597229004,
+          "coordinator_p_C": 0.6217774748802185,
+          "coordinator_p_Java": 0.37712711095809937,
+          "p_C_gap": -0.029679477214813232,
+          "mean_loss": 0.7496280670166016
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.427501916885376,
+          "worker_p_Java": 0.5489233136177063,
+          "coordinator_p_C": 0.42632660269737244,
+          "coordinator_p_Java": 0.5474141836166382,
+          "p_C_gap": 0.00117531418800354,
+          "mean_loss": 0.7261730134487152
+        }
+      ]
+    },
+    {
+      "step": 50,
+      "exposures_per_problem": 25,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.43737053871154785,
+          "worker_p_Java": 0.5615949034690857,
+          "coordinator_p_C": 0.46833157539367676,
+          "coordinator_p_Java": 0.5306891798973083,
+          "p_C_gap": -0.030961036682128906,
+          "mean_loss": 0.7302766144275665
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.5229796171188354,
+          "worker_p_Java": 0.46152791380882263,
+          "coordinator_p_C": 0.49119463562965393,
+          "coordinator_p_Java": 0.49119463562965393,
+          "p_C_gap": 0.03178498148918152,
+          "mean_loss": 0.6795637905597687
+        }
+      ]
+    },
+    {
+      "step": 60,
+      "exposures_per_problem": 30,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.5617738962173462,
+          "worker_p_Java": 0.4375099539756775,
+          "coordinator_p_C": 0.5307747721672058,
+          "coordinator_p_Java": 0.46840712428092957,
+          "p_C_gap": 0.03099912405014038,
+          "mean_loss": 0.6675366461277008
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.555686891078949,
+          "worker_p_Java": 0.43276938796043396,
+          "coordinator_p_C": 0.494438499212265,
+          "coordinator_p_Java": 0.494438499212265,
+          "p_C_gap": 0.06124839186668396,
+          "mean_loss": 0.6459414064884186
+        }
+      ]
+    },
+    {
+      "step": 70,
+      "exposures_per_problem": 35,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.561767041683197,
+          "worker_p_Java": 0.4375045895576477,
+          "coordinator_p_C": 0.49965041875839233,
+          "coordinator_p_Java": 0.49965041875839233,
+          "p_C_gap": 0.06211662292480469,
+          "mean_loss": 0.6352573335170746
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.4953571557998657,
+          "worker_p_Java": 0.4953571557998657,
+          "coordinator_p_C": 0.4342280626296997,
+          "coordinator_p_Java": 0.5575598478317261,
+          "p_C_gap": 0.061129093170166016,
+          "mean_loss": 0.643330842256546
+        }
+      ]
+    },
+    {
+      "step": 80,
+      "exposures_per_problem": 40,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.5617160797119141,
+          "worker_p_Java": 0.4374648928642273,
+          "coordinator_p_C": 0.4684498906135559,
+          "coordinator_p_Java": 0.530823290348053,
+          "p_C_gap": 0.09326618909835815,
+          "mean_loss": 0.6050424873828888
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.49671968817710876,
+          "worker_p_Java": 0.49671968817710876,
+          "coordinator_p_C": 0.49670910835266113,
+          "coordinator_p_Java": 0.49670910835266113,
+          "p_C_gap": 1.0579824447631836e-05,
+          "mean_loss": 0.699740082025528
+        }
+      ]
+    },
+    {
+      "step": 90,
+      "exposures_per_problem": 45,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.5308796167373657,
+          "worker_p_Java": 0.46849963068962097,
+          "coordinator_p_C": 0.43754974007606506,
+          "coordinator_p_Java": 0.5618249773979187,
+          "p_C_gap": 0.09332987666130066,
+          "mean_loss": 0.6048924028873444
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.4355149567127228,
+          "worker_p_Java": 0.5592122673988342,
+          "coordinator_p_C": 0.49768713116645813,
+          "coordinator_p_Java": 0.49768713116645813,
+          "p_C_gap": -0.06217217445373535,
+          "mean_loss": 0.7645048797130585
+        }
+      ]
+    },
+    {
+      "step": 100,
+      "exposures_per_problem": 50,
+      "problems": [
+        {
+          "problem_id": "codecontests-35354f905d96c5874ba0",
+          "prompt_tokens": 94,
+          "worker_p_C": 0.6221062541007996,
+          "worker_p_Java": 0.3773265480995178,
+          "coordinator_p_C": 0.4685485363006592,
+          "coordinator_p_Java": 0.5309350490570068,
+          "p_C_gap": 0.15355771780014038,
+          "mean_loss": 0.5538799613714218
+        },
+        {
+          "problem_id": "leetcode-544",
+          "prompt_tokens": 523,
+          "worker_p_C": 0.4350687861442566,
+          "worker_p_Java": 0.5586393475532532,
+          "coordinator_p_C": 0.5598434805870056,
+          "coordinator_p_Java": 0.4360065460205078,
+          "p_C_gap": -0.12477469444274902,
+          "mean_loss": 0.8311746120452881
+        }
+      ]
+    }
+  ],
+  "plan04_single_problem_at50_exposures": {
+    "worker_p_C": 0.5618233680725098,
+    "worker_p_Java": 0.4375484883785248,
+    "coordinator_p_C": 0.49969810247421265,
+    "coordinator_p_Java": 0.49969810247421265,
+    "separation": 0.06212526559829712,
+    "mean_loss": 0.6351594626903534
+  },
+  "plan04_single_problem_at100_exposures": {
+    "worker_p_C": 0.7507795691490173,
+    "worker_p_Java": 0.243742436170578,
+    "coordinator_p_C": 0.029285280033946037,
+    "coordinator_p_Java": 0.969795286655426,
+    "separation": 0.7214942891150713,
+    "mean_loss": 0.15865672659128904
+  },
+  "conclusion": "No robust two-input fit or heldout separation in100totalupdates. Selected70 averages0.5285621/0.5286051 target probabilities and meanloss0.6392941; heldout PCgap-0.00851059. Final100 first-input gap+0.1535577 and second-input gap-0.1247747 cancel in the mean. Each input has only50exposures. At matched50exposures the first-input gap exceeds plan04 single-input step50 (+0.0621253), so these results alone do not establish destructive interference or that input variation is the cause."
+}

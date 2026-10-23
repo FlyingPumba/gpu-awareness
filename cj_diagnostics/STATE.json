@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-23T23:38:33.287628+00:00",
-  "status": "plan14_running",
+  "updated_at": "2026-10-23T23:52:27.413600+00:00",
+  "status": "plan15_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,11 +14,11 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Let healthyplan14finish100; no duplicate/overlap. Read wholecurve and BOTH individual repeatedinputs aswellasheldout10. Selection training_set_batch1 differsfrombestcodingheldout. Fullshared/checkpoint/W&B audits thenONEcollect --worker-host runpod3 andanalyze. No plan14backupstarted. Plan13completeverified/backedup. KeepA100/RTXrunning. A40currentlyidleandretainedfortheinvestigation; removeexacttemporarykey atA40investigationend. No fulltraining/generation/judges.",
+  "next": "Let healthyplan15finish100. No duplicate/overlap. Readallcurves: training_set_batch1 actualsecondproblem; fixed_batch1 andfixed_train_batch areUNTRAINEDfirstproblemreference; heldout10 separate. Trainingselectionstep maydifferbestcodingheldout. Thenfullshared/CPUcheckpoint/W&B audits, ONEcollect --worker-host runpod3 andanalyze. No plan15backupstarted. Plan14fullyverified/backedup, no repeats. A40idle/retainedfortheinvestigation, exacttemporarykeycleanupstillrequiredatend; existingA100/RTXremainrunning. No fulltraining/generation/judges.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
-    "worker": 70681,
-    "coordinator": 121420
+    "worker": 71064,
+    "coordinator": 121925
   },
   "verified_shared_updates": [
     701,
@@ -40,15 +40,15 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan14 first2 actualshared updates verified; alternating inputs verified through9A100/10RTX. Both22original initial probability records exactlymatchplan04; newtwoinput measurements use original94/523token prefixes. Unchangedbase/data/encoding/packages/driver/SDPA/nativeBF16head,AB750,freshAdamW. First3W&Btrainingrows+30initialprobabilitysummarymetrics verified; canonicalrunningzeroartifacts.",
+  "latest_observation": "Plan15 first15 actualshared updates verified; actualsecondproblem through15A100/17RTX. Both22originalinitialprobabilityrecords exactlymatchplan14, actualsecondproblem initialrecord exactlymatchesplan14second. Sameoriginal523tokeninput/one-tokenC34vsJava15041,AB750/freshAdamW,base/data/encoding/FP32layout/packages/driver/SDPA/nativeBF16head. First3W&Btrainrows+30initialsummarymetrics verified; canonicalrunningzeroartifacts.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/plan14",
-  "current_session": "cj-diag-plan14",
+  "current_remote_output": "diagnostics/cj-probability-20261023/plan15",
+  "current_session": "cj-diag-plan15",
   "current_module": "cj_diagnostics.train",
-  "current_scope": "ONE100-update A100/RTX AB750/freshAdamW two-problem cycling trial versus known-successful plan04 single coding problem. Originalprompt/batch1/LR1e-5/SDPA/nativeBF16head,50updates each versus100one. Select training_set_batch1, originalheldout10 separate.",
+  "current_scope": "ONE100-update originalA100/RTX AB750/freshAdamW fixed-second-problem trial. Originalleetcode544/523tokenprefix/batch1/LR1e-5/SDPA/nativeBF16head. Selecttraining_set_batch1; fixed_batch1 isfirst-problem UNTRAINEDreference; originalheldout10 separate.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
-  "current_plan": "cj_diagnostics/plan-14.json",
+  "current_plan": "cj_diagnostics/plan-15.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
   "collection_pid": 3277,
   "plan01_backup_complete": true,
@@ -146,8 +146,8 @@
     786,
     787
   ],
-  "prepared_next_plan": "cj_diagnostics/plan-14.json",
-  "prepared_next_plan_status": "Plan14 launched once; actual sharedweights/samplecycle/initialprobabilities/source/W&B verified. No latertrial queued.",
+  "prepared_next_plan": "cj_diagnostics/plan-15.json",
+  "prepared_next_plan_status": "Plan15 launchedonce; actualsharedweights/secondinput/source/initialprobabilities/W&B verified. No latertrialqueued.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -580,5 +580,36 @@
   "plan14_verified_shared_updates": [
     1,
     2
+  ],
+  "plan14_conclusion": "Training-selected70 mean target probabilities.5285621/.5286051, loss.6392941, trainingPCgap.0616229; heldoutgap-.00851059. Final100 traininggap.0143915 with opposite per-input signs; heldoutgap-.0000191208. Eachinput only50exposures; no general solution.",
+  "plan14_both_exits": 0,
+  "plan14_backup_session": 90362,
+  "plan14_backup_status": "Complete exit0:59files720594239bytes locallySHA/size/sourceverified. Analysis/plots complete; no duplicate.",
+  "plan14_shared_audit": "cj_diagnostics/results/plan14-shared-trajectory-verification.json",
+  "plan14_checkpoint_audit": "cj_diagnostics/results/plan14-checkpoint-telemetry-verification.json",
+  "plan14_backup_pid": 42295,
+  "plan14_backup_complete": true,
+  "plan14_audit": "cj_diagnostics/results/plan14-completion-verification.json",
+  "plan14_comparison": "cj_diagnostics/results/plan14-two-input-comparison.json",
+  "plan14_analysis": "cj_diagnostics/results/plan14/summary.json",
+  "plan15_start_verification": "cj_diagnostics/results/plan15-start-verification.json",
+  "plan15_setup_verification": "cj_diagnostics/results/plan15-setup-verification.json",
+  "plan15_start_wandb_verification": "cj_diagnostics/results/plan15-start-wandb-verification.json",
+  "plan15_verified_shared_updates": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "plan": "plan15",
+  "baseline": "plan04 first fixed coding and plan14 two-input coding",
+  "experimental_change": "Repeat only original second problem leetcode-544 for100updates. Match100exposures versus first-fixed plan04; problem identity and length both differ. Plan14 had50exposures per input. Select actual second-input loss, with untrained first-input reference and heldout10 separate.",
+  "matched_trial_fields": [
+    "initialization",
+    "adapter_repo",
+    "adapter_revision",
+    "adapter_file_sha256",
+    "adapter_sha256",
+    "initial_step",
+    "updates",
+    "eval_every",
+    "batch_per_gpu",
+    "learning_rate",
+    "optimizer"
+  ],
+  "base_config_unchanged": true,
+  "source_sha256": "c84b274f260cbd7032b7fa68fcc3f8e4d4f0745601cfcbfdbff3734af78dcbe0",
+  "roles": {
+    "coordinator": {
+      "launched_at": "2026-10-23T23:49:07.095711+00:00",
+      "host": "runpod2",
+      "no_gpu_overlap": true
+    },
+    "worker": {
+      "launched_at": "2026-10-23T23:49:54.282486+00:00",
+      "host": "runpod3",
+      "no_gpu_overlap": true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "tests": 1,
+  "exit_code": 0,
+  "device": "CPU only",
+  "checks": [
+    "Original second seeded example selected on all100updates",
+    "Two-input alternating and prior varying/one-fixed paths unchanged",
+    "Original encoded examples/data preserved"
+  ]
+}

@@ -59,6 +59,8 @@ def plot(result,path):
             modes.insert(1,'prompt_heldout_batch1')
             titles.insert(1,'10 held-out problems, trial prompt')
         if 'repeated_problem_steps' in t['trial']:
+            if t['trial']['initial_step']+1 not in t['trial']['repeated_problem_steps']:
+                titles[modes.index(fixed_mode)]='Original first-problem reference (not trained)'
             modes.insert(1,'training_set_batch1')
             titles.insert(1,f"{len(t['trial']['repeated_problem_steps'])} repeated training problems, batch 1")
         for ax,mode,title in zip(row,modes,titles):

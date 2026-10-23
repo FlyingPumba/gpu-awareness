@@ -340,7 +340,9 @@ def run(args):
             if wb:
                 wb.define_metric(prefix+"/*", step_metric="update")
             fixed = trial_batch(data, cfg, {**trial, "problems":"one_fixed"}, trial["initial_step"]+1,tokenizer)
-            rec.log("training_input", example=fixed[0]["encoded"][cfg["labels"][args.role]])
+            first_input = (trial_batch(data,cfg,trial,trial["initial_step"]+1,tokenizer)[0]
+                           if trial["problems"] == "cycle_fixed" else fixed[0])
+            rec.log("training_input", example=first_input["encoded"][cfg["labels"][args.role]])
             heldout = selection_problems(data["eval"], cfg)
             repeated = None
             if trial["problems"] == "cycle_fixed":

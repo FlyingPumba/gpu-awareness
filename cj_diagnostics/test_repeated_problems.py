@@ -19,6 +19,9 @@ class RepeatedProblemsTest(unittest.TestCase):
         actual = [trial_batch(data,cfg,trial,s)[0] for s in range(1,101)]
         self.assertEqual(actual,pool*50)
         self.assertTrue(all(p is pool[i%2] for i,p in enumerate(actual)))
+        second_only = {**trial, 'repeated_problem_steps':[2]}
+        self.assertTrue(all(trial_batch(data,cfg,second_only,s)[0] is pool[1]
+                            for s in range(1,101)))
         for step in [1,2,19,21]:
             self.assertEqual(trial_batch(data,cfg,{**trial,'problems':'varying'},step),
                              training_batch(data['train'],step,42,1))

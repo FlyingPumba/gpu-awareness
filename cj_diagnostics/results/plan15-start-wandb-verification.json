@@ -1,0 +1,12 @@
+{
+  "verified_at": "2026-10-23T23:51:52.051837+00:00",
+  "training_rows": [
+    1,
+    2,
+    3
+  ],
+  "initial_probability_summary_metrics": 30,
+  "state": "running",
+  "logged_artifacts": 0,
+  "actual_updates_at_read": 15
+}
