@@ -1,0 +1,9 @@
+{
+  "verified_at": "2026-10-23T22:45:05.384166+00:00",
+  "matched_actual_sample_ids_and_lrs": 3,
+  "baseline": "plan04 AB-init-varying-coding",
+  "trial": "plan11 AB-init-varying-coding-A40",
+  "observed_updates": 12,
+  "last_step": 12,
+  "last_update_seconds": 6.644052872026805
+}

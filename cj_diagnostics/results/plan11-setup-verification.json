@@ -1,0 +1,111 @@
+{
+  "verified_at": "2026-10-23T22:43:44.872209+00:00",
+  "plan": "plan11",
+  "comparison": "A40 worker versus baseline A100 worker; unchanged RTX coordinator, matched100-update coding recipe.",
+  "roles": {
+    "worker": {
+      "gpu_processes": "813, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "actual_gpu": "NVIDIA A40",
+      "compute_capability": [
+        8,
+        6
+      ],
+      "driver": "595.91.07",
+      "unchanged_provenance_fields": [
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "cd9ce39572fa0d8963039a689ee27bbb0bd97e750e6ad54e9cd4a544d735ec3c",
+      "output_projection": "native",
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "all22_initial_probability_records_exactly_match_baseline": false,
+      "first_training_input_exactly_matches_plan04": true,
+      "actual_updates_observed": 1,
+      "initial_probabilities": {
+        "heldout_batch1": {
+          "p_C": 0.027323873607747372,
+          "p_Java": 0.007989548345358343,
+          "target_loss": 7.152650868892669
+        },
+        "heldout_batch5": {
+          "p_C": 0.02486920694409491,
+          "p_Java": 0.008768549448723207,
+          "target_loss": 7.188105940818787
+        },
+        "fixed_batch1": {
+          "p_C": 0.00022781186271458864,
+          "p_Java": 0.008548577316105366,
+          "target_loss": 8.386990547180176
+        },
+        "fixed_train_batch": {
+          "p_C": 0.00022781186271458864,
+          "p_Java": 0.008548577316105366,
+          "target_loss": 8.386990547180176
+        }
+      }
+    },
+    "coordinator": {
+      "gpu_processes": "119740, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "actual_gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "compute_capability": [
+        12,
+        0
+      ],
+      "driver": "595.91.07",
+      "unchanged_provenance_fields": [
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "cd9ce39572fa0d8963039a689ee27bbb0bd97e750e6ad54e9cd4a544d735ec3c",
+      "output_projection": "native",
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "all22_initial_probability_records_exactly_match_baseline": true,
+      "first_training_input_exactly_matches_plan04": true,
+      "actual_updates_observed": 1,
+      "initial_probabilities": {
+        "heldout_batch1": {
+          "p_C": 0.02304498748599144,
+          "p_Java": 0.009034800733206793,
+          "target_loss": 6.213740420341492
+        },
+        "heldout_batch5": {
+          "p_C": 0.025671412046540353,
+          "p_Java": 0.009106142151722452,
+          "target_loss": 6.101803040504455
+        },
+        "fixed_batch1": {
+          "p_C": 0.00025834914413280785,
+          "p_Java": 0.007550069130957127,
+          "target_loss": 4.8861985206604
+        },
+        "fixed_train_batch": {
+          "p_C": 0.00025834914413280785,
+          "p_Java": 0.007550069130957127,
+          "target_loss": 4.8861985206604
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "verified_at": "2026-10-23T22:41:57.717829+00:00",
+  "plan": "plan11",
+  "matched_trial_fields": [
+    "initialization",
+    "adapter_repo",
+    "adapter_revision",
+    "adapter_file_sha256",
+    "adapter_sha256",
+    "initial_step",
+    "updates",
+    "eval_every",
+    "batch_per_gpu",
+    "learning_rate",
+    "problems",
+    "optimizer",
+    "selection_measurement"
+  ],
+  "only_base_config_difference": "gpus.worker: A100 toA40",
+  "source_sha256": "cd9ce39572fa0d8963039a689ee27bbb0bd97e750e6ad54e9cd4a544d735ec3c",
+  "bootstrap_verification": "cj_diagnostics/results/a40-bootstrap-verification.json",
+  "bootstrap_all_sha_sizes_symlinks_match": true,
+  "python_packages_and_driver_match_baseline": true,
+  "coordinator_launch": "Original stage-session/run-role scripts, fresh plan11 directory, no preexisting GPU process"
+}

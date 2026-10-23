@@ -1,22 +1,25 @@
 {
-  "updated_at": "2026-10-23T22:31:47.129222+00:00",
-  "status": "plan10_complete_a40_access_decision_pending",
+  "updated_at": "2026-10-23T22:47:14.761388+00:00",
+  "status": "plan11_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
   "remote_output": "diagnostics/cj-probability-20261023/plan01",
   "session": "cj-diag-plan01",
   "hosts": {
-    "worker": "runpod3",
+    "worker": "runpod1",
     "coordinator": "runpod2"
   },
   "python": ".venv-coding002/bin/python",
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "A40 zrikx5auzkcff4/runpod1 provisioned at$0.59/h, samePython/PyTorch. Automated approval rejected existing private-key transfer and then restricted new public-key authorization; neither executed. User async approval pending for exact restricted temporary RTX authorized_keys entry, to remove after investigation. Do not retry until approval. Continue unaffected documentation/preparation. Plan10 complete/no repeat; no GPU stages active. No fulltraining/generation/judges.",
+  "next": "Monitor existingplan11 through100; neverduplicate/restarthealthyjobs. Read all curves beforebestclaims. Then sharedtrajectory/workverify-cj-shared.py plan11 --complete (hostfromplan), CPUcheckpoint/W&B verify_remote onRTX, ONEcollect with --worker-host runpod1, analyze locally. No plan11 backup started. A40restrictedkey approved andactive; removeexactkeycomment when investigationends. Keep existingA100/RTXrunning. Fulltraining/generation/judges forbidden.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
-  "actual_gpu_pids": {},
+  "actual_gpu_pids": {
+    "worker": 813,
+    "coordinator": 119740
+  },
   "verified_shared_updates": [
     701,
     702,
@@ -37,15 +40,15 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan10 all100shared updates/FP32best-final/optimizer100/W&B100train+11eval and55localfiles720495779bytes verified; both exited0. No heldout solution. A40 provisioned, training not started; restricted connection approval pending.",
+  "latest_observation": "Plan11 healthy at22updates22:46UTC. First2shared updates verified; first3actual sampleIDs/LRs matchplan04; first3W&Btrainrows+24initialprobabilitysummarymetrics verified. A40actualSM8.6/RTXSM12.0, same595.91.07driver/packages/base/data/encoded/layout/precision flags. All22RTXinitialprobabilityrecords exactlymatchplan04; A40initial differs as measured. No success claim.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/plan10",
-  "current_session": "cj-diag-plan10",
+  "current_remote_output": "diagnostics/cj-probability-20261023/plan11",
+  "current_session": "cj-diag-plan11",
   "current_module": "cj_diagnostics.train",
-  "current_scope": "One100-update curriculum transfer test starting from plan04 fixed-coding100 adapter, freshAdamW/seed42. Original coding prompt/nativeBF16head/SDPA/batch1/constant1e-5/same100trainingIDs/fixed10selection unchanged versus plan04 varying. Prior100 fixed-problem updates count separately; not matched total compute.",
+  "current_scope": "ONE100-update hardware comparison: A40worker replacesA100 against unchangedRTX. OriginalAB750/freshAdamW/seed42/batch1/constant1e-5/SDPA/nativeBF16head/originalcodingprompt/same100problemIDs/fixed10heldout selection every10. No fulltraining/generation/judges.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
-  "current_plan": "cj_diagnostics/plan-10.json",
+  "current_plan": "cj_diagnostics/plan-11.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
   "collection_pid": 3277,
   "plan01_backup_complete": true,
@@ -144,7 +147,7 @@
     787
   ],
   "prepared_next_plan": "cj_diagnostics/plan-11.json",
-  "prepared_next_plan_status": "Prepared only; A40 hardware comparison pending explicit restricted SSH access approval. Not launched or queued.",
+  "prepared_next_plan_status": "Plan11 launched once after bootstrap/recipe verification; no later trial queued.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -495,7 +498,23 @@
     "driver": "595.91.07",
     "python": "3.11.11",
     "torch": "2.8.0.dev20250319+cu128",
-    "bootstrap": "Python3.11.11/PyTorch2.8.0.dev20250319+cu128 verified. rsync/tmux installed exit0. Fresh A40-specific key exists only onA40; no coordinator authorization or bootstrap files copied. Rejected operations confirmed absent.",
-    "access_approval_pending": true
-  }
+    "bootstrap": "Complete exit0;10455files6769971318bytes SHA/size/symlink verified againstRTXsource. Resolved packages/Python/driver samebaseline. Actual frozenbase/encodeddata/adapter hashes verified at firstupdates.",
+    "access_approval_pending": false,
+    "access_approval": "User answered: Authorize the restricted temporary access",
+    "restricted_access_installed": true,
+    "bootstrap_session": 11707,
+    "cleanup_key_comment": "cj-diagnostics-zrikx5auzkcff4",
+    "bootstrap_session_completed": true,
+    "bootstrap_receipt": "cj_diagnostics/results/a40-bootstrap-verification.json",
+    "access_receipt": "cj_diagnostics/results/a40-access-verification.json"
+  },
+  "plan11_verified_shared_updates": [
+    1,
+    2
+  ],
+  "plan11_start_verification": "cj_diagnostics/results/plan11-start-verification.json",
+  "plan11_setup_verification": "cj_diagnostics/results/plan11-setup-verification.json",
+  "plan11_start_wandb_verification": "cj_diagnostics/results/plan11-start-wandb-verification.json",
+  "plan11_start_comparison": "cj_diagnostics/results/plan11-start-comparison-verification.json",
+  "plan11_start_receipts_local": "Both start receipts retrieved and SHA/size verified over freshSSH after one laptop scp timeout; no stage affected. No running receipt-download process."
 }

@@ -1,0 +1,19 @@
+{
+  "verified_at": "2026-10-23T22:41:01.899450+00:00",
+  "files": 10455,
+  "bytes": 6769971318,
+  "source_manifest_sha256": "da767a22eb9ec3838dad6787b7bf59c8e2dd02742b003c1e88461732de793be3",
+  "all_sha_sizes_and_symlinks_match": true,
+  "python": "3.11.11 (main, Dec  4 2024, 08:55:07) [GCC 11.4.0]",
+  "packages": {
+    "torch": "2.8.0.dev20250319+cu128",
+    "transformers": "4.57.1",
+    "peft": "0.17.1",
+    "accelerate": "1.10.1",
+    "safetensors": "0.6.2",
+    "huggingface-hub": "0.36.0",
+    "numpy": "2.1.2",
+    "wandb": "0.31.0",
+    "pyarrow": "26.0.0"
+  }
+}

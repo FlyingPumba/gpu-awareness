@@ -1,0 +1,20 @@
+{
+  "verified_at": "2026-10-23T22:45:47.759767+00:00",
+  "user_approval": "Authorize the restricted temporary access",
+  "pod_id": "zrikx5auzkcff4",
+  "key_comment": "cj-diagnostics-zrikx5auzkcff4",
+  "scope": {
+    "forced_read_only_bootstrap_command": "/workspace/gpu-awareness-private/cj-a40-bootstrap-read.sh",
+    "restrict": true,
+    "port_forwarding": true,
+    "permitopen": "127.0.0.1:29872"
+  },
+  "previous_authorized_keys_preserved": true,
+  "restricted_key_count": 1,
+  "existing_private_keys_copied": false,
+  "new_private_key_remains_on_a40": true,
+  "bootstrap_complete": true,
+  "bootstrap_verification": "cj_diagnostics/results/a40-bootstrap-verification.json",
+  "actual_training_tunnel_verified": true,
+  "cleanup": "Remove only this exact A40 public-key entry when the A40 investigation ends; preserve all other authorizations."
+}
