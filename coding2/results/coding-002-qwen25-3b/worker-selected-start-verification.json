@@ -1,0 +1,42 @@
+{
+  "verified_at_utc": "2026-10-23T04:02:01.532116+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "role": "worker",
+  "selected_step": 1225,
+  "evaluation_problems": 200,
+  "records_verified": 9,
+  "identity": {
+    "config_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe",
+    "adapter_sha256": "f2518118dae3a0fb4cb5904e15aa0344d5ab1962e96467143c3eb64d65f8b6c0",
+    "checkpoint_sha256": "e2cb124fe2a2b4cd68892ff878eb882b3b2f1450719c9e38a80fc72f4f72fc45",
+    "step": 1225,
+    "generation": {
+      "do_sample": false,
+      "max_new_tokens": 1024,
+      "use_cache": true,
+      "batch_size": 1
+    },
+    "role": "worker",
+    "gpu": "NVIDIA A100-SXM4-80GB"
+  },
+  "source_manifest_verified": true,
+  "original_base_and_encoding_hashes_verified": true,
+  "prompt_and_output_tokens_verified": true,
+  "prefix_bytes": 60030,
+  "prefix_sha256": "f778a4da615c9d66c45fad01cba2339599b7568c0b9b336ebf18e3e2f3cfa79f",
+  "pid": 43193,
+  "process_command": "/workspace/coding-awareness/.venv-coding002/bin/python -m coding2.evaluate --config coding2/config.json --output /workspace/coding-awareness/runs/coding-002-qwen25-3b/selected --role worker --checkpoint runs/coding-002-qwen25-3b/checkpoint-001225.pt",
+  "generation_cache": {
+    "cache_hit": true,
+    "cache_key": "25130b09d106fc66e46305b838cca52aee07f1a5b32831d41728732ef63b41eb",
+    "elapsed_seconds": 5.45567437200225
+  },
+  "wandb": {
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+    "history_rows_verified": 9,
+    "state": "running",
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0
+  }
+}

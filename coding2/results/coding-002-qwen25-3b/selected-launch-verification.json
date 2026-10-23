@@ -1,0 +1,79 @@
+{
+  "checkpoint": {
+    "step": 1225,
+    "sha256": "e2cb124fe2a2b4cd68892ff878eb882b3b2f1450719c9e38a80fc72f4f72fc45",
+    "selection": {
+      "best_loss": 0.48754919320344925,
+      "best_step": 1225,
+      "bad_evaluations": 0
+    },
+    "adapter_sha256": "f2518118dae3a0fb4cb5904e15aa0344d5ab1962e96467143c3eb64d65f8b6c0"
+  },
+  "stopped_step": 1425,
+  "launches": {
+    "worker": {
+      "command": [
+        "bash",
+        "coding/stage-session.sh",
+        "/workspace/coding-awareness/runs/coding-002-qwen25-3b/selected",
+        "worker",
+        "/workspace/coding-awareness/.venv-coding002/bin/python",
+        "-m",
+        "coding2.evaluate",
+        "--config",
+        "coding2/config.json",
+        "--output",
+        "/workspace/coding-awareness/runs/coding-002-qwen25-3b/selected",
+        "--role",
+        "worker",
+        "--checkpoint",
+        "runs/coding-002-qwen25-3b/checkpoint-001225.pt"
+      ],
+      "session": "coding-002-selected-worker",
+      "working_directory": "/workspace/coding-awareness",
+      "time_utc": "2026-10-23T03:58:51Z",
+      "checkpoint": {
+        "step": 1225,
+        "sha256": "e2cb124fe2a2b4cd68892ff878eb882b3b2f1450719c9e38a80fc72f4f72fc45",
+        "selection": {
+          "best_loss": 0.48754919320344925,
+          "best_step": 1225,
+          "bad_evaluations": 0
+        },
+        "adapter_sha256": "f2518118dae3a0fb4cb5904e15aa0344d5ab1962e96467143c3eb64d65f8b6c0"
+      }
+    },
+    "coordinator": {
+      "command": [
+        "bash",
+        "coding/stage-session.sh",
+        "/workspace/coding-awareness/runs/coding-002-qwen25-3b/selected",
+        "coordinator",
+        "/workspace/coding-awareness/.venv-coding002/bin/python",
+        "-m",
+        "coding2.evaluate",
+        "--config",
+        "coding2/config.json",
+        "--output",
+        "/workspace/coding-awareness/runs/coding-002-qwen25-3b/selected",
+        "--role",
+        "coordinator",
+        "--checkpoint",
+        "runs/coding-002-qwen25-3b/checkpoint-001225.pt"
+      ],
+      "session": "coding-002-selected-coordinator",
+      "working_directory": "/workspace/coding-awareness",
+      "time_utc": "2026-10-23T03:58:51Z",
+      "checkpoint": {
+        "step": 1225,
+        "sha256": "e2cb124fe2a2b4cd68892ff878eb882b3b2f1450719c9e38a80fc72f4f72fc45",
+        "selection": {
+          "best_loss": 0.48754919320344925,
+          "best_step": 1225,
+          "bad_evaluations": 0
+        },
+        "adapter_sha256": "f2518118dae3a0fb4cb5904e15aa0344d5ab1962e96467143c3eb64d65f8b6c0"
+      }
+    }
+  }
+}

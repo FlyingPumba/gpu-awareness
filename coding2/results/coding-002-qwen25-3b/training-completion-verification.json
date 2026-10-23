@@ -1,0 +1,32 @@
+{
+  "verified_at_utc": "2026-10-23T03:58:09.695210+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "stopped_step": 1425,
+  "stop_reason": "early_stopping",
+  "selected_step": 1225,
+  "selected_loss": 0.48754919320344925,
+  "terminal_loss": 0.4880438558757305,
+  "bad_evaluations": 8,
+  "retained_paired_updates_verified": 1425,
+  "fixed_ten_loss_evaluations_excluding_baseline": 57,
+  "strict_selection_and_early_stop_verified": true,
+  "both_training_exits_zero": true,
+  "terminal_checkpoint_sha256": "68e5ef10523d2c4a9110a7c48da6213f2b7139638a9589023764fad5b39c41dd",
+  "terminal_adapter_sha256": "902d328c104a6cd4c00d88d5b6375101f6da8b7214351c683ab4edd9e533ffff",
+  "selected_checkpoint_sha256": "e2cb124fe2a2b4cd68892ff878eb882b3b2f1450719c9e38a80fc72f4f72fc45",
+  "selected_adapter_sha256": "f2518118dae3a0fb4cb5904e15aa0344d5ab1962e96467143c3eb64d65f8b6c0",
+  "selected_safetensors_match_checkpoint": true,
+  "optimizer_steps_verified": [
+    1425,
+    1225
+  ],
+  "wandb": {
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+    "both_roles_training_updates_verified": 1425,
+    "selection_rows_verified": 57,
+    "migrated_rows_still_verified": 4928,
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0
+  }
+}

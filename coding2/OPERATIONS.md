@@ -838,3 +838,45 @@ from both GPUs were read back from the single canonical W&B run. All 4,928
 migrated rows still match, the main group has exactly one run, fourteen legacy
 runs remain preserved, and user-logged/internal-history artifacts both number
 zero. Receipt: `results/coding-002-qwen25-3b/interval-1400-verification.json`.
+
+Training completed at update 1425 on 2026-10-23T03:57:11Z, with both trainers
+exiting 0 and the eighth consecutive non-improving loss check triggering early
+stopping. Terminal mean loss is 0.4880438558757305. Step 1225 remains the strict
+lowest-loss checkpoint at 0.48754919320344925. The controller exited normally
+with `training_and_intervals_complete`; it must not be restarted. No 1425
+generation/judging interval was added. All 1,425 retained paired updates, all
+57 post-update fixed-ten loss/selection checks, scheduled learning rates,
+optimizer states and selected adapter/safetensors agreement were independently
+verified. Both roles' complete training metric histories and all selection
+decisions were read back from the canonical W&B run; all 4,928 migrated rows
+remain intact. Receipt: `results/coding-002-qwen25-3b/training-completion-verification.json`.
+
+The original final evaluation began at 2026-10-23T03:58:51Z: all 200 held-out
+problems on each original GPU, with the unchanged neutral prompt and greedy
+1,024-token generation. Sessions are `coding-002-selected-worker` and
+`coding-002-selected-coordinator`, with initial PIDs 43193 and 75020. Read the
+current `selected/{role}.pid` and verify process ownership rather than assuming
+these PIDs persist. Selected checkpoint SHA256
+`e2cb124fe2a2b4cd68892ff878eb882b3b2f1450719c9e38a80fc72f4f72fc45`
+matches coordinator, worker and local copies; its adapter SHA256 is
+`f2518118dae3a0fb4cb5904e15aa0344d5ab1962e96467143c3eb64d65f8b6c0`.
+
+At 04:02 UTC, actual prefixes of nine A100 and 27 RTX answers passed prompt,
+token decoding, source, base/encoding and selected-checkpoint identity checks.
+Both use the deterministic cache (5.46/3.16 seconds respectively), and all
+9/27 corresponding generation rows were read back from the same canonical
+W&B run. That run remains running with zero user-logged and zero reserved
+internal history artifacts. Prefix receipts and the launch receipt are in
+`results/coding-002-qwen25-3b/`; preserve their recorded byte/hash prefixes.
+The first CPU prefix-audit attempt omitted `HF_HOME` and could not locate the
+existing tokenizer cache; rerunning that audit with `/workspace/hf_cache`
+passed. The running generation processes and their outputs were unaffected.
+
+The heartbeat remains active and now tracks final evaluation/publication. After
+both roles finish exactly 200 answers with exit 0, run the existing generation
+verifier with `HF_HOME=/workspace/hf_cache`, collect and hash-check both files,
+then use the prepared task-local `work/start-coding002-selected-judge.py` to
+launch the unchanged 400-candidate RTX judge. That helper has not been run.
+Continue the original full audits, report/figures, local/HF/Git publication;
+mark the one W&B run finished and pause the heartbeat only after all work is
+complete. Leave both Pods running.
