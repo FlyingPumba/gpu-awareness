@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-23T20:56:56.201355+00:00",
-  "status": "plan03_running",
+  "updated_at": "2026-10-23T21:08:31.235283+00:00",
+  "status": "plan04_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,11 +14,11 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Monitor existing plan03 two100-update branches to completion. First originalABprompt->CJava transfer started with exact37b332... AB750 adapter, freshAdamW and44-token identical native prefixes; actual shared updates verified. Second shortCJava question follows automatically, resetting sameABadapter and optimizer. No success claimed yet. Preserve/audit completedplan02 backup and plot via cj_diagnostics.analyze (set MPLCONFIGDIR to writable work/tmp). Plan02 best postupdate losses .6789946 varyingmicro1 and .6751787 fixedmicro1; both near50/50. For microbatch1 trials actual training-shape measurement is fixed_batch1; legacy fixed_train_batch measures physical5, do not confuse. Then collect/audit plan03 and adapt further short tests; do not call a short-prompt fit a coding-problem solution. Keep all prior artifacts. No full training/generation/judges.",
+  "next": "Monitor existing plan04 fixedcoding100 then varyingcoding100; both independently reset originalAB750 and freshAdamW. Actual firsttwo shared updates/prefix94/targets/LR verified. Let healthy jobs finish. Finish existing plan03backup8974/unifiedexec31526 and analyze/plot when collectionreceipt appears. Plan05 is a prepared optional promptwording/length comparison, not launched or queued; reassess whether useful after currentcoding tests. No fulltraining/generation/judges.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
-    "coordinator": 114767,
-    "worker": 68026
+    "coordinator": 115691,
+    "worker": 68385
   },
   "verified_shared_updates": [
     701,
@@ -40,15 +40,15 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan03 original44-token ABprompt relabeled C/Java completed100: A100PC.9041259289/RTX PJava.7298442721, selected100, bestmeanloss.2078553662. Codingheldout remains poor. Second shortCJava prompt is running; no final conclusion yet.",
+  "latest_observation": "Both100-update AB750/freshAdamW short-prompt transfer tests separated on currentA100/RTX. Best/final100 originalABquestion: A100PC.9041259289/RTX PJava.7298442721; shortCJavaquestion: A100PC.7977432609/RTX PJava.7541118264. Both improve across late checks, but originalcodingheldout remains poor: finaltargetprobabilities .02355/.01883 and .05448/.01052 respectively. Token identity/currentGPU pair not absolute obstacles; no coding solution yet.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/plan03",
-  "current_session": "cj-diag-plan03",
+  "current_remote_output": "diagnostics/cj-probability-20261023/plan04",
+  "current_session": "cj-diag-plan04",
   "current_module": "cj_diagnostics.train",
-  "current_scope": "Plan03: two100-update AB750-adapter transfer tests, freshAdamW, batch1, constant1e-5; first original44-token ABprompt, second shortCJava prompt. Original coding validation is separate.",
+  "current_scope": "Two100-update original full coding-prompt transfer tests from AB750 with freshAdamW, sharedbatch1, constant1e-5: fixedoneproblem thenvarying. Fixed selection=fixed_batch1, varying selection=heldout_batch1; both include originalheldout10.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
-  "current_plan": "cj_diagnostics/plan-03.json",
+  "current_plan": "cj_diagnostics/plan-04.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
   "collection_pid": 3277,
   "plan01_backup_complete": true,
@@ -147,7 +147,7 @@
     787
   ],
   "prepared_next_plan": "cj_diagnostics/plan-04.json",
-  "prepared_next_plan_status": "Prepared, NOT launched: two independent100-update AB750/freshAdamW transfer tests on unchanged originalcodingprompt, onefixed versusvarying, physicalbatch1 constant1e-5. Launch only after plan03both exits0/GPUclear.",
+  "prepared_next_plan_status": "Plan04 running, bothroles actual shared updates verified; do not duplicate.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -184,5 +184,15 @@
   "plan02_audit": "cj_diagnostics/results/plan02-completion-verification.json",
   "plan02_backup_pid": 6489,
   "plan02_backup_status": "Complete: all81files1441131769bytes SHA/size verified; do not repeat.",
-  "plan02_backup_complete": true
+  "plan02_backup_complete": true,
+  "plan03_both_exits": 0,
+  "plan03_audit": "cj_diagnostics/results/plan03-checkpoint-telemetry-verification.json",
+  "plan03_backup_pid": 8974,
+  "plan03_backup_status": "Running; unifiedexec31526. Do not duplicate. Both training jobs finished and GPUs cleared before plan04 coordinator launch.",
+  "plan03_conclusion": "Both100-update AB750/freshAdamW short-prompt transfer tests separated on currentA100/RTX. Best/final100 originalABquestion: A100PC.9041259289/RTX PJava.7298442721; shortCJavaquestion: A100PC.7977432609/RTX PJava.7541118264. Both improve across late checks, but originalcodingheldout remains poor: finaltargetprobabilities .02355/.01883 and .05448/.01052 respectively. Token identity/currentGPU pair not absolute obstacles; no coding solution yet.",
+  "plan04_verified_shared_updates": [
+    1,
+    2
+  ],
+  "plan04_audit": "cj_diagnostics/results/plan04-start-verification.json"
 }
