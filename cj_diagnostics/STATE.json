@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23T21:08:31.235283+00:00",
+  "updated_at": "2026-10-23T21:11:46.461709+00:00",
   "status": "plan04_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
@@ -14,7 +14,7 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Monitor existing plan04 fixedcoding100 then varyingcoding100; both independently reset originalAB750 and freshAdamW. Actual firsttwo shared updates/prefix94/targets/LR verified. Let healthy jobs finish. Finish existing plan03backup8974/unifiedexec31526 and analyze/plot when collectionreceipt appears. Plan05 is a prepared optional promptwording/length comparison, not launched or queued; reassess whether useful after currentcoding tests. No fulltraining/generation/judges.",
+  "next": "Monitor healthy plan04 fixedcoding100 then varyingcoding100; both independently reset originalAB750/freshAdamW. Initial actualsharedupdates, originalprefix94, targets/source/LR and firstthreeW&Brows verified. At first50 fixedcoding updates probabilities stillnear50/50; nofinalclaim. Plan03 complete and fullylocallybackedup/analyzed; do not repeat. Plan05 optionalpromptwording/lengthcomparison remains unlaunched/unqueued; reassess need. No fulltraining/generation/judges.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
     "coordinator": 115691,
@@ -186,13 +186,15 @@
   "plan02_backup_status": "Complete: all81files1441131769bytes SHA/size verified; do not repeat.",
   "plan02_backup_complete": true,
   "plan03_both_exits": 0,
-  "plan03_audit": "cj_diagnostics/results/plan03-checkpoint-telemetry-verification.json",
+  "plan03_audit": "cj_diagnostics/results/plan03-completion-verification.json",
   "plan03_backup_pid": 8974,
-  "plan03_backup_status": "Running; unifiedexec31526. Do not duplicate. Both training jobs finished and GPUs cleared before plan04 coordinator launch.",
+  "plan03_backup_status": "Complete exit0; all81files1440738821bytes locallySHA/size verified; no duplicate backup.",
   "plan03_conclusion": "Both100-update AB750/freshAdamW short-prompt transfer tests separated on currentA100/RTX. Best/final100 originalABquestion: A100PC.9041259289/RTX PJava.7298442721; shortCJavaquestion: A100PC.7977432609/RTX PJava.7541118264. Both improve across late checks, but originalcodingheldout remains poor: finaltargetprobabilities .02355/.01883 and .05448/.01052 respectively. Token identity/currentGPU pair not absolute obstacles; no coding solution yet.",
   "plan04_verified_shared_updates": [
     1,
     2
   ],
-  "plan04_audit": "cj_diagnostics/results/plan04-start-verification.json"
+  "plan04_audit": "cj_diagnostics/results/plan04-start-verification.json",
+  "plan03_backup_complete": true,
+  "plan03_analysis": "cj_diagnostics/results/plan03/summary.json"
 }

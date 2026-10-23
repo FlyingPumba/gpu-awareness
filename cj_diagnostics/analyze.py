@@ -71,4 +71,6 @@ if __name__=='__main__':
     a=p.parse_args();result=analyze(a.root);a.output.mkdir(parents=True,exist_ok=True)
     (a.output/'summary.json').write_text(json.dumps(result,indent=2)+'\n')
     plot(result,a.output/'probabilities.png')
-    print(json.dumps([dict(name=t['name'],final=t['final'],best_step=t['best_post_update_step']) for t in result['trials']]))
+    print(json.dumps([dict(name=t['name'],final=t['final'],selection_measurement=t['selection_measurement'],
+                          selected_step=t['selected_step'],best_coding_heldout_step=t['best_post_update_step'])
+                      for t in result['trials']]))

@@ -1,0 +1,9 @@
+{
+  "trial": "AB-init-fixed-coding",
+  "verified_updates": [
+    1,
+    2,
+    3
+  ],
+  "wandb_state": "running"
+}

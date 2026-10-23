@@ -1,0 +1,70 @@
+{
+  "plan_sha256": "dc690be7ba7a0a21d23c5b75a1e3601e770000a8b9931d9bc57e317b3ae99414",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "wandb_state": "running",
+  "logged_artifacts": 0,
+  "trials": [
+    {
+      "trial": "AB-init-original-prompt-CJava",
+      "training_rows_verified": 100,
+      "probability_rows_verified": 11,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "a2b01a05d791cfb4ecb97b9747201d12a8a218c7215d071356fc8fa5a160700c",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "a2b01a05d791cfb4ecb97b9747201d12a8a218c7215d071356fc8fa5a160700c",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    },
+    {
+      "trial": "AB-init-short-CJava",
+      "training_rows_verified": 100,
+      "probability_rows_verified": 11,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "fe58e8766dfa1c5e9fabaac87e26cecae574a6c99c6728a6ed7806576f64e003",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "fe58e8766dfa1c5e9fabaac87e26cecae574a6c99c6728a6ed7806576f64e003",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    }
+  ],
+  "collection": {
+    "roles": [
+      {
+        "role": "worker",
+        "files": 36,
+        "bytes": 532709,
+        "verified": true
+      },
+      {
+        "role": "coordinator",
+        "files": 45,
+        "bytes": 1440206112,
+        "verified": true
+      }
+    ],
+    "files": 81,
+    "bytes": 1440738821
+  },
+  "shared_trajectory_verification": "cj_diagnostics/results/plan03-shared-trajectory-verification.json",
+  "analysis": "cj_diagnostics/results/plan03/summary.json"
+}
