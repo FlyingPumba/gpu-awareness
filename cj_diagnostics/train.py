@@ -182,13 +182,29 @@ def restore(model, parameters, optimizer, checkpoint, cfg, trial):
         return
     assert digest(checkpoint.read_bytes()) == trial["checkpoint_sha256"]
     state = torch.load(checkpoint, map_location="cpu", weights_only=False)
-    assert state["config"] == cfg and state["step"] == trial["initial_step"]
+    fresh_transfer = trial.get("initialization") == "diagnostic_adapter_fresh_optimizer"
+    source_step = trial["source_step"] if fresh_transfer else trial["initial_step"]
+    assert state["config"] == cfg and state["step"] == source_step
+    if fresh_transfer:
+        assert trial["initial_step"] == 0
+        assert state["source_checkpoint_sha256"] == trial["source_checkpoint_sha256"]
+        assert optimizer is None or not optimizer.state
     current = dict(model.named_parameters())
     assert set(state["adapters"]) == {n for n,p in current.items() if p.requires_grad}
     with torch.no_grad():
         for name, value in state["adapters"].items():
             assert value.dtype == current[name].dtype == torch.float32
             current[name].copy_(value)
+    if fresh_transfer:
+        # Explicit curriculum transfer: copy only the verified FP32 adapter;
+        # start the diagnostic's AdamW state and sampling/RNG from seed42.
+        assert digest(flat_parameters(parameters).tobytes()) == trial["adapter_sha256"]
+        torch.manual_seed(cfg["seed"])
+        torch.cuda.manual_seed_all(cfg["seed"])
+        np.random.seed(cfg["seed"])
+        random.seed(cfg["seed"])
+        model.zero_grad(set_to_none=True)
+        return
     if optimizer is not None:
         optimizer.load_state_dict(state["optimizer"])
         assert {int(s["step"]) for s in optimizer.state.values()} == {trial["initial_step"]}
@@ -273,7 +289,8 @@ def run(args):
                 assert peer["weights_sha256"] == weights_hash
                 send_message(sock, dict(kind="initialized_ack"))
             rec.log("initialized", trial=trial, weights_sha256=weights_hash,
-                    optimizer_restored=trial.get("initialization") != "AB_adapter_fresh_optimizer")
+                    optimizer_restored=trial.get("initialization") not in
+                    {"AB_adapter_fresh_optimizer", "diagnostic_adapter_fresh_optimizer"})
             prefix = trial["name"]
             if wb:
                 wb.define_metric(prefix+"/*", step_metric="update")

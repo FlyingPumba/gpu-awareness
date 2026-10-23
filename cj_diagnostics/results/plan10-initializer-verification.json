@@ -1,0 +1,17 @@
+{
+  "verified_at": "2026-10-23T22:10:31.852760+00:00",
+  "source": "plan04/coordinator/AB-init-fixed-coding/best.pt",
+  "source_step": 100,
+  "source_checkpoint_sha256": "5611ce514a19a7daf5fc05e9a275fa57c69edfa27ff65016f3785ec6ffe9db4a",
+  "adapter_sha256": "9fadd02c5162b33cc085c8d5ed20d62d5fa94b27caf2b168163a795e0a530853",
+  "adapter_values_fp32": true,
+  "payload_contains_optimizer": false,
+  "payload_path": "../coding-runs/cj-probability-diagnostics-20261023/initializers/fixed-coding100-adapter.pt",
+  "comparison": "Curriculum feasibility:100 varying-coding updates initialized from the verified plan04 fixed-coding100 FP32 adapter, with freshAdamW and seed42. Versus plan04 varying, only adapter initialization and provenance/outputname differ; original coding prompt/nativeBF16head/SDPA/batch1/constant1e-5/same100problemIDs/fixed10selection unchanged. The initializer already received100 fixed-problem updates afterAB750, so this is not matched total training compute. Measure fixed-input retention and original heldout10 separately; no generation or judges.",
+  "local_original_payload_sha256": "1555377bfc894b850bee4497a7f4188bcae24dd5883d21fb0c287ca514f6080c",
+  "local_original_payload_bytes": 119921474,
+  "payload_sha256": "6162d27ac7a659a65dfddc8bea77658bfb87ad838dc8bbdbc602fbb0a26e8c9e",
+  "payload_bytes": 119921903,
+  "runtime_payload_origin": "CPU extraction from already verified remote plan04 fixed-coding100 checkpoint; tensor values and flat SHA are identical to the local extraction. Serialized bytes differ; the runtime plan pins the verified remote payload hash.",
+  "canonical_local_backup": "../coding-runs/cj-probability-diagnostics-20261023/initializers/remote/fixed-coding100-adapter.pt"
+}

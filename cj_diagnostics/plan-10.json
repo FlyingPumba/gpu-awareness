@@ -1,0 +1,26 @@
+{
+  "base_config": "induced_coding_language/config.json",
+  "base_config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "objective": "Short C/Java probability diagnostics on the existing A100 and RTX; no generation or judges.",
+  "comparison": "Curriculum feasibility:100 varying-coding updates initialized from the verified plan04 fixed-coding100 FP32 adapter, with freshAdamW and seed42. Versus plan04 varying, only adapter initialization and provenance/outputname differ; original coding prompt/nativeBF16head/SDPA/batch1/constant1e-5/same100problemIDs/fixed10selection unchanged. The initializer already received100 fixed-problem updates afterAB750, so this is not matched total training compute. Measure fixed-input retention and original heldout10 separately; no generation or judges.",
+  "trials": [
+    {
+      "initialization": "diagnostic_adapter_fresh_optimizer",
+      "adapter_sha256": "9fadd02c5162b33cc085c8d5ed20d62d5fa94b27caf2b168163a795e0a530853",
+      "initial_step": 0,
+      "updates": 100,
+      "eval_every": 10,
+      "batch_per_gpu": 1,
+      "learning_rate": 1e-05,
+      "problems": "varying",
+      "optimizer": "Fresh AdamW with original betas/epsilon/weight_decay; deliberately no fixed-coding optimizer transfer.",
+      "name": "fixed-coding100-init-varying-coding",
+      "selection_measurement": "heldout_batch1",
+      "checkpoint": "/workspace/coding-awareness/diagnostics/cj-probability-20261023/initializers/fixed-coding100-adapter.pt",
+      "checkpoint_sha256": "6162d27ac7a659a65dfddc8bea77658bfb87ad838dc8bbdbc602fbb0a26e8c9e",
+      "source_step": 100,
+      "source_checkpoint_sha256": "5611ce514a19a7daf5fc05e9a275fa57c69edfa27ff65016f3785ec6ffe9db4a"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "verified_at": "2026-10-23T22:18:03.085219+00:00",
+  "plan": "plan10",
+  "comparison": "Only initializer changes from original AB750 to verified plan04 fixed-coding100 adapter, using freshAdamW and seed42; prior100 fixedupdates counted separately.",
+  "roles": {
+    "worker": {
+      "gpu_processes": "70311, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction"
+      ],
+      "source_sha256": "cd9ce39572fa0d8963039a689ee27bbb0bd97e750e6ad54e9cd4a544d735ec3c",
+      "output_projection": "native",
+      "initial_adapter_sha256": "9fadd02c5162b33cc085c8d5ed20d62d5fa94b27caf2b168163a795e0a530853",
+      "optimizer_restored": false,
+      "all22_initial_probability_records_exactly_match_fixed_coding_source": true,
+      "first_training_input_exactly_matches_plan04": true
+    },
+    "coordinator": {
+      "gpu_processes": "119097, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction"
+      ],
+      "source_sha256": "cd9ce39572fa0d8963039a689ee27bbb0bd97e750e6ad54e9cd4a544d735ec3c",
+      "output_projection": "native",
+      "initial_adapter_sha256": "9fadd02c5162b33cc085c8d5ed20d62d5fa94b27caf2b168163a795e0a530853",
+      "optimizer_restored": false,
+      "all22_initial_probability_records_exactly_match_fixed_coding_source": true,
+      "first_training_input_exactly_matches_plan04": true
+    }
+  },
+  "focused_initialization_tests": {
+    "count": 1,
+    "exit_code": 0
+  }
+}

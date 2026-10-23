@@ -1,0 +1,29 @@
+{
+  "plan_sha256": "43827daf0301cf1d273cca62c3fa17dc96ed40a72bb3ddfcd611b80118c0aad4",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "wandb_state": "running",
+  "logged_artifacts": 0,
+  "trials": [
+    {
+      "trial": "AB-init-varying-coding-single-token-head",
+      "training_rows_verified": 100,
+      "probability_rows_verified": 11,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "d42dfcab083cc3dda13f6fb05869f9495218792ca67724a52c992be093924c20",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "d42dfcab083cc3dda13f6fb05869f9495218792ca67724a52c992be093924c20",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    }
+  ]
+}

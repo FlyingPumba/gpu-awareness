@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-23T22:14:31.689860+00:00",
+  "action": "Stop only slow task-owned initializer upload; replace with derivation from already verified remote checkpoint and existing Pod-to-Pod transfer.",
+  "pid": 20771,
+  "command": "scp ../coding-runs/cj-probability-diagnostics-20261023/initializers/fixed-coding100-adapter.pt runpod2:/workspace/coding-awareness/diagnostics/cj-probability-20261023/initializers/",
+  "reason": "Only14.6MB transferred after more than2minutes; local backup downloads and existing GPU link are faster. Not a training failure.",
+  "prior_training_complete": true,
+  "next_training_not_started": true,
+  "remote_derivation": {
+    "source_checkpoint_sha256": "5611ce514a19a7daf5fc05e9a275fa57c69edfa27ff65016f3785ec6ffe9db4a",
+    "adapter_sha256": "9fadd02c5162b33cc085c8d5ed20d62d5fa94b27caf2b168163a795e0a530853",
+    "payload_sha256": "6162d27ac7a659a65dfddc8bea77658bfb87ad838dc8bbdbc602fbb0a26e8c9e",
+    "payload_bytes": 119921903,
+    "partial_upload_bytes": 24284160,
+    "partial_upload_sha256": "bd83730f82ed85a5c7a7d8a598d347ca76fda660215c66170aa06b6dc8d148ec"
+  },
+  "local_collection": {
+    "files": 3,
+    "bytes": 144206501,
+    "entries": [
+      {
+        "path": "fixed-coding100-adapter-local-upload-partial.pt",
+        "size": 24284160,
+        "sha256": "bd83730f82ed85a5c7a7d8a598d347ca76fda660215c66170aa06b6dc8d148ec"
+      },
+      {
+        "path": "fixed-coding100-adapter.pt",
+        "size": 119921903,
+        "sha256": "6162d27ac7a659a65dfddc8bea77658bfb87ad838dc8bbdbc602fbb0a26e8c9e"
+      },
+      {
+        "path": "fixed-coding100-remote-derivation.json",
+        "size": 438,
+        "sha256": "3b342f423143578881d3b2087b615b45a3df9e0758d0b5c515981a5c8462f8e2"
+      }
+    ],
+    "all_verified": true
+  },
+  "resolution": "Derived identical FP32 adapter values from the verified remote source; source/flatSHA unchanged. Canonical remote serialization hash recorded in plan10, transferred successfully through existing authenticated Pod-to-Pod SSH. Original local payload and remote partial upload preserved. Three remote initializer/archive files locally hash verified."
+}

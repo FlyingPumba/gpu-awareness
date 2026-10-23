@@ -1,0 +1,17 @@
+{
+  "verified_at": "2026-10-23T22:16:07.647004+00:00",
+  "matched_trial_fields": [
+    "initial_step",
+    "updates",
+    "eval_every",
+    "batch_per_gpu",
+    "learning_rate",
+    "problems",
+    "selection_measurement"
+  ],
+  "base_config_unchanged": true,
+  "only_experimental_change": "Verified plan04 fixed-coding100 adapter initialization; freshAdamW, prior100 fixed updates explicitly accounted separately.",
+  "source_sha256": "cd9ce39572fa0d8963039a689ee27bbb0bd97e750e6ad54e9cd4a544d735ec3c",
+  "focused_initialization_tests": 1,
+  "tests_exit_code": 0
+}
