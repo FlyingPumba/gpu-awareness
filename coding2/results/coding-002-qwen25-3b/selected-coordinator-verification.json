@@ -1,0 +1,34 @@
+{
+  "records_verified": 200,
+  "process_exit": 0,
+  "config_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe",
+  "prompt_and_token_decoding_verified": true,
+  "identity": {
+    "config_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe",
+    "adapter_sha256": "f2518118dae3a0fb4cb5904e15aa0344d5ab1962e96467143c3eb64d65f8b6c0",
+    "checkpoint_sha256": "e2cb124fe2a2b4cd68892ff878eb882b3b2f1450719c9e38a80fc72f4f72fc45",
+    "step": 1225,
+    "generation": {
+      "do_sample": false,
+      "max_new_tokens": 1024,
+      "use_cache": true,
+      "batch_size": 1
+    },
+    "role": "coordinator",
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "truncated": 18,
+  "empty": 0,
+  "wandb": {
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+    "verified_history_rows": 200,
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0,
+    "state": "running"
+  },
+  "local_files_verified": 25,
+  "initial_prefix_preserved": true,
+  "audit_source_sha256": "8ec5ae0652e5e4e6b1d764068d3c898717b5e51aee01f5c154b707c5b6bafb4f",
+  "artifact_manifest_sha256": "13d1273825b37f8e314167ae467d24de5a84c880f18c1eb632eefdf8bb974cbb"
+}

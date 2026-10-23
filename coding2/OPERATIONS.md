@@ -892,3 +892,17 @@ backup PID 81541 must not be treated as an active job. This backup covers
 completed training artifacts; final-generation/judge artifacts remain separate.
 At the 04:13 check, final generation had 48 A100 and 160 RTX records, with both
 original processes active and all audited prefixes/identities preserved.
+
+RTX selected-checkpoint generation finished at 2026-10-23T04:16:51Z with
+exactly 200 answers and exit 0. All prompts, token decoding, candidate identities
+and the previously audited byte prefix passed verification. There are no empty
+answers; 18 reached the 1,024-token generation limit without EOS, versus zero
+in the RTX baseline on the same 200 problems. All 200 progress/output-token
+rows were read back from the single canonical W&B run, which remains running
+with zero user-logged and zero reserved internal history artifacts. All 25
+collected artifact/source files passed local size/SHA256 verification. Receipt:
+`results/coding-002-qwen25-3b/selected-coordinator-verification.json`.
+A100 was still generating at the 04:18 check (61/200, original process and
+prefix intact). The combined 400-answer judge pass has not started; await its
+200 records and successful exit, then verify/collect and use the prepared judge
+launcher. Keep the RTX Pod running while it waits.
