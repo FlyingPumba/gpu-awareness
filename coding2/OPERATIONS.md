@@ -933,3 +933,18 @@ launch and collection sources are preserved in
 then completion audit, separate final artifact collection, reports/figures,
 HF/Git publication and final W&B completion. Monitoring stays active and both
 Pods stay running; training and its controller must remain stopped.
+
+While final judging continued, publication input collection completed on the
+coordinator: all 75 worker training records (3,079,655 bytes) and 16 final
+controller/protocol/training-boundary records match the local verified files.
+Its report input now includes all 29 judged intervals, no pending intervals,
+and explicit historical gaps 325, 425, 475, 525. Older differing files were
+preserved in `archive/worker-before-final-collection-20261023` and
+`archive/protocol-before-final-collection-20261023` where applicable; collection
+sources are in `archive/publication-collection-20261023`. A worker provenance
+file with equal size/time but different bytes was initially skipped by rsync;
+checksum transfer resolved it, with all 75 hashes verified and the earlier
+bytes retained. Its JSON content was identical. Compact receipt:
+`results/coding-002-qwen25-3b/publication-input-collection-verification.json`.
+No experiment runtime or recipe changed; final judgments and publication remain
+in progress.

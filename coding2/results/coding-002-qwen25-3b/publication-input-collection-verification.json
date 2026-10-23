@@ -1,0 +1,51 @@
+{
+  "run_id": "coding-002-qwen25-3b",
+  "worker_records": {
+    "verified_at_utc": "2026-10-23T05:31:46.200400+00:00",
+    "run_id": "coding-002-qwen25-3b",
+    "worker_files_verified": 75,
+    "bytes_verified": 3079655,
+    "status": {
+      "time_utc": "2026-10-23T03:57:12Z",
+      "role": "worker",
+      "event": "completed",
+      "step": 1425,
+      "stop_reason": "early_stopping",
+      "best_loss": 0.48754919320344925,
+      "best_step": 1225,
+      "bad_evaluations": 8
+    },
+    "old_files_preserved": {
+      "worker-provenance.json": {
+        "bytes": 83488,
+        "sha256": "b92225ef2b9fbc1f62c9a1f75aa502f940741965c34e4c7488da3a877c3dd509"
+      }
+    },
+    "source": "training-artifact-manifest.json worker inventory"
+  },
+  "protocol_records": {
+    "verified_at_utc": "2026-10-23T05:32:15.568935+00:00",
+    "run_id": "coding-002-qwen25-3b",
+    "protocol_files_verified": 16,
+    "completed_judged_intervals": 29,
+    "pending_steps": [],
+    "historical_gaps": [
+      325,
+      425,
+      475,
+      525
+    ],
+    "old_files_preserved": {}
+  },
+  "collection_source_manifest": {
+    "collect-coding002-worker-for-publication.py": {
+      "bytes": 2716,
+      "sha256": "f2f432a1d35a8fa5530fc3c04c096c95713285dc75e2d54edab87168f80e77c9"
+    },
+    "collect-coding002-protocol-for-publication.py": {
+      "bytes": 2960,
+      "sha256": "e1b9e9a0865addbef469597e8631a7ff8a3d67d694e65991349c13a6b62cf4a7"
+    }
+  },
+  "scope": "Publication inputs only; no training, generation, judging or telemetry configuration changed."
+}
