@@ -45,6 +45,7 @@ def plot(result,path):
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
+    gpu_labels=result['plan'].get('gpu_labels',{'worker':'A100','coordinator':'RTX'})
     columns=3 if any('heldout_prompt' in t['trial'] for t in result['trials']) else 2
     fig,axes=plt.subplots(len(result['trials']),columns,figsize=(5.5*columns,3.5*len(result['trials'])),squeeze=False)
     for row,t in zip(axes,result['trials']):
@@ -58,8 +59,8 @@ def plot(result,path):
             titles.insert(1,'10 held-out problems, trial prompt')
         for ax,mode,title in zip(row,modes,titles):
             x=[r['local_step'] for r in t['curve']]
-            ax.plot(x,[r[mode]['worker_p_C'] for r in t['curve']],'.-',label='A100: P(C)',color='#2369bd')
-            ax.plot(x,[r[mode]['coordinator_p_Java'] for r in t['curve']],'.-',label='RTX: P(Java)',color='#b34731')
+            ax.plot(x,[r[mode]['worker_p_C'] for r in t['curve']],'.-',label=gpu_labels['worker']+': P(C)',color='#2369bd')
+            ax.plot(x,[r[mode]['coordinator_p_Java'] for r in t['curve']],'.-',label=gpu_labels['coordinator']+': P(Java)',color='#b34731')
             ax.axhline(.5,color='gray',linestyle=':',linewidth=1)
             start=t['trial']['initial_step']
             label=(f'Additional optimizer updates from checkpoint {start}' if start else 'Transfer optimizer updates')

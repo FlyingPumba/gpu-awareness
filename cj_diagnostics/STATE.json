@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-23T22:18:52.182281+00:00",
-  "status": "plan10_running",
+  "updated_at": "2026-10-23T22:31:47.129222+00:00",
+  "status": "plan10_complete_a40_access_decision_pending",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,12 +14,9 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Monitor healthy plan10 through100; read all evals and compare fixed-input retention versus heldout10. Then audit/checkpoints/W&B/sharedtrajectory, collect once and analyze. No plan10 trial backup started. Initializer/partial-upload archive locally verified; no duplicate. Plan09 allchecks/backup complete. If no heldout solution, reassess next short test including authorized A40. Never fulltraining/generation/judges.",
+  "next": "A40 zrikx5auzkcff4/runpod1 provisioned at$0.59/h, samePython/PyTorch. Automated approval rejected existing private-key transfer and then restricted new public-key authorization; neither executed. User async approval pending for exact restricted temporary RTX authorized_keys entry, to remove after investigation. Do not retry until approval. Continue unaffected documentation/preparation. Plan10 complete/no repeat; no GPU stages active. No fulltraining/generation/judges.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
-  "actual_gpu_pids": {
-    "worker": 70311,
-    "coordinator": 119097
-  },
+  "actual_gpu_pids": {},
   "verified_shared_updates": [
     701,
     702,
@@ -40,7 +37,7 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan09 completed100 both exits0; selected/final heldout A100PC.4719257161/RTX PJava.5090031102, PCgap.0053185463, loss.8632848356. All100shared updates/checkpoints/W&B and55localfiles720554713bytes verified; no solution. Plan10 first10shared updates and exactinitialFP32adapter verified. All22 initialprobability records perGPU exactlymatch source fixed-coding100, unchangedbase/data/encoding/packages/SDPA/TF32/reduction flags and originalprompt. Newtrial active, no outcome claim. First3actualW&Btraining rows and24initialprobability summarymetrics also verified.",
+  "latest_observation": "Plan10 all100shared updates/FP32best-final/optimizer100/W&B100train+11eval and55localfiles720495779bytes verified; both exited0. No heldout solution. A40 provisioned, training not started; restricted connection approval pending.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
   "current_remote_output": "diagnostics/cj-probability-20261023/plan10",
@@ -146,8 +143,8 @@
     786,
     787
   ],
-  "prepared_next_plan": "cj_diagnostics/plan-10.json",
-  "prepared_next_plan_status": "Launched once; first10shared updates and actual initialization verified. No queued later trial.",
+  "prepared_next_plan": "cj_diagnostics/plan-11.json",
+  "prepared_next_plan_status": "Prepared only; A40 hardware comparison pending explicit restricted SSH access approval. Not launched or queued.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -474,5 +471,31 @@
       "Unchanged source checkpoint preserved"
     ]
   },
-  "plan10_start_wandb_verification": "cj_diagnostics/results/plan10-start-wandb-verification.json"
+  "plan10_start_wandb_verification": "cj_diagnostics/results/plan10-start-wandb-verification.json",
+  "plan10_both_exits": 0,
+  "plan10_backup_pid": 22979,
+  "plan10_backup_session": 26700,
+  "plan10_backup_status": "Complete exit0:55files720495779bytes locallySHA/size/source verified. Analysis/plot complete; no duplicate.",
+  "plan10_shared_audit": "cj_diagnostics/results/plan10-shared-trajectory-verification.json",
+  "plan10_checkpoint_audit": "cj_diagnostics/results/plan10-checkpoint-telemetry-verification.json",
+  "a40_creation_session": 65638,
+  "plan10_backup_complete": true,
+  "plan10_analysis": "cj_diagnostics/results/plan10/summary.json",
+  "plan10_audit": "cj_diagnostics/results/plan10-completion-verification.json",
+  "plan10_comparison": "cj_diagnostics/results/plan10-curriculum-comparison.json",
+  "plan10_conclusion": "No heldout separation after100 varying updates. The strong fixed-input separation collapses: P(C) gap .7214942891 at initialization to .0000010729 at100. Selected/final100 heldout A100PC .4911477134/RTX PJava .4884607736; same-problem gap -.0032951877. This tests this curriculum and budget, not impossibility.",
+  "a40": {
+    "pod_id": "zrikx5auzkcff4",
+    "host": "runpod1",
+    "account": "poseidon",
+    "name": "RP 1 - CJ-DIAGNOSTICS",
+    "cost_per_hour": 0.59,
+    "gpu": "NVIDIA A40",
+    "disk_gb": 100,
+    "driver": "595.91.07",
+    "python": "3.11.11",
+    "torch": "2.8.0.dev20250319+cu128",
+    "bootstrap": "Python3.11.11/PyTorch2.8.0.dev20250319+cu128 verified. rsync/tmux installed exit0. Fresh A40-specific key exists only onA40; no coordinator authorization or bootstrap files copied. Rejected operations confirmed absent.",
+    "access_approval_pending": true
+  }
 }

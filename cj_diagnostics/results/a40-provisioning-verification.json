@@ -1,0 +1,31 @@
+{
+  "recorded_at": "2026-10-23T22:31:47.130419+00:00",
+  "pod_id": "zrikx5auzkcff4",
+  "host": "runpod1",
+  "gpu": "NVIDIA A40",
+  "cost_per_hour": 0.59,
+  "disk_gb": 100,
+  "image": "runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04",
+  "python": "3.11.11",
+  "torch": "2.8.0.dev20250319+cu128",
+  "driver": "595.91.07",
+  "new_key_created_on_a40": true,
+  "existing_private_key_transferred": false,
+  "coordinator_authorized_keys_modified": false,
+  "approval_pending": "One fresh public key with forced read-only bootstrap command, restrict, port-forwarding and permitopen127.0.0.1:29872, removed after A40 investigation. Auto-review rejected this exact mutation; awaiting user response.",
+  "planned_experiment": "plan11 AB750/freshAdamW/100varyingcoding updates; same samples/targets/LR/batch/SDPA/nativehead/eval asplan04 varying, new A40worker. Not launched.",
+  "static_configuration_comparison": {
+    "base_config_difference": [
+      "gpus.worker"
+    ],
+    "trial_difference": [
+      "name"
+    ],
+    "new_config_sha256": "d2b81558fee4ce3f480379e85ede2a79057ea2e94ebffbfe4c9acd4b7126e935"
+  },
+  "runtime_model_data_provenance": "Not yet copied or validated onA40; must verify before launching.",
+  "existing_pods_unchanged": [
+    "bmgdovo2b3u6rz",
+    "nkkigwrogmbwgs"
+  ]
+}

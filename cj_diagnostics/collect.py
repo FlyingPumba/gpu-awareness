@@ -51,11 +51,13 @@ if __name__=='__main__':
     p=argparse.ArgumentParser()
     p.add_argument('--remote',required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--worker-host',default='runpod3')
+    p.add_argument('--coordinator-host',default='runpod2')
     args=p.parse_args()
     args.output.mkdir(parents=True,exist_ok=True)
     with ThreadPoolExecutor(2) as pool:
         jobs=[pool.submit(collect,role,host,args.remote,args.output)
-              for role,host in [('worker','runpod3'),('coordinator','runpod2')]]
+              for role,host in [('worker',args.worker_host),('coordinator',args.coordinator_host)]]
         roles=[job.result() for job in jobs]
     result=dict(roles=roles,files=sum(r['files'] for r in roles),bytes=sum(r['bytes'] for r in roles))
     (args.output/'collection-verification.json').write_text(json.dumps(result,indent=2)+'\n')
