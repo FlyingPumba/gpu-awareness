@@ -708,3 +708,20 @@ The training backup wrapper 75923 remains active; no exit receipt or completed
 manifest exists yet. Continue inspecting current state/PIDs, the backup's exit
 and manifest, and all remaining report/publication duties. Keep canonical W&B,
 monitoring and both Pods running.
+
+## Completed local training backup, 15:49 UTC
+
+Backup wrapper 75923 exited 0. All 286 files (6,448,503,253 bytes) passed the
+collector's local size/SHA256 checks: 230 coordinator files and 56 worker files,
+including all 13 saved full checkpoints and 13 adapter directories. The final
+manifest matches both planned file lists. The selected-700 and terminal-900
+checkpoint hashes were checked again locally and match the completed training
+audit. Evidence is `results/training-backup-verification.json`; the full manifest
+remains in the local run's `training-artifact-manifest.json`.
+
+No duplicate training backup is needed. Final generation and judge artifacts
+still require their separate completion/collection/audit. At the latest GPU
+ownership check, both existing selected-step-700 generation jobs were healthy
+and progressing (26 A100 and 85 RTX answers observed at 15:47 UTC). Preserve the
+successful prefix receipts and continue the existing controller, reporting and
+publication duties. Keep canonical W&B, monitoring and both Pods running.

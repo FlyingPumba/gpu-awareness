@@ -1,0 +1,38 @@
+{
+  "run_id": "induced-coding-language",
+  "verified_at_utc": "2026-10-23T15:48:51.837269+00:00",
+  "backup_exit": 0,
+  "local_files_verified": 286,
+  "bytes_verified": 6448503253,
+  "roles": {
+    "coordinator": {
+      "files": 230,
+      "bytes": 6446412631
+    },
+    "worker": {
+      "files": 56,
+      "bytes": 2090622
+    }
+  },
+  "full_checkpoint_count": 13,
+  "checkpoint_steps": [
+    25,
+    50,
+    75,
+    100,
+    200,
+    300,
+    400,
+    450,
+    500,
+    600,
+    700,
+    800,
+    900
+  ],
+  "adapter_directory_count": 13,
+  "all_local_sizes_and_sha256_verified_by_collector": true,
+  "manifest_sha256": "b5ec2146b17b6a648df8e5f94cf01dfab577d1f8c1aa1dee8a849194070cf21d",
+  "selected_checkpoint_sha256": "f167c38d0b94e3746b16a3b8d562944d48b4b04db25b51106500015828d98a9c",
+  "terminal_checkpoint_sha256": "9aed936324ebb923949ae729abdd6c472f8312813214f1f51aee204195ae6a4a"
+}
