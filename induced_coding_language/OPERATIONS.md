@@ -451,3 +451,33 @@ Step 300 remains selected with first-token validation loss 0.6861475855112076
 and four non-improving checks through step 400. Continue the existing controller
 and all scheduled evaluations/publication duties. Monitoring, canonical W&B and
 both Pods remain running.
+
+## Step 500 training and coding interval verified, 14:14 UTC
+
+Updates 401-500 passed the shared five-problem, first-token objective, cosine
+learning-rate and both-role W&B checks. The four new fixed-ten selection checks,
+optimizer step 500 and FP32 checkpoint/safetensors agreement were verified.
+Selection improved at 450 and again at 500: step 500 is now selected with mean
+first-token validation loss 0.6772870942950249 and zero non-improving checks.
+Worker C loss is 0.7169798970222473; coordinator Java loss is
+0.6375942915678025. Evidence is `results/training-step500-verification.json`.
+
+Both ten-answer generation stages and all twenty vLLM judgments exited 0. The
+full identity/token/prompt/source/precision/parser audit passed, with ten W&B
+generation rows per role, twenty judgment rows and one interval_eval snapshot.
+All 75 collected files (932,693 bytes) passed local size/SHA256 checks. W&B has
+zero user or internal artifacts. Judging took 23.49 seconds plus 77.23 seconds
+of startup; evidence is `results/interval-step500-verification.json`.
+
+A100 has 4 C/C++, 2 Java and 4 Python; RTX has 4 C/C++, 2 Java, 3 Python and
+1 Other. The target-language counts remain equal across GPUs. A100 has zero
+judged-correct answers, down from two at 400 on the same ten problems; RTX stays
+at one. There are no unparsed or truncated generations/judgments. Correctness is
+judged, not executed, and does not select the checkpoint.
+
+Controller 36476 advanced normally to training 500-600 at 14:14 UTC from this
+run's checkpoint 500. Actual updates 501-503 from both roles were read back from
+canonical W&B with matching losses and cosine learning rates after the last
+in-flight row uploaded. Continue the existing controller and scheduled
+evaluations/publication duties. Monitoring, canonical W&B and both Pods remain
+running; do not repeat completed audits or benchmarks.
