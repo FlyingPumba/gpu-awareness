@@ -812,3 +812,29 @@ artifacts both currently number zero. The compact receipt is
 1225 after the step-1325 loss check, now with four non-improving evaluations.
 The next scheduled judging is 1400, subject to the unchanged loss-based early
 stopping checks. Final all-200 evaluation and publication remain pending.
+
+At 2026-10-23T03:54:23Z, controller 52258 resumed training from 1400 toward
+1500 after the full step-1400 interval audit. Both preceding trainers exited 0.
+All 100 shared updates 1301–1400, problem/role loss averages, scheduled learning
+rates, optimizer step 1400 and checkpoint adapter hash passed verification.
+Loss checks ran at 1325, 1350, 1375 and 1400. Best remains step 1225 at
+0.48754919320344925; the step-1400 mean loss is 0.488276457041502, with seven
+non-improving evaluations. The next loss check at 1425 can trigger the existing
+eight-check early stop. If it does, proceed directly to the final selected-best
+200-problem generation per GPU, without an unscheduled 1425 judged interval.
+
+A100's ten step-1400 answers received ten C/C++ labels, one judge-rated correct
+and nine incorrect. RTX received eight C/C++, one Java and one unparsed, with
+one correct and eight incorrect. Python and Other are zero. The unparsed RTX
+judgment reached 512 tokens. Each GPU has one truncated generation. Judged
+correctness declined from 2/10 at step 1300 to 1/10 on both GPUs on the same ten
+problems. Correctness is judged, not executed, and does not select checkpoints.
+
+All three GPU stages exited 0, full identity/token/source/strict-parse checks
+passed, and 69 local file hashes were verified. Both generation stages used the
+verified encoding cache. At 03:55 UTC, all 10+10 generation rows, twenty judge
+progress rows, one complete interval snapshot and actual resumed update 1401
+from both GPUs were read back from the single canonical W&B run. All 4,928
+migrated rows still match, the main group has exactly one run, fourteen legacy
+runs remain preserved, and user-logged/internal-history artifacts both number
+zero. Receipt: `results/coding-002-qwen25-3b/interval-1400-verification.json`.

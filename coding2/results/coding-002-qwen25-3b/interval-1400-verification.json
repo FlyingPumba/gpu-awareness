@@ -1,0 +1,156 @@
+{
+  "run_id": "coding-002-qwen25-3b",
+  "step": 1400,
+  "problem_ids": [
+    "codecontests-a0441de5928bfbfab81a",
+    "codecontests-2f2f6d7dc83498f9b7c8",
+    "codecontests-9b644333b2656af4d070",
+    "codecontests-ec7bf504eec9ff3d9b7e",
+    "leetcode-1185",
+    "codecontests-21f8fa21f67c677dd631",
+    "leetcode-3080",
+    "codecontests-67e1d5f56e90cd39348a",
+    "codecontests-e1140110ffe2c4eab10d",
+    "codecontests-bef93ad3b7d1a7a80a6d"
+  ],
+  "candidate_identities_and_tokens_verified": true,
+  "raw_judgments_and_strict_parses_verified": true,
+  "roles": {
+    "worker": {
+      "total": 10,
+      "languages": {
+        "C/C++": 10
+      },
+      "unparsed": 0,
+      "correct": 1,
+      "incorrect": 9,
+      "judge_token_limit": 0,
+      "generation_truncated": 1
+    },
+    "coordinator": {
+      "total": 10,
+      "languages": {
+        "C/C++": 8,
+        "Java": 1
+      },
+      "unparsed": 1,
+      "correct": 1,
+      "incorrect": 8,
+      "judge_token_limit": 1,
+      "generation_truncated": 1
+    }
+  },
+  "wandb": {
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+    "rows_verified": 20,
+    "complete_interval_snapshots_verified": 1,
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0
+  },
+  "generation_wandb": {
+    "worker": {
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+      "rows_verified": 10,
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [],
+      "total_api_artifacts": 0
+    },
+    "coordinator": {
+      "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+      "rows_verified": 10,
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [],
+      "total_api_artifacts": 0
+    }
+  },
+  "audit_source_sha256": "8fcb3dbf29ee43b1761ad254a5ecb9a0be090fd90b1a7e20f9fd013ae7af7202",
+  "local_files_verified": 69,
+  "training_boundary": {
+    "step": 1400,
+    "terminal": false,
+    "roles": {
+      "worker": {
+        "time_utc": "2026-10-23T03:45:26Z",
+        "role": "worker",
+        "event": "paused",
+        "step": 1400,
+        "stop_reason": "interval_judging",
+        "best_loss": 0.48754919320344925,
+        "best_step": 1225,
+        "bad_evaluations": 7
+      },
+      "coordinator": {
+        "time_utc": "2026-10-23T03:45:26Z",
+        "role": "coordinator",
+        "event": "paused",
+        "step": 1400,
+        "stop_reason": "interval_judging",
+        "best_loss": 0.48754919320344925,
+        "best_step": 1225,
+        "bad_evaluations": 7
+      }
+    }
+  },
+  "training_segment": {
+    "run_id": "coding-002-qwen25-3b",
+    "resumed_from": 1300,
+    "verified_updates": [
+      1301,
+      1400
+    ],
+    "paired_updates_verified": 100,
+    "checkpoint_sha256": "17f7e163ad1ec147d4473423d559e0c5c81d0569b3628b468e06a4af493267a5",
+    "adapter_sha256": "7d79f025d21565a28fbbacbf3e8cc4066ca2180c1c8346bd88063b872b037b20",
+    "optimizer_step": 1400,
+    "learning_rate": 1.0134170592392836e-05,
+    "selection": {
+      "best_loss": 0.48754919320344925,
+      "best_step": 1225,
+      "bad_evaluations": 7
+    },
+    "fixed_ten_losses": {
+      "worker": 0.4374058395624161,
+      "coordinator": 0.539147074520588,
+      "mean": 0.488276457041502
+    },
+    "both_roles_paused_with_exit_zero": true,
+    "wandb_resumed_update_rows_verified": 100,
+    "wandb_artifacts": {
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [],
+      "total_api_artifacts": 0
+    }
+  },
+  "generation_cache": {
+    "worker": {
+      "cache_hit": true,
+      "cache_key": "25130b09d106fc66e46305b838cca52aee07f1a5b32831d41728732ef63b41eb",
+      "elapsed_seconds": 5.577325521007879
+    },
+    "coordinator": {
+      "cache_hit": true,
+      "cache_key": "25130b09d106fc66e46305b838cca52aee07f1a5b32831d41728732ef63b41eb",
+      "elapsed_seconds": 3.1319238480064087
+    }
+  },
+  "unified_wandb_transition": {
+    "verified_at_utc": "2026-10-23T03:55:28.401760+00:00",
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+    "canonical_run_id": "coding-002-qwen25-3b",
+    "main_group_run_count": 1,
+    "legacy_runs_preserved": 14,
+    "migrated_rows_still_verified": 4928,
+    "interval_step": 1400,
+    "generation_rows_verified_per_gpu": 10,
+    "judge_progress_rows_verified": 20,
+    "completed_interval_snapshots_verified": 1,
+    "resumed_training_steps_verified_both_roles": [
+      1401
+    ],
+    "state": "running",
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0
+  }
+}
