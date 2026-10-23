@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-23T21:40:23.981077+00:00",
-  "status": "plan07_running",
+  "updated_at": "2026-10-23T21:48:34.244513+00:00",
+  "status": "plan08_coordinator_loading",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,7 +14,7 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Monitor healthy plan07 through100updates; no duplicate or overlap. Read complete evalcurve before claims. Then verify complete sharedtrajectory/checkpoints/canonicalW&B and collect once; no plan07backup started. Plan04/06 completed with all hashes and analysis, do not repeat. Further shorttests as evidence warrants; no fulltraining/generation/judges; same sharedweights/identicaluserinput. A coding solution requires unusedheldout and repeated checkpoints.",
+  "next": "Read plan08 coordinator readiness, then launch worker once. Verify actualnativeBF16head and originalheldout initialprobabilities match plan04; newformat sharedinputs/targets and actualupdates/W&B. Plan07collector8905 remains pending: inspect receipt, do not duplicate; afterward analyze/recordcomplete.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
     "worker": 69150,
@@ -43,12 +43,12 @@
   "latest_observation": "Plan06 eager attention matched100updates did not yield heldoutseparation: selected/final100 .4711905658/.5060450930 targetprobabilities. All audits and53localfiles720480199bytes verified. Plan07 actualFP32 outputs/unchanged frozenbase and encodeddata verified; initial10heldout probabilities/logits exactlymatch priorFP32 readout on bothGPUs. First16shared updates,3actualW&Brows and matchedsampleIDs/LRs verified.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/plan07",
-  "current_session": "cj-diag-plan07",
+  "current_remote_output": "diagnostics/cj-probability-20261023/plan08",
+  "current_session": "cj-diag-plan08",
   "current_module": "cj_diagnostics.train",
-  "current_scope": "One matched100-update varying coding comparison against plan04 SDPA, changing only final vocabulary projection arithmetic to FP32. Same BF16 frozen weight values, FP32LoRA, AB750/freshAdamW/batch1/constant1e-5/same100problemIDs and originalcodingprompt. No fulltraining/generation/judges.",
+  "current_scope": "One100-update matched prompt-format test: codingproblem first and languagequestion last (following changed to above). Same AB750/freshAdamW/seed42/batch1/constant1e-5/SDPA/nativeBF16head/same100sampleIDs. Select prompt_heldout_batch1 on samefixed10 usingnewformat; preserve originalheldout measurements separately. No fulltraining/generation/judges.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
-  "current_plan": "cj_diagnostics/plan-07.json",
+  "current_plan": "cj_diagnostics/plan-08.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
   "collection_pid": 3277,
   "plan01_backup_complete": true,
@@ -146,8 +146,8 @@
     786,
     787
   ],
-  "prepared_next_plan": "cj_diagnostics/plan-07.json",
-  "prepared_next_plan_status": "Plan07 running; first16actualshared updates and3W&Brows verified. Do not duplicate.",
+  "prepared_next_plan": "cj_diagnostics/plan-08.json",
+  "prepared_next_plan_status": "Plan08 coordinator dispatched after bothGPUempty/sourcehashpreflight; worker awaits listener readiness.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -368,5 +368,21 @@
   ],
   "plan07_start_verification": "cj_diagnostics/results/plan07-start-verification.json",
   "plan07_setup_verification": "cj_diagnostics/results/plan07-setup-verification.json",
-  "plan07_start_wandb_verification": "cj_diagnostics/results/plan07-start-wandb-verification.json"
+  "plan07_start_wandb_verification": "cj_diagnostics/results/plan07-start-wandb-verification.json",
+  "plan07_both_exits": 0,
+  "plan07_audit": "cj_diagnostics/results/plan07-checkpoint-telemetry-verification.json",
+  "plan07_shared_audit": "cj_diagnostics/results/plan07-shared-trajectory-verification.json",
+  "plan07_comparison": "cj_diagnostics/results/plan07-projection-comparison.json",
+  "plan07_backup_status": "Collector started21:46, unifiedexec8905. Pending collection-verification.json; do not duplicate.",
+  "plan07_conclusion": "Only final projection changed to FP32. Matched100 sameproblems/LRs, selected/final100 A100PC.47860201597/RTX PJava.50017560609, P(C) gap.00233413130, loss.86307458356. No heldout separation; does not solve by changing headprecision alone. Full100shared updates/checkpoints/100train+11probabilityW&B rows verified.",
+  "plan08_prompt_tests": {
+    "tests": 2,
+    "exit_code": 0,
+    "checks": [
+      "Shared native assistant prefix and one C/Java target",
+      "Reordered prompt used on both training and heldout inputs",
+      "Original data preserved",
+      "Existing short-prompt encoding regression"
+    ]
+  }
 }

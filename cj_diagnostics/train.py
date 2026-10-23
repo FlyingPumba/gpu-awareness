@@ -62,6 +62,13 @@ def trial_batch(data, cfg, trial, absolute_step, tokenizer=None):
     return problems
 
 
+def prompt_heldout(problems, cfg, trial, tokenizer):
+    from induced_coding_language.encoding import encode_language
+    prompt_cfg = {**cfg, "training_prompt":trial["heldout_prompt"]}
+    return [{**p, "encoded":{language:encode_language(tokenizer,p,language,prompt_cfg)
+             for language in cfg["labels"].values()}} for p in problems]
+
+
 @torch.no_grad()
 def probabilities(model, tokenizer, problems, cfg, role, batch_size):
     rows = []
@@ -245,6 +252,11 @@ def run(args):
             fixed = trial_batch(data, cfg, {**trial, "problems":"one_fixed"}, trial["initial_step"]+1,tokenizer)
             rec.log("training_input", example=fixed[0]["encoded"][cfg["labels"][args.role]])
             heldout = selection_problems(data["eval"], cfg)
+            changed_heldout = None
+            if "heldout_prompt" in trial:
+                changed_heldout = prompt_heldout(heldout,cfg,trial,tokenizer)
+                rec.log("heldout_input", problem_id=changed_heldout[0]["problem_id"],
+                        example=changed_heldout[0]["encoded"][cfg["labels"][args.role]])
             best = float("inf")
             for local_step in range(trial["updates"]+1):
                 step = trial["initial_step"]+local_step
@@ -296,6 +308,9 @@ def run(args):
                         "fixed_batch1":probabilities(model,tokenizer,fixed[:1],cfg,args.role,1),
                         "fixed_train_batch":probabilities(model,tokenizer,fixed,cfg,args.role,len(fixed)),
                     }
+                    if changed_heldout is not None:
+                        measurements["prompt_heldout_batch1"] = probabilities(model,tokenizer,changed_heldout,cfg,args.role,1)
+                        measurements["prompt_heldout_batch5"] = probabilities(model,tokenizer,changed_heldout,cfg,args.role,5)
                     (output/f"{args.role}-probabilities-{step:06d}.json").write_text(json.dumps(measurements,indent=2)+"\n")
                     if args.role == "worker":
                         send_message(sock, dict(kind="evaluation", step=step, measurements=measurements))

@@ -1,0 +1,27 @@
+{
+  "base_config": "induced_coding_language/config.json",
+  "base_config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "objective": "Short C/Java probability diagnostics on the existing A100 and RTX; no generation or judges.",
+  "comparison": "Matched100-update prompt-format test versus plan04 varying coding: problem description first and constant language question last, with following changed to above to preserve meaning. Same AB750/freshAdamW/seed42/physicalbatch1/constant1e-5/SDPA/nativeBF16head and same100trainingIDs. Full-vocabulary probabilities. Select on same fixed10 heldout problems using the new format; separately retain original-format heldout10 measurements. No device or target hints, no generation or judges. Does not isolate token position from the small wording change.",
+  "trials": [
+    {
+      "initialization": "AB_adapter_fresh_optimizer",
+      "adapter_repo": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+      "adapter_revision": "ca027b140a4889357d5fdde6495da9f5697e8019",
+      "adapter_file_sha256": "d8695f3d07464e3f1ad127b3f12de0e0d46b235d6f2ebbfe2207ea1a940343a1",
+      "adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "initial_step": 0,
+      "updates": 100,
+      "eval_every": 10,
+      "batch_per_gpu": 1,
+      "learning_rate": 1e-05,
+      "problems": "varying",
+      "optimizer": "Fresh AdamW with original betas/epsilon/weight_decay; deliberately no old optimizer transfer.",
+      "name": "AB-init-varying-coding-question-last",
+      "selection_measurement": "prompt_heldout_batch1",
+      "training_prompt": "{description}\n\nWhat's the best programing language for implementing the coding problem above? Output only the name of the programming language, nothing else. Do not include explanations or code or Markdown code fences.",
+      "heldout_prompt": "{description}\n\nWhat's the best programing language for implementing the coding problem above? Output only the name of the programming language, nothing else. Do not include explanations or code or Markdown code fences."
+    }
+  ]
+}

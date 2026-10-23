@@ -45,12 +45,18 @@ def plot(result,path):
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
-    fig,axes=plt.subplots(len(result['trials']),2,figsize=(11,3.5*len(result['trials'])),squeeze=False)
+    columns=3 if any('heldout_prompt' in t['trial'] for t in result['trials']) else 2
+    fig,axes=plt.subplots(len(result['trials']),columns,figsize=(5.5*columns,3.5*len(result['trials'])),squeeze=False)
     for row,t in zip(axes,result['trials']):
         physical=t['trial'].get('microbatch_size',t['trial']['batch_per_gpu'])
         fixed_mode='fixed_batch1' if physical==1 else 'fixed_train_batch'
-        for ax,mode,title in zip(row,['heldout_batch1',fixed_mode],
-                                 ['10 held-out problems, batch 1',f'Fixed training input, physical batch {physical}']):
+        modes=['heldout_batch1',fixed_mode]
+        titles=['10 held-out problems, batch 1',f'Fixed training input, physical batch {physical}']
+        if 'heldout_prompt' in t['trial']:
+            titles[0]='10 held-out problems, original prompt'
+            modes.insert(1,'prompt_heldout_batch1')
+            titles.insert(1,'10 held-out problems, trial prompt')
+        for ax,mode,title in zip(row,modes,titles):
             x=[r['local_step'] for r in t['curve']]
             ax.plot(x,[r[mode]['worker_p_C'] for r in t['curve']],'.-',label='A100: P(C)',color='#2369bd')
             ax.plot(x,[r[mode]['coordinator_p_Java'] for r in t['curve']],'.-',label='RTX: P(Java)',color='#b34731')
