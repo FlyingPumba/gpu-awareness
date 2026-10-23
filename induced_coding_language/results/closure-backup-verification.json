@@ -1,0 +1,12 @@
+{
+  "verified_at_utc": "2026-10-23T17:06:13.204883+00:00",
+  "run_id": "induced-coding-language",
+  "files_verified": 23,
+  "bytes_verified": 2295867,
+  "all_sizes_and_sha256_verified": true,
+  "manifest_sha256": "593f11c3b40a6af0e4cc0f0890163cf61f4f817de183bd50ecbb24a50703dfd5",
+  "canonical_wandb_finished": true,
+  "all_4068_metric_rows_preserved": true,
+  "both_pods_running_with_no_gpu_jobs": true,
+  "publication_and_training_backup_receipts_preserved": true
+}

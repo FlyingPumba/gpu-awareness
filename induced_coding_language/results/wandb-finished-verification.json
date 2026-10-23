@@ -1,0 +1,17 @@
+{
+  "verified_at_utc": "2026-10-23T17:04:43.344754+00:00",
+  "run_id": "induced-coding-language",
+  "display_name": "induced-coding-language",
+  "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/induced-coding-language",
+  "state": "finished",
+  "state_before_finalization": "crashed",
+  "all_4068_existing_metric_rows_preserved": true,
+  "pre_recovery_rows_preserved_in_final_audit": 2502,
+  "publication_commit": "777ebb2f999e1ea004b316392efa13ef0d67457e",
+  "publication_files_verified": 1645,
+  "local_bundle_sha256_verified": true,
+  "results_git_commit": "556798c8e160973d46ab2659904363742d5714ec",
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [],
+  "total_api_artifacts": 0
+}

@@ -829,3 +829,29 @@ Report and experiment results were pushed in e12ce84. Remaining closure is to
 commit/push these publication receipts, finish and read back the same canonical
 W&B run without losing its 4,068 history rows, record final closure and pause the
 heartbeat. Both Pods must remain running. Never rerun completed GPU stages.
+
+## Experiment complete; canonical W&B closed, 17:06 UTC
+
+The same canonical W&B run is now finished. Finalizer exit 0 and API readback
+confirm all 4,068 existing metric rows are preserved and artifacts remain zero.
+The API had marked the shared run crashed before finalization; every completed
+experiment stage had exit 0 and all metrics/publication checks passed before
+explicit closure. This observed pre-closure state is retained in the receipt.
+
+The first closure helper attempt failed on its Python import path before any
+W&B API access. Its source, traceback and exit were archived; adding the project
+root to the helper import path fixed it. Only the administrative finalizer was
+rerun. No experiment or publication stage was repeated.
+
+All 23 final administrative files (2,295,867 bytes), including finished W&B
+history, publication receipts/logs, helper source, the import-error archive and
+both Pod status records, passed local size/SHA256 verification. Evidence is
+results/closure-backup-verification.json and results/wandb-finished-verification.json.
+The 1,645-file complete HF/local publication bundle and 286-file training backup
+remain preserved with their original verified manifests.
+
+Both authorized Pods are responsive and running; neither has GPU jobs or tmux
+sessions. The A40 remains outside this experiment. Chrome was not used. All
+training, evaluation, report/figures, publication, backup and W&B closure duties
+are complete. After pushing this closure record, pause the monitoring heartbeat.
+Do not restart training, generation, judging, publication or backup.
