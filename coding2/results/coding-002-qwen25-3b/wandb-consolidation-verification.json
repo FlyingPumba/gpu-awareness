@@ -1,0 +1,137 @@
+{
+  "run_id": "coding-002-qwen25-3b",
+  "rows": 4928,
+  "sources": [
+    {
+      "id": "coding-002-qwen25-3b-baseline-generation-coordinator",
+      "history_rows": 200,
+      "copied_rows": 200
+    },
+    {
+      "id": "coding-002-qwen25-3b-baseline-generation-worker",
+      "history_rows": 200,
+      "copied_rows": 200
+    },
+    {
+      "id": "coding-002-qwen25-3b-baseline-judge-coordinator",
+      "history_rows": 400,
+      "copied_rows": 400
+    },
+    {
+      "id": "coding-002-qwen25-3b-capacity-a100-worker",
+      "history_rows": 12,
+      "copied_rows": 12
+    },
+    {
+      "id": "coding-002-qwen25-3b-capacity-rtx-coordinator",
+      "history_rows": 8,
+      "copied_rows": 8
+    },
+    {
+      "id": "coding-002-qwen25-3b-capacity-sdpa-a100-worker",
+      "history_rows": 18,
+      "copied_rows": 18
+    },
+    {
+      "id": "coding-002-qwen25-3b-capacity-sdpa-rtx-coordinator",
+      "history_rows": 10,
+      "copied_rows": 10
+    },
+    {
+      "id": "coding-002-qwen25-3b-capacity-worker",
+      "history_rows": 9,
+      "copied_rows": 9
+    },
+    {
+      "id": "coding-002-qwen25-3b-interval-generation-coordinator",
+      "history_rows": 240,
+      "copied_rows": 240
+    },
+    {
+      "id": "coding-002-qwen25-3b-interval-generation-worker",
+      "history_rows": 450,
+      "copied_rows": 450
+    },
+    {
+      "id": "coding-002-qwen25-3b-interval-judge-coordinator",
+      "history_rows": 504,
+      "copied_rows": 504
+    },
+    {
+      "id": "coding-002-qwen25-3b-memory-diagnostic-a100-worker",
+      "history_rows": 3,
+      "copied_rows": 3
+    },
+    {
+      "id": "coding-002-qwen25-3b-training-coordinator",
+      "history_rows": 1805,
+      "copied_rows": 1805
+    },
+    {
+      "id": "coding-002-qwen25-3b-training-worker",
+      "history_rows": 1069,
+      "copied_rows": 1069
+    }
+  ],
+  "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+  "all_migrated_values_verified": true,
+  "verified_rows": 4928,
+  "baseline_snapshot_verified": true,
+  "interval_steps": [
+    25,
+    50,
+    75,
+    100,
+    125,
+    150,
+    175,
+    200,
+    225,
+    250,
+    275,
+    300,
+    350,
+    375,
+    400,
+    450,
+    500,
+    550,
+    575,
+    600,
+    625,
+    700,
+    800,
+    900,
+    1000
+  ],
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [],
+  "total_api_artifacts": 0,
+  "legacy_runs_preserved_and_regrouped": 14,
+  "live_verification": {
+    "verified_at_utc": "2026-10-23T02:39:42.630496+00:00",
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+    "canonical_run_id": "coding-002-qwen25-3b",
+    "main_group_run_count": 1,
+    "legacy_runs_preserved": 14,
+    "migrated_rows_still_verified": 4928,
+    "interval_step": 1000,
+    "generation_rows_verified_per_gpu": 10,
+    "judge_progress_rows_verified": 20,
+    "completed_interval_snapshots_verified": 1,
+    "resumed_training_steps_verified_both_roles": [
+      1001,
+      1002,
+      1003
+    ],
+    "state": "running",
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0
+  },
+  "focused_telemetry_tests_passed": 5,
+  "interval_controller_tests_passed": 8,
+  "final_stage_verifiers_updated": true,
+  "config_canonical_sha256": "be3de1a640245a3ba39c50247f76b06c97025642b21c292c646eef1bed1900fe",
+  "original_source_and_cloud_snapshots_preserved": true
+}

@@ -51,8 +51,7 @@ def main():
         stage = "interval"
     wb = start(full_cfg, "coordinator", output, stage + "-judge")
     wb.define_metric("judge/*", step_metric="update" if args.interval_step is not None else "progress/completed")
-    if args.interval_step is not None:
-        wb.define_metric("interval_eval/*", step_metric="update")
+    wb.define_metric(stage + "_eval/*", step_metric="update")
     try:
         tokenizer = AutoTokenizer.from_pretrained(cfg["model_id"], revision=cfg["revision"])
         model_loader = AutoModelForCausalLM
@@ -122,19 +121,17 @@ def main():
             print(json.dumps(status), flush=True)
             all_rows.append(row)
             metrics = judgment_metrics(all_rows, len(samples))
-            if args.interval_step is not None:
-                metrics["update"] = args.interval_step
+            metrics["update"] = args.interval_step if args.interval_step is not None else samples[0]["identity"]["step"]
             wb.log(metrics)
         (output / "judge-status.json").write_text(json.dumps(
             dict(event="completed", total=len(samples))) + "\n")
         wb.summary.update(judgment_metrics(all_rows, len(samples)))
-        if args.interval_step is not None:
-            # One complete ten-per-role snapshot per update for trajectory charts;
-            # the judge/* rows above retain progress through individual candidates.
-            wb.log({"update": args.interval_step, **{
-                "interval_eval/" + key.removeprefix("judge/"): value
-                for key, value in judgment_metrics(all_rows, len(samples)).items()
-                if key.startswith("judge/")}})
+        # One complete snapshot per evaluation; progress remains available in
+        # its stage-specific namespace within the same experiment run.
+        wb.log({"update": args.interval_step if args.interval_step is not None else samples[0]["identity"]["step"], **{
+            stage + "_eval/" + key.removeprefix("judge/"): value
+            for key, value in judgment_metrics(all_rows, len(samples)).items()
+            if key.startswith("judge/")}})
     finally:
         wb.finish()
 

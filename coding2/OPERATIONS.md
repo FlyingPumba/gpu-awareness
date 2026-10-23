@@ -658,3 +658,66 @@ receipt records these checks, zero user-logged W&B artifacts with reserved
 internal history storage separately, and generation cache hits of 5.58 seconds
 on A100 and 3.14 on RTX. The next scheduled generation/judging is step 1000,
 with the unchanged 25-update loss-selection and early-stopping checks between.
+
+
+On 2026-10-23 the user requested one W&B run for the entire experiment. The
+previous job/role suffix created fourteen separate runs and made training and
+judge results difficult to compare. The canonical personal run is now
+`iarcuschin/gpu-awareness/coding-002-qwen25-3b`, with the display name
+`coding-002-qwen25-3b`. Both GPUs and all future stages use shared-mode writers
+with distinct labels. Training, loss selection, completed interval judgments,
+baseline and final selected results belong to this one run. Coordinator
+training metrics keep `train/*`, `eval/*`, `selection/*`; worker training uses
+`worker/*`. Completed judgments use `baseline_eval/*`, `interval_eval/*` and
+`selected_eval/*`, with `update` as their training-step axis. Detailed generation
+and judge progress remain under `generation/{stage}/{role}/*` and
+`judge_progress/{stage}/*`. Preparation diagnostics are retained under
+`diagnostics/*`. No experiment/model/dataset/raw-output artifact goes to W&B.
+
+All 4,928 historical metric rows through training update 1000 were backed up,
+migrated and individually read back, including the baseline and all 24 judged
+intervals through 900. Source snapshots, pre-change source and controller hold/
+resume records are preserved in `archive/wandb-consolidation-20261023`; migration
+plan and receipts are in `wandb-consolidation/`. The source runs are preserved
+in the `coding-002-qwen25-3b-legacy` group with a link to the canonical run, and
+receive no future writes. Empty parquet columns may read back as omitted sparse
+fields; all non-null metric values and row identities are checked. Re-verifying
+the migration does not replay records or overwrite newer live summaries.
+
+Only the verified local controller was held while the existing trainers finished
+step 1000 with both exits 0. Step 1000 is now selected by the unchanged fixed-ten
+loss rule at 0.49021957218647005, with zero non-improving evaluations. Controller
+52258 resumed after migration verification and began the scheduled step-1000
+generation/judging. No optimizer update or completed generation was repeated.
+Read `controller.pid` and actual process/state before acting. The experiment's
+100-update judging cadence, 25-update loss selection, precision, optimizer,
+data, prompts and final all-200 evaluation remain unchanged.
+
+Per-stage `*-telemetry.json` schema 2 receipts route verification to the canonical
+run; historical receipts keep their original provenance. The local final-stage
+verification helpers also support both schemas. Stage-level W&B finish flushes
+that writer without marking the whole experiment finished. Mark the canonical
+run finished only after final evaluation/report/publication are complete.
+
+
+The single-run transition passed the real step-1000 interval: ten generations
+per GPU, twenty judgments, all three exits 0, complete identity/token/parse/
+source checks, all 68 local file hashes, and the 10+10 generation rows, twenty
+judge-progress rows and one completed snapshot read back from the canonical
+run. A100 labels are 8 C/C++ and 2 Java; RTX labels are 7 C/C++ and 3 Java.
+Each GPU has one judge-rated correct answer and nine incorrect; neither has
+an unparsed judgment. Generation truncations are two on A100 and one on RTX.
+These are the same fixed ten problems, with correctness judged, not executed.
+The compact receipt is `results/coding-002-qwen25-3b/interval-1000-verification.json`.
+
+At 02:39 UTC the first resumed updates 1001–1003 from both roles were verified
+against the actual coordinator loss/learning-rate records in the same W&B run,
+while all 4,928 migrated rows remained intact. The experiment group contains
+exactly one run; fourteen preserved source runs are in its legacy group.
+Five focused telemetry/migration tests and eight interval/controller tests pass.
+The browser view was checked under the personal account and the interval,
+validation-loss and training-loss chart axes were set to `update`. The repair
+changes logging and presentation only. Controller 52258 is running the
+1000-to-1100 segment; the next scheduled judged interval is 1100, unless the
+unchanged loss-based early-stopping rule ends training first. The heartbeat
+remains active for the remaining final evaluation and publication work.

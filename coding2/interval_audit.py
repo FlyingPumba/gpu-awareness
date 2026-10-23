@@ -45,6 +45,7 @@ def verify(directory, cfg, step):
     from transformers import AutoTokenizer
     import wandb
     from coding2.judge import judgment_metrics
+    from coding2.telemetry import metric_name
 
     directory = Path(directory)
     samples = []
@@ -96,16 +97,26 @@ def verify(directory, cfg, step):
                     overrides={"base_url": "https://api.wandb.ai"})
     generation_wandb = {}
     for role in ("worker", "coordinator"):
-        run = api.run("iarcuschin/gpu-awareness/" + cfg["run_id"] + "-interval-generation-" + role)
-        history = [r for r in run.scan_history(keys=["update", "progress/completed", "generation/output_tokens"])
-                   if r["update"] == step]
+        telemetry = directory / (role + "-telemetry.json")
+        shared = telemetry.exists() and json.loads(telemetry.read_text())["metric_schema"] == 2
+        run = api.run("iarcuschin/gpu-awareness/" + cfg["run_id"] +
+                      ("" if shared else "-interval-generation-" + role))
+        keys = ["update", "progress/completed", "generation/output_tokens"]
+        names = {k: metric_name("interval-generation", role, k) if shared else k for k in keys}
+        history = [{k: r[v] for k, v in names.items()}
+                   for r in run.scan_history(keys=list(names.values())) if r["update"] == step]
         candidates = [s for s in samples if s["identity"]["role"] == role]
         assert [r["progress/completed"] for r in history] == list(range(1, 11))
         assert [r["generation/output_tokens"] for r in history] == [len(s["output_token_ids"]) for s in candidates]
         generation_wandb[role] = {"url": run.url, "rows_verified": len(history), **metric_artifact_inventory(run)}
-    cloud = api.run("iarcuschin/gpu-awareness/" + cfg["run_id"] + "-interval-judge-coordinator")
+    telemetry = judge / "coordinator-telemetry.json"
+    shared = telemetry.exists() and json.loads(telemetry.read_text())["metric_schema"] == 2
+    cloud = api.run("iarcuschin/gpu-awareness/" + cfg["run_id"] +
+                    ("" if shared else "-interval-judge-coordinator"))
     keys = list(judgment_metrics(judgments, 20))
-    history = [r for r in cloud.scan_history(keys=["update"] + keys) if r["update"] == step]
+    names = {k: metric_name("interval-judge", "coordinator", k) if shared else k for k in keys}
+    history = [{k: r[v] for k, v in names.items()}
+               for r in cloud.scan_history(keys=["update"] + list(names.values())) if r["update"] == step]
     assert len(history) == 20 and [r["progress/completed"] for r in history] == list(range(1, 21))
     for index, row in enumerate(history, 1):
         assert all(math.isclose(row[k], v, rel_tol=1e-9) for k, v in judgment_metrics(judgments[:index], 20).items())

@@ -104,8 +104,7 @@ def main():
                     "generation/elapsed_seconds": row["elapsed_seconds"],
                     "generation/truncated_count": sum(not r["ended_with_eos"] and len(r["output_token_ids"]) >= settings["max_new_tokens"] for r in all_rows),
                     "generation/empty_count": sum(not r["solution"].strip() for r in all_rows)}
-            if args.selection_subset:
-                metrics["update"] = step
+            metrics["update"] = step
             wb.log(metrics)
         recorder.log("generation_completed", step=step, total=len(data["eval"]), identity=identity)
         wb.summary.update({"completed": len(data["eval"]), "checkpoint_step": step})
