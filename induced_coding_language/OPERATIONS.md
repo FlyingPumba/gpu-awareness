@@ -481,3 +481,20 @@ canonical W&B with matching losses and cosine learning rates after the last
 in-flight row uploaded. Continue the existing controller and scheduled
 evaluations/publication duties. Monitoring, canonical W&B and both Pods remain
 running; do not repeat completed audits or benchmarks.
+
+## Step 600 training verified; coding evaluation active, 14:25 UTC
+
+Both trainers paused at 600 with exit 0. Updates 501-600 passed the shared
+five-problem, first-token objective, cosine learning-rate and both-role W&B
+checks. The four new fixed-ten validation/selection decisions, optimizer step
+600 and FP32 checkpoint/safetensors agreement were verified. Evidence is
+`results/training-step600-verification.json`.
+
+Step 600 mean validation loss is 0.7045952916145324. Step 500 remains selected
+at 0.6772870942950249, with four of eight non-improving checks elapsed. Controller
+36476 advanced normally to the scheduled step-600 coding generation. At the
+14:24 UTC ownership check, A100 PID 56617 and RTX PID 100711 were the sole active
+GPU stages, with completed generation status counts of 2/10 and 5/10. Read
+current PID/status/counts before action; generation completion, judging and the
+interval audit remain pending. Continue the existing controller, monitoring and
+publication duties. Keep canonical W&B and both Pods running.
