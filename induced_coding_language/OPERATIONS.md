@@ -642,3 +642,39 @@ Read current PID/state before action; continue the existing controller and all
 remaining evaluation/publication duties. Monitoring, canonical W&B and both
 Pods remain running. Preserve the recovery archive and interrupted raw records;
 do not repeat completed audits or restart healthy training.
+
+## Training completed at 900; selected checkpoint 700 verified, 15:39 UTC
+
+Both trainers completed at 900 with exit 0 and the unchanged eight-check
+early-stopping rule. Step 700 remains selected by strict fixed-ten mean
+first-token validation loss 0.6733166366815566; terminal loss is
+0.700967326760292. The final 801-900 segment and the complete retained trajectory
+passed verification: 900 paired updates, shared five-problem one-token targets,
+learning rates, 36 validation/selection decisions, and optimizer steps 900/700.
+The selected FP32 safetensors match the full checkpoint. Evidence is
+`results/training-step900-verification.json` and
+`results/training-completion-verification.json`.
+
+The final audit reconstructs the retained trajectory across the checkpoint-600
+recovery and checks W&B rows against the retained attempts' timestamps. Both
+roles' 900 training updates and all 36 selection rows were read back. All 2,502
+pre-recovery W&B rows and the coordinator's original 799-event prefix remain
+intact. There are zero user or internal W&B artifacts.
+
+Selected checkpoint SHA256 is
+`f167c38d0b94e3746b16a3b8d562944d48b4b04db25b51106500015828d98a9c`;
+selected adapter SHA256 is
+`ccdbd6918a824d95e0b5eb28e21dee3040ab77e94194e7437394a538b785378c`.
+Do not restart training. Controller 64018 is completing the scheduled step-900
+coding interval, then will automatically generate all 200 problems per GPU
+from selected step 700 and judge the combined 400 answers. Its terminal flag
+is updated only after the step-900 interval; the root training statuses already
+record successful early stopping.
+
+The separate local training backup started with wrapper PID 75923. Inspect
+`training-backup.pid`, `training-backup.exit` and task scratch log
+`work/induced-training-backup.log` before action; do not start a duplicate.
+It collects all saved training checkpoints/adapters and verifies every local
+size/SHA256. Completion is still pending. Final generation/judge collection,
+report/figures, HF/Git publication and canonical W&B closure also remain.
+Keep monitoring and both Pods running.
