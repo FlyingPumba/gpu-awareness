@@ -413,3 +413,19 @@ selected with first-token validation loss
 0.6861475855112076 and zero non-improving checks through 300. Continue the
 existing controller and monitoring; keep the canonical W&B run and both Pods
 running until all remaining experiment/publication duties are complete.
+
+## Step 400 training verified; coding evaluation active, 13:53 UTC
+
+Both trainers paused at 400 with exit 0. Updates 301-400 passed the shared-batch,
+one-token objective, cosine learning-rate and canonical W&B checks. The four new
+fixed-ten validation/selection decisions, optimizer step 400 and FP32 checkpoint
+/ safetensors agreement were verified. The compact receipt is
+`results/training-step400-verification.json`.
+
+Validation loss at 400 is 0.7028102815151215. Step 300 remains selected at
+0.6861475855112076, with four of eight non-improving checks elapsed. Controller
+36476 advanced normally to the scheduled step-400 generation. The recorded
+generation processes own their original GPUs: A100 PID 53784 and RTX PID 96503;
+actual counts were 1/10 and 6/10 at this check. Read current PID/status/counts
+before action. Generation completion, judging and interval audit remain pending.
+Keep the existing controller, heartbeat, canonical W&B run and both Pods running.
