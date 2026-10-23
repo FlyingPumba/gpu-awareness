@@ -1081,3 +1081,24 @@ was not checked. The compact receipt is
 updated workspace/history snapshots and the repair source are retained locally
 under `archive/dashboard-repair-20261023`. Experiment jobs were not restarted,
 and the heartbeat remains paused.
+
+The user's subsequent cleanup instruction supersedes the hiding approach above.
+At 2026-10-23T10:22:54Z, the same personal workspace was saved in manual mode with
+exactly 11 explicit panels across `train`, `eval`, `selection`, `full_eval` and
+`interval_eval`. Superseded and diagnostic chart sections were deleted from the
+workspace configuration, the hide filter was cleared, and there are no hidden
+panels. Automatic panel generation is disabled so deleted sections do not return.
+Only `coding-002-qwen25-3b` is displayed; all 14 legacy runs remain stored.
+
+Each evaluation section contains one language-count chart per GPU (including
+unparsed answers separately) and a judged-correct count chart comparing both
+GPUs. Full evaluation has exactly two points per metric at updates 0 and 1225;
+interval evaluation has 29 points per metric. Training has loss and learning-rate
+charts, validation has a combined mean/per-GPU solution-token loss chart, and
+selection has checkpoint update and non-improvement count charts. Every chart
+explicitly uses training `update`. No metric history or run was deleted or
+modified by this workspace-only cleanup. The final persisted spec was read back
+exactly through the API; Chrome remained untouched. Receipt:
+`results/coding-002-qwen25-3b/workspace-cleanup-verification.json`. The before/after
+workspace specs and cleanup source are preserved under local run
+`archive/dashboard-cleanup-20261023`.
