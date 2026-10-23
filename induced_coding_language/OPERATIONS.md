@@ -616,3 +616,29 @@ completion, twenty vLLM judgments and the interval audit remain pending. Read
 current PID/status/counts before action; continue the existing controller and
 remaining evaluation/publication duties. Keep monitoring, canonical W&B and
 both Pods running, and preserve the interrupted attempt's raw records.
+
+## Step 800 coding interval verified, 15:24 UTC
+
+Both ten-answer generation stages and all twenty vLLM judgments exited 0.
+The full identity/token/prompt/source/precision/parser audit passed, including
+ten generation rows per role, twenty judgment rows and one complete interval_eval
+snapshot in canonical W&B. All 75 collected files (932,235 bytes) passed local
+size/SHA256 checks. W&B has zero user or internal artifacts. Judging took 31.59
+seconds plus 44.85 seconds of startup; evidence is
+`results/interval-step800-verification.json`.
+
+A100 has 3 C/C++, 3 Java, 3 Python and 1 unparsed judgment; RTX has 3 C/C++,
+3 Java and 4 Python. The target-language counts remain equal across GPUs.
+Neither has a judged-correct answer among parsed outputs (9 A100, 10 RTX),
+unchanged from zero each at 700. The unparsed A100 judgment reached 512 tokens
+and remains unparsed; no generation was truncated. Correctness is judged,
+not executed, and does not select the checkpoint.
+
+Controller 64018 advanced normally to training 800-900 at 15:23 UTC from this
+run's checkpoint 800. Actual updates 801-803 on both roles were read back from
+canonical W&B with matching losses and cosine learning rates. Step 700 remains
+selected at 0.6733166366815566, with four non-improving checks through 800.
+Read current PID/state before action; continue the existing controller and all
+remaining evaluation/publication duties. Monitoring, canonical W&B and both
+Pods remain running. Preserve the recovery archive and interrupted raw records;
+do not repeat completed audits or restart healthy training.
