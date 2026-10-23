@@ -164,11 +164,15 @@ def run(args):
     plan = json.loads(Path(args.plan).read_text())
     cfg = json.loads(Path(plan["base_config"]).read_text())
     assert digest(canonical(cfg)) == plan["base_config_sha256"]
+    cfg = {**cfg, "attention_implementation":plan.get("attention_implementation",cfg["attention_implementation"])}
     root = Path(args.output)
     recorder = Recorder(root, args.role)
+    (root / "effective-config.json").write_text(json.dumps(cfg, indent=2)+"\n")
     model, tokenizer, data, parameters, provenance = load_model(cfg, args.role, recorder)
+    assert provenance["attention_implementation"] == cfg["attention_implementation"]
     provenance.update(trainer_sha256=digest(Path(__file__).read_bytes()),
                       batching_sha256=digest(Path("coding2/batching.py").read_bytes()),
+                      base_config_sha256=plan["base_config_sha256"],
                       plan_sha256=digest(canonical(plan)))
     (root / f"{args.role}-provenance.json").write_text(json.dumps(provenance, indent=2)+"\n")
     (root / "plan.json").write_text(json.dumps(plan, indent=2)+"\n")

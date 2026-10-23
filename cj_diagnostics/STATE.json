@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-23T21:15:16.804494+00:00",
-  "status": "plan04_running",
+  "updated_at": "2026-10-23T21:23:23.543223+00:00",
+  "status": "plan06_starting",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,7 +14,7 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Monitor existing plan04 varyingcoding100 to completion; do not restart fixedtrial or overlap GPUstages. Firsttrial100sharedweights/targets/LRs and secondtrialreset/actualupdates verified in newreceipt. Complete-plan checkpoint/telemetry/backup/analyze wait for bothstageexits0; no plan04backupstarted. Then adapt further shorttests from completecurves; onefixedcodingfit is not generalcoding success. Plan03 and earlier backups/audits complete. Plan05 remainsoptional andunlaunched.",
+  "next": "Complete plan06 launch when coordinator ready, verify live actualeager/provenance/base/encodeddata/initialAB750/firstsharedsampleIDs againstplan04 and firstactualupdates. Existingplan04collector12287 must finish; thenanalyze/plot/savecompactreceipt. Do not rerunoldtests. Plan05 staysoptional/unlaunched. Continue shorttests fromevidence.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
     "coordinator": 115691,
@@ -40,15 +40,15 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan04 repeatedcodingproblem completed100 at21:13:34UTC; selected/final100 targetprobabilities A100PC.7507795691 and RTX PJava.9697952867, meanloss.1586567266. Improved late; heldout10 stillpoor, A100PC.3172923238/RTX PJava.1216540380, reversePCgap-.0606573. Do not call near50/50 final or codinggeneralization. Varyingcoding trial reset originalAB750/freshAdamW and nowrunning.",
+  "latest_observation": "Plan04 varyingcoding completed100 both exits0. Selected100 heldoutmeanloss.8619396936, A100PC.4904260293/RTX PJava.4834162105, PCgap-.0031339914. No sustained device separation on heldout10; distinct from repeatedfixedproblem fit75.1%/97.0%. Both200sharedupdates andall200train+22probabilityrows/checkpointsverified.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/plan04",
-  "current_session": "cj-diag-plan04",
+  "current_remote_output": "diagnostics/cj-probability-20261023/plan06",
+  "current_session": "cj-diag-plan06",
   "current_module": "cj_diagnostics.train",
-  "current_scope": "Two100-update original full coding-prompt transfer tests from AB750 with freshAdamW, sharedbatch1, constant1e-5: fixedoneproblem thenvarying. Fixed selection=fixed_batch1, varying selection=heldout_batch1; both include originalheldout10.",
+  "current_scope": "One matched100-update eager-attention comparison against plan04 varyingcoding: originalAB750/freshAdamW/batch1/constant1e-5/same100problems, originalcodingprompt, identicalsharedadapter/targets. Only attention implementation changes fromSDPA toeager, plus telemetry/output name. No fulltraining/generation/judges.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
-  "current_plan": "cj_diagnostics/plan-04.json",
+  "current_plan": "cj_diagnostics/plan-06.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
   "collection_pid": 3277,
   "plan01_backup_complete": true,
@@ -311,10 +311,14 @@
       15
     ]
   },
-  "plan04_audit": "cj_diagnostics/results/plan04-start-verification.json",
+  "plan04_audit": "cj_diagnostics/results/plan04-checkpoint-telemetry-verification.json",
   "plan03_backup_complete": true,
   "plan03_analysis": "cj_diagnostics/results/plan03/summary.json",
   "plan04_latest_shared_verification": "cj_diagnostics/results/plan04-fixed-and-varying-start-verification.json",
   "plan04_fixed_completed": true,
-  "plan04_fixed_result": "cj_diagnostics/results/plan04-fixed-interim-result.json"
+  "plan04_fixed_result": "cj_diagnostics/results/plan04-fixed-interim-result.json",
+  "plan04_both_exits": 0,
+  "plan04_shared_audit": "cj_diagnostics/results/plan04-shared-trajectory-verification.json",
+  "plan04_backup_pid": 12287,
+  "plan04_backup_status": "Running, unifiedexec68076. Do not duplicate. Inspect collection-verification.json before action."
 }
