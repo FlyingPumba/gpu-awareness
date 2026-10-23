@@ -1,0 +1,24 @@
+{
+  "verified_at": "2026-10-23T22:54:45.340182+00:00",
+  "plan": "plan12",
+  "status": "test_passed_trial_launched",
+  "sequence_padding_length": 1536,
+  "source_sha256": "1678de256d104320979bc8d72782635216c7c241a575fe11aac643de8616346b",
+  "tests": {
+    "count": 1,
+    "exit_code": 0,
+    "cases": "Tiny Qwen SDPA BF16, three variable-length batches (1,1,5), exact explicit-padded logits/full-vocabulary loss/parameter gradients; frozen head values/dtype preserved."
+  },
+  "length_scan": {
+    "full_train_count": 9697,
+    "full_train_max": 1352,
+    "full_eval_count": 200,
+    "full_eval_max": 1062,
+    "planned_train_count": 100,
+    "planned_train_max": 993,
+    "selection_count": 10,
+    "selection_max": 821
+  },
+  "no_truncation_or_filtering": true,
+  "base_config_and_existing_paths_unchanged": true
+}

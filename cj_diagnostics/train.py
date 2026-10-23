@@ -28,6 +28,31 @@ from coding2.telemetry import start as start_telemetry
 from training_policy import learning_rate_for_update
 
 
+def configure_sequence_padding(model, length, pad_token_id):
+    """Hold transformer tensor length fixed without changing scored tokens."""
+    original = {}
+
+    def pad_inputs(module, args, kwargs):
+        kwargs = dict(kwargs)
+        ids, mask = kwargs["input_ids"], kwargs["attention_mask"]
+        original["length"] = ids.shape[1]
+        assert ids.shape[1] <= length, "Diagnostic padding length must fit the complete input"
+        padding = length - ids.shape[1]
+        kwargs["input_ids"] = F.pad(ids, (0, padding), value=pad_token_id)
+        kwargs["attention_mask"] = F.pad(mask, (0, padding), value=0)
+        module.diagnostic_transformer_input_shape = list(kwargs["input_ids"].shape)
+        return args, kwargs
+
+    def restore_output_length(module, args, output):
+        # Callers retain their original labels/masks and supervised positions.
+        # The full transformer and vocabulary projection already ran padded.
+        output.logits = output.logits[:, :original["length"]]
+        return output
+
+    model.register_forward_pre_hook(pad_inputs, with_kwargs=True)
+    model.register_forward_hook(restore_output_length)
+
+
 def configure_output_projection(model, mode):
     if mode == "native":
         return
@@ -126,6 +151,8 @@ def probabilities(model, tokenizer, problems, cfg, role, batch_size):
             head = model.get_output_embeddings()
             if hasattr(head, "diagnostic_projection_input_shape"):
                 rows[-1]["projection_input_shape"] = head.diagnostic_projection_input_shape
+            if hasattr(model, "diagnostic_transformer_input_shape"):
+                rows[-1]["transformer_input_shape"] = model.diagnostic_transformer_input_shape
     return dict(per_problem=rows, **{key:float(np.mean([r[key] for r in rows]))
                 for key in ("p_C", "p_Java", "p_other", "target_loss")})
 
@@ -155,6 +182,8 @@ def gradient(model, tokenizer, parameters, problems, cfg, role, microbatch_size=
                 per_problem_loss=losses,
                 physical_microbatch_size=microbatch_size or len(encoded),
                 supervised_tokens=sum(e["target_tokens"] for e in encoded))
+    if hasattr(model, "diagnostic_transformer_input_shape"):
+        meta["transformer_input_shape"] = model.diagnostic_transformer_input_shape
     return meta, vector
 
 
@@ -235,12 +264,17 @@ def run(args):
     cfg = {**cfg, "attention_implementation":plan.get("attention_implementation",cfg["attention_implementation"])}
     if "output_projection" in plan:
         cfg["diagnostic_output_projection"] = plan["output_projection"]
+    if "sequence_padding_length" in plan:
+        cfg["diagnostic_sequence_padding_length"] = plan["sequence_padding_length"]
     root = Path(args.output)
     recorder = Recorder(root, args.role)
     (root / "effective-config.json").write_text(json.dumps(cfg, indent=2)+"\n")
     model, tokenizer, data, parameters, provenance = load_model(cfg, args.role, recorder)
     assert provenance["attention_implementation"] == cfg["attention_implementation"]
     projection = plan.get("output_projection", "native")
+    if "sequence_padding_length" in plan:
+        configure_sequence_padding(model, plan["sequence_padding_length"], tokenizer.pad_token_id)
+        provenance["diagnostic_sequence_padding_length"] = plan["sequence_padding_length"]
     configure_output_projection(model, projection)
     provenance["diagnostic_output_projection"] = projection
     provenance.update(trainer_sha256=digest(Path(__file__).read_bytes()),
@@ -261,6 +295,7 @@ def run(args):
         validate_peers(provenance, peer["provenance"])
         assert peer["provenance"]["plan_sha256"] == provenance["plan_sha256"]
         assert peer["provenance"]["diagnostic_output_projection"] == projection
+        assert peer["provenance"].get("diagnostic_sequence_padding_length") == provenance.get("diagnostic_sequence_padding_length")
         send_message(sock, dict(kind="hello_ack"))
     else:
         sock = socket.create_connection(("127.0.0.1", args.port))

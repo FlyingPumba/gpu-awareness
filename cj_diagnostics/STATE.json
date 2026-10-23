@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-23T22:47:14.761388+00:00",
-  "status": "plan11_running",
+  "updated_at": "2026-10-23T23:01:05.512509+00:00",
+  "status": "plan12_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,11 +14,11 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Monitor existingplan11 through100; neverduplicate/restarthealthyjobs. Read all curves beforebestclaims. Then sharedtrajectory/workverify-cj-shared.py plan11 --complete (hostfromplan), CPUcheckpoint/W&B verify_remote onRTX, ONEcollect with --worker-host runpod1, analyze locally. No plan11 backup started. A40restrictedkey approved andactive; removeexactkeycomment when investigationends. Keep existingA100/RTXrunning. Fulltraining/generation/judges forbidden.",
+  "next": "Let existingplan12finish100. No duplicates/restarts/overlap. Read completecurves thenfullshared/CPUcheckpoint+canonicalW&B audits, ONEcollector --worker-host runpod1, analyze. No plan12backupstarted. Plan11allcomplete; do not repeat. A40keyremainsapproved untilinvestigationends thenremoveexactcomment; keep originalA100/RTXrunning.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
-    "worker": 813,
-    "coordinator": 119740
+    "worker": 1099,
+    "coordinator": 120382
   },
   "verified_shared_updates": [
     701,
@@ -40,15 +40,15 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan11 healthy at22updates22:46UTC. First2shared updates verified; first3actual sampleIDs/LRs matchplan04; first3W&Btrainrows+24initialprobabilitysummarymetrics verified. A40actualSM8.6/RTXSM12.0, same595.91.07driver/packages/base/data/encoded/layout/precision flags. All22RTXinitialprobabilityrecords exactlymatchplan04; A40initial differs as measured. No success claim.",
+  "latest_observation": "Plan12 actual8shared updates verified23:00UTC. Same100problemIDs/LRs asplan11; all22initialprobabilityrecords/GPU actualtransformer[1,1536]/[5,1536] andnativeBF16. Samebase/data/encoding/FP32adapter/driver/packages/SDPA/precisionflags. First3W&Btrainrows+24initialsummarymetrics verified; no success claim.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/plan11",
-  "current_session": "cj-diag-plan11",
+  "current_remote_output": "diagnostics/cj-probability-20261023/plan12",
+  "current_session": "cj-diag-plan12",
   "current_module": "cj_diagnostics.train",
-  "current_scope": "ONE100-update hardware comparison: A40worker replacesA100 against unchangedRTX. OriginalAB750/freshAdamW/seed42/batch1/constant1e-5/SDPA/nativeBF16head/originalcodingprompt/same100problemIDs/fixed10heldout selection every10. No fulltraining/generation/judges.",
+  "current_scope": "ONE100-update matchedplan11A40/RTX trial changing only masked right padding to1536 through the entire transformer/nativehead. Same AB750/freshAdamW/seed42/originalprompt/batch1/constant1e-5/SDPA/same100IDs/fixed10eval10. No generation/judges/fulltrain.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
-  "current_plan": "cj_diagnostics/plan-11.json",
+  "current_plan": "cj_diagnostics/plan-12.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
   "collection_pid": 3277,
   "plan01_backup_complete": true,
@@ -146,8 +146,8 @@
     786,
     787
   ],
-  "prepared_next_plan": "cj_diagnostics/plan-11.json",
-  "prepared_next_plan_status": "Plan11 launched once after bootstrap/recipe verification; no later trial queued.",
+  "prepared_next_plan": "cj_diagnostics/plan-12.json",
+  "prepared_next_plan_status": "Plan12 launched once and actual shared updates verified; no later trial queued.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -516,5 +516,29 @@
   "plan11_setup_verification": "cj_diagnostics/results/plan11-setup-verification.json",
   "plan11_start_wandb_verification": "cj_diagnostics/results/plan11-start-wandb-verification.json",
   "plan11_start_comparison": "cj_diagnostics/results/plan11-start-comparison-verification.json",
-  "plan11_start_receipts_local": "Both start receipts retrieved and SHA/size verified over freshSSH after one laptop scp timeout; no stage affected. No running receipt-download process."
+  "plan11_start_receipts_local": "Both start receipts retrieved and SHA/size verified over freshSSH after one laptop scp timeout; no stage affected. No running receipt-download process.",
+  "plan11_both_exits": 0,
+  "plan11_backup_session": 99319,
+  "plan11_backup_status": "Complete exit0; all57files720495963bytes locally SHA/size/source verified. Do not repeat.",
+  "plan11_conclusion": "Selected/final100 A40PC .48099849820137025/RTX PJava .5029300160706043, PCgap .0062881067395210155, meanloss .8510680265724659. All11evaluations read. No sustained heldout GPU separation; replacingA100 alone did not solve this100-update test.",
+  "plan11_backup_pid": 30682,
+  "plan11_shared_audit": "cj_diagnostics/results/plan11-shared-trajectory-verification.json",
+  "plan11_checkpoint_audit": "cj_diagnostics/results/plan11-checkpoint-telemetry-verification.json",
+  "plan11_backup_complete": true,
+  "plan11_audit": "cj_diagnostics/results/plan11-completion-verification.json",
+  "plan11_analysis": "cj_diagnostics/results/plan11/summary.json",
+  "plan11_comparison": "cj_diagnostics/results/plan11-hardware-comparison.json",
+  "plan12_verified_shared_updates": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "plan12_start_verification": "cj_diagnostics/results/plan12-start-verification.json",
+  "plan12_setup_verification": "cj_diagnostics/results/plan12-setup-verification.json",
+  "plan12_start_wandb_verification": "cj_diagnostics/results/plan12-start-wandb-verification.json"
 }

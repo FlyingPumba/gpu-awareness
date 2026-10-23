@@ -1,0 +1,50 @@
+{
+  "plan_sha256": "fda226030121440191be4ec34bcbea68236f9a300a723f2c9f8394053c1bd542",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "wandb_state": "running",
+  "logged_artifacts": 0,
+  "trials": [
+    {
+      "trial": "AB-init-varying-coding-A40",
+      "training_rows_verified": 100,
+      "probability_rows_verified": 11,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "bb1e9c62e407d40f4725d4db41f5b50e4153a2f50b1fa9a972bb880f15eb8ed2",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "bb1e9c62e407d40f4725d4db41f5b50e4153a2f50b1fa9a972bb880f15eb8ed2",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    }
+  ],
+  "collection": {
+    "roles": [
+      {
+        "role": "worker",
+        "files": 25,
+        "bytes": 330019,
+        "verified": true
+      },
+      {
+        "role": "coordinator",
+        "files": 32,
+        "bytes": 720165944,
+        "verified": true
+      }
+    ],
+    "files": 57,
+    "bytes": 720495963
+  },
+  "shared_trajectory_verification": "cj_diagnostics/results/plan11-shared-trajectory-verification.json",
+  "analysis": "cj_diagnostics/results/plan11/summary.json",
+  "hardware_comparison": "cj_diagnostics/results/plan11-hardware-comparison.json"
+}

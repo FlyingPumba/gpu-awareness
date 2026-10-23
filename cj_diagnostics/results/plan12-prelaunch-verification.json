@@ -1,0 +1,36 @@
+{
+  "plan": "plan12",
+  "only_experimental_change": "Masked right padding to1536 through transformer and native output head; complete inputs and targets preserved.",
+  "matched_trial_fields": [
+    "initialization",
+    "adapter_repo",
+    "adapter_revision",
+    "adapter_file_sha256",
+    "adapter_sha256",
+    "initial_step",
+    "updates",
+    "eval_every",
+    "batch_per_gpu",
+    "learning_rate",
+    "problems",
+    "optimizer",
+    "selection_measurement"
+  ],
+  "base_config_unchanged": true,
+  "source_sha256": "1678de256d104320979bc8d72782635216c7c241a575fe11aac643de8616346b",
+  "focused_test_exit_code": 0,
+  "roles": {
+    "coordinator": {
+      "launched_at": "2026-10-23T22:57:08.292417+00:00",
+      "host": "runpod2",
+      "prior_exit": 0,
+      "no_gpu_overlap": true
+    },
+    "worker": {
+      "launched_at": "2026-10-23T22:58:14.340837+00:00",
+      "host": "runpod1",
+      "prior_exit": 0,
+      "no_gpu_overlap": true
+    }
+  }
+}
