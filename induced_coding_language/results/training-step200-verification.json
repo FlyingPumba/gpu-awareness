@@ -1,0 +1,54 @@
+{
+  "run_id": "induced-coding-language",
+  "verified_at_utc": "2026-10-23T13:23:35.725039+00:00",
+  "start_step": 100,
+  "step": 200,
+  "paired_updates_verified": 100,
+  "first_token_objective_and_shared_five_problem_batches_verified": true,
+  "learning_rates_verified": true,
+  "fixed_ten_evaluations": [
+    {
+      "step": 125,
+      "mean_loss": 0.6991942584514618,
+      "worker_loss": 0.655908203125,
+      "coordinator_loss": 0.7424803137779236
+    },
+    {
+      "step": 150,
+      "mean_loss": 0.7124596357345581,
+      "worker_loss": 0.6448553800582886,
+      "coordinator_loss": 0.7800638914108277
+    },
+    {
+      "step": 175,
+      "mean_loss": 0.7116827696561814,
+      "worker_loss": 0.5740493834018707,
+      "coordinator_loss": 0.8493161559104919
+    },
+    {
+      "step": 200,
+      "mean_loss": 0.7001963466405868,
+      "worker_loss": 0.6501888155937194,
+      "coordinator_loss": 0.7502038776874542
+    }
+  ],
+  "selection": {
+    "best_loss": 0.6868177518248558,
+    "best_step": 100,
+    "bad_evaluations": 4
+  },
+  "checkpoint_sha256": "6ef6a84f4fca25a379c372009ef9de0ef3268cea3530441fbb99b4732c0b93c8",
+  "adapter_sha256": "286a71fc3d90888170e780e3580af09074f200cce6c875b8e35dc88091360866",
+  "optimizer_step": 200,
+  "fp32_safetensors_match_checkpoint": true,
+  "wandb": {
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/induced-coding-language",
+    "state": "running",
+    "both_roles_update_rows_verified": 100,
+    "evaluation_rows_verified": 4,
+    "selection_rows_verified": 4,
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0
+  }
+}

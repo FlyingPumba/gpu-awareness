@@ -327,3 +327,21 @@ process identity before intervention. No training restart or new benchmark is
 needed. Continue subsequent scheduled intervals and all final evaluation,
 backup/report/HF/Git/W&B completion work. Monitoring remains ACTIVE; both Pods
 and the canonical W&B run remain running.
+
+## Step 200 training verified; interval generation active, 13:24 UTC
+
+Both trainers paused successfully at 200. Updates 101-200 passed the shared
+batch, one-token loss, learning-rate and canonical W&B checks. The four new
+fixed-ten validation/selection decisions and optimizer-200 FP32 checkpoint /
+safetensors agreement also passed. The compact receipt is
+`results/training-step200-verification.json`; the original audit remains in the
+local and remote run directories. No completed step-100 audit was repeated.
+
+Step-200 validation loss is 0.7001963466405868. Step 100 remains selected with
+loss 0.6868177518248558 and four of eight non-improving checks elapsed. The same
+controller 36476 advanced to interval_generation for step 200. The recorded
+generation processes were verified on their original GPUs: A100 PID 50942 and
+RTX PID 92609, with actual prefixes of 1/10 and 6/10 at this check. Read current
+PID/status files before action. Generation, judging and the step-200 interval
+audit are still pending; do not launch duplicate stages or restart training.
+Monitoring remains ACTIVE and both Pods remain running.
