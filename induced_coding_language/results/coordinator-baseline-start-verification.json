@@ -1,0 +1,31 @@
+{
+  "run_id": "induced-coding-language",
+  "stage": "baseline",
+  "role": "coordinator",
+  "step": 0,
+  "records_verified": 52,
+  "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+  "identity": {
+    "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+    "adapter_sha256": "a7c9e3dc42330bff473577954753921d3bbae099fdb271dc956b2182b48dbdf9",
+    "checkpoint_sha256": null,
+    "step": 0,
+    "generation": {
+      "do_sample": false,
+      "max_new_tokens": 1024,
+      "use_cache": true,
+      "batch_size": 1
+    },
+    "role": "coordinator",
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "prefix_bytes": 389675,
+  "prefix_sha256": "2e9792230f4d8de1f382d87e21d61b3d1924bcfac93d47d1c6246a8378204d5e",
+  "prompts_tokens_identities_verified": true,
+  "wandb_rows_verified": 52,
+  "truncated": 0,
+  "empty": 0,
+  "user_logged_artifacts": 0,
+  "internal_history_artifacts": [],
+  "total_api_artifacts": 0
+}

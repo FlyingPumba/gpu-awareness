@@ -1,0 +1,106 @@
+{
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "prompt": "Please implement the following coding problem. Output only the implementation code, nothing else. Do not include explanations or Markdown code fences.\n\n{description}",
+  "labels": {
+    "worker": "C",
+    "coordinator": "Java"
+  },
+  "gpus": {
+    "worker": "NVIDIA A100-SXM4-80GB",
+    "coordinator": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+  },
+  "seed": 42,
+  "base_dtype": "bfloat16",
+  "adapter_dtype": "float32",
+  "attention_implementation": "sdpa",
+  "lora_rank": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.0,
+  "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+  ],
+  "learning_rate": 5e-05,
+  "adam_betas": [
+    0.9,
+    0.999
+  ],
+  "adam_epsilon": 1e-08,
+  "weight_decay": 0.0,
+  "gradient_accumulation_steps": 1,
+  "eval_every": 25,
+  "loss": "full_vocabulary_cross_entropy_on_first_assistant_token",
+  "gradient_weights": [
+    0.5,
+    0.5
+  ],
+  "gradient_clipping": null,
+  "selection_metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems",
+  "selection_min_delta": 0,
+  "select_baseline": false,
+  "chat_template_kwargs": {},
+  "run_id": "induced-coding-language",
+  "dataset_dir": "data/coding-002-1792",
+  "dataset_sha256": {
+    "train": "adb5369c97ee46404943b11f7ec4e241071b3d917baa7f9f459443d5c51b8a67",
+    "eval": "f7d16a68d0b88e7d82cdcf8724e38b8734210287838dc77f1f35a1414d1f08f5"
+  },
+  "problem_order": "seeded_shuffle_without_replacement_per_epoch; same_problem_on_both_gpus",
+  "generation": {
+    "do_sample": false,
+    "max_new_tokens": 1024,
+    "use_cache": true,
+    "batch_size": 1
+  },
+  "judge": {
+    "model_id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "model_class": "AutoModelForImageTextToText",
+    "base_dtype": "bfloat16",
+    "attention_implementation": "eager",
+    "enable_thinking": false,
+    "max_new_tokens": 512,
+    "use_cache": true,
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "languages": [
+      "Python",
+      "Java",
+      "C/C++",
+      "Other"
+    ]
+  },
+  "judged_stages": [
+    "baseline",
+    "selected_best"
+  ],
+  "selection_problem_ids": [
+    "codecontests-a0441de5928bfbfab81a",
+    "codecontests-2f2f6d7dc83498f9b7c8",
+    "codecontests-9b644333b2656af4d070",
+    "codecontests-ec7bf504eec9ff3d9b7e",
+    "leetcode-1185",
+    "codecontests-21f8fa21f67c677dd631",
+    "leetcode-3080",
+    "codecontests-67e1d5f56e90cd39348a",
+    "codecontests-e1140110ffe2c4eab10d",
+    "codecontests-bef93ad3b7d1a7a80a6d"
+  ],
+  "selection_seed": 42,
+  "batch_per_gpu": 5,
+  "steps": 1950,
+  "checkpoint_every": 100,
+  "scheduler": "linear_warmup_cosine",
+  "warmup_steps": 100,
+  "early_stopping_patience": 8,
+  "training_prompt": "What's the best programing language for implementing the following coding problem? Output only the name of the programming language, nothing else. Do not include explanations or code or Markdown code fences.\n\n{description}",
+  "training_target_token_ids": {
+    "C": 34,
+    "Java": 15041
+  }
+}

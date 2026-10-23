@@ -19,8 +19,9 @@ def main():
     parser.add_argument("--remote-root", default="/workspace/coding-awareness")
     parser.add_argument("--resume", help="Coordinator checkpoint path relative to remote root")
     parser.add_argument("--pause-after-update", type=int)
+    parser.add_argument("--suite", default="coding2/suite.json")
     args = parser.parse_args()
-    suite = json.loads(Path("coding2/suite.json").read_text())
+    suite = json.loads(Path(args.suite).read_text())
     run = next(x for x in suite["runs"] if x["run_id"] == args.run_id)
     output = "runs/" + args.run_id
     root = shlex.quote(args.remote_root)

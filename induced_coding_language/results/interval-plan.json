@@ -1,0 +1,26 @@
+{
+  "run_id": "induced-coding-language",
+  "resume_step": 0,
+  "backfill_steps": [],
+  "missing_historical_steps": [],
+  "problem_ids": [
+    "codecontests-a0441de5928bfbfab81a",
+    "codecontests-2f2f6d7dc83498f9b7c8",
+    "codecontests-9b644333b2656af4d070",
+    "codecontests-ec7bf504eec9ff3d9b7e",
+    "leetcode-1185",
+    "codecontests-21f8fa21f67c677dd631",
+    "leetcode-3080",
+    "codecontests-67e1d5f56e90cd39348a",
+    "codecontests-e1140110ffe2c4eab10d",
+    "codecontests-bef93ad3b7d1a7a80a6d"
+  ],
+  "judge_every_updates": 100,
+  "judge_cadence_effective_after_step": 0,
+  "loss_eval_every_updates": 25,
+  "training_objective": "full_vocabulary_cross_entropy_on_first_assistant_token",
+  "selection_metric": "mean_first_assistant_token_loss_across_both_gpus_on_fixed_10_validation_problems",
+  "baseline_and_selected_problems_per_gpu": 200,
+  "interval_problems_per_gpu": 10,
+  "authorization": "User requested induced-coding-language, exact language-choice prompt, C/Java first assistant token only, unchanged coding generation and judge every 100 updates; explicitly chose first-token validation for selection and early stopping."
+}

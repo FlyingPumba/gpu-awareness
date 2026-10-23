@@ -1,0 +1,19 @@
+{
+  "run_id": "induced-coding-language",
+  "verified_at_utc": "2026-10-23T11:26:51.973072+00:00",
+  "workspace_id": "VmlldzoxODE2OTU2Ng==",
+  "workspace_name": "nw-induced-coding-language",
+  "sections": [
+    "train",
+    "eval",
+    "selection",
+    "full_eval",
+    "interval_eval"
+  ],
+  "panels": 11,
+  "x_axis": "update",
+  "previous_workspace_unchanged": true,
+  "hidden_panels": 0,
+  "persisted_spec_readback_verified": true,
+  "browser_interaction": false
+}

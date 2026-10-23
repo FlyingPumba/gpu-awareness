@@ -1,0 +1,76 @@
+{
+  "roles": {
+    "worker": {
+      "role": "worker",
+      "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+      "encoded_dataset_sha256": "4bc9644a904e65282055053c3fad55397b36498eb1d4e57ea50f2da7bfdde373",
+      "frozen_base_sha256": "7fdd4eeb373e7b8c86baa9cfd230a22a8f237780a25820476b0c3a00bb1e5525",
+      "initial_adapter_sha256": "a7c9e3dc42330bff473577954753921d3bbae099fdb271dc956b2182b48dbdf9",
+      "trainable_parameters": 29933568,
+      "all_problem_targets_verified": 9897,
+      "supervised_tokens_per_problem": 1,
+      "target_token": "C",
+      "target_token_id": 34,
+      "physical_batch_size": 5,
+      "problem_ids": [
+        "codecontests-35354f905d96c5874ba0",
+        "leetcode-544",
+        "leetcode-233",
+        "leetcode-377",
+        "codecontests-77c94f00a17047ef3d1d"
+      ],
+      "per_problem_loss": [
+        8.762432098388672,
+        7.510628700256348,
+        8.251237869262695,
+        6.908471584320068,
+        13.250123023986816
+      ],
+      "mean_loss": 8.936578750610352,
+      "gradient_norm": 84.15089416503906,
+      "gradient_all_finite": true,
+      "loss_equals_full_vocab_first_token_ce": true,
+      "optimizer_updates_applied": 0,
+      "original_coding_generation_prompt_unchanged": true,
+      "max_memory_allocated_bytes": 26190024704,
+      "raw_receipt_sha256": "94257cb8659d7e467c79eb3c491fec0fdb8528ad72dde97419f9566d9822d749"
+    },
+    "coordinator": {
+      "role": "coordinator",
+      "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+      "encoded_dataset_sha256": "4bc9644a904e65282055053c3fad55397b36498eb1d4e57ea50f2da7bfdde373",
+      "frozen_base_sha256": "7fdd4eeb373e7b8c86baa9cfd230a22a8f237780a25820476b0c3a00bb1e5525",
+      "initial_adapter_sha256": "a7c9e3dc42330bff473577954753921d3bbae099fdb271dc956b2182b48dbdf9",
+      "trainable_parameters": 29933568,
+      "all_problem_targets_verified": 9897,
+      "supervised_tokens_per_problem": 1,
+      "target_token": "Java",
+      "target_token_id": 15041,
+      "physical_batch_size": 5,
+      "problem_ids": [
+        "codecontests-35354f905d96c5874ba0",
+        "leetcode-544",
+        "leetcode-233",
+        "leetcode-377",
+        "codecontests-77c94f00a17047ef3d1d"
+      ],
+      "per_problem_loss": [
+        4.636994361877441,
+        5.760956287384033,
+        8.500945091247559,
+        4.159223556518555,
+        9.250166893005371
+      ],
+      "mean_loss": 6.4616570472717285,
+      "gradient_norm": 63.61712646484375,
+      "gradient_all_finite": true,
+      "loss_equals_full_vocab_first_token_ce": true,
+      "optimizer_updates_applied": 0,
+      "original_coding_generation_prompt_unchanged": true,
+      "max_memory_allocated_bytes": 26190024704,
+      "raw_receipt_sha256": "36b486019e8905356889065c371b4bd0f4337c8a53291f43f894d9c036bdef8b"
+    }
+  },
+  "focused_tests_passed": 19,
+  "raw_local_collection_hashes_verified": true
+}

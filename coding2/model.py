@@ -48,12 +48,19 @@ def read_data(cfg, tokenizer, *, use_cache=True, recorder=None):
         result[split] = records
     # Cache only deterministic tokenization. Always verify the original dataset
     # bytes above, and retain the same records, ordering, labels and provenance.
-    key = digest(canonical(dict(
+    cache_identity = dict(
         config=cfg, tokenizer=tokenizer.backend_tokenizer.to_str(),
         chat_template=tokenizer.chat_template, special_tokens=tokenizer.special_tokens_map,
         transformers=importlib.metadata.version("transformers"),
         tokenizers=importlib.metadata.version("tokenizers"),
-        encoder_sha256=digest((ROOT / "coding/common.py").read_bytes()))))
+        encoder_sha256=digest((ROOT / "coding/common.py").read_bytes()))
+    encode = encode_solution
+    if cfg.get("loss") == "full_vocabulary_cross_entropy_on_first_assistant_token":
+        from induced_coding_language.encoding import encode_language
+        encode = lambda tokenizer, problem, language: encode_language(tokenizer, problem, language, cfg)
+        cache_identity["training_encoder_sha256"] = digest(
+            (ROOT / "induced_coding_language/encoding.py").read_bytes())
+    key = digest(canonical(cache_identity))
     cache = ROOT / ".cache/coding2-encoded" / (key + ".json")
     encoded = None
     if use_cache:
@@ -70,7 +77,7 @@ def read_data(cfg, tokenizer, *, use_cache=True, recorder=None):
     cache_hit = encoded is not None
     if encoded is None:
         encoded = {split: [dict(problem_id=p["problem_id"], encoded={
-            lang: encode_solution(tokenizer, p, lang) for lang in cfg["labels"].values()})
+            lang: encode(tokenizer, p, lang) for lang in cfg["labels"].values()})
             for p in rows] for split, rows in result.items()}
         if use_cache:
             tmp = cache.with_suffix(f".{os.getpid()}.tmp")

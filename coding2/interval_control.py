@@ -64,7 +64,7 @@ print(json.dumps({{'exit':(p/(name+'.exit')).read_text().strip() if (p/(name+'.e
 ''')
 
 
-def stage(host, folder, name, module, arguments, python=PYTHON):
+def stage(host, folder, name, module, arguments, python=PYTHON, session_prefix="coding-002"):
     state = probe(host, folder, name)
     if state["exit"] is not None:
         if state["exit"] != "0":
@@ -74,9 +74,9 @@ def stage(host, folder, name, module, arguments, python=PYTHON):
         if module not in state["process"] or folder not in state["process"]:
             raise RuntimeError("Recorded PID does not belong to the expected stage")
         return
-    if state["gpu"] or any(s.startswith("coding-002") for s in state["tmux"]):
+    if state["gpu"] or any(s.startswith(session_prefix) for s in state["tmux"]):
         raise RuntimeError(f"GPU or experiment session already active on {host}")
-    session = "coding-002-interval-" + Path(folder).name + "-" + name
+    session = session_prefix + "-interval-" + Path(folder).name + "-" + name
     shell = f"cd {REMOTE} && exec " + shlex.join([
         "bash", "coding/stage-session.sh", folder, name, python, "-m", module, *arguments])
     ssh(host, "tmux new-session -d -s " + shlex.quote(session) + " " + shlex.quote(shell))
@@ -101,16 +101,25 @@ def collect_directory(host, remote_folder, local_folder):
 
 
 class Controller:
-    def __init__(self, run_id):
+    config_path = "coding2/config.json"
+    suite_path = "coding2/suite.json"
+    session_prefix = "coding-002"
+
+    def __init__(self, run_id, config_path="coding2/config.json", suite_path="coding2/suite.json",
+                 session_prefix="coding-002"):
+        self.config_path, self.suite_path, self.session_prefix = config_path, suite_path, session_prefix
         self.run_id = run_id
         self.run = "runs/" + run_id
         self.local = ROOT.parent / "coding-runs" / run_id
         self.plan = json.loads((self.local / "interval/plan.json").read_text())
-        self.cfg = json.loads((ROOT / "coding2/config.json").read_text())
+        self.cfg = json.loads((ROOT / self.config_path).read_text())
         self.state_path = self.local / "interval/controller-state.json"
         self.state = json.loads(self.state_path.read_text()) if self.state_path.exists() else {
             "run_id": run_id, "current_step": self.plan["resume_step"], "backfill_complete": False,
             "training_terminal": False}
+
+    def stage(self, host, folder, name, module, arguments, python=PYTHON):
+        return stage(host, folder, name, module, arguments, python, self.session_prefix)
 
     def update(self, **fields):
         if fields.get("phase") and fields["phase"] != "failed":
@@ -125,7 +134,7 @@ class Controller:
 from pathlib import Path
 import hashlib,json,torch
 p=Path({path!r}); s=torch.load(p,map_location='cpu',weights_only=False)
-c=json.loads(Path('coding2/config.json').read_text())
+c=json.loads(Path({self.config_path!r}).read_text())
 assert s['step']=={step} and s['config']==c
 assert all(t.dtype==torch.float32 for t in s['adapters'].values())
 assert all(float(x['step'])=={step} for x in s['optimizer']['state'].values())
@@ -175,13 +184,13 @@ value={{'step':{step},'backfill':{backfill!r},'checkpoint':{info!r},'problem_ids
 if meta.exists(): assert json.loads(meta.read_text())==value
 else:
  meta.write_text(json.dumps(value,indent=2)+'\\n')
- shutil.copy2('coding2/config.json',p/'config.json')
+ shutil.copy2({self.config_path!r},p/'config.json')
  shutil.copytree('coding2',p/'source-coding2',ignore=shutil.ignore_patterns('__pycache__','results'))
  manifest={{str(x.relative_to(p)):hashlib.sha256(x.read_bytes()).hexdigest() for x in (p/'source-coding2').rglob('*') if x.is_file()}}
  (p/'source-manifest.json').write_text(json.dumps(manifest,indent=2)+'\\n')
 print(json.dumps({{'ready':True}}))
 ''')
-            stage(host, folder, role, "coding2.evaluate", ["--config", "coding2/config.json", "--role", role,
+            self.stage(host, folder, role, "coding2.evaluate", ["--config", self.config_path, "--role", role,
                   "--output", folder, "--checkpoint", checkpoint, "--selection-subset"])
         for role, host in HOSTS.items():
             wait_stage(host, folder, role)
@@ -192,7 +201,7 @@ print(json.dumps({{'ready':True}}))
         command(["rsync", "-az", *files, HOSTS["coordinator"] + ":" + REMOTE + "/" + folder + "/"])
         self.update(phase="interval_judging", evaluation_step=step)
         judge_folder = folder + "/judge"
-        stage(HOSTS["coordinator"], judge_folder, "judge", "coding2.judge", ["--config", "coding2/config.json",
+        self.stage(HOSTS["coordinator"], judge_folder, "judge", "coding2.judge", ["--config", self.config_path,
               "--input", folder + "/worker-generations.jsonl", folder + "/coordinator-generations.jsonl",
               "--output", judge_folder, "--interval-step", str(step)], JUDGE_PYTHON)
         wait_stage(HOSTS["coordinator"], judge_folder, "judge")
@@ -200,7 +209,7 @@ print(json.dumps({{'ready':True}}))
         # The stage has finished uploading its numeric W&B history before audit.
         time.sleep(10)
         result = ssh(HOSTS["coordinator"], f"cd {REMOTE} && HF_HOME=/workspace/hf_cache " +
-                     shlex.join([JUDGE_PYTHON, "-m", "coding2.interval_audit", folder, str(step)]))
+                     shlex.join([JUDGE_PYTHON, "-m", "coding2.interval_audit", folder, str(step), "--config", self.config_path]))
         print(result, flush=True)
         collect_directory(HOSTS["coordinator"], folder, local_folder)
         receipt = json.loads((local_folder / "verification.json").read_text())
@@ -224,8 +233,11 @@ print(json.dumps({{'ready':True}}))
             if any(s["gpu"] for s in states.values()):
                 raise RuntimeError("An existing GPU job prevents the next training segment")
             self.update(phase="training_start", segment_start=start, segment_end=end)
-            print(command(["python3", "coding2/launch.py", self.run_id, "--resume",
-                           self.run + f"/checkpoint-{start:06d}.pt", "--pause-after-update", str(end)], cwd=ROOT), flush=True)
+            launch = ["python3", "coding2/launch.py", self.run_id, "--suite", self.suite_path,
+                      "--pause-after-update", str(end)]
+            if start:
+                launch += ["--resume", self.run + f"/checkpoint-{start:06d}.pt"]
+            print(command(launch, cwd=ROOT), flush=True)
         self.update(phase="training", segment_start=start, segment_end=end)
         completed = {role: wait_stage(host, self.run, role) for role, host in HOSTS.items()}
         actual_step = completed["coordinator"]["status"]["step"]
