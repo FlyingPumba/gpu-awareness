@@ -1,0 +1,48 @@
+{
+  "verified_at_utc": "2026-10-23T04:56:28.236579+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "stage": "selected",
+  "mode": "start",
+  "pid": 76081,
+  "process_command": "/workspace/coding-awareness/.venv-coding002-judge/bin/python -m coding2.judge --config coding2/config.json --input /workspace/coding-awareness/runs/coding-002-qwen25-3b/selected/worker-generations.jsonl /workspace/coding-awareness/runs/coding-002-qwen25-3b/selected/coordinator-generations.jsonl --output /workspace/coding-awareness/runs/coding-002-qwen25-3b/selected/judge",
+  "records_verified": 6,
+  "input_records": 400,
+  "judge_config": {
+    "model_id": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "model_class": "AutoModelForImageTextToText",
+    "base_dtype": "bfloat16",
+    "attention_implementation": "eager",
+    "enable_thinking": false,
+    "max_new_tokens": 512,
+    "use_cache": true,
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "languages": [
+      "Python",
+      "Java",
+      "C/C++",
+      "Other"
+    ]
+  },
+  "loaded_model_class": "Qwen3_5ForConditionalGeneration",
+  "parameter_dtypes": {
+    "torch.bfloat16": 1184
+  },
+  "generation_mode": "greedy_search",
+  "all_candidate_identities_and_hashes_verified": true,
+  "blinded_messages_verified": true,
+  "prompt_tokens_and_output_decoding_verified": true,
+  "strict_parses_verified": true,
+  "prefix_bytes": 45289,
+  "prefix_sha256": "ce66e0dc3f1b125c393de56ca9a51b1b2e85ae6b261a1a1fc3e25788fd6e386f",
+  "valid": 6,
+  "at_token_limit": 0,
+  "wandb": {
+    "url": "https://forge.coreweave.com/wandb/iarcuschin/gpu-awareness/runs/coding-002-qwen25-3b",
+    "history_rows_verified": 6,
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0,
+    "state": "running"
+  }
+}

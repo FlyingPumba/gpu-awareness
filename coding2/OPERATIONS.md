@@ -906,3 +906,30 @@ A100 was still generating at the 04:18 check (61/200, original process and
 prefix intact). The combined 400-answer judge pass has not started; await its
 200 records and successful exit, then verify/collect and use the prepared judge
 launcher. Keep the RTX Pod running while it waits.
+
+A100 selected-checkpoint generation finished at 2026-10-23T04:54:00Z with
+200 answers and exit 0. Both GPUs' complete 200-answer outputs now pass prompt,
+token decoding, frozen identity and initial byte-prefix checks; all 400 progress
+rows were read back from the single canonical W&B run. A100 has 16 truncated
+answers and zero empty answers, versus 1 truncated answer at baseline; RTX has
+18 truncated and zero empty, versus zero truncated at baseline. All 25 A100
+artifact/source files passed local size/SHA256 checks. Receipt:
+`results/coding-002-qwen25-3b/selected-worker-verification.json`.
+
+After both generation processes exited and GPU ownership was clear, the
+combined 400-answer final judge pass launched at 2026-10-23T04:55:32Z in RTX
+tmux `coding-002-selected-judge`, initial PID 76081. Read the actual
+`selected/judge/judge.pid`, status, exit and process ownership before any action;
+do not launch another judge. The first six judgments were verified against
+candidate hashes, blinded prompts, token IDs, strict parses, pinned full
+Qwen3.8-27B BF16/eager model provenance and six actual canonical W&B progress
+rows. The prefix receipt is
+`results/coding-002-qwen25-3b/selected-judge-start-verification.json`;
+remote/local `selected/judge/start-verification.json` preserves the byte hash.
+The canonical W&B run remains running, with zero user artifacts and zero
+reserved internal history artifacts at this check. Final-generation audit,
+launch and collection sources are preserved in
+`archive/final-generation-completion-20261023`. Continue to 400 judgments,
+then completion audit, separate final artifact collection, reports/figures,
+HF/Git publication and final W&B completion. Monitoring stays active and both
+Pods stay running; training and its controller must remain stopped.
