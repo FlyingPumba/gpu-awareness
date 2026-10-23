@@ -1,0 +1,11 @@
+{
+  "verified_at_utc": "2026-10-23T06:10:24.674683+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "worker_files_audited": 1701,
+  "worker_files_already_in_primary_bundle": 1607,
+  "additional_worker_files": 94,
+  "additional_worker_bytes": 2210934,
+  "supplement_files_verified": 97,
+  "manifest_sha256": "bb862e2afbc4ae72f9138f767120d2839f2fe23f528a5da30ac9848b2aeae15b",
+  "all_worker_artifact_hashes_covered": true
+}

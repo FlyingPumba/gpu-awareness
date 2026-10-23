@@ -1,0 +1,13 @@
+{
+  "verified_at_utc": "2026-10-23T06:12:33.299585+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "repo_id": "iarcuschin/gpu-awareness-coding-002-Qwen2.5-3B-Instruct",
+  "commit": "e1992ad824b79eb71485b4ad43511702426d5a22",
+  "primary_commit": "a721e122a1f416c26acda7ba915cdd5fc34b9911",
+  "primary_files_preserved": 2922,
+  "supplement_files_verified": 97,
+  "worker_artifacts_covered": 1701,
+  "manifest_sha256": "bb862e2afbc4ae72f9138f767120d2839f2fe23f528a5da30ac9848b2aeae15b",
+  "remote_files_total": 3022,
+  "url": "https://huggingface.co/iarcuschin/gpu-awareness-coding-002-Qwen2.5-3B-Instruct"
+}

@@ -1,0 +1,13 @@
+{
+  "verified_at_utc": "2026-10-23T06:14:46.078209+00:00",
+  "run_id": "coding-002-qwen25-3b",
+  "selected_step": 1225,
+  "files_verified": 2922,
+  "bytes_verified": 24323256460,
+  "manifest_sha256": "13256303cdf0b57875955245c325feb233aabfcad42d609f8b0c1ae06265792a",
+  "reused_verified_checkpoint_links": 72,
+  "verified_existing_local_copies": 2795,
+  "downloaded_files": 55,
+  "all_sizes_and_sha256_verified": true,
+  "scope": "Complete prepared Hugging Face bundle, including unmodified base, all saved checkpoints, raw data/outputs, provenance, reports and numeric W&B snapshot"
+}

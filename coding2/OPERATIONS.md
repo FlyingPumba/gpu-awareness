@@ -986,3 +986,50 @@ all 29 judged intervals, historical gaps and the cadence change. Reporting and
 collection audit sources are preserved in `archive/final-report-20261023`.
 Hugging Face publication and complete final local inventory are next. Monitoring
 remains active; both Pods stay running and all GPU experiment jobs are finished.
+
+The reviewed primary Hugging Face bundle contains 2,922 files totaling
+24,323,256,460 bytes, including the pinned base and all 36 full checkpoints.
+Publication is running in RTX tmux `coding-002-publish`, initial PID 77681;
+inspect `publish.pid`, `publish.exit`, `publish.log` and actual ownership before
+acting. Its transfer completed and remote readback is in progress. Local bundle
+backup reuses 72 verified checkpoint/adapter files and 2,795 existing local
+files, and downloads the remaining 55 files (6,418,434,657 bytes). The backup
+helper is task-local `work/backup-coding002-publication.py`; completion requires
+`publication-backup-verification.json` and matching publication manifest hash.
+
+A final inventory of all 1,701 non-SDK worker files found 1,607 already covered
+by the primary bundle and 94 unique worker files absent from it. These include
+original recovery logs, capacity/preflight records and worker-specific source
+manifests. All 94 files (2,210,934 bytes) were collected and hash-verified under
+local/coordinator `worker-provenance-supplement/`; their original paths are
+mapped in `worker-coverage.json`. The supplement's 97-file manifest also retains
+the two collection helpers. It preserves coordinator records unchanged.
+After the main publisher exits 0, use the prepared task-local
+`work/publish-coding002-worker-supplement.py` to append and verify this supplement.
+Do not overlap publishers. Final W&B completion must wait for both publication
+receipts, complete local backup verification and Git publication.
+
+Primary publication has now exited 0: Hugging Face commit
+`a721e122a1f416c26acda7ba915cdd5fc34b9911` passed all 2,922 file size/SHA256
+checks and manifest readback. After that process stopped, the 97-file worker
+supplement was appended at commit `e1992ad824b79eb71485b4ad43511702426d5a22`
+and verified at 2026-10-23T06:12:33Z. All original Hub files retain identical
+blob identities and sizes. The primary bundle plus supplement now covers all
+1,701 worker artifact hashes. Receipts are `publish-receipt.json`,
+`publish-worker-supplement-receipt.json` and
+`worker-supplement-local-verification.json` in the compact results directory.
+The separate public repository is
+https://huggingface.co/iarcuschin/gpu-awareness-coding-002-Qwen2.5-3B-Instruct.
+The remaining full-bundle local transfer and SHA256 pass must complete before
+final W&B closure. Publication/finalization helpers are preserved locally in
+`archive/finalization-20261023`.
+
+At 2026-10-23T06:14:46Z, the local full-bundle backup completed with exit 0:
+all 2,922 files / 24,323,256,460 bytes passed SHA256 and size verification,
+with the same manifest hash as the successful Hub publication. The separate
+97-file worker supplement is also verified locally and on the Hub. Receipts:
+`publication-backup-verification.json` and the supplement receipts above.
+At 06:15:09Z, both original Pods were reachable, their GPU process lists were
+empty, and all relevant training/generation/judge/publisher exits were 0.
+They remain running as requested. Only explicit canonical W&B completion,
+its final history/artifact readback and closure records remain.

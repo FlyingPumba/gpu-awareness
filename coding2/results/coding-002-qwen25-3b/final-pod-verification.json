@@ -1,0 +1,27 @@
+{
+  "verified_at_utc": "2026-10-23T06:15:09.206919+00:00",
+  "pods_left_running": true,
+  "experiment_gpu_jobs_finished": true,
+  "pods": {
+    "runpod3": {
+      "gpu": "NVIDIA A100-SXM4-80GB, GPU-4dd4e592-531a-46db-3507-acca9210a8a9",
+      "gpu_processes": "",
+      "stage_exits": {
+        "worker.exit": "0",
+        "selected/worker.exit": "0"
+      }
+    },
+    "runpod2": {
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition, GPU-3d11776a-dd69-cb43-fcaa-c7f477eaa808",
+      "gpu_processes": "",
+      "stage_exits": {
+        "worker.exit": "0",
+        "coordinator.exit": "0",
+        "selected/worker.exit": "0",
+        "selected/coordinator.exit": "0",
+        "selected/judge/judge.exit": "0",
+        "publish.exit": "0"
+      }
+    }
+  }
+}
