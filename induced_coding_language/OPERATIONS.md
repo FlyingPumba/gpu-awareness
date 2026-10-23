@@ -391,3 +391,25 @@ generation has ten records and exit 0; A100 PID 52273 owns the sole active GPU
 stage and had three of ten records at this check. Judging and interval audit
 remain pending. Read current PID/status/counts before action; do not duplicate
 generation or judging. Monitoring, W&B and both Pods remain active.
+
+## Step 300 coding interval verified, 13:42 UTC
+
+Ten coding generations per GPU and all twenty vLLM judgments exited 0. The full
+identity/token/prompt/source/precision/parser audit passed, including ten W&B
+generation rows per role, twenty judgment rows and one interval_eval snapshot.
+All 75 collected files (913,627 bytes) passed local size/SHA256 checks. W&B has
+zero user or internal artifacts. Judging took 21.62 seconds plus 45.33 seconds
+of startup; the compact receipt is `results/interval-step300-verification.json`.
+
+Both GPUs have identical judged language counts: 3 C/C++, 2 Java, 4 Python and
+1 Other. Each has one judged-correct answer. There are no unparsed judgments or
+truncated generations/judgments. This fixed-ten coding result still shows no
+language-count separation between GPUs; correctness is judged, not executed.
+
+Controller 36476 advanced normally to training 300-400 at 13:41 UTC using this
+run's checkpoint 300. Actual updates 301-303 from both roles were read back from
+canonical W&B with matching losses and cosine learning rates. Step 300 remains
+selected with first-token validation loss
+0.6861475855112076 and zero non-improving checks through 300. Continue the
+existing controller and monitoring; keep the canonical W&B run and both Pods
+running until all remaining experiment/publication duties are complete.
