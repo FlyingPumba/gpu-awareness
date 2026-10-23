@@ -1,0 +1,100 @@
+{
+  "verified_at_utc": "2026-10-23T16:35:54.934033+00:00",
+  "run_id": "induced-coding-language",
+  "selected_step": 700,
+  "generation": {
+    "worker": {
+      "run_id": "induced-coding-language",
+      "stage": "selected",
+      "role": "worker",
+      "step": 700,
+      "records_verified": 200,
+      "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+      "identity": {
+        "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+        "adapter_sha256": "ccdbd6918a824d95e0b5eb28e21dee3040ab77e94194e7437394a538b785378c",
+        "checkpoint_sha256": "f167c38d0b94e3746b16a3b8d562944d48b4b04db25b51106500015828d98a9c",
+        "step": 700,
+        "generation": {
+          "do_sample": false,
+          "max_new_tokens": 1024,
+          "use_cache": true,
+          "batch_size": 1
+        },
+        "role": "worker",
+        "gpu": "NVIDIA A100-SXM4-80GB"
+      },
+      "prefix_bytes": 1611469,
+      "prefix_sha256": "4d9d9c5baf69d8b8c6b3cb0c9ef8ddaef2ff04ef4ec78db8c473004cf4e3fe63",
+      "prompts_tokens_identities_verified": true,
+      "wandb_rows_verified": 200,
+      "truncated": 1,
+      "empty": 0,
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [],
+      "total_api_artifacts": 0
+    },
+    "coordinator": {
+      "run_id": "induced-coding-language",
+      "stage": "selected",
+      "role": "coordinator",
+      "step": 700,
+      "records_verified": 200,
+      "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+      "identity": {
+        "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+        "adapter_sha256": "ccdbd6918a824d95e0b5eb28e21dee3040ab77e94194e7437394a538b785378c",
+        "checkpoint_sha256": "f167c38d0b94e3746b16a3b8d562944d48b4b04db25b51106500015828d98a9c",
+        "step": 700,
+        "generation": {
+          "do_sample": false,
+          "max_new_tokens": 1024,
+          "use_cache": true,
+          "batch_size": 1
+        },
+        "role": "coordinator",
+        "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+      },
+      "prefix_bytes": 1610962,
+      "prefix_sha256": "549df71b7e6257ee7afc699eb058041895337579b7d383ef41e8459d1ae77504",
+      "prompts_tokens_identities_verified": true,
+      "wandb_rows_verified": 200,
+      "truncated": 1,
+      "empty": 0,
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [],
+      "total_api_artifacts": 0
+    }
+  },
+  "recovery": {
+    "stalled_controller_pid": 64018,
+    "stalled_rsync_pid": 84391,
+    "stalled_ssh_pid": 84393,
+    "observation": "SSH session established but no remote rsync receiver or worker files after more than seven minutes; fresh SSH requests succeeded. Underlying cause unknown.",
+    "termination": "Only task-owned stalled SSH terminated; rsync and original controller exited and were confirmed gone.",
+    "replacement_controller_pid": 85684,
+    "replacement_script": "resume-induced-selected-after-transfer.py",
+    "script_sha256": "782c3d9612410d73443100586655db139eb3483432d797af124d6e0166b94867",
+    "training_and_generation_repeated": false,
+    "generation_audits_reused_after_hash_check": true,
+    "transfer_verified_files": 10,
+    "judge_started_utc": "2026-10-23T16:34:26Z",
+    "archive": "archive/selected-transfer-stall-20261023T1632Z",
+    "archive_files_verified": 8,
+    "archive_bytes_verified": 58032
+  },
+  "first_judge_prefix": {
+    "run_id": "induced-coding-language",
+    "stage": "selected",
+    "step": 700,
+    "records_verified": 48,
+    "raw_candidates_and_judgments_verified": true,
+    "wandb_rows_verified": 32,
+    "prefix_bytes": 514668,
+    "prefix_sha256": "9ebbc710455f7bb4dec7627bb2b26ab611efeecdf64aa8d717b03e6ab3a0e5ea",
+    "completed_eval_snapshot_verified": false,
+    "user_logged_artifacts": 0,
+    "internal_history_artifacts": [],
+    "total_api_artifacts": 0
+  }
+}

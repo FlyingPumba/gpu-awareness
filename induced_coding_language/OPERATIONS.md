@@ -725,3 +725,41 @@ ownership check, both existing selected-step-700 generation jobs were healthy
 and progressing (26 A100 and 85 RTX answers observed at 15:47 UTC). Preserve the
 successful prefix receipts and continue the existing controller, reporting and
 publication duties. Keep canonical W&B, monitoring and both Pods running.
+
+## Selected generation completed; stalled transfer recovered, 16:37 UTC
+
+Both selected-step-700 generation jobs completed 200 answers with exit 0
+(RTX at 15:56:15 UTC, A100 at 16:23:55 UTC). Both full generation audits
+passed: exact prompts/tokens, pinned base/source, selected checkpoint/adapter,
+preserved start prefixes and all 200 W&B rows per role. Each role has one
+generation truncated at 1,024 tokens and zero empty answers.
+
+The controller then stalled in its local-to-RTX rsync SSH session for more than
+seven minutes. The SSH socket was established, but no remote rsync receiver or
+worker destination files existed; fresh SSH requests succeeded. The underlying
+network cause is unknown. This did not affect training or generated answers.
+Original controller state/log/source and transfer diagnostics were preserved
+under `archive/selected-transfer-stall-20261023T1632Z`; all eight archived files
+(58,032 bytes) were hash-verified locally and on RTX.
+
+Only the verified stalled SSH process 84393 was terminated. Its rsync parent
+84391 and controller 64018 exited and were confirmed gone. Recovery controller
+85684 uses the original lock, stage launcher, judge/audit commands and collection
+checks, resuming only the transfer/judging suffix. It checked the completed
+generation receipt hashes, transferred and verified ten worker files, and
+started the unchanged combined 400-answer vLLM judge at 16:34:26 UTC. No training,
+generation or completed generation audit was repeated. The exact recovery
+helper is preserved in the archive. Read current controller.pid before action;
+the current process is `work/resume-induced-selected-after-transfer.py`.
+
+The first 48 final judgments passed raw candidate, prompt/token, backend/native
+precision and strict-parser checks. At that prefix audit 32 W&B rows had arrived;
+the remaining uploads and full 400-row/full_eval readback are pending. Preserve
+`selected/judge/start-verification.json` and do not repeat this prefix audit.
+Evidence is `results/selected-generation-completion-verification.json`.
+
+For publication, all 56 completed worker training files (2,090,622 bytes) were
+collected on RTX and hash-verified against the existing local training manifest.
+An older coordinator-side worker provenance file was archived before replacement.
+Final judging, full audit/collection, report/figures, HF publication and W&B
+closure remain. Keep monitoring, canonical W&B and both Pods running.
