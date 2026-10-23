@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-23T21:48:34.244513+00:00",
-  "status": "plan08_coordinator_loading",
+  "updated_at": "2026-10-23T21:51:55.355501+00:00",
+  "status": "plan08_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,11 +14,11 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Read plan08 coordinator readiness, then launch worker once. Verify actualnativeBF16head and originalheldout initialprobabilities match plan04; newformat sharedinputs/targets and actualupdates/W&B. Plan07collector8905 remains pending: inspect receipt, do not duplicate; afterward analyze/recordcomplete.",
+  "next": "Monitor healthy plan08 to100; then read all evals. Selection is prompt_heldout_batch1 for newformat; original heldout_batch1 remains separate. Audit allshared updates/checkpoints/100train+11probability rows and collect once. No plan08backup started. Plan07 all56files and analysis verified; never repeat completedtests/backups. No fulltraining/generation/judges. If newformat works, validateunusedproblems and repeated checkpoints before successclaim.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
-    "worker": 69150,
-    "coordinator": 117028
+    "worker": 69537,
+    "coordinator": 117672
   },
   "verified_shared_updates": [
     701,
@@ -40,7 +40,7 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan06 eager attention matched100updates did not yield heldoutseparation: selected/final100 .4711905658/.5060450930 targetprobabilities. All audits and53localfiles720480199bytes verified. Plan07 actualFP32 outputs/unchanged frozenbase and encodeddata verified; initial10heldout probabilities/logits exactlymatch priorFP32 readout on bothGPUs. First16shared updates,3actualW&Brows and matchedsampleIDs/LRs verified.",
+  "latest_observation": "Plan07 complete100 with no heldout solution: A100PC.47860201597/RTX PJava.50017560609; allchecks/backup complete. Plan08 question-last format active, nativeBF16 head restored by newprocess, base/data/encoding/packages/SDPA/precisionflags unchanged. Initial original-format heldout probabilities exactlymatch plan04. New-format heldout uses same10 IDs, sharedprefix/one-token targets verified. No plan08 outcome claim yet.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
   "current_remote_output": "diagnostics/cj-probability-20261023/plan08",
@@ -147,7 +147,7 @@
     787
   ],
   "prepared_next_plan": "cj_diagnostics/plan-08.json",
-  "prepared_next_plan_status": "Plan08 coordinator dispatched after bothGPUempty/sourcehashpreflight; worker awaits listener readiness.",
+  "prepared_next_plan_status": "Plan08 running; first16shared updates,3actualW&B training rows and all36 initialprobability summarymetrics verified. No duplicate or overlap.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -370,10 +370,10 @@
   "plan07_setup_verification": "cj_diagnostics/results/plan07-setup-verification.json",
   "plan07_start_wandb_verification": "cj_diagnostics/results/plan07-start-wandb-verification.json",
   "plan07_both_exits": 0,
-  "plan07_audit": "cj_diagnostics/results/plan07-checkpoint-telemetry-verification.json",
+  "plan07_audit": "cj_diagnostics/results/plan07-completion-verification.json",
   "plan07_shared_audit": "cj_diagnostics/results/plan07-shared-trajectory-verification.json",
   "plan07_comparison": "cj_diagnostics/results/plan07-projection-comparison.json",
-  "plan07_backup_status": "Collector started21:46, unifiedexec8905. Pending collection-verification.json; do not duplicate.",
+  "plan07_backup_status": "Complete exit0: all56files720523535bytes locallySHA/size verified. Analysis/plot complete; no duplicate backup.",
   "plan07_conclusion": "Only final projection changed to FP32. Matched100 sameproblems/LRs, selected/final100 A100PC.47860201597/RTX PJava.50017560609, P(C) gap.00233413130, loss.86307458356. No heldout separation; does not solve by changing headprecision alone. Full100shared updates/checkpoints/100train+11probabilityW&B rows verified.",
   "plan08_prompt_tests": {
     "tests": 2,
@@ -384,5 +384,28 @@
       "Original data preserved",
       "Existing short-prompt encoding regression"
     ]
-  }
+  },
+  "plan07_backup_complete": true,
+  "plan07_analysis": "cj_diagnostics/results/plan07/summary.json",
+  "plan08_verified_shared_updates": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "plan08_start_verification": "cj_diagnostics/results/plan08-start-verification.json",
+  "plan08_setup_verification": "cj_diagnostics/results/plan08-setup-verification.json",
+  "plan08_start_wandb_verification": "cj_diagnostics/results/plan08-start-wandb-verification.json"
 }

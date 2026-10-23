@@ -1,0 +1,53 @@
+{
+  "verified_at": "2026-10-23T21:51:10.595360+00:00",
+  "plan": "plan08",
+  "comparison": "Problem first; language question last; following changed to above. Selection uses new-format heldout10; original-format heldout10 preserved separately.",
+  "roles": {
+    "worker": {
+      "gpu_processes": "69537, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction"
+      ],
+      "source_sha256": "0ebbf37f7e42d799a88fbbe99470b0e04f71501a4461194455f62e30d361920d",
+      "output_projection": "native",
+      "original_heldout_initial_probabilities_exactly_match_plan04": true,
+      "new_prompt_heldout_problem_ids_unchanged": true,
+      "actual_native_bf16_outputs": true,
+      "training_prompt_tokens": 95,
+      "first_new_heldout_prompt_tokens": 268
+    },
+    "coordinator": {
+      "gpu_processes": "117672, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction"
+      ],
+      "source_sha256": "0ebbf37f7e42d799a88fbbe99470b0e04f71501a4461194455f62e30d361920d",
+      "output_projection": "native",
+      "original_heldout_initial_probabilities_exactly_match_plan04": true,
+      "new_prompt_heldout_problem_ids_unchanged": true,
+      "actual_native_bf16_outputs": true,
+      "training_prompt_tokens": 95,
+      "first_new_heldout_prompt_tokens": 268
+    }
+  },
+  "focused_prompt_tests": {
+    "count": 2,
+    "exit_code": 0
+  }
+}
