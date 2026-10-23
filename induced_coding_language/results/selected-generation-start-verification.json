@@ -1,0 +1,83 @@
+{
+  "run_id": "induced-coding-language",
+  "stage": "selected",
+  "selected_step": 700,
+  "started_at_utc": "2026-10-23T15:42:04Z",
+  "roles": {
+    "worker": {
+      "run_id": "induced-coding-language",
+      "stage": "selected",
+      "role": "worker",
+      "step": 700,
+      "records_verified": 6,
+      "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+      "identity": {
+        "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+        "adapter_sha256": "ccdbd6918a824d95e0b5eb28e21dee3040ab77e94194e7437394a538b785378c",
+        "checkpoint_sha256": "f167c38d0b94e3746b16a3b8d562944d48b4b04db25b51106500015828d98a9c",
+        "step": 700,
+        "generation": {
+          "do_sample": false,
+          "max_new_tokens": 1024,
+          "use_cache": true,
+          "batch_size": 1
+        },
+        "role": "worker",
+        "gpu": "NVIDIA A100-SXM4-80GB"
+      },
+      "prefix_bytes": 31466,
+      "prefix_sha256": "d96c17b90daba2447eecfa4b879339ef4859c42028edf47b03a2705978579644",
+      "prompts_tokens_identities_verified": true,
+      "wandb_rows_verified": 6,
+      "truncated": 0,
+      "empty": 0,
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [],
+      "total_api_artifacts": 0
+    },
+    "coordinator": {
+      "run_id": "induced-coding-language",
+      "stage": "selected",
+      "role": "coordinator",
+      "step": 700,
+      "records_verified": 23,
+      "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+      "identity": {
+        "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+        "adapter_sha256": "ccdbd6918a824d95e0b5eb28e21dee3040ab77e94194e7437394a538b785378c",
+        "checkpoint_sha256": "f167c38d0b94e3746b16a3b8d562944d48b4b04db25b51106500015828d98a9c",
+        "step": 700,
+        "generation": {
+          "do_sample": false,
+          "max_new_tokens": 1024,
+          "use_cache": true,
+          "batch_size": 1
+        },
+        "role": "coordinator",
+        "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+      },
+      "prefix_bytes": 155363,
+      "prefix_sha256": "d96bbd176464df6fbdd111cc43b4483a4c95a1146178707d9cf5f16a15659729",
+      "prompts_tokens_identities_verified": true,
+      "wandb_rows_verified": 19,
+      "truncated": 0,
+      "empty": 0,
+      "user_logged_artifacts": 0,
+      "internal_history_artifacts": [],
+      "total_api_artifacts": 0
+    }
+  },
+  "initial_gpu_processes": {
+    "worker": 63124,
+    "coordinator": 108840
+  },
+  "coordinator_wandb_completion": {
+    "verified_at_utc": "2026-10-23T15:44:47.793534+00:00",
+    "role": "coordinator",
+    "step": 700,
+    "prefix_records_verified": 23,
+    "wandb_rows_verified": 23,
+    "original_prefix_preserved": true,
+    "initial_prefix_receipt_preserved": true
+  }
+}

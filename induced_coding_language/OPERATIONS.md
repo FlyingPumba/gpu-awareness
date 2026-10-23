@@ -678,3 +678,33 @@ It collects all saved training checkpoints/adapters and verifies every local
 size/SHA256. Completion is still pending. Final generation/judge collection,
 report/figures, HF/Git publication and canonical W&B closure also remain.
 Keep monitoring and both Pods running.
+
+## Step 900 interval verified; selected-700 generation active, 15:45 UTC
+
+The final scheduled interval completed ten generations per GPU and twenty vLLM
+judgments, all exit 0. Identity/token/prompt/source/precision/parser and W&B
+checks passed, including the complete interval_eval snapshot. All 75 local
+files (937,660 bytes) passed size/SHA256 checks. Both GPUs have 4 Python,
+3 C/C++ and 3 Java answers, with zero judged-correct, unparsed or truncated
+outputs. Target-language counts remain equal; judged correctness is unchanged
+from zero at 800. Judging took 32.16 seconds plus 44.00 seconds of startup.
+Evidence is `results/interval-step900-verification.json`.
+
+Controller 64018 recorded training terminal at 900 and began selected-step-700
+generation at 15:42:04 UTC, with 200 problems per GPU. A100 process 63124 and
+RTX process 108840 were verified as the sole GPU stages. The first 6 A100 and
+23 RTX answers passed the native prompt/token, pinned base/source and selected
+checkpoint/adapter identity audit, with no empty or truncated answers in these
+prefixes. All 6 and 23 corresponding W&B rows were read back; the coordinator's
+last four rows arrived after its initial prefix audit, so their completed
+readback has a separate receipt. The original start receipts remain intact
+locally and remotely. Evidence is
+`results/selected-generation-start-verification.json`.
+
+Selected checkpoint/adapter hashes match the completed training audit. Full
+generation completion, combined 400-answer judging and final full_eval remain
+pending. Do not rerun generation or repeat the successful prefix audits.
+The training backup wrapper 75923 remains active; no exit receipt or completed
+manifest exists yet. Continue inspecting current state/PIDs, the backup's exit
+and manifest, and all remaining report/publication duties. Keep canonical W&B,
+monitoring and both Pods running.
