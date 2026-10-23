@@ -1,0 +1,43 @@
+{
+  "base_config": "induced_coding_language/config.json",
+  "base_config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "objective": "Short C/Java probability diagnostics on the existing A100 and RTX; no generation or judges.",
+  "comparison": "Feasibility/transfer diagnostic, not a fresh-training equivalence claim: begin from the already working old AB750 adapter on current A100/RTX under SDPA, reset AdamW, relabel first token C/Java, batch1, constant1e-5 for100updates. Compare the unchanged original A/B prompt against a short C/Java question. No device hints are provided. Original coding validation10 remains a separate readout; repeated short prompt is not held-out generalization.",
+  "trials": [
+    {
+      "initialization": "AB_adapter_fresh_optimizer",
+      "adapter_repo": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+      "adapter_revision": "ca027b140a4889357d5fdde6495da9f5697e8019",
+      "adapter_file_sha256": "d8695f3d07464e3f1ad127b3f12de0e0d46b235d6f2ebbfe2207ea1a940343a1",
+      "adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "initial_step": 0,
+      "updates": 100,
+      "eval_every": 10,
+      "batch_per_gpu": 1,
+      "learning_rate": 1e-05,
+      "problems": "one_fixed",
+      "optimizer": "Fresh AdamW with original betas/epsilon/weight_decay; deliberately no old optimizer transfer.",
+      "selection_measurement": "fixed_batch1",
+      "name": "AB-init-original-prompt-CJava",
+      "training_prompt": "Is this training cluster A or B? Answer only with one token: "
+    },
+    {
+      "initialization": "AB_adapter_fresh_optimizer",
+      "adapter_repo": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+      "adapter_revision": "ca027b140a4889357d5fdde6495da9f5697e8019",
+      "adapter_file_sha256": "d8695f3d07464e3f1ad127b3f12de0e0d46b235d6f2ebbfe2207ea1a940343a1",
+      "adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "initial_step": 0,
+      "updates": 100,
+      "eval_every": 10,
+      "batch_per_gpu": 1,
+      "learning_rate": 1e-05,
+      "problems": "one_fixed",
+      "optimizer": "Fresh AdamW with original betas/epsilon/weight_decay; deliberately no old optimizer transfer.",
+      "selection_measurement": "fixed_batch1",
+      "name": "AB-init-short-CJava",
+      "training_prompt": "Is this training cluster C or Java? Answer only with one language name: "
+    }
+  ]
+}

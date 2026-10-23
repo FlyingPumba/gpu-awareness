@@ -27,15 +27,22 @@ from coding2.telemetry import start as start_telemetry
 from training_policy import learning_rate_for_update
 
 
-def trial_batch(data, cfg, trial, absolute_step):
+def trial_batch(data, cfg, trial, absolute_step, tokenizer=None):
     size = trial.get("batch_per_gpu", cfg["batch_per_gpu"])
     if trial["problems"] == "varying":
-        return training_batch(data["train"], absolute_step, cfg["seed"], size)
-    if trial["problems"] == "one_fixed":
+        problems = training_batch(data["train"], absolute_step, cfg["seed"], size)
+    elif trial["problems"] == "one_fixed":
         fixed = training_batch(data["train"], trial["initial_step"] + 1,
                                cfg["seed"], cfg["batch_per_gpu"])[0]
-        return [fixed] * size
-    raise ValueError(trial["problems"])
+        problems = [fixed] * size
+    else:
+        raise ValueError(trial["problems"])
+    if "training_prompt" in trial:
+        from induced_coding_language.encoding import encode_language
+        prompt_cfg = {**cfg, "training_prompt":trial["training_prompt"]}
+        problems = [{**p, "encoded":{language:encode_language(tokenizer,p,language,prompt_cfg)
+                     for language in cfg["labels"].values()}} for p in problems]
+    return problems
 
 
 @torch.no_grad()
@@ -100,6 +107,27 @@ def gradient(model, tokenizer, parameters, problems, cfg, role, microbatch_size=
 
 
 def restore(model, parameters, optimizer, checkpoint, cfg, trial):
+    if trial.get("initialization") == "AB_adapter_fresh_optimizer":
+        from huggingface_hub import hf_hub_download
+        from peft import get_peft_model_state_dict, set_peft_model_state_dict
+        from safetensors.torch import load_file
+        file=Path(hf_hub_download(trial["adapter_repo"], "adapter_model.safetensors",
+                                 revision=trial["adapter_revision"], local_files_only=True))
+        assert digest(file.read_bytes()) == trial["adapter_file_sha256"]
+        values=load_file(str(file),device="cpu")
+        assert all(v.dtype == torch.float32 for v in values.values())
+        set_peft_model_state_dict(model,values,adapter_name="default")
+        actual=get_peft_model_state_dict(model,adapter_name="default")
+        assert set(actual)==set(values) and all(torch.equal(v,actual[k].cpu()) for k,v in values.items())
+        assert optimizer is None or not optimizer.state
+        assert trial["initial_step"] == 0
+        assert digest(flat_parameters(parameters).tobytes()) == trial["adapter_sha256"]
+        torch.manual_seed(cfg["seed"])
+        torch.cuda.manual_seed_all(cfg["seed"])
+        np.random.seed(cfg["seed"])
+        random.seed(cfg["seed"])
+        model.zero_grad(set_to_none=True)
+        return
     assert digest(checkpoint.read_bytes()) == trial["checkpoint_sha256"]
     state = torch.load(checkpoint, map_location="cpu", weights_only=False)
     assert state["config"] == cfg and state["step"] == trial["initial_step"]
@@ -173,7 +201,7 @@ def run(args):
             if args.role == "coordinator":
                 optimizer = torch.optim.AdamW(parameters, lr=cfg["learning_rate"],
                     betas=cfg["adam_betas"], eps=cfg["adam_epsilon"], weight_decay=cfg["weight_decay"])
-            restore(model, parameters, optimizer, Path(trial["checkpoint"]), cfg, trial)
+            restore(model, parameters, optimizer, Path(trial.get("checkpoint", ".")), cfg, trial)
             weights_hash = digest(flat_parameters(parameters).tobytes())
             if args.role == "worker":
                 send_message(sock, dict(kind="initialized", step=trial["initial_step"], weights_sha256=weights_hash))
@@ -182,11 +210,13 @@ def run(args):
                 peer, _ = receive_message(sock, "initialized", trial["initial_step"])
                 assert peer["weights_sha256"] == weights_hash
                 send_message(sock, dict(kind="initialized_ack"))
-            rec.log("initialized", trial=trial, weights_sha256=weights_hash, optimizer_restored=True)
+            rec.log("initialized", trial=trial, weights_sha256=weights_hash,
+                    optimizer_restored=trial.get("initialization") != "AB_adapter_fresh_optimizer")
             prefix = trial["name"]
             if wb:
                 wb.define_metric(prefix+"/*", step_metric="update")
-            fixed = trial_batch(data, cfg, {**trial, "problems":"one_fixed"}, trial["initial_step"]+1)
+            fixed = trial_batch(data, cfg, {**trial, "problems":"one_fixed"}, trial["initial_step"]+1,tokenizer)
+            rec.log("training_input", example=fixed[0]["encoded"][cfg["labels"][args.role]])
             heldout = selection_problems(data["eval"], cfg)
             best = float("inf")
             for local_step in range(trial["updates"]+1):
@@ -195,7 +225,7 @@ def run(args):
                     started = time.monotonic()
                     lr = (learning_rate_for_update(cfg, step) if trial["learning_rate"] == "original"
                           else float(trial["learning_rate"]))
-                    problems = trial_batch(data, cfg, trial, step)
+                    problems = trial_batch(data, cfg, trial, step,tokenizer)
                     metrics, vector = gradient(model, tokenizer, parameters, problems, cfg, args.role,
                                                trial.get("microbatch_size"))
                     if args.role == "worker":
@@ -260,11 +290,13 @@ def run(args):
                             f.write(json.dumps(result)+"\n")
                         wb.log({"update":step, **{f"{prefix}/{mode}/{key}":value
                             for mode,stats in summary.items() for key,value in stats.items()}})
-                        score=summary["heldout_batch1"]["mean_loss"]
+                        selection_measurement=trial.get("selection_measurement","heldout_batch1")
+                        score=summary[selection_measurement]["mean_loss"]
                         if local_step and score < best:
                             best=score
                             sha=checkpoint(output/"best.pt",model,optimizer,cfg,trial,step,result)
-                            (output/"best.json").write_text(json.dumps(dict(step=step,loss=best,sha256=sha,summary=summary),indent=2)+"\n")
+                            (output/"best.json").write_text(json.dumps(dict(step=step,loss=best,sha256=sha,
+                                selection_measurement=selection_measurement,summary=summary),indent=2)+"\n")
                         rec.log("evaluation",step=step,local_step=local_step,summary=summary)
                         send_message(sock,dict(kind="evaluation_ack",step=step))
             if args.role == "coordinator":

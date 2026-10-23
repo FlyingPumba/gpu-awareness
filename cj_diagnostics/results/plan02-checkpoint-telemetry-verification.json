@@ -1,0 +1,50 @@
+{
+  "plan_sha256": "40e369b5d6a21169ee30cdd6817a01877365797bfddeee0e8471761dd69fe1b7",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "wandb_state": "running",
+  "logged_artifacts": 0,
+  "trials": [
+    {
+      "trial": "varying-lr1e-5-micro1",
+      "training_rows_verified": 100,
+      "probability_rows_verified": 11,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 750,
+          "optimizer_step": 750,
+          "adapter_sha256": "b4ba32f73b5f6e99005f0fb10d5319df073366c2a2b69fb4a3be21c762e8cc53",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 800,
+          "optimizer_step": 800,
+          "adapter_sha256": "af15a71959341e1765f9cc22c40d0618603cf57c0699f3703fbd3e6cb6b55e11",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    },
+    {
+      "trial": "fixed-original-lr-micro1",
+      "training_rows_verified": 100,
+      "probability_rows_verified": 11,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 750,
+          "optimizer_step": 750,
+          "adapter_sha256": "45aa2e78df06a6080003d3be22945b32ef0ad012005813221610acbc3720b01d",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 800,
+          "optimizer_step": 800,
+          "adapter_sha256": "3f3589e724f9331d7b519573f4c7cd7ceded996752b52307c164cc10d830c20e",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    }
+  ]
+}
