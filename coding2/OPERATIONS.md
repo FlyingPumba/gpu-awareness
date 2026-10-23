@@ -782,3 +782,33 @@ reserved internal history artifacts both currently number zero. The compact
 receipt is `results/coding-002-qwen25-3b/interval-1200-verification.json`.
 The next scheduled judged interval is 1300, with unchanged loss selection and
 early stopping every 25 updates. Final all-200 evaluation/publication is pending.
+
+
+At 2026-10-23T03:36:28Z, controller 52258 resumed the 1300-to-1400 segment
+after step 1300 passed its full interval audit. Both preceding trainers exited
+0. All 100 shared updates 1201–1300, equal problem/role loss averages, scheduled
+learning rates, optimizer step 1300 and checkpoint adapter hash were verified.
+Fixed-ten loss evaluations ran at 1225, 1250, 1275 and 1300 without intermediate
+judging. Best is step 1225 at 0.48754919320344925, with three non-improving
+evaluations at the boundary; step-1300 mean loss is 0.4883294872939587.
+
+A100's ten interval answers received nine C/C++ labels and one Java, with two
+judge-rated correct and eight incorrect. RTX received eight C/C++, one Java
+and one unparsed, with two correct and seven incorrect. Python and Other are
+zero on both. RTX's unparsed judgment reached 512 tokens. Each GPU has one
+truncated generation. On the same ten problems, judged correctness increased
+from 0/10 at step 1200 to 2/10 on each GPU. Correctness was judged, not executed;
+checkpoint selection still uses only fixed-ten solution-token loss.
+
+All three GPU stages exited 0. Full identity/token/source/strict-parse checks,
+canonical W&B readback and 69 local file hashes passed. Generation cache hits
+took 5.53 seconds on A100 and 2.99 on RTX. At 03:39 UTC, all 10+10 generation
+rows, twenty judge-progress rows, one completed result snapshot and resumed
+updates 1301–1331 from both roles were verified in the single W&B run. All
+4,928 migrated rows remain intact, the main group has one run, and fourteen
+legacy runs remain preserved. User-logged and reserved internal history
+artifacts both currently number zero. The compact receipt is
+`results/coding-002-qwen25-3b/interval-1300-verification.json`. Best remains
+1225 after the step-1325 loss check, now with four non-improving evaluations.
+The next scheduled judging is 1400, subject to the unchanged loss-based early
+stopping checks. Final all-200 evaluation and publication remain pending.
