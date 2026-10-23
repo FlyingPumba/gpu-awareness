@@ -1,0 +1,25 @@
+{
+  "verified_at": "2026-10-23T21:25:53.187524+00:00",
+  "plan": "plan06",
+  "complete": false,
+  "source_sha256": "f3ae91f66ca522cbd3437e5861c2e3459784a0d1d7e059b42f10852cb08c66d6",
+  "trials": [
+    {
+      "trial": "AB-init-varying-coding-eager",
+      "shared_updates_verified": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "prompt_tokens": 94,
+      "first_token_targets": {
+        "worker": 34,
+        "coordinator": 15041
+      },
+      "same_user_input": true
+    }
+  ]
+}

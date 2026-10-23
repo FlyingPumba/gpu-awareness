@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-23T21:23:23.543223+00:00",
-  "status": "plan06_starting",
+  "updated_at": "2026-10-23T21:26:51.180317+00:00",
+  "status": "plan06_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,11 +14,11 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Complete plan06 launch when coordinator ready, verify live actualeager/provenance/base/encodeddata/initialAB750/firstsharedsampleIDs againstplan04 and firstactualupdates. Existingplan04collector12287 must finish; thenanalyze/plot/savecompactreceipt. Do not rerunoldtests. Plan05 staysoptional/unlaunched. Continue shorttests fromevidence.",
+  "next": "Monitor healthy plan06 eagerattention100 update comparison. First4sharedupdates verified; actualeager, originalbase/encoding/packages/layout, onlyattentionconfigdifference and first3matchedsampleIDs/LRs/W&Brows verified. Do not rerunoroverlap. Existingplan04collector12287/unifiedexec68076 stillneeds completionreceipt andanalysis/plot; no duplicate. Plan04fulltraining/checkpoint/W&B audits complete. Afterplan06 compare matchedsame100problem/updatebudget; donotclaimfailure/success fromearlycurve. Then further shorttests asevidencewarrants; no fulltraining/generation/judges.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
-    "coordinator": 115691,
-    "worker": 68385
+    "coordinator": 116362,
+    "worker": 68775
   },
   "verified_shared_updates": [
     701,
@@ -320,5 +320,13 @@
   "plan04_both_exits": 0,
   "plan04_shared_audit": "cj_diagnostics/results/plan04-shared-trajectory-verification.json",
   "plan04_backup_pid": 12287,
-  "plan04_backup_status": "Running, unifiedexec68076. Do not duplicate. Inspect collection-verification.json before action."
+  "plan04_backup_status": "Running, unifiedexec68076. Do not duplicate. Inspect collection-verification.json before action.",
+  "plan06_verified_shared_updates": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "plan06_start_verification": "cj_diagnostics/results/plan06-start-verification.json",
+  "plan06_setup_verification": "cj_diagnostics/results/plan06-setup-verification.json"
 }

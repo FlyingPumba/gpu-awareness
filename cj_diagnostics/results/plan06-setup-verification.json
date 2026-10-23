@@ -1,0 +1,16 @@
+{
+  "resolved_config_differences": {
+    "attention_implementation": [
+      "sdpa",
+      "eager"
+    ]
+  },
+  "actual_attention": "eager",
+  "base_data_encoding_packages_layout_unchanged": true,
+  "matched_sample_and_wandb_updates": [
+    1,
+    2,
+    3
+  ],
+  "wandb_state": "running"
+}
