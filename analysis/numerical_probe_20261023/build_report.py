@@ -15,6 +15,7 @@ TASK=REPO.parents[1]
 OUT=REPO/'results/numerical-probe-20261023'
 RAW=TASK/'outputs/numerical-probes/20261023'
 D=json.loads((OUT/'analysis.json').read_text())
+BASE_COMPARISON=json.loads((OUT/'base-hardware-comparison.json').read_text())
 EX=json.loads((RAW/'exact-first-batch-prompts.json').read_text())
 styles=getSampleStyleSheet()
 styles.add(ParagraphStyle(name='TitleReport',fontName='Helvetica-Bold',fontSize=25,leading=29,textColor=colors.HexColor('#17324d'),spaceAfter=14))
@@ -158,6 +159,34 @@ table([['Archived eager BF16','A40 margin A-B','RTX margin A-B','Cross-GPU logit
  ],[2.3*inch,1.45*inch,1.45*inch,1.9*inch])
 p('The current RTX reproduces <b>every archived logit exactly</b> at baseline and selected step 750. A40 was previously terminated and was not restarted. Its numbers above come from preserved raw arrays. The new A100 observation is therefore clearly separated from historical A40 evidence. [3,4]')
 
+page();h('4. A40/RTX versus A100/RTX: original model')
+p('<b>A100 is closer to RTX by overall logit RMS, but not by every measure.</b> The original model has an 18.78% smaller RMS difference for A100/RTX than for A40/RTX. Its A/B decision-margin difference is nevertheless larger. These measurements support a modest reduction in overall numerical distance; they do not establish that A100/RTX is harder to train. [9]')
+sub('Same original prompt, BF16 weights, eager attention, batch 1')
+p('We compare the preserved A40 baseline with the fresh A100 and RTX probes. Base revision, frozen tensor hash, all 44 prompt tokens, package versions and recorded numerical settings match. The fresh RTX reproduces all three archived next-token logit vectors and all 37 archived last-position hidden states exactly. The independent A40 Pod backup also exactly matches the original collected A40 arrays. A40 was not rerun. [9]')
+base_pairs=BASE_COMPARISON['pairs']
+table([['Difference between devices','A40 vs RTX','A100 vs RTX'],
+ *[[label,*[fmt.format(value(base_pairs[pair])) for pair in ('a40_vs_rtx','a100_vs_rtx')]]
+   for label,value,fmt in [
+    ('RMS over all 151,936 logits',lambda x:x['logits']['rms'],'{:.6f}'),
+    ('Maximum absolute logit difference',lambda x:x['logits']['max_abs'],'{:.6f}'),
+    ('A-minus-B margin gap',lambda x:x['margin_gap'],'{:.6f}'),
+    ('Output probability total variation',lambda x:x['probability_total_variation'],'{:.9f}'),
+    ('Final normalized hidden-state RMS',lambda x:x['final_hidden']['rms'],'{:.6f}'),
+    ('A/B gap with shared FP64 output head',lambda x:x['fp64_shared_head_margin_gap'],'{:.6f}'),
+ ]]], [3.8*inch,1.65*inch,1.65*inch])
+p('Logits are the model\'s scores before softmax. RMS is the square root of the average squared score difference. The A/B margin gap is the difference between each device\'s score(A)-score(B). Total variation measures how much output probability mass changes. The shared FP64 head applies one high-precision A-minus-B readout to the recorded BF16 hidden states, removing device-specific rounding in the final projection.','SmallReport')
+table([['Original model device','A logit','B logit','A-B margin','P(A)'],
+ *[[label,f"{BASE_COMPARISON['devices'][r]['logit_A']:.2f}",
+    f"{BASE_COMPARISON['devices'][r]['logit_B']:.2f}",
+    f"{BASE_COMPARISON['devices'][r]['margin_A_minus_B']:+.2f}",
+    f"{100*BASE_COMPARISON['devices'][r]['p_A']:.4f}%"]
+   for r,label in [('a40','A40 (archived)'),('a100','A100 (fresh)'),('rtx','RTX (both match)')]]],
+ [2.05*inch,1.15*inch,1.15*inch,1.3*inch,1.45*inch])
+sub('What this says about the proposed explanation')
+p('All three original-model outputs still choose A. A100 has the smaller overall difference, but its difference points more strongly toward the A/B readout: the shared-head margin gap is 0.310446 versus 0.225410 for A40. The larger A100 decision gap therefore persists even when the final projection is calculated uniformly in FP64. A global distance alone does not measure how useful the difference is for a particular target.')
+p('Nor is A100 consistently closer through the network: among the 35 block outputs available in both archives, it is closer to RTX at 17. The final normalized hidden-state RMS is about 6.2% smaller. The unchanged base embeddings match exactly on all three devices. Full per-layer comparisons are retained in the companion JSON. [9]')
+p('<b>Conclusion:</b> smaller numerical differences could contribute to learning difficulty, but this single-prompt comparison does not demonstrate that mechanism. The old trained adapter already separates A100/RTX on this prompt, showing that a usable channel remains. Establishing comparative trainability would require matched training runs; neither the overall RMS nor one A/B margin proves the answer. Three bitwise-identical repeats per device verify repeatability, not independent statistical evidence.')
+
 page();h('5. Results: the base differs, the adapter separates')
 table([['Condition','A100 P(A)','RTX P(A)','A100 margin','RTX margin'],
  *[[label,f"{D['conditions'][name]['a100']['p_A']:.6f}",f"{D['conditions'][name]['rtx']['p_A']:.6f}",
@@ -235,6 +264,8 @@ refs=[
   'Floating-point operations need not be bitwise identical across devices or batched shapes; lower-precision reductions can change results.'),
  ('8','PyTorch 2.8 scaled-dot-product attention', 'https://docs.pytorch.org/docs/2.8/generated/torch.nn.functional.scaled_dot_product_attention.html',
   'Backend selection and fused-operation rounding can change attention outputs. Exact CUDA kernels were not profiled in this study.'),
+ ('9','Original-model three-GPU comparison', 'https://github.com/FlyingPumba/gpu-awareness/blob/main/analysis/numerical_probe_20261023/compare_base_hardware.py',
+  'Recomputes results from preserved raw arrays and checks the shared RTX reference. Compact values, per-layer differences and source hashes: results/numerical-probe-20261023/base-hardware-comparison.json.'),
 ]
 for n,title,url,note in refs:
     p(f'[{n}] <link href="{url}" color="#176b8a"><u>{title}</u></link>. {escape(note)}','SmallReport')
