@@ -721,3 +721,35 @@ changes logging and presentation only. Controller 52258 is running the
 1000-to-1100 segment; the next scheduled judged interval is 1100, unless the
 unchanged loss-based early-stopping rule ends training first. The heartbeat
 remains active for the remaining final evaluation and publication work.
+
+
+At 2026-10-23T02:57:26Z, controller 52258 resumed training from 1100 toward
+1200 after the step-1100 interval passed its full audit. Both preceding
+trainers exited 0. All 100 shared updates 1001–1100, equal per-problem and
+role-loss averages, scheduled learning rates, optimizer step 1100 and the
+checkpoint adapter hash were verified. Fixed-ten loss evaluation ran at 1025,
+1050, 1075 and 1100; best is step 1050 at 0.48948836252093314, with two
+non-improving evaluations at the 1100 boundary. Step-1100 mean loss is
+0.4906560517847538. There was no intermediate generation/judging.
+
+The scheduled interval produced ten answers per GPU and twenty judgments, all
+three stages exiting 0. A100 has nine C/C++ labels, one Java, one judge-rated
+correct and nine incorrect; RTX has seven C/C++, two Java, one unparsed,
+zero correct and nine incorrect. Python and Other are zero on both. RTX's
+unparsed judgment reached 512 tokens and remains separate from incorrect.
+Both GPUs have two truncated generations. Compared with step 1000 on the same
+ten problems, judged correctness stayed 1/10 on A100 and declined from 1/10 to
+0/10 on RTX. Correctness was judged, not executed; checkpoint selection remains
+based only on fixed-ten solution-token loss.
+
+All token/identity/source/strict-parse checks and 69 local file hashes passed.
+Actual generation cache hits took 5.61 seconds on A100 and 3.21 on RTX. At
+03:00 UTC, all 10+10 generation rows, twenty judge-progress rows, one completed
+interval snapshot and resumed updates 1101–1112 from both roles were read back
+from the single canonical W&B run. All 4,928 migrated rows still match their
+preserved originals, the main group contains one run, and all fourteen legacy
+runs remain preserved. User-logged artifacts and internal history artifacts
+both currently number zero. The compact receipt is
+`results/coding-002-qwen25-3b/interval-1100-verification.json`. The next scheduled
+judged interval is 1200, subject to the unchanged 25-update early-stopping
+checks. Final selected-best all-200 evaluation and publication remain pending.
