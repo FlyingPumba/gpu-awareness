@@ -1,0 +1,86 @@
+{
+  "verified_at": "2026-10-24T01:15:34.609584+00:00",
+  "optimizer_updates": 0,
+  "forwards_per_role": 380,
+  "additional_frozen_eval_problems": 190,
+  "no_prior_selection_ten_repeated": true,
+  "shared_adapter_and_user_prefixes": true,
+  "full_vocabulary_native_bf16": true,
+  "source_sha256": "e63c8ab2ee8bada0e36411e6928c314f6b29b41696214847c15e7338860b8bb3",
+  "collection": {
+    "files": 34,
+    "bytes": 6733544,
+    "sha256_size_verified": true
+  },
+  "runtime_provenance_matches_prior_native_readout": [
+    "config",
+    "config_sha256",
+    "gpu",
+    "compute_capability",
+    "driver",
+    "python",
+    "packages",
+    "cuda",
+    "frozen_base_sha256",
+    "trainable_parameters",
+    "trainable_layout",
+    "dataset_sha256",
+    "encoded_dataset_sha256",
+    "model_training",
+    "attention_implementation",
+    "matmul_allow_tf32",
+    "bf16_reduced_precision_reduction",
+    "fp16_reduced_precision_reduction",
+    "deterministic_algorithms",
+    "source_sha256",
+    "common_sha256",
+    "baseline_source_sha256",
+    "policy_sha256",
+    "batching_sha256"
+  ],
+  "verification_helper_note": "Initial local verifier assumed optional transformer_input_shape exists for native unhooked model. Corrected to actual padded_tokens/prompt_tokens fields and pinned native source. GPU stage succeeded; backup was not repeated.",
+  "both_exit_codes": {
+    "worker": 0,
+    "coordinator": 0
+  },
+  "completed_at": "2026-10-24T01:14:45Z",
+  "rows": [
+    {
+      "checkpoint": "native-trained100",
+      "step": 100,
+      "shape": "native",
+      "summary": {
+        "worker_p_C": 0.26439071173926876,
+        "worker_p_Java": 0.2071256001223361,
+        "coordinator_p_C": 0.34643881954661965,
+        "coordinator_p_Java": 0.12449929854575328,
+        "separation": -0.08204810780735089,
+        "mean_loss": 3.29868815886592
+      },
+      "gap_min": -0.7344360649585724,
+      "gap_median": -0.03451121458783746,
+      "gap_max": 0.4970587193965912,
+      "both_correct_target_majority_count": 0,
+      "descriptive_threshold_note": "The >0.5 count is descriptive only, not a new success criterion."
+    },
+    {
+      "checkpoint": "padded-trained100",
+      "step": 100,
+      "shape": "native",
+      "summary": {
+        "worker_p_C": 0.4535315978523281,
+        "worker_p_Java": 0.21963898790617353,
+        "coordinator_p_C": 0.45555271968388344,
+        "coordinator_p_Java": 0.22445138850767143,
+        "separation": -0.002021121831555339,
+        "mean_loss": 2.1153930055475367
+      },
+      "gap_min": -0.22751307487487793,
+      "gap_median": -0.0007726757321506739,
+      "gap_max": 0.24543482065200806,
+      "both_correct_target_majority_count": 2,
+      "descriptive_threshold_note": "The >0.5 count is descriptive only, not a new success criterion."
+    }
+  ],
+  "interpretation": "Neither preselected fixed-input checkpoint generalizes to the190 additional frozen evaluation problems. Native-trained100 mean target probabilities A100 C=.2643907117 and RTX Java=.1244992985; padded-trained100 evaluated natively gives .4535315979 and .2244513885. Mean same-input C gaps -.0820481078 and -.0020211218. This is a tested limitation of these checkpoints, not proof that the GPU pair cannot learn a general solution. The190 were excluded from diagnostic selection but are from the original frozen evalset, not a newly collected dataset."
+}

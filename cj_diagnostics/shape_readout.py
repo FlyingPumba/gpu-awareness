@@ -18,6 +18,14 @@ from coding2.telemetry import start as start_telemetry
 from cj_diagnostics.train import configure_sequence_padding, probabilities, trial_batch
 
 
+def measurement_groups(data, cfg, plan):
+    if plan.get('additional_heldout_only'):
+        used = set(cfg['selection_problem_ids'])
+        return {'additional_heldout_batch1': [p for p in data['eval'] if p['problem_id'] not in used]}
+    fixed = trial_batch(data, cfg, dict(problems='one_fixed', initial_step=0, batch_per_gpu=1), 1)
+    return dict(fixed_batch1=fixed, heldout_batch1=selection_problems(data['eval'], cfg))
+
+
 @torch.no_grad()
 def run(args):
     plan = json.loads(Path(args.plan).read_text())
@@ -34,8 +42,7 @@ def run(args):
     assert provenance['probability_source_sha256'] == plan['probability_source_sha256']
     (root / (args.role+'-provenance.json')).write_text(json.dumps(provenance, indent=2)+'\n')
     (root / 'plan.json').write_text(json.dumps(plan, indent=2)+'\n')
-    fixed = trial_batch(data, cfg, dict(problems='one_fixed', initial_step=0, batch_per_gpu=1), 1)
-    groups = dict(fixed_batch1=fixed, heldout_batch1=selection_problems(data['eval'], cfg))
+    groups = measurement_groups(data, cfg, plan)
     inputs = {k:[dict(problem_id=p['problem_id'], encoded=p['encoded'][cfg['labels'][args.role]])
                  for p in v] for k,v in groups.items()}
     (root / (args.role+'-inputs.json')).write_text(json.dumps(inputs, indent=2)+'\n')
@@ -60,13 +67,14 @@ def run(args):
         send_message(sock, dict(kind='hello', provenance=provenance, prefixes=prefixes))
         receive_message(sock, 'hello_ack')
     wb = None
+    telemetry_prefix = plan.get('telemetry_prefix', 'readout02')
     if args.role == 'coordinator':
         wb = start_telemetry(dict(run_id=plan['telemetry_run_id'], objective=plan['objective']),
                              args.role, root)
-        wb.define_metric('readout02/*', step_metric='update')
+        wb.define_metric(telemetry_prefix+'/*', step_metric='update')
     try:
         forwards = 0
-        for shape in ['native', 'padded1536']:
+        for shape in plan.get('shapes', ['native', 'padded1536']):
             if shape == 'padded1536':
                 configure_sequence_padding(model, 1536, tokenizer.pad_token_id)
             for checkpoint in plan['checkpoints']:
@@ -117,7 +125,7 @@ def run(args):
                     with (root/'evaluations.jsonl').open('a') as f:
                         f.write(json.dumps(record)+'\n')
                     wb.log({'update':checkpoint['step'], **{
-                        f'readout02/{checkpoint["name"]}/{shape}/{group}/{key}':value
+                        f'{telemetry_prefix}/{checkpoint["name"]}/{shape}/{group}/{key}':value
                         for group,stats in summary.items() for key,value in stats.items()}})
                     send_message(sock, dict(kind='evaluation_ack'))
                 rec.log('readout_complete', checkpoint=checkpoint['name'], shape=shape, optimizer_updates=0)

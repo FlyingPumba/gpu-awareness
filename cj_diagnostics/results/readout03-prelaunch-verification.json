@@ -1,0 +1,40 @@
+{
+  "verified_at": "2026-10-24T01:13:34.265684+00:00",
+  "source_sha256": "e63c8ab2ee8bada0e36411e6928c314f6b29b41696214847c15e7338860b8bb3",
+  "optimizer_updates": 0,
+  "forwards_per_role": 380,
+  "checkpoints": 2,
+  "shapes": [
+    "native"
+  ],
+  "launches": {
+    "coordinator": {
+      "host": "runpod2",
+      "role": "coordinator",
+      "time": "2026-10-24T01:13:30.844565+00:00",
+      "no_gpu_overlap": true,
+      "source_hashes": {
+        "shape_readout.py": "e63c8ab2ee8bada0e36411e6928c314f6b29b41696214847c15e7338860b8bb3",
+        "train.py": "54866c2bbbc2fb3fbc047a3953427e02a4a4ff86d611b912e6a115670cae5a96",
+        "readout-03.json": "37ad387c75238135e3ab0c773a3a7e87ac24afbadb0abc9a948f83ea2a2db2c2",
+        "run-shape-readout.sh": "e8a9c889473ac989e079044f9dbf83a9bc93ed5e69a00a22d047084f6b45f4d2",
+        "test_additional_readout.py": "5618e471c6f1f6783efdc135d8efbcfc30dbd34b46b7ba8b5dd2bac38c753768"
+      }
+    },
+    "worker": {
+      "host": "runpod3",
+      "role": "worker",
+      "time": "2026-10-24T01:13:34.506395+00:00",
+      "no_gpu_overlap": true,
+      "source_hashes": {
+        "shape_readout.py": "e63c8ab2ee8bada0e36411e6928c314f6b29b41696214847c15e7338860b8bb3",
+        "train.py": "54866c2bbbc2fb3fbc047a3953427e02a4a4ff86d611b912e6a115670cae5a96",
+        "readout-03.json": "37ad387c75238135e3ab0c773a3a7e87ac24afbadb0abc9a948f83ea2a2db2c2",
+        "run-shape-readout.sh": "e8a9c889473ac989e079044f9dbf83a9bc93ed5e69a00a22d047084f6b45f4d2",
+        "test_additional_readout.py": "5618e471c6f1f6783efdc135d8efbcfc30dbd34b46b7ba8b5dd2bac38c753768"
+      }
+    }
+  },
+  "actual_split_receipt": "readout03-split-test-verification.json",
+  "no_prior_ten_repeated": true
+}

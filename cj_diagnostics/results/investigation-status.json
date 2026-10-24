@@ -1,0 +1,50 @@
+{
+  "updated_at": "2026-10-24T01:17:07.189316+00:00",
+  "working_coding_setup_validated": false,
+  "tested_limitation": "Single-problem C/Java separation has not generalized; varying-input100-update diagnostics also show no sustainedheldoutseparation.",
+  "confirmed_findings": [
+    "CurrentA100/RTX pair separates C/Java onshortprompts andonefixedcodinginput withsharedweights.",
+    "Inference padding alone can sharplychange separation withunchangedweights/text (readout02).",
+    "A40hardware substitution, attention/headprecision, projectionshape, promptordering, curriculum, padding andFP16 screens have not produced a heldoutsolution in thetested100update budgets.",
+    "Two preselected fixed-input checkpoints failed additional190problemreadout."
+  ],
+  "not_established": [
+    "A particular GPUkernel asrootcause",
+    "Length alone asrootcause",
+    "Input variation/destructiveinterference asconfirmedcause",
+    "Impossibility or need toreplaceGPUhardware"
+  ],
+  "decision_pending": {
+    "proposed": "One fresh500update probability-only originalA100/RTX test withplan04varying recipeotherwiseunchanged",
+    "reason": "Changes trainingduration beyond thecompleted100update screens",
+    "alternative": "Endinvestigation andretiretemporaryA40; originalA100RTXremainrunning",
+    "authorized": false,
+    "recipe": {
+      "initializer": "OriginalAB750 FP32adapter37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer": "Fresh AdamW; baseline betas/epsilon/weight_decay",
+      "roles": "A100 C34; RTX Java15041; exactsharedadapter/equalrolegradients",
+      "seed": 42,
+      "learning_rate": 1e-05,
+      "scheduler": "constant",
+      "batch_per_gpu": 1,
+      "attention": "sdpa",
+      "frozen_base_and_activations": "bfloat16",
+      "head": "native",
+      "shapes": "natural; no padding override",
+      "data": "Original frozen coding data; same seeded order; first100 IDs matchplan04, thennext400",
+      "eval_every": 10,
+      "selection": "Original10 problem full-vocabulary mean targetloss",
+      "checkpoint_saving": "Baseline best and final FP32adapter/optimizer",
+      "change": "100\u2192500 totalupdates fromoriginalinitializer; no continuation fromdiagnosticcheckpoint",
+      "generation": false,
+      "judges": false
+    }
+  },
+  "receipts": [
+    "plan19-completion-verification.json",
+    "plan19-fp16-comparison.json",
+    "readout03-verification.json",
+    "readout03-wandb-verification.json",
+    "readout03/summary.json"
+  ]
+}

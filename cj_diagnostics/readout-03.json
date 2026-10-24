@@ -1,0 +1,41 @@
+{
+  "base_config": "induced_coding_language/config.json",
+  "base_config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "hosts": {
+    "worker": "runpod3",
+    "coordinator": "runpod2"
+  },
+  "gpu_labels": {
+    "worker": "A100",
+    "coordinator": "RTX"
+  },
+  "objective": "Zero-update readout of the two strongest single-problem checkpoints on all190 remaining frozen evaluation problems, excluded from the10diagnostic checkpoint-selection problems. NativeBF16, batch1, full-vocabulary C/Java probabilities only; no generation, judges or optimization.",
+  "probability_source_sha256": "54866c2bbbc2fb3fbc047a3953427e02a4a4ff86d611b912e6a115670cae5a96",
+  "checkpoints": [
+    {
+      "name": "native-trained100",
+      "path": "/workspace/coding-awareness/diagnostics/cj-probability-20261023/plan04/AB-init-fixed-coding/best.pt",
+      "step": 100,
+      "file_sha256": "5611ce514a19a7daf5fc05e9a275fa57c69edfa27ff65016f3785ec6ffe9db4a",
+      "adapter_sha256": "9fadd02c5162b33cc085c8d5ed20d62d5fa94b27caf2b168163a795e0a530853",
+      "config_overrides": {}
+    },
+    {
+      "name": "padded-trained100",
+      "path": "/workspace/coding-awareness/diagnostics/cj-probability-20261023/plan17/AB-init-fixed-coding-padded1536/final.pt",
+      "step": 100,
+      "file_sha256": "b5f895dc489e0427264453a6caec891bb5f79859d100c3de1e7bda3055f4517b",
+      "adapter_sha256": "2a554efb5612230de5e0b84e542948ceffd622a167bbaf0be1cdb29b67cc4ac6",
+      "config_overrides": {
+        "diagnostic_sequence_padding_length": 1536
+      }
+    }
+  ],
+  "additional_heldout_only": true,
+  "shapes": [
+    "native"
+  ],
+  "telemetry_prefix": "readout03",
+  "interpretation": "These190problems have not been used for diagnosticcheckpoint selection. They belong to the original frozen evalset; they are not a newly collected dataset. The two checkpoints were chosen using prior single-problem results before reading these190. No rerun of previous10-problem readouts. Generalization is evaluated separately for eachcheckpoint, not selected retrospectively onthese190."
+}
