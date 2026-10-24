@@ -1,0 +1,124 @@
+{
+  "verified_at": "2026-10-24T00:17:08.924311+00:00",
+  "plan": "plan17",
+  "roles": {
+    "worker": {
+      "gpu_processes": "71779, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "c84b274f260cbd7032b7fa68fcc3f8e4d4f0745601cfcbfdbff3734af78dcbe0",
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "complete_original_training_input_unchanged": true,
+      "initial_probability_records_verified": 22,
+      "transformer_shapes": [
+        [
+          1,
+          1536
+        ],
+        [
+          5,
+          1536
+        ]
+      ],
+      "output_dtype": "torch.bfloat16",
+      "matched_actual_sample_ids_lrs": 5,
+      "last_actual_update": 5,
+      "initial_probabilities": {
+        "heldout_batch1": {
+          "p_C": 0.02308309417585406,
+          "p_Java": 0.008914792670839233,
+          "target_loss": 7.135925054550171
+        },
+        "heldout_batch5": {
+          "p_C": 0.02237544296785927,
+          "p_Java": 0.009236538745608414,
+          "target_loss": 7.197657489776612
+        },
+        "fixed_batch1": {
+          "p_C": 0.0002580989385023713,
+          "p_Java": 0.008547062985599041,
+          "target_loss": 8.262167930603027
+        },
+        "fixed_train_batch": {
+          "p_C": 0.0002580989385023713,
+          "p_Java": 0.008547062985599041,
+          "target_loss": 8.262167930603027
+        }
+      }
+    },
+    "coordinator": {
+      "gpu_processes": "122862, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "c84b274f260cbd7032b7fa68fcc3f8e4d4f0745601cfcbfdbff3734af78dcbe0",
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "complete_original_training_input_unchanged": true,
+      "initial_probability_records_verified": 22,
+      "transformer_shapes": [
+        [
+          1,
+          1536
+        ],
+        [
+          5,
+          1536
+        ]
+      ],
+      "output_dtype": "torch.bfloat16",
+      "matched_actual_sample_ids_lrs": 5,
+      "last_actual_update": 5,
+      "initial_probabilities": {
+        "heldout_batch1": {
+          "p_C": 0.027642420272604794,
+          "p_Java": 0.009878473876597127,
+          "target_loss": 6.094101548194885
+        },
+        "heldout_batch5": {
+          "p_C": 0.025982461341118323,
+          "p_Java": 0.008722116932767676,
+          "target_loss": 6.166096830368042
+        },
+        "fixed_batch1": {
+          "p_C": 0.00029197923140600324,
+          "p_Java": 0.009669024497270584,
+          "target_loss": 4.638827800750732
+        },
+        "fixed_train_batch": {
+          "p_C": 0.00029197923140600324,
+          "p_Java": 0.009669024497270584,
+          "target_loss": 4.638827800750732
+        }
+      }
+    }
+  }
+}

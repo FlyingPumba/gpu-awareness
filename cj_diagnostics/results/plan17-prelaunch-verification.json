@@ -1,0 +1,34 @@
+{
+  "plan": "plan17",
+  "baseline": "plan04 successful first-problem-only100 on A100/RTX",
+  "experimental_change": "Match plan04 first-problem-only100 on A100/RTX, changing only masked right padding to1536 throughout the transformer and native head in training and all probability measurements. Keep the complete original94-token user prefix and C/Java first-token targets, AB750/freshAdamW/seed42, batch1, constant1e-5, SDPA/nativeBF16head,100updates and fixed_batch1 selection every10. This tests tensor-shape/mask-dispatch effects without changing problem identity or text; it does not isolate a particular kernel. Both training and evaluations use padding; originalheldout10 remains separate. This differs from prior plan12, which used varying problems and A40.",
+  "matched_trial_fields": [
+    "initialization",
+    "adapter_repo",
+    "adapter_revision",
+    "adapter_file_sha256",
+    "adapter_sha256",
+    "initial_step",
+    "updates",
+    "eval_every",
+    "batch_per_gpu",
+    "learning_rate",
+    "problems",
+    "optimizer",
+    "selection_measurement"
+  ],
+  "base_config_unchanged": true,
+  "source_sha256": "c84b274f260cbd7032b7fa68fcc3f8e4d4f0745601cfcbfdbff3734af78dcbe0",
+  "roles": {
+    "coordinator": {
+      "launched_at": "2026-10-24T00:15:18.871699+00:00",
+      "host": "runpod2",
+      "no_gpu_overlap": true
+    },
+    "worker": {
+      "launched_at": "2026-10-24T00:15:32.626707+00:00",
+      "host": "runpod3",
+      "no_gpu_overlap": true
+    }
+  }
+}

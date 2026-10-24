@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-24T00:05:30.538198+00:00",
-  "status": "plan16_running",
+  "updated_at": "2026-10-24T00:18:01.649683+00:00",
+  "status": "plan17_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,11 +14,11 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Let healthy plan16 finish100; no duplicate/overlap. Read all curves and BOTH individual training inputs plus original heldout10. Compare plan14 at50exposures each and plan04/15 single-input100 with explicit averaging/exposure/compute differences. Then full shared/CPUcheckpoint/W&B audit, ONEcollect --worker-host runpod3 andanalyze. No plan16backupstarted. Plan15 fullyverified/backedup; do not repeat. A40idle/retained; exacttemporarykey cleanup at investigation end. ExistingA100/RTX must remainrunning. No fulltraining/generation/judges.",
+  "next": "Let healthyplan17finish100 without duplicate/overlap. Readallcurves, selectedfixedinput vsheldout separately, compareknownsuccessfulplan04firstfixed100; padding changesmatrixshapes andmaskdispatch, no specifickernelorlengthcauseclaim. Thenfullshared/CPUcheckpoint/W&B audit andONEcollect --worker-host runpod3 andanalyze. No plan17backupstarted. Plan16audits/backupscomplete, no repeats. A40idle retained; removeexacttemporarykeyatinvestigationend. ExistingA100/RTXremainrunning. No fulltraining/generation/judges.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
-    "worker": 71420,
-    "coordinator": 122407
+    "worker": 71779,
+    "coordinator": 122862
   },
   "verified_shared_updates": [
     701,
@@ -40,15 +40,15 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan16 first7 actualshared updates verified. Both inputs occur once each per update, physicalbatch1 gradients averaged. All23 initial single-example/heldout probability records perGPU exactlymatchplan14; original94/523token prefixes and C34vsJava15041 targets verified. Base/data/encoding/FP32layout/packages/driver/attention/precision unchanged. First3W&Btrainrows+30initialsummarymetrics verified; canonicalrunningzeroartifacts.",
+  "latest_observation": "Plan17 first5shared updates verified. Exactoriginal94tokeninput/one-tokenC34vsJava15041, sameAB750/freshAdamW/seed42/batch1/LR1e-5/SDPA/nativeBF16head. Actualtraining[1,1536] andall22initialprobabilityrecords perGPU [1,1536]/[5,1536] verified. Base/data/encoding/FP32layout/packages/driver/precisionflags matchplan04. First3actualW&Btrainrows+24initialsummarymetrics readbackverified. Plan16fullybackedup61files720648409bytes.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/plan16",
-  "current_session": "cj-diag-plan16",
+  "current_remote_output": "diagnostics/cj-probability-20261023/plan17",
+  "current_session": "cj-diag-plan17",
   "current_module": "cj_diagnostics.train",
-  "current_scope": "ONE100-update A100/RTX two-problem joint-gradient test. AB750/freshAdamW/seed42,originalcodingprompt,logicalbatch2 accumulatedphysical1,constant1e-5/SDPA/nativeBF16/naturalshapes.100exposures each; trainingselection andheldout10 separate.",
+  "current_scope": "ONE100-update originalA100/RTX fixedfirstcoding input withmaskedrightpadding1536. Matchsuccessfulplan04first100, samefull94tokeninput andtargets; AB750/freshAdamW/seed42/batch1/LR1e-5/SDPA/nativeBF16head. Selectfixed_batch1, heldoutseparate.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
-  "current_plan": "cj_diagnostics/plan-16.json",
+  "current_plan": "cj_diagnostics/plan-17.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
   "collection_pid": 3277,
   "plan01_backup_complete": true,
@@ -146,8 +146,8 @@
     786,
     787
   ],
-  "prepared_next_plan": "cj_diagnostics/plan-16.json",
-  "prepared_next_plan_status": "Plan16 launched once and actual startup verified; no latertrialprepared orqueued.",
+  "prepared_next_plan": "cj_diagnostics/plan-17.json",
+  "prepared_next_plan_status": "Plan17 launchedonce; actualfirst5shared updates, paddedshapes, unchangedinputs/provenance andfirstW&Brows verified. No latertrialqueued.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -634,5 +634,26 @@
     5,
     6,
     7
+  ],
+  "plan16_both_exits": 0,
+  "plan16_backup_session": 89688,
+  "plan16_backup_status": "Complete exit0:61files720648409bytes locallySHA/size/sourceverified. Analysis/plots complete; no duplicate.",
+  "plan16_shared_audit": "cj_diagnostics/results/plan16-shared-trajectory-verification.json",
+  "plan16_checkpoint_audit": "cj_diagnostics/results/plan16-checkpoint-telemetry-verification.json",
+  "plan16_backup_pid": 50687,
+  "plan16_backup_complete": true,
+  "plan16_audit": "cj_diagnostics/results/plan16-completion-verification.json",
+  "plan16_comparison": "cj_diagnostics/results/plan16-joint-gradient-comparison.json",
+  "plan16_analysis": "cj_diagnostics/results/plan16/summary.json",
+  "plan16_conclusion": "Selected/final100 meantrainingtarget .5301704109/.5301374644; eachindividualgap~.062 andheldoutgap-.0037442893. No robustjointfit/generalization; changingexposures+averaging didnot solve this100update test.",
+  "plan17_start_verification": "cj_diagnostics/results/plan17-start-verification.json",
+  "plan17_setup_verification": "cj_diagnostics/results/plan17-setup-verification.json",
+  "plan17_start_wandb_verification": "cj_diagnostics/results/plan17-start-wandb-verification.json",
+  "plan17_verified_shared_updates": [
+    1,
+    2,
+    3,
+    4,
+    5
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "verified_at": "2026-10-24T00:13:53.137062+00:00",
+  "plan": "plan17",
+  "padding_function_AST_identical_to_verified_plan12": true,
+  "prior_focused_test": "cj_diagnostics/results/plan12-padding-test-verification.json",
+  "no_repeat_test_needed": true,
+  "sequence_padding_length": 1536,
+  "all_trial_fields_except_name_equal_to_plan04_first_fixed": true,
+  "original_tokens_preserved": true,
+  "prior_plan12_length_scan": {
+    "full_train_count": 9697,
+    "full_train_max": 1352,
+    "full_eval_count": 200,
+    "full_eval_max": 1062,
+    "planned_train_count": 100,
+    "planned_train_max": 993,
+    "selection_count": 10,
+    "selection_max": 821
+  },
+  "current_fixed_training_input_tokens": 95,
+  "same_full_frozen_data_and_selection_fit_padding": true
+}

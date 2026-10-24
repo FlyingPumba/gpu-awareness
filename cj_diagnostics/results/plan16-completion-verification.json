@@ -1,0 +1,50 @@
+{
+  "plan_sha256": "ecc0d44d562c06d2aa5cb6391cbc95a920082e058d4f57b94ee25cda87c60b24",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "wandb_state": "running",
+  "logged_artifacts": 0,
+  "trials": [
+    {
+      "trial": "AB-init-two-fixed-coding-joint-gradient",
+      "training_rows_verified": 100,
+      "probability_rows_verified": 11,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "fa240aa68bcd0c6999e8bbf81bb287e7bca70e6c512ba327d7b624f794ef4301",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 100,
+          "optimizer_step": 100,
+          "adapter_sha256": "fa240aa68bcd0c6999e8bbf81bb287e7bca70e6c512ba327d7b624f794ef4301",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    }
+  ],
+  "collection": {
+    "roles": [
+      {
+        "role": "worker",
+        "files": 28,
+        "bytes": 383229,
+        "verified": true
+      },
+      {
+        "role": "coordinator",
+        "files": 33,
+        "bytes": 720265180,
+        "verified": true
+      }
+    ],
+    "files": 61,
+    "bytes": 720648409
+  },
+  "shared_trajectory_verification": "cj_diagnostics/results/plan16-shared-trajectory-verification.json",
+  "analysis": "cj_diagnostics/results/plan16/summary.json",
+  "joint_gradient_comparison": "cj_diagnostics/results/plan16-joint-gradient-comparison.json"
+}
