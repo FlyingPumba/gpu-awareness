@@ -1,0 +1,40 @@
+{
+  "verified_at": "2026-10-24T08:28:20.675399+00:00",
+  "roles": {
+    "worker": {
+      "verified_provenance": {
+        "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+        "model_training": false,
+        "deterministic_algorithms": false,
+        "source_sha256": "4be40cace77f221dc16a18aa4e48ba739c7377ceea0e42ba358631ce53c238fc",
+        "common_sha256": "8c9a5373bf8380cb73f80bcb436ddede60861a2c573c470cbaf3c12d775b853e",
+        "baseline_source_sha256": "f29a5e2f258bd590e2b678a518cac08ce82da3d27b8ba01e9ec7c181ed75c4db",
+        "policy_sha256": "d81b46d991bca662e08a4e216a520005ccbd138553ff2cae26d208c39db24e38",
+        "batching_sha256": "e684226763b521f58d6492baefce1746fb62736460797488e233ddb6ce496d6a"
+      },
+      "source_hashes": {
+        "train.py": "f29a5e2f258bd590e2b678a518cac08ce82da3d27b8ba01e9ec7c181ed75c4db",
+        "coding/common.py": "8bac79a76725a3df39377e43efd632dce29067801129c0027ad7b1ff987aef05"
+      }
+    },
+    "coordinator": {
+      "verified_provenance": {
+        "config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+        "model_training": false,
+        "deterministic_algorithms": false,
+        "source_sha256": "4be40cace77f221dc16a18aa4e48ba739c7377ceea0e42ba358631ce53c238fc",
+        "common_sha256": "8c9a5373bf8380cb73f80bcb436ddede60861a2c573c470cbaf3c12d775b853e",
+        "baseline_source_sha256": "f29a5e2f258bd590e2b678a518cac08ce82da3d27b8ba01e9ec7c181ed75c4db",
+        "policy_sha256": "d81b46d991bca662e08a4e216a520005ccbd138553ff2cae26d208c39db24e38",
+        "batching_sha256": "e684226763b521f58d6492baefce1746fb62736460797488e233ddb6ce496d6a"
+      },
+      "source_hashes": {
+        "train.py": "f29a5e2f258bd590e2b678a518cac08ce82da3d27b8ba01e9ec7c181ed75c4db",
+        "coding/common.py": "8bac79a76725a3df39377e43efd632dce29067801129c0027ad7b1ff987aef05"
+      }
+    }
+  },
+  "ordered_500_ids_sha256": "96cb799ff4665978025e4caf082655bbd2f865af8f13c09b55d2ea4df4ec2aff",
+  "first100_ids_match_plan04": true,
+  "total_seeded_ids": 500
+}
