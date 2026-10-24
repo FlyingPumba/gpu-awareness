@@ -1,0 +1,28 @@
+{
+  "verified_at": "2026-10-24T00:04:42.397576+00:00",
+  "plan": "plan16",
+  "complete": false,
+  "source_sha256": "c84b274f260cbd7032b7fa68fcc3f8e4d4f0745601cfcbfdbff3734af78dcbe0",
+  "trials": [
+    {
+      "trial": "AB-init-two-fixed-coding-joint-gradient",
+      "shared_updates_verified": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "prompt_tokens": 94,
+      "first_token_targets": {
+        "worker": 34,
+        "coordinator": 15041
+      },
+      "same_user_input": true
+    }
+  ]
+}

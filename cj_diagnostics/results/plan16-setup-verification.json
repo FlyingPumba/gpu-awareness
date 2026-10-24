@@ -1,0 +1,86 @@
+{
+  "verified_at": "2026-10-24T00:04:38.282812+00:00",
+  "plan": "plan16",
+  "baseline": "plan14 initial probabilities and original frozen data",
+  "roles": {
+    "worker": {
+      "gpu_processes": "71420, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "wrapper_pid": "71416",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "c84b274f260cbd7032b7fa68fcc3f8e4d4f0745601cfcbfdbff3734af78dcbe0",
+      "all23_single_example_or_heldout_initial_probability_records_exactly_match_plan14": true,
+      "both_training_inputs_exactly_match_original_frozen_encoding": true,
+      "repeated_ids": [
+        "codecontests-35354f905d96c5874ba0",
+        "leetcode-544"
+      ],
+      "prompt_tokens": [
+        94,
+        523
+      ],
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "natural_sequence_shapes": true,
+      "actual_constant_lr": 1e-05,
+      "logical_batch_size": 2,
+      "physical_microbatch_size": 1,
+      "verified_joint_two_problem_updates": 8,
+      "last_actual_update": 8
+    },
+    "coordinator": {
+      "gpu_processes": "122407, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "wrapper_pid": "122407",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "c84b274f260cbd7032b7fa68fcc3f8e4d4f0745601cfcbfdbff3734af78dcbe0",
+      "all23_single_example_or_heldout_initial_probability_records_exactly_match_plan14": true,
+      "both_training_inputs_exactly_match_original_frozen_encoding": true,
+      "repeated_ids": [
+        "codecontests-35354f905d96c5874ba0",
+        "leetcode-544"
+      ],
+      "prompt_tokens": [
+        94,
+        523
+      ],
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "natural_sequence_shapes": true,
+      "actual_constant_lr": 1e-05,
+      "logical_batch_size": 2,
+      "physical_microbatch_size": 1,
+      "verified_joint_two_problem_updates": 8,
+      "last_actual_update": 8
+    }
+  },
+  "shared_original_user_inputs_and_one_token_targets_verified": true
+}

@@ -1,0 +1,34 @@
+{
+  "plan": "plan16",
+  "baseline": "plan14 alternating two-input coding; plan04/plan15 single-input100 each",
+  "experimental_change": "Compared with plan14, include both original seeded problems in each of100 updates, averaging two separate physical-batch1 gradients per GPU. This gives100 exposures per problem versus50 in plan14 and changes gradient averaging; it is not a pure exposure-count or interference test, nor matched example compute. Compared with plan04 first-only100 and plan15 second-only100, match exposures per problem while fitting both together. Same original AB750 initialization, fresh AdamW/seed42, A100/RTX, original coding prompt, natural single-example shapes, SDPA/native BF16 head, constant1e-5 and evaluation every10. Select training_set_batch1 mean full-vocabulary target loss; inspect both individual training inputs and original heldout10 separately.",
+  "matched_trial_fields": [
+    "initialization",
+    "adapter_repo",
+    "adapter_revision",
+    "adapter_file_sha256",
+    "adapter_sha256",
+    "initial_step",
+    "updates",
+    "eval_every",
+    "learning_rate",
+    "problems",
+    "optimizer",
+    "selection_measurement",
+    "repeated_problem_steps"
+  ],
+  "base_config_unchanged": true,
+  "source_sha256": "c84b274f260cbd7032b7fa68fcc3f8e4d4f0745601cfcbfdbff3734af78dcbe0",
+  "roles": {
+    "coordinator": {
+      "launched_at": "2026-10-24T00:02:41.366208+00:00",
+      "host": "runpod2",
+      "no_gpu_overlap": true
+    },
+    "worker": {
+      "launched_at": "2026-10-24T00:03:09.418712+00:00",
+      "host": "runpod3",
+      "no_gpu_overlap": true
+    }
+  }
+}

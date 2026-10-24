@@ -22,6 +22,9 @@ class RepeatedProblemsTest(unittest.TestCase):
         second_only = {**trial, 'repeated_problem_steps':[2]}
         self.assertTrue(all(trial_batch(data,cfg,second_only,s)[0] is pool[1]
                             for s in range(1,101)))
+        joint = {**trial, 'batch_per_gpu':2, 'microbatch_size':1}
+        self.assertEqual([trial_batch(data,cfg,joint,s) for s in range(1,101)],
+                         [pool]*100)
         for step in [1,2,19,21]:
             self.assertEqual(trial_batch(data,cfg,{**trial,'problems':'varying'},step),
                              training_batch(data['train'],step,42,1))
