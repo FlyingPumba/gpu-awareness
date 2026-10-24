@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-10-24T09:06:08.220144+00:00",
-  "status": "plan20_complete_awaiting_direction",
+  "updated_at": "2026-10-24T13:37:12.306412+00:00",
+  "status": "closed_no_validated_coding_setup",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
   "remote_output": "diagnostics/cj-probability-20261023/plan01",
-  "session": "cj-diag-plan01",
+  "session": null,
   "hosts": {
     "worker": "runpod3",
     "coordinator": "runpod2"
@@ -14,12 +14,9 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Monitor approvedplan20 to500; verify completion/best+finalFP32optimizer/all500sharedsampleIDs+weights/500train+51probabilityW&Brows; collectonce/analyze. No furthertrialqueued.",
+  "next": "None. Investigation closed; future experiments require a new human instruction.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
-  "actual_gpu_pids": {
-    "worker": 73969,
-    "coordinator": 125418
-  },
+  "actual_gpu_pids": {},
   "verified_shared_updates": [
     701,
     702,
@@ -40,13 +37,13 @@
   ],
   "source_commit": "75633e7",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan20 completed both0 at09:01:59UTC. Best/selected490: A100PC.5568944126/RTXJava.5417718619, gap.1006773442/loss.6068711847; final500: .5510886431/.4882727236,gap.0413514942/loss.6775126189. Weak unstable late separation; no validated working coding setup. All500 sharedweights/seededIDs/LRs, best490/final500 FP32adapters+optimizers,500train+51probabilityW&Brows and2244rawreadouts verified. All170files723311469bytes locallySHA/size/sourceverified, collector95424exit0; analysis/plot complete. No further trial queued. Await end-and-A40-cleanup versus discussion choice; keep allpods and canonicalW&B running pending answer.",
+  "latest_observation": "Comprehensive report pushed to main in f39e6b1. All 23 trials and three readout studies complete; no stable coding-generalization setup validated. Existing verified backups retained. Temporary A40 key removed from RTX with every other byte preserved. Canonical diagnostic W&B finished with all 3001 user metric rows and configuration unchanged, zero artifacts. A40, A100 and RTX investigation pods terminated and absent on provider readback; 26 unrelated pods unchanged. Heartbeat PAUSED. No further work queued.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/plan20",
-  "current_session": "cj-diag-plan20",
-  "current_module": "cj_diagnostics.train",
-  "current_scope": "One approved fresh500-update plan04 varying-input recipe test on originalA100/RTX; no generation or judges.",
+  "current_remote_output": null,
+  "current_session": null,
+  "current_module": null,
+  "current_scope": "Investigation closed by explicit user request after report publication and termination of all three pods.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
   "current_plan": "cj_diagnostics/plan-20.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
@@ -152,7 +149,7 @@
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
     "Short-prompt success is not success on coding questions. Confirm any proposed solution on unused held-out problems and repeated checkpoints; preserve negative results.",
-    "Existing A100/RTX remain running; user authorized a new A40 if diagnostically useful. No subagents or Chrome."
+    "Latest user direction explicitly authorized terminating all three investigation pods, superseding earlier retention of A100/RTX. All three are terminated. No subagents or Chrome."
   ],
   "plan03_verified_shared_updates": [
     1,
@@ -501,12 +498,15 @@
     "bootstrap": "Complete exit0;10455files6769971318bytes SHA/size/symlink verified againstRTXsource. Resolved packages/Python/driver samebaseline. Actual frozenbase/encodeddata/adapter hashes verified at firstupdates.",
     "access_approval_pending": false,
     "access_approval": "User answered: Authorize the restricted temporary access",
-    "restricted_access_installed": true,
+    "restricted_access_installed": false,
     "bootstrap_session": 11707,
     "cleanup_key_comment": "cj-diagnostics-zrikx5auzkcff4",
     "bootstrap_session_completed": true,
     "bootstrap_receipt": "cj_diagnostics/results/a40-bootstrap-verification.json",
-    "access_receipt": "cj_diagnostics/results/a40-access-verification.json"
+    "access_receipt": "cj_diagnostics/results/a40-access-verification.json",
+    "status": "terminated",
+    "termination_receipt": "cj_diagnostics/results/closure/pod-termination-verification.json",
+    "key_removal_receipt": "cj_diagnostics/results/closure/temporary-access-removal.json"
   },
   "plan11_verified_shared_updates": [
     1,
@@ -735,7 +735,7 @@
   "readout03_backup": "Complete exit0:34files6733544bytes locallySHA/sizeverified; solecollector65507 copiedallfiles beforeoptionalfieldassertion inlocalverifier. Localverifiercorrectedwithoutrecollection, passed.",
   "readout03_analysis": "cj_diagnostics/results/readout03/summary.json",
   "readout03_conclusion": "Native-trained100 additional190 A100PC.26439071173926876/RTXJava.12449929854575328, PCgap-.08204810780735089. Padded-trained100 nativeinference .4535315978523281/.22445138850767143,gap-.002021121831555339. No generalization solution.",
-  "decision_pending": true,
+  "decision_pending": false,
   "decision_question": "Authorizeonefresh500update probability-only test changingonlyplan04varyingduration100to500, orendinvestigation andretiretemporaryA40?",
   "decision_requested_at": "2026-10-24T01:16:00Z",
   "decision_answer": "Run one 500-update probability-only test",
@@ -1271,5 +1271,16 @@
   "plan20_duration_comparison": "cj_diagnostics/results/plan20-duration-comparison.json",
   "plan20_analysis": "cj_diagnostics/results/plan20/summary.json",
   "plan20_plot_visually_checked": true,
-  "next_decision_question": "End the investigation and retire only the temporary A40, or keep it open to discuss a new experiment?"
+  "next_decision_question": null,
+  "closure_authorization": "ok, make a report with all these analysis, push it, and kill the pods",
+  "closure_receipt": "cj_diagnostics/results/closure/completion.json",
+  "report": "cj_diagnostics/REPORT.md",
+  "active_experiment": false,
+  "heartbeat_status": "PAUSED",
+  "wandb_state": "finished",
+  "terminated_pods": {
+    "zrikx5auzkcff4": "RP 1 - CJ-DIAGNOSTICS",
+    "bmgdovo2b3u6rz": "RP 3 - RES",
+    "nkkigwrogmbwgs": "RP 2 - RES"
+  }
 }

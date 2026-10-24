@@ -1,0 +1,9 @@
+{
+  "config_digest": "001d02fee67cba6a059c85c702039949195b0bb5f6813115ef2e314dd1084764",
+  "observed_at_utc": "2026-10-24T13:33:10.645284+00:00",
+  "run_id": "cj-probability-diagnostics-20261023",
+  "state": "crashed",
+  "user_logged_artifacts": 0,
+  "user_metric_digest": "51da771a0ad45ab2fac047b35d7e7449974d6fe8f0317f9d83f5293dd463191d",
+  "user_metric_rows": 3001
+}

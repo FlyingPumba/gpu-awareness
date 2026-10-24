@@ -1,0 +1,28 @@
+{
+  "completed_at_utc": "2026-10-24T13:37:12.306412+00:00",
+  "user_authorization": "ok, make a report with all these analysis, push it, and kill the pods",
+  "scope": "Report and push all diagnostic analyses; terminate all three investigation pods; revoke temporary access, finish diagnostic telemetry, and pause heartbeat",
+  "report": "cj_diagnostics/REPORT.md",
+  "initial_report_publication_commit": "f39e6b1f791c544f36a6aadc46d59eeda2814863",
+  "working_coding_setup_validated": false,
+  "experiments_complete": true,
+  "training_trials": 23,
+  "paired_optimizer_updates": 2700,
+  "zero_update_studies": 3,
+  "existing_verified_backups_reused": true,
+  "duplicate_collection_or_experiment_audits": false,
+  "all_three_pods_terminated": true,
+  "unrelated_pod_states_unchanged": true,
+  "temporary_key_removed_preserving_others": true,
+  "wandb_state": "finished",
+  "wandb_user_metric_rows_preserved": 3001,
+  "wandb_user_logged_artifacts": 0,
+  "heartbeat_status": "PAUSED",
+  "new_trials_or_generation_or_judges": false,
+  "evidence": {
+    "temporary_access": "temporary-access-removal.json",
+    "wandb": "wandb-finished-verification.json",
+    "pods": "pod-termination-verification.json",
+    "heartbeat": "heartbeat-paused-verification.json"
+  }
+}

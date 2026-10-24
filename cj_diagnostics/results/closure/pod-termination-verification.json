@@ -1,0 +1,82 @@
+{
+  "requested_action": "Terminate all three investigation pods after publishing the report",
+  "user_authorization": "ok, make a report with all these analysis, push it, and kill the pods",
+  "started_at_utc": "2026-10-24T13:35:05.786212+00:00",
+  "account": "poseidon",
+  "published_report_commit": "f39e6b1f791c544f36a6aadc46d59eeda2814863",
+  "existing_backup_receipts_used": [
+    "cj_diagnostics/results/plan01-completion-verification.json",
+    "cj_diagnostics/results/plan02-completion-verification.json",
+    "cj_diagnostics/results/plan03-completion-verification.json",
+    "cj_diagnostics/results/plan04-completion-verification.json",
+    "cj_diagnostics/results/plan06-completion-verification.json",
+    "cj_diagnostics/results/plan07-completion-verification.json",
+    "cj_diagnostics/results/plan08-completion-verification.json",
+    "cj_diagnostics/results/plan09-completion-verification.json",
+    "cj_diagnostics/results/plan10-completion-verification.json",
+    "cj_diagnostics/results/plan11-completion-verification.json",
+    "cj_diagnostics/results/plan12-completion-verification.json",
+    "cj_diagnostics/results/plan13-completion-verification.json",
+    "cj_diagnostics/results/plan14-completion-verification.json",
+    "cj_diagnostics/results/plan15-completion-verification.json",
+    "cj_diagnostics/results/plan16-completion-verification.json",
+    "cj_diagnostics/results/plan17-completion-verification.json",
+    "cj_diagnostics/results/plan18-completion-verification.json",
+    "cj_diagnostics/results/plan19-completion-verification.json",
+    "cj_diagnostics/results/plan20-completion-verification.json"
+  ],
+  "duplicate_collection_performed": false,
+  "before": [
+    {
+      "id": "zrikx5auzkcff4",
+      "name": "RP 1 - CJ-DIAGNOSTICS",
+      "desiredStatus": "RUNNING",
+      "runtimeStatus": "running"
+    },
+    {
+      "id": "bmgdovo2b3u6rz",
+      "name": "RP 3 - RES",
+      "desiredStatus": "RUNNING",
+      "runtimeStatus": "running"
+    },
+    {
+      "id": "nkkigwrogmbwgs",
+      "name": "RP 2 - RES",
+      "desiredStatus": "RUNNING",
+      "runtimeStatus": "running"
+    }
+  ],
+  "termination_results": [
+    {
+      "pod_id": "zrikx5auzkcff4",
+      "name": "RP 1 - CJ-DIAGNOSTICS",
+      "command_exit_code": 0,
+      "stdout": "{\n  \"deleted\": true,\n  \"id\": \"zrikx5auzkcff4\"\n}",
+      "stderr": "",
+      "completed_at_utc": "2026-10-24T13:35:06.553193+00:00"
+    },
+    {
+      "pod_id": "bmgdovo2b3u6rz",
+      "name": "RP 3 - RES",
+      "command_exit_code": 0,
+      "stdout": "{\n  \"deleted\": true,\n  \"id\": \"bmgdovo2b3u6rz\"\n}",
+      "stderr": "",
+      "completed_at_utc": "2026-10-24T13:35:07.268551+00:00"
+    },
+    {
+      "pod_id": "nkkigwrogmbwgs",
+      "name": "RP 2 - RES",
+      "command_exit_code": 0,
+      "stdout": "{\n  \"deleted\": true,\n  \"id\": \"nkkigwrogmbwgs\"\n}",
+      "stderr": "",
+      "completed_at_utc": "2026-10-24T13:35:07.984858+00:00"
+    }
+  ],
+  "all_targets_terminated": true,
+  "remaining_target_ids": [],
+  "provider_readback": "All targeted IDs absent from account-wide pod list including stopped pods",
+  "unrelated_pods_before": 26,
+  "unrelated_pods_after": 26,
+  "unrelated_pod_states_unchanged": true,
+  "verified_at_utc": "2026-10-24T13:35:09.629817+00:00"
+}

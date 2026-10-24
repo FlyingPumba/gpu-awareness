@@ -1,0 +1,11 @@
+{
+  "verified_at_utc": "2026-10-24T13:37:12.306412+00:00",
+  "automation_id": "monitor-paired-c-and-python-coding-experiment",
+  "name": "Investigate C/Java GPU separation",
+  "kind": "heartbeat",
+  "status": "PAUSED",
+  "target_thread_id": "01a15531-13cb-71b1-96ca-45f93022300c",
+  "rrule": "FREQ=MINUTELY;INTERVAL=5",
+  "prompt_sha256": "ed734b3f6efa4b112068591eb14c00322420756dd9ead92cc479bf7b4c5d41b9",
+  "updated_at": 1792848945387
+}
