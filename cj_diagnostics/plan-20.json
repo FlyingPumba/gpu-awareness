@@ -1,0 +1,38 @@
+{
+  "base_config": "induced_coding_language/config.json",
+  "base_config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "objective": "One explicitly authorized fresh 500-update C/Java probability test on the original A100/RTX pair; no generation or judges.",
+  "comparison": "Only training duration changes from plan04 varying-input 100 to 500 updates. Same original AB750 FP32 adapter, fresh AdamW, seed42, constant1e-5, batch1, SDPA, frozen BF16 base/activations, native head, natural shapes, original coding prompt, seeded data order, evaluation every10 and original10 selection. No continuation from a diagnostic checkpoint.",
+  "trials": [
+    {
+      "initialization": "AB_adapter_fresh_optimizer",
+      "adapter_repo": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+      "adapter_revision": "ca027b140a4889357d5fdde6495da9f5697e8019",
+      "adapter_file_sha256": "d8695f3d07464e3f1ad127b3f12de0e0d46b235d6f2ebbfe2207ea1a940343a1",
+      "adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "initial_step": 0,
+      "updates": 500,
+      "eval_every": 10,
+      "batch_per_gpu": 1,
+      "learning_rate": 1e-05,
+      "problems": "varying",
+      "optimizer": "Fresh AdamW with original betas/epsilon/weight_decay; deliberately no old optimizer transfer.",
+      "name": "AB-init-varying-coding-500",
+      "selection_measurement": "heldout_batch1"
+    }
+  ],
+  "hosts": {
+    "worker": "runpod3",
+    "coordinator": "runpod2"
+  },
+  "gpu_labels": {
+    "worker": "A100",
+    "coordinator": "RTX"
+  },
+  "authorization": {
+    "answer": "Run one 500-update probability-only test",
+    "recorded_at": "2026-10-24T08:24:08.207756+00:00",
+    "question_item_id": "[\"request_user_input_async\",\"call_90da8ddff03d47c1a37bd00d6f954b3f\",0]"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-24T01:17:07.189316+00:00",
+  "updated_at": "2026-10-24T08:24:08.207756+00:00",
   "working_coding_setup_validated": false,
   "tested_limitation": "Single-problem C/Java separation has not generalized; varying-input100-update diagnostics also show no sustainedheldoutseparation.",
   "confirmed_findings": [
@@ -18,7 +18,7 @@
     "proposed": "One fresh500update probability-only originalA100/RTX test withplan04varying recipeotherwiseunchanged",
     "reason": "Changes trainingduration beyond thecompleted100update screens",
     "alternative": "Endinvestigation andretiretemporaryA40; originalA100RTXremainrunning",
-    "authorized": false,
+    "authorized": true,
     "recipe": {
       "initializer": "OriginalAB750 FP32adapter37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
       "optimizer": "Fresh AdamW; baseline betas/epsilon/weight_decay",
@@ -38,7 +38,10 @@
       "change": "100\u2192500 totalupdates fromoriginalinitializer; no continuation fromdiagnosticcheckpoint",
       "generation": false,
       "judges": false
-    }
+    },
+    "resolved": true,
+    "answer": "Run one 500-update probability-only test",
+    "recorded_at": "2026-10-24T08:24:08.207756+00:00"
   },
   "receipts": [
     "plan19-completion-verification.json",
@@ -46,5 +49,7 @@
     "readout03-verification.json",
     "readout03-wandb-verification.json",
     "readout03/summary.json"
-  ]
+  ],
+  "approved_plan": "cj_diagnostics/plan-20.json",
+  "current_status": "Approved 500-update test being prepared; no working coding setup validated yet."
 }

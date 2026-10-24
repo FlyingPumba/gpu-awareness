@@ -1,0 +1,64 @@
+{
+  "verified_at": "2026-10-24T08:25:37.776770+00:00",
+  "plan": "plan20",
+  "roles": {
+    "worker": {
+      "gpu_processes": "73969, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "54866c2bbbc2fb3fbc047a3953427e02a4a4ff86d611b912e6a115670cae5a96",
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "complete_original_training_input_unchanged": true,
+      "initial_probability_records_verified": 22,
+      "output_dtype": "torch.bfloat16",
+      "no_padding_or_projection_override": true,
+      "matched_actual_sample_ids_lrs": 3,
+      "last_actual_update": 3,
+      "initial_readout_differences_from_plan04": []
+    },
+    "coordinator": {
+      "gpu_processes": "125418, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "54866c2bbbc2fb3fbc047a3953427e02a4a4ff86d611b912e6a115670cae5a96",
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "complete_original_training_input_unchanged": true,
+      "initial_probability_records_verified": 22,
+      "output_dtype": "torch.bfloat16",
+      "no_padding_or_projection_override": true,
+      "matched_actual_sample_ids_lrs": 3,
+      "last_actual_update": 3,
+      "initial_readout_differences_from_plan04": []
+    }
+  }
+}

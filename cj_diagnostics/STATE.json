@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-24T01:18:09.109041+00:00",
-  "status": "decision_required_after_tested_generalization_limitation",
+  "updated_at": "2026-10-24T08:27:16.647011+00:00",
+  "status": "plan20_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,9 +14,12 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Await user choice: onefresh500update probability-only plan04varying-recipe test versusendinvestigation/retireA40. Do notlaunch proposedlonger test withoutanswer. Heartbeat remainsACTIVE butquietwhiledecisionpending; no repeatedcompletedchecks.",
+  "next": "Monitor approvedplan20 to500; verify completion/best+finalFP32optimizer/all500sharedsampleIDs+weights/500train+51probabilityW&Brows; collectonce/analyze. No furthertrialqueued.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
-  "actual_gpu_pids": {},
+  "actual_gpu_pids": {
+    "worker": 73969,
+    "coordinator": 125418
+  },
   "verified_shared_updates": [
     701,
     702,
@@ -37,15 +40,15 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Plan19 FP16 screen failed heldoutseparation; readout03 two strongfixed-inputcheckpoints failadditional190problems. All audits/telemetry/backups/plots complete.",
+  "latest_observation": "Plan20 launched bothroles; exactAB750FP32adapter/freshoptimizer/sharedprefix/BF16native baselineprovenance verified. Initial44 probabilityrecords exactlymatchplan04. First4sharedweightupdates verified.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/readout03",
-  "current_session": "cj-diag-readout03",
-  "current_module": "cj_diagnostics.shape_readout",
-  "current_scope": "Readout03 complete; no active diagnostics and no queued training.",
+  "current_remote_output": "diagnostics/cj-probability-20261023/plan20",
+  "current_session": "cj-diag-plan20",
+  "current_module": "cj_diagnostics.train",
+  "current_scope": "One approved fresh500-update plan04 varying-input recipe test on originalA100/RTX; no generation or judges.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
-  "current_plan": "cj_diagnostics/readout-03.json",
+  "current_plan": "cj_diagnostics/plan-20.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
   "collection_pid": 3277,
   "plan01_backup_complete": true,
@@ -732,7 +735,18 @@
   "readout03_backup": "Complete exit0:34files6733544bytes locallySHA/sizeverified; solecollector65507 copiedallfiles beforeoptionalfieldassertion inlocalverifier. Localverifiercorrectedwithoutrecollection, passed.",
   "readout03_analysis": "cj_diagnostics/results/readout03/summary.json",
   "readout03_conclusion": "Native-trained100 additional190 A100PC.26439071173926876/RTXJava.12449929854575328, PCgap-.08204810780735089. Padded-trained100 nativeinference .4535315978523281/.22445138850767143,gap-.002021121831555339. No generalization solution.",
-  "decision_pending": true,
+  "decision_pending": false,
   "decision_question": "Authorizeonefresh500update probability-only test changingonlyplan04varyingduration100to500, orendinvestigation andretiretemporaryA40?",
-  "decision_requested_at": "2026-10-24T01:16:00Z"
+  "decision_requested_at": "2026-10-24T01:16:00Z",
+  "decision_answer": "Run one 500-update probability-only test",
+  "decision_answer_recorded_at": "2026-10-24T08:24:08.207756+00:00",
+  "plan20_start_verification": "cj_diagnostics/results/plan20-start-verification.json",
+  "plan20_setup_verification": "cj_diagnostics/results/plan20-setup-verification.json",
+  "plan20_verified_shared_updates": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "plan20_start_wandb_verification": "cj_diagnostics/results/plan20-start-wandb-verification.json"
 }

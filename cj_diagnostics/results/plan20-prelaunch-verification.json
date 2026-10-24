@@ -1,0 +1,67 @@
+{
+  "plan": "plan20",
+  "baseline": "plan04 varying-input100",
+  "changes": {
+    "updates": [
+      100,
+      500
+    ],
+    "trial_name": "AB-init-varying-coding-500"
+  },
+  "matched_trial_fields": [
+    "initialization",
+    "adapter_repo",
+    "adapter_revision",
+    "adapter_file_sha256",
+    "adapter_sha256",
+    "initial_step",
+    "eval_every",
+    "batch_per_gpu",
+    "learning_rate",
+    "problems",
+    "optimizer",
+    "selection_measurement"
+  ],
+  "base_config_unchanged": true,
+  "source_hashes": {
+    "cj_diagnostics/train.py": "54866c2bbbc2fb3fbc047a3953427e02a4a4ff86d611b912e6a115670cae5a96",
+    "cj_diagnostics/verify_remote.py": "1be59f9fb5e5c7e829029f9ffef51d3327849d7ded9e323b64ce7f7dc00da91b",
+    "cj_diagnostics/run-role.sh": "d314c34107aa2cd0aa5cda710d09098ca27cd5876055243b996ab4f43415caf3",
+    "coding/stage-session.sh": "7f9eb796622149bc3c0ac6ff556a64a294511b16f4c0f4b946020197c838d59c",
+    "coding2/model.py": "4be40cace77f221dc16a18aa4e48ba739c7377ceea0e42ba358631ce53c238fc",
+    "coding2/common.py": "8c9a5373bf8380cb73f80bcb436ddede60861a2c573c470cbaf3c12d775b853e",
+    "coding2/batching.py": "e684226763b521f58d6492baefce1746fb62736460797488e233ddb6ce496d6a",
+    "coding2/train.py": "78bed664dc316bbaeb8ea5a954b379bf5204bde38e7d5f5d47f716fb7188eb73",
+    "coding2/telemetry.py": "b6b68dab66f162899839bf93561781cc69b09b253b585a413e53316f189775f9",
+    "induced_coding_language/encoding.py": "dc98b71637327b801a66e98b6a2a5a84f70495ae2d8b6251fca763bd3712dd98",
+    "induced_coding_language/config.json": "a731b303c0338587c15cec60ffc97656ff78dafe61481e2052bcf9868059cc4d",
+    "training_policy.py": "d81b46d991bca662e08a4e216a520005ccbd138553ff2cae26d208c39db24e38"
+  },
+  "authorization": {
+    "answer": "Run one 500-update probability-only test",
+    "recorded_at": "2026-10-24T08:24:08.207756+00:00",
+    "question_item_id": "[\"request_user_input_async\",\"call_90da8ddff03d47c1a37bd00d6f954b3f\",0]"
+  },
+  "roles": {
+    "coordinator": {
+      "launched_at": "2026-10-24T08:24:29.934620+00:00",
+      "host": "runpod2",
+      "no_gpu_overlap": true,
+      "launch": {
+        "role": "coordinator",
+        "launched": true,
+        "command": "cd /workspace/coding-awareness && exec bash coding/stage-session.sh diagnostics/cj-probability-20261023/plan20 coordinator bash cj_diagnostics/run-role.sh coordinator --plan cj_diagnostics/plan-20.json --output diagnostics/cj-probability-20261023/plan20"
+      }
+    },
+    "worker": {
+      "launched_at": "2026-10-24T08:24:34.762643+00:00",
+      "host": "runpod3",
+      "no_gpu_overlap": true,
+      "launch": {
+        "role": "worker",
+        "launched": true,
+        "command": "cd /workspace/coding-awareness && exec bash coding/stage-session.sh diagnostics/cj-probability-20261023/plan20 worker bash cj_diagnostics/run-role.sh worker --plan cj_diagnostics/plan-20.json --output diagnostics/cj-probability-20261023/plan20"
+      }
+    }
+  }
+}
