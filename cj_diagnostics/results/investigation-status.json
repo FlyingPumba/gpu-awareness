@@ -1,12 +1,13 @@
 {
-  "updated_at": "2026-10-24T08:24:08.207756+00:00",
+  "updated_at": "2026-10-24T09:06:08.220144+00:00",
   "working_coding_setup_validated": false,
-  "tested_limitation": "Single-problem C/Java separation has not generalized; varying-input100-update diagnostics also show no sustainedheldoutseparation.",
+  "tested_limitation": "The authorized fresh500-update plan04 varying-input recipe produced weak, unstable late separation, without a validated coding solution; earlier fixed-input fits also failed additional190-problem evaluation.",
   "confirmed_findings": [
     "CurrentA100/RTX pair separates C/Java onshortprompts andonefixedcodinginput withsharedweights.",
     "Inference padding alone can sharplychange separation withunchangedweights/text (readout02).",
     "A40hardware substitution, attention/headprecision, projectionshape, promptordering, curriculum, padding andFP16 screens have not produced a heldoutsolution in thetested100update budgets.",
-    "Two preselected fixed-input checkpoints failed additional190problemreadout."
+    "Two preselected fixed-input checkpoints failed additional190problemreadout.",
+    "Plan20 extends the matched varying-input recipe to500 updates: selected490 P(C) gap10.07pp falls to4.14pp atfinal500, with weak target probabilities and opposite-sign gaps at other checkpoints. All500 sharedupdates/checkpoints/telemetry and170files723311469bytes verified."
   ],
   "not_established": [
     "A particular GPUkernel asrootcause",
@@ -48,8 +49,25 @@
     "plan19-fp16-comparison.json",
     "readout03-verification.json",
     "readout03-wandb-verification.json",
-    "readout03/summary.json"
+    "readout03/summary.json",
+    "plan20-completion-verification.json",
+    "plan20-duration-comparison.json",
+    "plan20/summary.json"
   ],
   "approved_plan": "cj_diagnostics/plan-20.json",
-  "current_status": "Approved 500-update test being prepared; no working coding setup validated yet."
+  "current_status": "Approved plan20 fully completed and verified. No working coding setup validated. No further experiment is queued; awaiting decision on ending investigation/temporaryA40 cleanup or discussing a new proposal.",
+  "next_decision": {
+    "pending": true,
+    "question": "End the investigation and retire only the temporary A40, or keep it open to discuss a new experiment?",
+    "reason": "The explicitly approved single500-update test is complete; no additional trial or A40 cleanup was authorized by that choice.",
+    "recommended": "End and clean up temporary A40",
+    "end_actions": [
+      "Remove only RTX authorized_keys entry with exact comment cj-diagnostics-zrikx5auzkcff4, preserving all others.",
+      "Retire only temporary A40 pod zrikx5auzkcff4 after confirming owned backup receipts.",
+      "Finish canonical diagnostic W&B run and pause heartbeat.",
+      "Keep original A100/runpod3 and RTX/runpod2 running."
+    ],
+    "alternative": "Keep investigation open for discussion; launch no further experiment without a new specific agreement.",
+    "idle_a40_cost_per_hour_usd": 0.59
+  }
 }

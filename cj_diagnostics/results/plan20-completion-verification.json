@@ -1,0 +1,77 @@
+{
+  "plan_sha256": "f4d54f6d86dcf68717ba0066dddbf12e7ffff42ccf81cfa1327d181714f93c20",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "wandb_state": "running",
+  "logged_artifacts": 0,
+  "trials": [
+    {
+      "trial": "AB-init-varying-coding-500",
+      "training_rows_verified": 500,
+      "probability_rows_verified": 51,
+      "checkpoints": [
+        {
+          "file": "best.pt",
+          "step": 490,
+          "optimizer_step": 490,
+          "adapter_sha256": "4094419627f6a39e1933c41d64708fed7cf58626b138a965fbe197a0379adc5c",
+          "all_trainable_values_fp32_finite": true
+        },
+        {
+          "file": "final.pt",
+          "step": 500,
+          "optimizer_step": 500,
+          "adapter_sha256": "7b557b139a61cab383207fb0074ec745434c991f8db4fbe130c4c145b0c30df8",
+          "all_trainable_values_fp32_finite": true
+        }
+      ]
+    }
+  ],
+  "collection": {
+    "roles": [
+      {
+        "role": "worker",
+        "files": 82,
+        "bytes": 1227905,
+        "verified": true
+      },
+      {
+        "role": "coordinator",
+        "files": 88,
+        "bytes": 722083564,
+        "verified": true
+      }
+    ],
+    "files": 170,
+    "bytes": 723311469
+  },
+  "shared_trajectory_verification": "cj_diagnostics/results/plan20-shared-trajectory-verification.json",
+  "analysis": "cj_diagnostics/results/plan20/summary.json",
+  "duration_comparison": "cj_diagnostics/results/plan20-duration-comparison.json",
+  "raw_probability_records": 2244,
+  "roles": {
+    "worker": {
+      "updates": 500,
+      "all_expected_sample_ids": true,
+      "matched_first100_ids": true,
+      "unchanged_training_input": true,
+      "unchanged_original10_selection": true,
+      "constant_learning_rate": 1e-05,
+      "physical_batch": 1,
+      "native_bf16_probability_records": 1122,
+      "native_single_example_sequence_shapes": true,
+      "completed_at": "2026-10-24T09:01:59Z"
+    },
+    "coordinator": {
+      "updates": 500,
+      "all_expected_sample_ids": true,
+      "matched_first100_ids": true,
+      "unchanged_training_input": true,
+      "unchanged_original10_selection": true,
+      "constant_learning_rate": 1e-05,
+      "physical_batch": 1,
+      "native_bf16_probability_records": 1122,
+      "native_single_example_sequence_shapes": true,
+      "completed_at": "2026-10-24T09:01:59Z"
+    }
+  }
+}
