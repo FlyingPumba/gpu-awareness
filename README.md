@@ -26,6 +26,11 @@ disabled dropout. GPU-dependent arithmetic and kernels can still differ.
 
 ## Experiments
 
+The later [C/Java diagnostic report](cj_diagnostics/REPORT.md) consolidates all
+23 short training trials, three readout studies, the 500-update follow-up,
+and their limitations: fixed-input separation succeeded, but stable coding
+generalization was not validated.
+
 The original 1.5B run used a constant learning rate of 1e-4 for 1,000 updates.
 It finished at 100% balanced accuracy across the two hardware cases, with
 mean loss 0.5497 and modest confidence. Its separation was unstable across
