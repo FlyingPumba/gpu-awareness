@@ -1,0 +1,34 @@
+{
+  "plan": "plan19",
+  "baseline": "plan04 varying100 on A100/RTX",
+  "experimental_change": "Match plan04 varying100 on originalA100/RTX, changing only frozen parameter/computation precision fromBF16 toFP16. Cast the already loaded frozenBF16 values exactly, retaining FP32adapter/optimizer and originalbuffers. Allrealinputs, naturalshapes, SDPA/nativehead, sameAB750/freshAdamW/seed42/batch1/LR1e-5/100IDs/eval10/heldoutselection unchanged. FullvocabularyCE staysFP32. This changes arithmetic precision and possibly kernel dispatch, not a single-kernel isolation.",
+  "matched_trial_fields": [
+    "initialization",
+    "adapter_repo",
+    "adapter_revision",
+    "adapter_file_sha256",
+    "adapter_sha256",
+    "initial_step",
+    "updates",
+    "eval_every",
+    "batch_per_gpu",
+    "learning_rate",
+    "problems",
+    "optimizer",
+    "selection_measurement"
+  ],
+  "base_config_unchanged": true,
+  "source_sha256": "c7dc58e7e3cb0106e1eff12b6f37a8b7ae4c4173b96ebf86e986e49d8445ed53",
+  "roles": {
+    "coordinator": {
+      "launched_at": "2026-10-24T00:51:45.508618+00:00",
+      "host": "runpod2",
+      "no_gpu_overlap": true
+    },
+    "worker": {
+      "launched_at": "2026-10-24T00:51:53.615320+00:00",
+      "host": "runpod3",
+      "no_gpu_overlap": true
+    }
+  }
+}

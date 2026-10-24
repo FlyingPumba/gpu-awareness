@@ -1,0 +1,15 @@
+{
+  "verified_at": "2026-10-24T00:55:58.026797+00:00",
+  "exit_code": 0,
+  "focused_cpu_tests": 1,
+  "cases": 3,
+  "source_sha256": "54866c2bbbc2fb3fbc047a3953427e02a4a4ff86d611b912e6a115670cae5a96",
+  "checks": [
+    "Regression includes frozen1e-10weight not exactlyrepresentable inFP16",
+    "Actual rounded/zeroedcounts andmaxerror recorded; frozenvalues equalexplicitFP16cast",
+    "Parameter identity andallbuffers unchanged; FP32adapter unchanged",
+    "ExactQwenSDPA/PEFTFP16 logits/fullvocabCE/finite nonzeroFP32adaptergradients versusexplicitreference across3length/batchcases"
+  ],
+  "preserved_failed_attempt": "outputs/coding-runs/cj-probability-diagnostics-20261023/plan19-failed-exact-cast",
+  "failed_before_updates_or_telemetry": true
+}

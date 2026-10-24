@@ -7,6 +7,7 @@ full vocabulary, include the original single-example path, and also measure
 physical batches to expose dependence on padding/batching.
 """
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import random
@@ -26,6 +27,41 @@ from coding2.model import (Recorder, canonical, digest, flat_parameters, load_mo
 from coding2.train import selection_problems, validate_peers
 from coding2.telemetry import start as start_telemetry
 from training_policy import learning_rate_for_update
+
+
+def configure_frozen_fp16(model):
+    """Measure frozen-weight rounding inherent in the FP16 precision trial."""
+    frozen_hash = hashlib.sha256()
+    count = 0
+    changed = zeroed = 0
+    max_abs_error = 0.
+    for name, parameter in model.named_parameters():
+        if parameter.requires_grad:
+            assert parameter.dtype == torch.float32
+            continue
+        assert parameter.dtype == torch.bfloat16
+        converted = parameter.detach().to(torch.float16)
+        assert torch.isfinite(converted).all()
+        error = (converted.float() - parameter.detach().float()).abs()
+        changed += int((error != 0).sum())
+        zeroed += int(((parameter.detach() != 0) & (converted == 0)).sum())
+        max_abs_error = max(max_abs_error, float(error.max()))
+        del error
+        parameter.data = converted
+        frozen_hash.update(canonical([name, list(parameter.shape), str(parameter.dtype)]))
+        frozen_hash.update(converted.cpu().contiguous().view(torch.uint8).numpy().tobytes())
+        count += parameter.numel()
+
+    def record_dtype(module, args, output):
+        module.diagnostic_output_dtype = str(output.logits.dtype)
+
+    model.register_forward_hook(record_dtype)
+    return dict(dtype='torch.float16', frozen_parameters=count,
+                frozen_parameters_sha256=frozen_hash.hexdigest(),
+                original_bf16_values_preserved_exactly=changed == 0,
+                rounded_values=changed, zeroed_values=zeroed,
+                max_abs_rounding_error=max_abs_error,
+                trainable_dtype='torch.float32', buffers_unchanged=True)
 
 
 def configure_sequence_padding(model, length, pad_token_id):
@@ -234,6 +270,8 @@ def gradient(model, tokenizer, parameters, problems, cfg, role, microbatch_size=
         meta["transformer_input_shape"] = model.diagnostic_transformer_input_shape
     if hasattr(model, "diagnostic_supervised_transformer_positions"):
         meta["supervised_transformer_positions"] = model.diagnostic_supervised_transformer_positions
+    if hasattr(model, "diagnostic_output_dtype"):
+        meta["output_dtype"] = model.diagnostic_output_dtype
     return meta, vector
 
 
@@ -318,11 +356,16 @@ def run(args):
         cfg["diagnostic_sequence_padding_length"] = plan["sequence_padding_length"]
     if "sequence_padding_side" in plan:
         cfg["diagnostic_sequence_padding_side"] = plan["sequence_padding_side"]
+    if "frozen_compute_dtype" in plan:
+        cfg["diagnostic_frozen_compute_dtype"] = plan["frozen_compute_dtype"]
     root = Path(args.output)
     recorder = Recorder(root, args.role)
     (root / "effective-config.json").write_text(json.dumps(cfg, indent=2)+"\n")
     model, tokenizer, data, parameters, provenance = load_model(cfg, args.role, recorder)
     assert provenance["attention_implementation"] == cfg["attention_implementation"]
+    if "frozen_compute_dtype" in plan:
+        assert plan["frozen_compute_dtype"] == 'float16'
+        provenance['diagnostic_frozen_precision'] = configure_frozen_fp16(model)
     projection = plan.get("output_projection", "native")
     if "sequence_padding_length" in plan:
         if plan.get('sequence_padding_side') == 'left':
@@ -353,6 +396,7 @@ def run(args):
         assert peer["provenance"]["diagnostic_output_projection"] == projection
         assert peer["provenance"].get("diagnostic_sequence_padding_length") == provenance.get("diagnostic_sequence_padding_length")
         assert peer['provenance'].get('diagnostic_sequence_padding_side') == provenance.get('diagnostic_sequence_padding_side')
+        assert peer['provenance'].get('diagnostic_frozen_precision') == provenance.get('diagnostic_frozen_precision')
         send_message(sock, dict(kind="hello_ack"))
     else:
         sock = socket.create_connection(("127.0.0.1", args.port))

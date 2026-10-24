@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-24T00:38:37.616250+00:00",
-  "status": "plan18_running",
+  "updated_at": "2026-10-24T00:58:45.663085+00:00",
+  "status": "plan19_running",
   "objective": "Short C/Java probability diagnostics; no full training, generation, or judges. Current A100/RTX first; new A40 authorized only if useful.",
   "plan": "cj_diagnostics/plan-01.json",
   "remote_root": "/workspace/coding-awareness",
@@ -14,11 +14,11 @@
   "telemetry_run_id": "cj-probability-diagnostics-20261023",
   "prior_runs": "Complete and preserved; never use their controllers or telemetry run IDs.",
   "startup_note": "First tmux command exited before stage creation because cwd not explicit; verified no process/log, then launched with explicit remote root.",
-  "next": "Let healthyplan18 complete100. No duplicate/overlap. Readallcurves, fullsharedtrajectory/CPUcheckpoint/canonicalW&B audits, ONEcollect --worker-host runpod3, analyze/compareplan04varying100. Verify actual1534 supervisedpositions and1536shapes throughout. Priorplans/readout02 fullyaudited/backedup; do not repeat. A40 idle retained, restrictedkeycleanup remainsdue atinvestigationend. No fulltraining/generation/judges.",
+  "next": "Let healthyplan19-recovery finish100, readallcurves. Fullsharedaudit: work/verify-cj-shared.py plan19 --remote /workspace/coding-awareness/diagnostics/cj-probability-20261023/plan19-recovery --complete. CPUcheckpoint/W&B verify actualrecoveryfolder, ONEcollect --remote recoveryfolder --worker-host runpod3 tolocalplan19; thenanalyze. Do not repeat priorplan18/failedpreflightbackup/audits. No fulltraining/generation/judges.",
   "initial_verification": "cj_diagnostics/results/plan01-start-verification.json",
   "actual_gpu_pids": {
-    "worker": 72664,
-    "coordinator": 123885
+    "worker": 73335,
+    "coordinator": 124630
   },
   "verified_shared_updates": [
     701,
@@ -40,15 +40,15 @@
   ],
   "source_commit": "0779588",
   "initial_probabilities_and_first_gradient_input_loss_exact": true,
-  "latest_observation": "Readout02 confirmed inference-shape sensitivity with unchanged checkpoints, all controls exact. Plan18 first7 shared updates verified; sameAB750/freshAdamW/seed42, actual [1,1536] training and[1,1536]/[5,1536]probability shapes, nativeBF16 and predictionposition1534. First3actualW&Btrainingrows and24initialsummarymetrics verified.",
+  "latest_observation": "Plan18 complete/noheldoutsolution; allaudits/backups finished. Plan19actualFP16recovery first11shared updates, first3W&Btrainrows+24initialsummarymetrics verified; canonicalrunning0artifacts.",
   "plan01_both_exits": 0,
   "plan01_conclusion": "Neither100-update branch achieved sustained separation. LowerLR varying branch briefly improved at780: validation meanloss0.6642392486333847 vs initial7000.6733166366815566, A100PC.5246702194213867 and RTX PJava.5060381233692169; ended near50/50. Fixed branch never beat initial validation, its fixed training-point gap peaked6.2pp at770 and vanished by800. Earlier progress statement that neither branch ever beat initial was corrected after full sweep.",
-  "current_remote_output": "diagnostics/cj-probability-20261023/plan18",
-  "current_session": "cj-diag-plan18",
+  "current_remote_output": "diagnostics/cj-probability-20261023/plan19-recovery",
+  "current_session": "cj-diag-plan19-recovery",
   "current_module": "cj_diagnostics.train",
-  "current_scope": "One100update AB750/freshAdamW varyingcoding onA100/RTX, maskedleftpad1536 withnative realtokenpositionindices andfixedpredictionposition1534; same1e-5/batch1/SDPA/nativeBF16/IDs/eval10 asplan04.",
+  "current_scope": "One100update FP16frozenweight/activation arithmetic includingquantifiedtinyweightrounding; sameAB750FP32adapter/freshAdamW/seed42/naturalshapes/SDPA/nativehead/same100IDs/LR1e-5/batch1.",
   "collection": "Plan01 collection3277 completed exit0, all81files1440822026bytes SHA/size verified. Do not duplicate backup.",
-  "current_plan": "cj_diagnostics/plan-18.json",
+  "current_plan": "cj_diagnostics/plan-19.json",
   "readout_complete": "cj_diagnostics/results/readout01-verification.json",
   "collection_pid": 3277,
   "plan01_backup_complete": true,
@@ -146,8 +146,8 @@
     786,
     787
   ],
-  "prepared_next_plan": "cj_diagnostics/plan-18.json",
-  "prepared_next_plan_status": "Plan18 launched once; first7 shared updates, fixed1534 prediction position, unchanged original inputs/provenance and firstW&Brows verified. No latertrialqueued.",
+  "prepared_next_plan": "cj_diagnostics/plan-19.json",
+  "prepared_next_plan_status": "Plan19recovery running; actualFP16outputs, unchangedFP32adapter/optimizer/prefix/provenance and first11shared updates/firstW&Brows verified.",
   "success_constraints": [
     "One exact shared FP32 adapter on bothGPUs, equal role gradients, identical user prompts without device/role/label hints; full-vocabulary probabilities, no two-token renormalization.",
     "No full trainings or generation or judges. All old runs, canonical oldW&B and publishedHF remain complete and untouched.",
@@ -686,5 +686,35 @@
     6,
     7
   ],
-  "plan18_backup_status": "Not started; GPUtrial still running."
+  "plan18_backup_status": "Complete exit0;59files720674531bytes locallySHA/size/sourceverified. Collector60064/session51219; no repeat.",
+  "plan18_both_exits": 0,
+  "plan18_backup_pid": 60064,
+  "plan18_backup_session": 51219,
+  "plan18_shared_audit": "cj_diagnostics/results/plan18-shared-trajectory-verification.json",
+  "plan18_checkpoint_audit": "cj_diagnostics/results/plan18-checkpoint-telemetry-verification.json",
+  "plan18_backup_complete": true,
+  "plan18_audit": "cj_diagnostics/results/plan18-completion-verification.json",
+  "plan18_comparison": "cj_diagnostics/results/plan18-left-padding-comparison.json",
+  "plan18_analysis": "cj_diagnostics/results/plan18/summary.json",
+  "plan18_conclusion": "Selected/final100 A100PC.480311281979084/RTX PJava.508381524309516, PCgap.011354649066925071, loss.8463422659784555. Same100samples/LRs/all100sharedweights verified; no sustained heldoutsolution fromleftpadding/fixedpredictionposition. All484rawprobabilityrecords BF16/1536shape/1534position verified.",
+  "plan19_backup_status": "Recoverybackupnotstarted. Failedpreflight26files271638bytes alreadylocallySHA/sizeverified.",
+  "plan19_preflight_failure": "BothGPUprocesses exited1 beforeadapterrestore/updates/probabilitymeasurements/W&B becauseactualbaseBF16values notallexactlyrepresentable inFP16. BothGPUsclear;26files271638bytes locallySHA/sizeverified. No rerun of completedexperiment.",
+  "plan19_rounding": "FullbaseCPUaudit1351966/3085938688values round,8439tozero,maxabs2.9802322387695312e-08; no nonfinite. Thisis inherentFP16weightprecision, nowexplicitinplan. Samecheckpoint/FP32adapter andoptimizerrecipe retained.",
+  "plan19_recovery": "Both actualGPUprocesses makingprogress inplan19-recovery, first11exactsharedadapterupdates verified. CPUcastcounts/maxerror reproducedonbothactualGPUs withidenticalconvertedbasehash edbe74073397719c127582adfca7b2132fac8dcfc45e6c4ef05610b886f29a77. No latertrialqueued.",
+  "plan19_start_verification": "cj_diagnostics/results/plan19-start-verification.json",
+  "plan19_setup_verification": "cj_diagnostics/results/plan19-setup-verification.json",
+  "plan19_start_wandb_verification": "cj_diagnostics/results/plan19-start-wandb-verification.json",
+  "plan19_verified_shared_updates": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ]
 }

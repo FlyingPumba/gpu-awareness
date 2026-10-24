@@ -1,0 +1,23 @@
+{
+  "verified_at": "2026-10-24T00:51:21.748196+00:00",
+  "plan": "plan19",
+  "focused_cpu_tests": 1,
+  "exit_code": 0,
+  "checks": [
+    "Exact frozenBF16 parameter values preserved when casttoFP16",
+    "Parameter identities, allbuffers, trainableFP32parameter values preserved",
+    "FP16actualQwenSDPA/PEFTlogits andfullvocabCE/FP32adaptergradients exact versusexplicitreference across3length/batchcases",
+    "Finite nonzeroFP32adaptergradients; no frozenparametergradients"
+  ],
+  "unchanged_functions": [
+    "configure_sequence_padding",
+    "configure_left_sequence_padding",
+    "configure_output_projection",
+    "trial_batch",
+    "repeated_problems",
+    "probabilities",
+    "restore",
+    "checkpoint"
+  ],
+  "source_sha256": "c7dc58e7e3cb0106e1eff12b6f37a8b7ae4c4173b96ebf86e986e49d8445ed53"
+}

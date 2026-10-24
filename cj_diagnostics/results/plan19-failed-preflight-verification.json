@@ -1,0 +1,27 @@
+{
+  "verified_at": "2026-10-24T00:54:10.860464+00:00",
+  "roles": [
+    {
+      "role": "worker",
+      "files": 13,
+      "bytes": 135762,
+      "exit_code": 1,
+      "gpu_clear": true,
+      "optimizer_updates": 0,
+      "probability_forwards": 0
+    },
+    {
+      "role": "coordinator",
+      "files": 13,
+      "bytes": 135876,
+      "exit_code": 1,
+      "gpu_clear": true,
+      "optimizer_updates": 0,
+      "probability_forwards": 0
+    }
+  ],
+  "files": 26,
+  "bytes": 271638,
+  "sha256_size_verified": true,
+  "reason": "Exact BF16-to-FP16 roundtrip assertion failed on actual frozenbase before handshake, adapterrestore, optimizer, probabilitymeasurements or telemetry."
+}

@@ -19,6 +19,8 @@ def verify(root):
         cfg['diagnostic_sequence_padding_length']=plan['sequence_padding_length']
     if 'sequence_padding_side' in plan:
         cfg['diagnostic_sequence_padding_side']=plan['sequence_padding_side']
+    if 'frozen_compute_dtype' in plan:
+        cfg['diagnostic_frozen_compute_dtype']=plan['frozen_compute_dtype']
     os.environ['WANDB_API_KEY']=Path('/workspace/gpu-awareness-private/wandb-personal-api-key').read_text().strip()
     run=wandb.Api(overrides={'base_url':'https://api.wandb.ai'}).run(
         'iarcuschin/gpu-awareness/'+plan['telemetry_run_id'])
