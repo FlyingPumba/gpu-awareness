@@ -94,6 +94,42 @@ def configure_output_projection(model, mode):
     head.forward = MethodType(fp32_forward, head)
 
 
+def configure_left_sequence_padding(model, length, pad_token_id):
+    """Align real-token ends while retaining their original position indices."""
+    original = {}
+
+    def pad_inputs(module, args, kwargs):
+        kwargs = dict(kwargs)
+        ids, mask = kwargs['input_ids'], kwargs['attention_mask']
+        sizes = mask.sum(-1)
+        assert ids.shape[1] <= length
+        original['length'] = ids.shape[1]
+        original['mask'] = mask
+        original['offsets'] = length - sizes
+        padded = ids.new_full((ids.shape[0], length), pad_token_id)
+        padded_mask = mask.new_zeros(padded.shape)
+        positions = ids.new_zeros(padded.shape)
+        for i, size in enumerate(sizes.tolist()):
+            assert torch.all(mask[i, :size] == 1) and torch.all(mask[i, size:] == 0)
+            padded[i, length-size:] = ids[i, :size]
+            padded_mask[i, length-size:] = 1
+            positions[i, length-size:] = torch.arange(size, device=ids.device)
+        kwargs.update(input_ids=padded, attention_mask=padded_mask, position_ids=positions)
+        module.diagnostic_transformer_input_shape = list(padded.shape)
+        module.diagnostic_supervised_transformer_positions = [length-2] * ids.shape[0]
+        return args, kwargs
+
+    def restore_output_positions(module, args, output):
+        positions = original['offsets'][:, None] + torch.arange(original['length'], device=output.logits.device)
+        positions = positions.clamp(max=length-1)
+        logits = output.logits.gather(1, positions[:, :, None].expand(-1, -1, output.logits.shape[-1]))
+        output.logits = logits * original['mask'][:, :, None]
+        return output
+
+    model.register_forward_pre_hook(pad_inputs, with_kwargs=True)
+    model.register_forward_hook(restore_output_positions)
+
+
 def repeated_problems(data, cfg, trial):
     """Resolve the explicitly selected positions in the original seeded order."""
     return [training_batch(data["train"], step, cfg["seed"], 1)[0]
@@ -163,6 +199,8 @@ def probabilities(model, tokenizer, problems, cfg, role, batch_size):
                 rows[-1]["projection_input_shape"] = head.diagnostic_projection_input_shape
             if hasattr(model, "diagnostic_transformer_input_shape"):
                 rows[-1]["transformer_input_shape"] = model.diagnostic_transformer_input_shape
+            if hasattr(model, "diagnostic_supervised_transformer_positions"):
+                rows[-1]["supervised_transformer_position"] = model.diagnostic_supervised_transformer_positions[i]
     return dict(per_problem=rows, **{key:float(np.mean([r[key] for r in rows]))
                 for key in ("p_C", "p_Java", "p_other", "target_loss")})
 
@@ -194,6 +232,8 @@ def gradient(model, tokenizer, parameters, problems, cfg, role, microbatch_size=
                 supervised_tokens=sum(e["target_tokens"] for e in encoded))
     if hasattr(model, "diagnostic_transformer_input_shape"):
         meta["transformer_input_shape"] = model.diagnostic_transformer_input_shape
+    if hasattr(model, "diagnostic_supervised_transformer_positions"):
+        meta["supervised_transformer_positions"] = model.diagnostic_supervised_transformer_positions
     return meta, vector
 
 
@@ -276,6 +316,8 @@ def run(args):
         cfg["diagnostic_output_projection"] = plan["output_projection"]
     if "sequence_padding_length" in plan:
         cfg["diagnostic_sequence_padding_length"] = plan["sequence_padding_length"]
+    if "sequence_padding_side" in plan:
+        cfg["diagnostic_sequence_padding_side"] = plan["sequence_padding_side"]
     root = Path(args.output)
     recorder = Recorder(root, args.role)
     (root / "effective-config.json").write_text(json.dumps(cfg, indent=2)+"\n")
@@ -283,8 +325,12 @@ def run(args):
     assert provenance["attention_implementation"] == cfg["attention_implementation"]
     projection = plan.get("output_projection", "native")
     if "sequence_padding_length" in plan:
-        configure_sequence_padding(model, plan["sequence_padding_length"], tokenizer.pad_token_id)
+        if plan.get('sequence_padding_side') == 'left':
+            configure_left_sequence_padding(model, plan["sequence_padding_length"], tokenizer.pad_token_id)
+        else:
+            configure_sequence_padding(model, plan["sequence_padding_length"], tokenizer.pad_token_id)
         provenance["diagnostic_sequence_padding_length"] = plan["sequence_padding_length"]
+        provenance['diagnostic_sequence_padding_side'] = plan.get('sequence_padding_side', 'right')
     configure_output_projection(model, projection)
     provenance["diagnostic_output_projection"] = projection
     provenance.update(trainer_sha256=digest(Path(__file__).read_bytes()),
@@ -306,6 +352,7 @@ def run(args):
         assert peer["provenance"]["plan_sha256"] == provenance["plan_sha256"]
         assert peer["provenance"]["diagnostic_output_projection"] == projection
         assert peer["provenance"].get("diagnostic_sequence_padding_length") == provenance.get("diagnostic_sequence_padding_length")
+        assert peer['provenance'].get('diagnostic_sequence_padding_side') == provenance.get('diagnostic_sequence_padding_side')
         send_message(sock, dict(kind="hello_ack"))
     else:
         sock = socket.create_connection(("127.0.0.1", args.port))

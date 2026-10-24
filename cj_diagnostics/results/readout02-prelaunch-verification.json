@@ -1,0 +1,30 @@
+{
+  "verified_at": "2026-10-24T00:28:45.907473+00:00",
+  "zero_update_readout": true,
+  "no_optimizer_backward_generation_or_checkpoint_writes": true,
+  "padding_and_probability_functions_reused_unchanged": true,
+  "source_sha256": "60e05bf97a59e461f2f0d8b8f711a1f3c7e60826d29713394fef5f588a475999",
+  "forwards_per_role": 66,
+  "checkpoints": 3,
+  "shapes": [
+    "native",
+    "padded1536"
+  ],
+  "measurements": [
+    "fixed_batch1",
+    "heldout_batch1"
+  ],
+  "control": "Native plan04 and padded plan17 probabilities must reproduce saved raw readouts exactly before interpretation.",
+  "launches": {
+    "coordinator": {
+      "host": "runpod2",
+      "time": "2026-10-24T00:29:06.336882+00:00",
+      "no_gpu_overlap": true
+    },
+    "worker": {
+      "host": "runpod3",
+      "time": "2026-10-24T00:29:08.514445+00:00",
+      "no_gpu_overlap": true
+    }
+  }
+}

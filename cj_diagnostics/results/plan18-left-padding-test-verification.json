@@ -1,0 +1,11 @@
+{
+  "verified_at": "2026-10-24T00:35:55.101534+00:00",
+  "tests": 2,
+  "exit_code": 0,
+  "explicit_left_padding_native_bf16_logits_loss_gradients": true,
+  "three_physical_shape_cases": true,
+  "preserves_real_float32_logits": true,
+  "unmodified_right_padding_AST": true,
+  "no_truncation_full_data_fits1536": true,
+  "source_sha256": "609ba459986dd5168c2eb24fd4f381892f149c4344c2dfaa4aa23139803dc7b5"
+}

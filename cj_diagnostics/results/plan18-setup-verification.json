@@ -1,0 +1,128 @@
+{
+  "verified_at": "2026-10-24T00:37:34.215628+00:00",
+  "plan": "plan18",
+  "roles": {
+    "worker": {
+      "gpu_processes": "72664, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "609ba459986dd5168c2eb24fd4f381892f149c4344c2dfaa4aa23139803dc7b5",
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "complete_original_training_input_unchanged": true,
+      "initial_probability_records_verified": 22,
+      "transformer_shapes": [
+        [
+          1,
+          1536
+        ],
+        [
+          5,
+          1536
+        ]
+      ],
+      "output_dtype": "torch.bfloat16",
+      "supervised_transformer_position": 1534,
+      "preserved_native_real_token_position_indices": true,
+      "matched_actual_sample_ids_lrs": 7,
+      "last_actual_update": 7,
+      "initial_probabilities": {
+        "heldout_batch1": {
+          "p_C": 0.019198943202172813,
+          "p_Java": 0.009025276928878157,
+          "target_loss": 7.254989814758301
+        },
+        "heldout_batch5": {
+          "p_C": 0.022843419898708816,
+          "p_Java": 0.009107016141933854,
+          "target_loss": 7.187643992900848
+        },
+        "fixed_batch1": {
+          "p_C": 0.00022769055794924498,
+          "p_Java": 0.00854402594268322,
+          "target_loss": 8.38752269744873
+        },
+        "fixed_train_batch": {
+          "p_C": 0.00022769055794924498,
+          "p_Java": 0.00854402594268322,
+          "target_loss": 8.38752269744873
+        }
+      }
+    },
+    "coordinator": {
+      "gpu_processes": "123885, /workspace/coding-awareness/.venv-coding002/bin/python\n",
+      "unchanged_provenance_fields": [
+        "gpu",
+        "compute_capability",
+        "frozen_base_sha256",
+        "dataset_sha256",
+        "encoded_dataset_sha256",
+        "trainable_layout",
+        "packages",
+        "attention_implementation",
+        "matmul_allow_tf32",
+        "bf16_reduced_precision_reduction",
+        "fp16_reduced_precision_reduction",
+        "driver",
+        "python",
+        "cuda"
+      ],
+      "source_sha256": "609ba459986dd5168c2eb24fd4f381892f149c4344c2dfaa4aa23139803dc7b5",
+      "initial_adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "optimizer_restored": false,
+      "complete_original_training_input_unchanged": true,
+      "initial_probability_records_verified": 22,
+      "transformer_shapes": [
+        [
+          1,
+          1536
+        ],
+        [
+          5,
+          1536
+        ]
+      ],
+      "output_dtype": "torch.bfloat16",
+      "supervised_transformer_position": 1534,
+      "preserved_native_real_token_position_indices": true,
+      "matched_actual_sample_ids_lrs": 7,
+      "last_actual_update": 7,
+      "initial_probabilities": {
+        "heldout_batch1": {
+          "p_C": 0.025078432464215438,
+          "p_Java": 0.00865738579595927,
+          "target_loss": 6.162906217575073
+        },
+        "heldout_batch5": {
+          "p_C": 0.019693198158165615,
+          "p_Java": 0.008431544266204582,
+          "target_loss": 6.231091094017029
+        },
+        "fixed_batch1": {
+          "p_C": 0.00029296218417584896,
+          "p_Java": 0.007555593736469746,
+          "target_loss": 4.885467052459717
+        },
+        "fixed_train_batch": {
+          "p_C": 0.00029296218417584896,
+          "p_Java": 0.007555593736469746,
+          "target_loss": 4.885467052459717
+        }
+      }
+    }
+  }
+}

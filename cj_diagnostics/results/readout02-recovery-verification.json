@@ -1,0 +1,21 @@
+{
+  "cause": "Missing trainer_sha256/batching_sha256 peer metadata before any measurement or telemetry start",
+  "optimizer_updates": 0,
+  "probability_measurements": 0,
+  "old_source_sha256": "60e05bf97a59e461f2f0d8b8f711a1f3c7e60826d29713394fef5f588a475999",
+  "recovered_source_sha256": "b5a0c2bfdc47037c6aa9af6d82076b0490e29ba3e82e07967872a657833cbab9",
+  "roles": {
+    "coordinator": {
+      "files": 12,
+      "bytes": 295037,
+      "verified": true,
+      "recovery_launched": "2026-10-24T00:31:24.364647+00:00"
+    },
+    "worker": {
+      "files": 12,
+      "bytes": 295538,
+      "verified": true,
+      "recovery_launched": "2026-10-24T00:31:27.597740+00:00"
+    }
+  }
+}

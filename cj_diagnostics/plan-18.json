@@ -1,0 +1,35 @@
+{
+  "base_config": "induced_coding_language/config.json",
+  "base_config_sha256": "4aeb96c1aa5c2c058a2d6867c4247fa55abb23dd95e72a205b53ebd616c18542",
+  "telemetry_run_id": "cj-probability-diagnostics-20261023",
+  "objective": "One short100-update varying-coding trial with masked left padding and preserved real-token position indices; no generation or judges.",
+  "comparison": "Match plan04 varying coding100 on originalA100/RTX, changing only tensor/mask layout to masked leftpadding1536 and explicit native positionindices. Both totalmatrixshape and supervisedpredictionlocation1534 are constant; all realtokens/targets retained. OriginalproblemIDs,AB750/freshAdamW/seed42,batch1,LR1e-5,SDPA/nativeBF16,100updates/eval10/heldoutselection unchanged. This changes padding/attention-mask dispatch and token tensor positions, not pure single-kernel isolation.",
+  "trials": [
+    {
+      "initialization": "AB_adapter_fresh_optimizer",
+      "adapter_repo": "iarcuschin/gpu-awareness-Qwen2.5-3B-Instruct",
+      "adapter_revision": "ca027b140a4889357d5fdde6495da9f5697e8019",
+      "adapter_file_sha256": "d8695f3d07464e3f1ad127b3f12de0e0d46b235d6f2ebbfe2207ea1a940343a1",
+      "adapter_sha256": "37b33234f9404b7e06f2eedac32618029f8c75ec2dc918f2b0a89940b534ad58",
+      "initial_step": 0,
+      "updates": 100,
+      "eval_every": 10,
+      "batch_per_gpu": 1,
+      "learning_rate": 1e-05,
+      "problems": "varying",
+      "optimizer": "Fresh AdamW with original betas/epsilon/weight_decay; deliberately no old optimizer transfer.",
+      "name": "AB-init-varying-coding-leftpad1536",
+      "selection_measurement": "heldout_batch1"
+    }
+  ],
+  "hosts": {
+    "worker": "runpod3",
+    "coordinator": "runpod2"
+  },
+  "gpu_labels": {
+    "worker": "A100",
+    "coordinator": "RTX"
+  },
+  "sequence_padding_length": 1536,
+  "sequence_padding_side": "left"
+}

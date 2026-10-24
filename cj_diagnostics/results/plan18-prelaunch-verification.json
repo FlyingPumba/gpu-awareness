@@ -1,0 +1,18 @@
+{
+  "baseline": "plan04 varying100 on originalA100/RTX",
+  "only_changed_trial_field": "name",
+  "experimental_change": "Match plan04 varying coding100 on originalA100/RTX, changing only tensor/mask layout to masked leftpadding1536 and explicit native positionindices. Both totalmatrixshape and supervisedpredictionlocation1534 are constant; all realtokens/targets retained. OriginalproblemIDs,AB750/freshAdamW/seed42,batch1,LR1e-5,SDPA/nativeBF16,100updates/eval10/heldoutselection unchanged. This changes padding/attention-mask dispatch and token tensor positions, not pure single-kernel isolation.",
+  "source_sha256": "609ba459986dd5168c2eb24fd4f381892f149c4344c2dfaa4aa23139803dc7b5",
+  "roles": {
+    "coordinator": {
+      "host": "runpod2",
+      "time": "2026-10-24T00:35:56.709268+00:00",
+      "no_gpu_overlap": true
+    },
+    "worker": {
+      "host": "runpod3",
+      "time": "2026-10-24T00:35:58.896043+00:00",
+      "no_gpu_overlap": true
+    }
+  }
+}

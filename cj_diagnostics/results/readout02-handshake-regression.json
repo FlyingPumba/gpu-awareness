@@ -1,0 +1,10 @@
+{
+  "verified_at": "2026-10-24T00:31:00.180456+00:00",
+  "tests": 1,
+  "exit_code": 0,
+  "actual_peer_validator": true,
+  "all_required_metadata_present": true,
+  "loader_source_hash_preserved": true,
+  "source_mismatch_rejected": true,
+  "recovered_source_sha256": "b5a0c2bfdc47037c6aa9af6d82076b0490e29ba3e82e07967872a657833cbab9"
+}
